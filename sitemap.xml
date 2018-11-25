@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/code/whatthehell/</loc>
+    <lastmod>2018-11-25T16:53:25-05:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/code/nlp/</loc>
     <lastmod>2018-11-25T14:56:55-05:00</lastmod>
   </url>
@@ -88,7 +93,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2018-11-25T14:56:55-05:00</lastmod>
+    <lastmod>2018-11-25T16:53:25-05:00</lastmod>
     <priority>0</priority>
   </url>
   

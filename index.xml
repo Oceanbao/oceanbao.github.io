@@ -6,10 +6,19 @@
     <description>Recent content on Ocean Ode</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 25 Nov 2018 14:56:55 -0500</lastBuildDate>
+    <lastBuildDate>Sun, 25 Nov 2018 16:53:25 -0500</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Whatthehell</title>
+      <link>/code/whatthehell/</link>
+      <pubDate>Sun, 25 Nov 2018 16:53:25 -0500</pubDate>
+      
+      <guid>/code/whatthehell/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>NLP</title>
