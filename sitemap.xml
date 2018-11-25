@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>/code/test/</loc>
+    <lastmod>2018-11-25T16:20:13-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/code/nlp/</loc>
+    <lastmod>2018-11-25T14:56:55-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/code/regex/</loc>
+    <lastmod>2018-11-01T19:31:54-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/code/scrapy/</loc>
+    <lastmod>2018-10-30T17:43:17-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/code/omnicode/</loc>
+    <lastmod>2018-10-22T16:02:02-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/qui/</loc>
+    <lastmod>2018-10-10T21:40:04-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/prose/hugo-shortcodes/</loc>
+    <lastmod>2018-03-16T20:18:53-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/code/linux-and-docker/</loc>
+    <lastmod>2018-02-19T12:41:46-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/prose/code-poetry/</loc>
+    <lastmod>2018-02-13T13:56:12-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/code/</loc>
+    <lastmod>2018-02-13T12:21:57-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/prose/</loc>
+    <lastmod>2018-02-13T12:21:57-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/prose/a-poem/</loc>
+    <lastmod>2018-02-01T12:35:11-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/classic/</loc>
+    <lastmod>2018-02-01T12:35:11-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/code/</loc>
+    <lastmod>2018-10-22T16:02:02-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/image/</loc>
+    <lastmod>2018-02-19T12:41:46-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/ml/</loc>
+    <lastmod>2018-10-22T16:02:02-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2018-11-25T16:20:13-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/gallery/</loc>
+  </url>
+  
+  <url>
+    <loc>/tags/poem/</loc>
+    <lastmod>2018-02-13T13:56:12-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2018-02-01T12:35:11-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

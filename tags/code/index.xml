@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Code on Ocean Ode</title>
+    <link>/tags/code/</link>
+    <description>Recent content in Code on Ocean Ode</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 22 Oct 2018 16:02:02 -0400</lastBuildDate>
+    
+	<atom:link href="/tags/code/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>OMNICODE</title>
+      <link>/code/omnicode/</link>
+      <pubDate>Mon, 22 Oct 2018 16:02:02 -0400</pubDate>
+      
+      <guid>/code/omnicode/</guid>
+      <description>UNIX Find file in current dir with filename, full path printed find &amp;ldquo;$(pwd -P)&amp;rdquo; -name &amp;ldquo;.zshrc&amp;rdquo;
+12 ML CLI  wget &amp;lt;URL.ext&amp;gt; file retriver for downloading files cat outputting file for preview wc procuding counts, word/line/byte/ etc head / tail cut -d &#39;,&#39; -f 5 iris.csv slicing out sections of line of text; fifth col using comma delimiter uniq unique count of pipeline | awk &#39;/setosa/ { print $0 }&#39; iris.</description>
+    </item>
+    
+    <item>
+      <title>hugo shortcode demo</title>
+      <link>/prose/hugo-shortcodes/</link>
+      <pubDate>Fri, 16 Mar 2018 20:18:53 -0500</pubDate>
+      
+      <guid>/prose/hugo-shortcodes/</guid>
+      <description>Shortcodes are pre-made templates converting HTML codes into shortcodes in hugo. Here illustrates some:
+YouTube video:   Tweet: Why you (yes, you) should blog https://t.co/nORheJJj1i @wscsf
+&amp;mdash; Rachel Thomas (@math_rachel) July 28, 2017  Permalink in hugo: Qui
+Instagram:   View this post on Instagram        Every time you visit, you&amp;#39;ll find something fascinating in Kyoto, even on rainy nights; such as this dimly lit alley of #Pontocho filled with alluring atmosphere!</description>
+    </item>
+    
+    <item>
+      <title>Map: Linux/Docker/ML</title>
+      <link>/code/linux-and-docker/</link>
+      <pubDate>Mon, 19 Feb 2018 12:41:46 -0500</pubDate>
+      
+      <guid>/code/linux-and-docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Code Poetry</title>
+      <link>/prose/code-poetry/</link>
+      <pubDate>Tue, 13 Feb 2018 13:56:12 -0500</pubDate>
+      
+      <guid>/prose/code-poetry/</guid>
+      <description>Pseudo code poem.
+if (this === that): try write_new_poem() except not_a_poet as e: return  Or just one long line&amp;hellip;
+console.log(&amp;#39;Sometimes lines are waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaay toooooooooooooooooooo looooooooooooooooooooooooooooooong&amp;#39;)  An embedded gist using shortcode:
+ </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ml on Ocean Ode</title>
+    <link>/tags/ml/</link>
+    <description>Recent content in Ml on Ocean Ode</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 22 Oct 2018 16:02:02 -0400</lastBuildDate>
+    
+	<atom:link href="/tags/ml/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>OMNICODE</title>
+      <link>/code/omnicode/</link>
+      <pubDate>Mon, 22 Oct 2018 16:02:02 -0400</pubDate>
+      
+      <guid>/code/omnicode/</guid>
+      <description>UNIX Find file in current dir with filename, full path printed find &amp;ldquo;$(pwd -P)&amp;rdquo; -name &amp;ldquo;.zshrc&amp;rdquo;
+12 ML CLI  wget &amp;lt;URL.ext&amp;gt; file retriver for downloading files cat outputting file for preview wc procuding counts, word/line/byte/ etc head / tail cut -d &#39;,&#39; -f 5 iris.csv slicing out sections of line of text; fifth col using comma delimiter uniq unique count of pipeline | awk &#39;/setosa/ { print $0 }&#39; iris.</description>
+    </item>
+    
+  </channel>
+</rss>

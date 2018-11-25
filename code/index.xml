@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Codes on Ocean Ode</title>
+    <link>/code/</link>
+    <description>Recent content in Codes on Ocean Ode</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 13 Feb 2018 12:21:57 -0500</lastBuildDate>
+    
+	<atom:link href="/code/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Test</title>
+      <link>/code/test/</link>
+      <pubDate>Sun, 25 Nov 2018 16:20:13 -0500</pubDate>
+      
+      <guid>/code/test/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>NLP</title>
+      <link>/code/nlp/</link>
+      <pubDate>Sun, 25 Nov 2018 14:56:55 -0500</pubDate>
+      
+      <guid>/code/nlp/</guid>
+      <description>NLP - Primer  Text, unstructured particularly, is as aboundant as important to understanding! Introduction to NN Translation with GPUs Sources  Open American Natioanl Corpus British Natioanl Corpus List of Text Corpora Wikiepedia Dataset Twitter (see Text)  Topic spotting Text classification Application  chatbot translation sentiment analysis   String Primer Unicode  Remember to include U before string to ensure Unicode String  Regular Expression - strings with special syntax  allows to match patterns in other strings Regex, import re Matching pattern with string  re.</description>
+    </item>
+    
+    <item>
+      <title>Regex</title>
+      <link>/code/regex/</link>
+      <pubDate>Thu, 01 Nov 2018 19:31:54 -0400</pubDate>
+      
+      <guid>/code/regex/</guid>
+      <description>REGEX Official RE Doc r&amp;#34;&amp;#34;&amp;#34;RE The special characters are: &amp;#34;.&amp;#34; Matches any character except a newline. &amp;#34;^&amp;#34; Matches the start of the string. &amp;#34;$&amp;#34; Matches the end of the string or just before the newline at the end of the string. &amp;#34;*&amp;#34; Matches 0 or more (greedy) repetitions of the preceding RE. Greedy means that it will match as many repetitions as possible. &amp;#34;+&amp;#34; Matches 1 or more (greedy) repetitions of the preceding RE.</description>
+    </item>
+    
+    <item>
+      <title>Scrapy</title>
+      <link>/code/scrapy/</link>
+      <pubDate>Tue, 30 Oct 2018 17:43:17 -0400</pubDate>
+      
+      <guid>/code/scrapy/</guid>
+      <description>Learning Scrapy OUTLINE
+[TOC]
+Basic Crawling $UR^2IM$  URL Request Response Items More URLs (recurring to Request)  scrapy shell -s USER_AGENT=&amp;quot;Mozilla/5.0&amp;quot; &amp;lt;URL&amp;gt;
+response.body[:50]
+Actual value is gained via extract() or re()
+Scrapy Project Shell is mere utility aiding testing, real codes start with Project.
+scrapy startproject properties
+This chapter focuses on items.py and spiders directory.
+Defining ITEMS  Redefine class to fitting name NOTE: Declaring a field NOT equal filling it on every spider Fields</description>
+    </item>
+    
+    <item>
+      <title>OMNICODE</title>
+      <link>/code/omnicode/</link>
+      <pubDate>Mon, 22 Oct 2018 16:02:02 -0400</pubDate>
+      
+      <guid>/code/omnicode/</guid>
+      <description>UNIX Find file in current dir with filename, full path printed find &amp;ldquo;$(pwd -P)&amp;rdquo; -name &amp;ldquo;.zshrc&amp;rdquo;
+12 ML CLI  wget &amp;lt;URL.ext&amp;gt; file retriver for downloading files cat outputting file for preview wc procuding counts, word/line/byte/ etc head / tail cut -d &#39;,&#39; -f 5 iris.csv slicing out sections of line of text; fifth col using comma delimiter uniq unique count of pipeline | awk &#39;/setosa/ { print $0 }&#39; iris.</description>
+    </item>
+    
+    <item>
+      <title>Map: Linux/Docker/ML</title>
+      <link>/code/linux-and-docker/</link>
+      <pubDate>Mon, 19 Feb 2018 12:41:46 -0500</pubDate>
+      
+      <guid>/code/linux-and-docker/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
