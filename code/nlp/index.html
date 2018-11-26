@@ -1939,13 +1939,13 @@ TRAIN_DATA <span style="color:#f92672">=</span> [
 <li>BUT BIG PICTURE and theme!</li>
 <li>Definition
 &gt; Probabilistic model having info on topics in the text
-&gt;     1. Topic can be theme, or underlying ideas EX corpus of news topically weather, politics, sports etc
-&gt;     2. Useful to Represent documents as topic DISTRIBUTIONS ! (instead of BOW or TF-IDF)
-&gt;     3. Cluster in topics, further zoom in one topic to decipher deeper topics/themes !!
-&gt;     4. Chronological / time-stamped Topic variation reveals info (DYNAMIC TOPIC MODELING)
-&gt;     5. NOTE TOPIC ~ Distribution(Words) NOT labelled or titled (e.g. weather is a collection of sun, temperature, storm, forecast)
-&gt;     6. Human assign topic from Distribution
-&gt;     7. Theoretical Papers <a href="http://www.jmlr.org/papers/volume3/blei03a/blei03a.pdf">Blei LDA</a>, <a href="http://blog.echen.met/2011/08/22/introduction-to-latent-dirichlet-allocation/">Edwin Chen</a>, <a href="http://www.cs.columbia.edu/~blei/papers/Blei2012.pdf">Blei Probabilistic Topic Models</a></li>
+&gt; ​    1. Topic can be theme, or underlying ideas EX corpus of news topically weather, politics, sports etc
+&gt; ​    2. Useful to Represent documents as topic DISTRIBUTIONS ! (instead of BOW or TF-IDF)
+&gt; ​    3. Cluster in topics, further zoom in one topic to decipher deeper topics/themes !!
+&gt; ​    4. Chronological / time-stamped Topic variation reveals info (DYNAMIC TOPIC MODELING)
+&gt; ​    5. NOTE TOPIC ~ Distribution(Words) NOT labelled or titled (e.g. weather is a collection of sun, temperature, storm, forecast)
+&gt; ​    6. Human assign topic from Distribution
+&gt; ​    7. Theoretical Papers <a href="http://www.jmlr.org/papers/volume3/blei03a/blei03a.pdf">Blei LDA</a>, <a href="http://blog.echen.met/2011/08/22/introduction-to-latent-dirichlet-allocation/">Edwin Chen</a>, <a href="http://www.cs.columbia.edu/~blei/papers/Blei2012.pdf">Blei Probabilistic Topic Models</a></li>
 </ul>
 
 <h4 id="topic-models-in-gensim">Topic Models in GENSIM</h4>
@@ -2098,8 +2098,8 @@ doc_topics, word_topics, phi_values <span style="color:#f92672">=</span> model<s
 <ul>
 <li><a href="https://github.com/RaRe-Technologies/gensim/blob/develop/docs/notebooks/topic_methods.ipynb">Top Methods</a>
 &gt; As shown, based on context, most likely topics associated with a word can vary, differing from <code>get_term_topics</code> where it is a STATIC Topic Distribution
-&gt;     1. NOTE GENSIM implementation of LDA uses <strong>VARIATIONAL BAYES SAMPLING</strong>, a <code>word_type</code> in doc is onlly given one Topic Distribution. E.g. <code>the bank by the river bank</code> is likely to be assigned to topic_0 and each of bank word instances has the same distribution
-&gt;     2. These 2 methods ensemble to infer further info from using TM - topic distribution means able to use info to do some visualisation - colour all words in doc based on which topic belonging to, or usng distance metrics to infer how close or far pairs of topics are</li>
+&gt; ​    1. NOTE GENSIM implementation of LDA uses <strong>VARIATIONAL BAYES SAMPLING</strong>, a <code>word_type</code> in doc is onlly given one Topic Distribution. E.g. <code>the bank by the river bank</code> is likely to be assigned to topic_0 and each of bank word instances has the same distribution
+&gt; ​    2. These 2 methods ensemble to infer further info from using TM - topic distribution means able to use info to do some visualisation - colour all words in doc based on which topic belonging to, or usng distance metrics to infer how close or far pairs of topics are</li>
 <li><a href="https://github.com/RaRe-Technologies/gensim/blob/develop/docs/notebooks/distance_metrics.ipynb">Distance Metric</a></li>
 <li><a href="https://towardsdatascience.com/improving-the-interpretation-of-topic-models-87fd2ee3847d">SKL Implementation</a></li>
 </ul>
@@ -2184,8 +2184,8 @@ pyLDAvis<span style="color:#f92672">.</span>gensim<span style="color:#f92672">.<
 <ul>
 <li>RECAP
 &gt; so far processing text or corpus via POS, NER, what kind of words present; in TM to seek theme hidden;
-&gt;     1. TM could be used to cluster articles, BUT it is NOT its purpose!
-&gt;     2. E.g. after performing TM, a doc can be made of 30% topic 1, 30% topic 2, etc, hence no way to cluster</li>
+&gt; ​    1. TM could be used to cluster articles, BUT it is NOT its purpose!
+&gt; ​    2. E.g. after performing TM, a doc can be made of 30% topic 1, 30% topic 2, etc, hence no way to cluster</li>
 <li>Datapoint as documents or words</li>
 <li>EXTRA CAUTION of Text: high number of dimension in text vector !! - entire vocab or corpus (Best effort via of DimReduction via SVD, LDA, LSI, etc)</li>
 <li>Pipeline: rid of stop, lemmatise, vectorise</li>
@@ -2422,7 +2422,7 @@ mz_keywords(text,scores<span style="color:#f92672">=</span>True,weighted<span st
 &gt;       2. Skip Gram - <a href="http://mccormickml.com/2016/04/19/word2vec-tutorial-the-skip-gram-model">Word2Vec Tutorial</a><br />
 &gt;   - <a href="https://blog.acolyer.org/2016/04/21/the-amazing-power-of-word-vectors">The amazing power of word vectors</a>
 &gt;   - <a href="http://mccormickml.com/2016/04/27/word2vec-resources/">Resources Page</a>
-&gt;   while it remians most POPULAR word vectoriser, not first time attempted not last - others to follow</li>
+&gt;     while it remians most POPULAR word vectoriser, not first time attempted not last - others to follow</li>
 </ul>
 
 <h4 id="w2v-with-gensim">W2V with GENSIM</h4>
@@ -2432,23 +2432,23 @@ mz_keywords(text,scores<span style="color:#f92672">=</span>True,weighted<span st
 <li><a href="https://rare-technologies.com/word2vec-tutorial">Online Interactive Tutorial</a></li>
 <li>#### Importancy of <code>word2vec</code> class and <code>KeyedVector</code> which tuning relies heavily on
 &gt; List of Params for <code>word2vec.Word2Vec</code>
-&gt;     1. SG defines algo default=0 CBOW used or =1 Skip-gram
-&gt;     2. SIZE dimensionality of feature vectors
-&gt;     3. WINDOW max distance entre current-predicted word within a sentence
-&gt;     4. ALPHA initial learning rate (linearly drop to <code>min_alpha</code>)
-&gt;     5. SEED randNumGenerator, initial vectors for each word seeded with hash of concatenation of word + str(seed), NOTE for fully deterministically reproducible run, must also LIMIT the model to SINGLE WORKER THREAD, eliminating ordering jitter from OS thread scheduling
-&gt;     6. MIN_COUNT ignore all words with a total freq lower
-&gt;     7. MAX_VOCAB_SIZE lmit RAM during vocab building; if more unique, prune infrequent ones. Every 10m word types need about 1 GB of RAM (None for no limit as default)
-&gt;     8. SAMPLE threshold for configuring which higer-freq words randomly downsampled; default 1e-3 useful (0, 1e-5)
-&gt;     9. WORKERS use threads to train (faster with multicore)
-&gt;     10. HS if 1, hierarchical softmax used else 0 negative is non-zero, negative sampling used
-&gt;     11. NEGATIVE if &gt; 0, negative smaple
-&gt;     12. CBOW_MEAN if 0, use sum of context word vectors, 1 for mean
-&gt;     13. HASHFXN hash func use to randomly init weights, for rised training reproducibility - default is Python\s rudimentary hash func
-&gt;     14. ITER num of iterations or epochs over corpus default 5
-&gt;     15. TRIM_RULE vocab trimming rule discard if word count &lt; min_cuount (If none, min_count used, or callable accpeting params like word, count and min_count, returns either utils.RULE_DISCARD, UTILS.RULE_KEEP OR UTILS.RULE_DEFAULT) NOTE if given, only used to prune during build_vocab and not stored as part of model
-&gt;     16. SORTED_VOCAB if 1 default sort desc before assigning index
-&gt;     17. BATCH_WORDS target size in words passed to worker threas default 10k</li>
+&gt; ​    1. SG defines algo default=0 CBOW used or =1 Skip-gram
+&gt; ​    2. SIZE dimensionality of feature vectors
+&gt; ​    3. WINDOW max distance entre current-predicted word within a sentence
+&gt; ​    4. ALPHA initial learning rate (linearly drop to <code>min_alpha</code>)
+&gt; ​    5. SEED randNumGenerator, initial vectors for each word seeded with hash of concatenation of word + str(seed), NOTE for fully deterministically reproducible run, must also LIMIT the model to SINGLE WORKER THREAD, eliminating ordering jitter from OS thread scheduling
+&gt; ​    6. MIN_COUNT ignore all words with a total freq lower
+&gt; ​    7. MAX_VOCAB_SIZE lmit RAM during vocab building; if more unique, prune infrequent ones. Every 10m word types need about 1 GB of RAM (None for no limit as default)
+&gt; ​    8. SAMPLE threshold for configuring which higer-freq words randomly downsampled; default 1e-3 useful (0, 1e-5)
+&gt; ​    9. WORKERS use threads to train (faster with multicore)
+&gt; ​    10. HS if 1, hierarchical softmax used else 0 negative is non-zero, negative sampling used
+&gt; ​    11. NEGATIVE if &gt; 0, negative smaple
+&gt; ​    12. CBOW_MEAN if 0, use sum of context word vectors, 1 for mean
+&gt; ​    13. HASHFXN hash func use to randomly init weights, for rised training reproducibility - default is Python\s rudimentary hash func
+&gt; ​    14. ITER num of iterations or epochs over corpus default 5
+&gt; ​    15. TRIM_RULE vocab trimming rule discard if word count &lt; min_cuount (If none, min_count used, or callable accpeting params like word, count and min_count, returns either utils.RULE_DISCARD, UTILS.RULE_KEEP OR UTILS.RULE_DEFAULT) NOTE if given, only used to prune during build_vocab and not stored as part of model
+&gt; ​    16. SORTED_VOCAB if 1 default sort desc before assigning index
+&gt; ​    17. BATCH_WORDS target size in words passed to worker threas default 10k</li>
 <li><a href="https://github.com/bhargavvader/personal/blob/master/notebooks/text_analysis/word2vec.ipynb">Notebook</a></li>
 <li><a href="https://github.com/RaRe-Technologies/gensim/blob/develop/docs/notebooks/online_w2v_tutorial.ipynb">GENSIM TUtorial</a></li>
 <li>Training on generic corpus preferable - <a href="http://mattmahoney.net/dc/text/data.html">Text8 from Wiki</a></li>
@@ -2814,9 +2814,9 @@ output <span style="color:#f92672">=</span> []
 <span style="color:#f92672">from</span> keras.datasets <span style="color:#f92672">import</span> imdb</code></pre></div>
 <blockquote>
 <p>Notes
-    1. Not using text preprocess moduels as IMDB dataset already cleaned
-    2. LSTM for classification, a variant of RNN
-    3. LSTM is mere Layer inside <code>Sequential</code> model</p>
+​    1. Not using text preprocess moduels as IMDB dataset already cleaned
+​    2. LSTM for classification, a variant of RNN
+​    3. LSTM is mere Layer inside <code>Sequential</code> model</p>
 </blockquote>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">max_features <span style="color:#f92672">=</span> <span style="color:#ae81ff">20000</span>
 maxlen <span style="color:#f92672">=</span> <span style="color:#ae81ff">80</span>  <span style="color:#75715e"># cut texts after this number of words (among top max_features most common words)</span>
@@ -2987,10 +2987,10 @@ model<span style="color:#f92672">.</span>fit(x_train, y_train,
           validation_data<span style="color:#f92672">=</span>(x_val, y_val))</code></pre></div>
 <blockquote>
 <p>Here used different measure for calcu loss; above illustrates basic LSTM, a CNN and a CNN using pretrained word embeddings
-    1. See progressive rise in performance of each networkds
-    2. Embeddings are esp. useful when not much data
-    3. CNN generally perform better than Sequential, those using word-embedding even better
-    4. Useful to train and compare with Non-NN model such as NB or SVM</p>
+​    1. See progressive rise in performance of each networkds
+​    2. Embeddings are esp. useful when not much data
+​    3. CNN generally perform better than Sequential, those using word-embedding even better
+​    4. Useful to train and compare with Non-NN model such as NB or SVM</p>
 </blockquote>
 
 <h4 id="classification-with-spacy">Classification with SpaCy</h4>
@@ -3005,9 +3005,9 @@ model<span style="color:#f92672">.</span>fit(x_train, y_train,
 </ol></li>
 <li>Example 1 <a href="https://github.com/explosion/spaCy/blob/master/examples/deep_learning_keras.py">code</a>
 &gt; Set up
-&gt;     1. This example shows how to use an LSTM sentiment classification model trained using Keras in spaCy. spaCy splits the document into sentences, and each sentence is classified using the LSTM. The scores for the sentences are then aggregated to give the document score.
-&gt;     2. This kind of hierarchical model is quite difficult in &ldquo;pure&rdquo; Keras or Tensorflow, but it&rsquo;s very effective. The Keras example on this dataset performs quite poorly, because it cuts off the documents so that they&rsquo;re a fixed size. This hurts review accuracy a lot, because people often summarise their rating in the final sentence
-&gt;     3. Prerequesit: spacy download en_vectors_web_lg / pip install keras==2.0.9 / Compatible with: spaCy v2.0.0+</li>
+&gt; ​    1. This example shows how to use an LSTM sentiment classification model trained using Keras in spaCy. spaCy splits the document into sentences, and each sentence is classified using the LSTM. The scores for the sentences are then aggregated to give the document score.
+&gt; ​    2. This kind of hierarchical model is quite difficult in &ldquo;pure&rdquo; Keras or Tensorflow, but it&rsquo;s very effective. The Keras example on this dataset performs quite poorly, because it cuts off the documents so that they&rsquo;re a fixed size. This hurts review accuracy a lot, because people often summarise their rating in the final sentence
+&gt; ​    3. Prerequesit: spacy download en_vectors_web_lg / pip install keras==2.0.9 / Compatible with: spaCy v2.0.0+</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> plac
 <span style="color:#f92672">import</span> random
@@ -3236,12 +3236,12 @@ model<span style="color:#f92672">.</span>fit(x_train, y_train,
     plac<span style="color:#f92672">.</span>call(main)</code></pre></div>
 <blockquote>
 <p>First few lines set up model folder and load dataset / then check print run time info, if not training is not complete proceeding to train, train and save model
-    1. Running, saving using model in pipelines is huge motif behind Keras and SpaCy in such a way
-    2. KEY here updating <code>sentiment</code> attri for each doc (how is optional)
-    3. SpaCy GOOD at not removing or truncating input - as users tend to sum up review in last sentence of documents with a lot of sentiment inferred
-    4. HOW to USE? model adds one more attribute to doc, <code>doc.sentiment</code> caputuring
-    5. Verify by loading saved model and run any document through pipelien the same way through prevous POS, NER and Dep-parsing <code>doc = nlp(document)</code>
-    6. <code>nlp</code> is pipeline obj of loaded model trained, <code>docuemnt</code> any unicode text wish to analyse</p>
+​    1. Running, saving using model in pipelines is huge motif behind Keras and SpaCy in such a way
+​    2. KEY here updating <code>sentiment</code> attri for each doc (how is optional)
+​    3. SpaCy GOOD at not removing or truncating input - as users tend to sum up review in last sentence of documents with a lot of sentiment inferred
+​    4. HOW to USE? model adds one more attribute to doc, <code>doc.sentiment</code> caputuring
+​    5. Verify by loading saved model and run any document through pipelien the same way through prevous POS, NER and Dep-parsing <code>doc = nlp(document)</code>
+​    6. <code>nlp</code> is pipeline obj of loaded model trained, <code>docuemnt</code> any unicode text wish to analyse</p>
 </blockquote>
 
 <ul>
@@ -3410,9 +3410,9 @@ doc <span style="color:#f92672">=</span> nlp(test_text)
 <li>Production-grade API <strong>RASA NLU</strong> and <strong>ChatterBot</strong></li>
 <li>RASA <a href="https://github.com/RASAHQ/rasa_nlu/blob/master/data/examples/rasa/demo-rasa.json">JSON-data Example</a>
 &gt; adding more entites and intent, model laerns more context better decipher questions - one of backend is SpaCy and SKL
-&gt;     1. UnderHood, Word2Vec for intent, spaCy clean up text, SLK build models - <a href="https://medium.com/rasa-blog/do-it-yourself-nlp-for-bot-developers-2e2da2817f3f">detail</a>
-&gt;     2. One of which involves being able to write own parts of bot instead of API
-&gt;     3. JSON entry/data to train RASA (see elsewhere)</li>
+&gt; ​    1. UnderHood, Word2Vec for intent, spaCy clean up text, SLK build models - <a href="https://medium.com/rasa-blog/do-it-yourself-nlp-for-bot-developers-2e2da2817f3f">detail</a>
+&gt; ​    2. One of which involves being able to write own parts of bot instead of API
+&gt; ​    3. JSON entry/data to train RASA (see elsewhere)</li>
 <li><a href="https://core.rasa.com">Front-end</a> and <a href="https://core.rasa.com/tutorial_basics.html">Tutorial</a></li>
 <li>Non-AI but Learn-Concept at <a href="https://apps.worldwritable.com/tutorials/chatbot">Chatbot Fundamentals</a> and <a href="https://github.com/lizadaly/brobot">Brobot</a></li>
 <li>Recall the Concept of chatbot
@@ -3426,37 +3426,6 @@ doc <span style="color:#f92672">=</span> nlp(test_text)
 <li>Closure</li>
 </ol></li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> spacy
-
-<span style="color:#75715e"># init English model (download required for other langues)</span>
-nlp <span style="color:#f92672">=</span> spacy<span style="color:#f92672">.</span>load(<span style="color:#e6db74">&#39;en&#39;</span>, tagger<span style="color:#f92672">=</span>False,
-                parser<span style="color:#f92672">=</span>False, matcher<span style="color:#f92672">=</span>False)
-
-doc <span style="color:#f92672">=</span> nlp(article_uber)
-
-<span style="color:#66d9ef">for</span> entity <span style="color:#f92672">in</span> doc<span style="color:#f92672">.</span>ents:
-    <span style="color:#66d9ef">print</span>(entity<span style="color:#f92672">.</span>label_, entity<span style="color:#f92672">.</span>text)</code></pre></div>
-<pre><code>/Users/Ocean/anaconda3/lib/python3.6/importlib/_bootstrap.py:219: RuntimeWarning: numpy.dtype size changed, may indicate binary incompatibility. Expected 96, got 88
-  return f(*args, **kwds)
-/Users/Ocean/anaconda3/lib/python3.6/importlib/_bootstrap.py:219: RuntimeWarning: numpy.ufunc size changed, may indicate binary incompatibility. Expected 192, got 176
-  return f(*args, **kwds)
-
-
-ORG Uber
-ORG Uber
-ORG Apple
-ORG Uber
-PERSON Travis Kalanick
-ORG Uber
-PERSON Tim Cook
-ORG Apple
-ORG Uber
-GPE drivers’
-LOC Silicon Valley’s
-ORG Yahoo
-PERSON Marissa Mayer
-MONEY $186m
-</code></pre>
 
 <h1 id="polyglot-ner-polygplot">Polyglot NER <code>polygplot</code></h1>
 
@@ -3725,7 +3694,7 @@ set()
 False
 </code></pre>
 
-<h1 id="testing-using-naive-bayes-classifier">Testing using Naive Bayes Classifier</h1>
+<h3 id="testing-using-naive-bayes-classifier">Testing using Naive Bayes Classifier</h3>
 
 <ul>
 <li>NB Model commonly used for testing NLP classificaiton problems</li>
@@ -3778,7 +3747,7 @@ cm_tfidf <span style="color:#f92672">=</span> metrics<span style="color:#f92672"
  [  80 1003]]
 </code></pre>
 
-<h1 id="simple-nlp-complex-problems">Simple NLP, Complex Problems</h1>
+<h3 id="simple-nlp-complex-problems">Simple NLP, Complex Problems</h3>
 
 <ul>
 <li>Translation, grammar in languages</li>
