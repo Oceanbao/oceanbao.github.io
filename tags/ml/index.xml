@@ -17,8 +17,10 @@
       <pubDate>Mon, 22 Oct 2018 16:02:02 -0400</pubDate>
       
       <guid>/code/omnicode/</guid>
-      <description>UNIX Find file in current dir with filename, full path printed find &amp;ldquo;$(pwd -P)&amp;rdquo; -name &amp;ldquo;.zshrc&amp;rdquo;
-12 ML CLI  wget &amp;lt;URL.ext&amp;gt; file retriver for downloading files cat outputting file for preview wc procuding counts, word/line/byte/ etc head / tail cut -d &#39;,&#39; -f 5 iris.csv slicing out sections of line of text; fifth col using comma delimiter uniq unique count of pipeline | awk &#39;/setosa/ { print $0 }&#39; iris.</description>
+      <description>UNIX Quick Reference FILE
+rm -r #delete dir rm -f # force remove file cp -r dir1 dir2 # copy 1 to 2 creating dir2 if inexist ln -s file link # create symbolic link link to file Process
+killall proc # kill all processes named proc * bg # lists stopped or background jobs; fg a # brings job a to foreground File Permissions
+chmod octal file change permissions of file to octal,</description>
     </item>
     
   </channel>

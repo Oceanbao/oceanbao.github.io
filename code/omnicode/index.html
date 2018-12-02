@@ -48,9 +48,175 @@
 
 <h1 id="unix">UNIX</h1>
 
+<h3 id="quick-reference">Quick Reference</h3>
+
+<p><strong>FILE</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rm -r <span style="color:#75715e">#delete dir
+</span><span style="color:#75715e"></span>rm -f <span style="color:#75715e"># force remove file
+</span><span style="color:#75715e"></span>cp -r dir1 dir2 <span style="color:#75715e"># copy 1 to 2 creating dir2 if inexist
+</span><span style="color:#75715e"></span>ln -s file link # create symbolic link link to file</code></pre></div>
+<p><strong>Process</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">killall proc <span style="color:#75715e"># kill all processes named proc *
+</span><span style="color:#75715e"></span>bg <span style="color:#75715e"># lists stopped or background jobs; 
+</span><span style="color:#75715e"></span>fg a # brings job a to foreground</code></pre></div>
+<p><strong>File Permissions</strong></p>
+
+<p><code>chmod octal file</code>  change permissions of file to octal,</p>
+
+<p><strong>SSH</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ssh user@host
+ssh -p port user@host <span style="color:#75715e"># connect to host on port port as user
+</span><span style="color:#75715e"></span>ssh-copy-id user@host # add key to host <span style="color:#66d9ef">for</span> user to enable a keyed or passwordless login</code></pre></div>
+<p><strong>Searching</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">grep pattern files <span style="color:#75715e"># search for pattern in files
+</span><span style="color:#75715e"></span>grep -r pattern dir <span style="color:#75715e"># search recursively for pattern in dir
+</span><span style="color:#75715e"></span>command | grep pattern <span style="color:#75715e"># search for pattern in output of command
+</span><span style="color:#75715e"></span>locate file # find all instances of file</code></pre></div>
+<p><strong>Sys info</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cal, uptime, 
+w <span style="color:#75715e"># who is online
+</span><span style="color:#75715e"></span>finger user <span style="color:#75715e"># info about user
+</span><span style="color:#75715e"></span>uname -a <span style="color:#75715e"># kernel info
+</span><span style="color:#75715e"></span>cat /proc /cpuinfo
+cat /proc /meminfo
+df <span style="color:#75715e"># disk usage
+</span><span style="color:#75715e"></span>du <span style="color:#75715e"># dir space suage
+</span><span style="color:#75715e"></span>free <span style="color:#75715e"># mem and swap usage
+</span><span style="color:#75715e"></span>whereis <span style="color:#75715e"># possible loc of app
+</span><span style="color:#75715e"></span>which app # which app will be run by default</code></pre></div>
+<p><strong>Compression</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">tar cf file.tar files <span style="color:#75715e"># create a tar named file.tar containing files
+</span><span style="color:#75715e"></span>tar xf file.tar <span style="color:#75715e"># extract files
+</span><span style="color:#75715e"></span>tar czf file.tar.gz files <span style="color:#75715e"># create a tar with Gzip comp
+</span><span style="color:#75715e"></span>tar xzf file.tar.gz <span style="color:#75715e"># extract tar using Gzip
+</span><span style="color:#75715e"></span>tar cjf file.tar.bz2 <span style="color:#75715e"># creat tar with Bzip2
+</span><span style="color:#75715e"></span>gzip file # comp file and rename to file.gz <span style="color:#f92672">(</span>gzip -d<span style="color:#f92672">)</span></code></pre></div>
+<p><strong>Network</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">whois domain <span style="color:#75715e"># get whois info for domain
+</span><span style="color:#75715e"></span>dig domain <span style="color:#75715e"># get DNS info for domain
+</span><span style="color:#75715e"></span>dig -x host <span style="color:#75715e"># reverse lookup host
+</span><span style="color:#75715e"></span>wget file</code></pre></div>
+<p><strong>Installation</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># install from source:
+</span><span style="color:#75715e"></span>./configure
+make
+make install
+dpkg -i pkg.deb <span style="color:#75715e"># install a pckg (Debian)
+</span><span style="color:#75715e"></span>rpm -Uvh pkg.rpm</code></pre></div>
 <h3 id="find-file-in-current-dir-with-filename-full-path-printed">Find file in current dir with filename, full path printed</h3>
 
 <p>find &ldquo;$(pwd -P)&rdquo; -name &ldquo;.zshrc&rdquo;</p>
+
+<h3 id="make">MAKE</h3>
+
+<p><code>make</code> reads <code>Makefile</code> defining set of tasks to be executed (e.g. compile a program from source code)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-makefile" data-lang="makefile"><span style="color:#a6e22e">say_hello</span><span style="color:#f92672">:</span> <span style="color:#75715e"># func name, aka TARGET; DEPENDENCIES follow here
+</span><span style="color:#75715e"></span>	echo <span style="color:#e6db74">&#34;Hello World&#34;</span> <span style="color:#75715e"># RECIPE using DEPENDENCIES to make TARGET
+</span><span style="color:#75715e"></span>	
+<span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> prerequisites
+<span style="color:#960050;background-color:#1e0010">&lt;TAB&gt;recipe</span>
+
+<span style="color:#75715e"># a target might be binary file depending on prereq (source files) which can also be target depending on other deps
+</span><span style="color:#75715e"></span>
+<span style="color:#a6e22e">final_target</span><span style="color:#f92672">:</span> sub_target final_target.c
+	Recipe_to_create_final_target
+<span style="color:#a6e22e">sub_target</span><span style="color:#f92672">:</span> sub_target.c
+	Recipe_to_create_sub_target
+
+<span style="color:#75715e"># To suppress echoing (refer to first example) the acutal CMD, add @
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">say_hello</span><span style="color:#f92672">:</span>
+	@echo <span style="color:#e6db74">&#34;Hello World&#34;</span>
+<span style="color:#a6e22e">generate</span><span style="color:#f92672">:</span>
+	@echo <span style="color:#e6db74">&#34;Creating empty text files...&#34;</span>
+	touch file-<span style="color:#f92672">{</span><span style="color:#ae81ff">1</span>..10<span style="color:#f92672">}</span>.txt
+<span style="color:#a6e22e">clean</span><span style="color:#f92672">:</span>
+	@echo <span style="color:#e6db74">&#34;Cleaning up...&#34;</span>
+	rm *.txt
+<span style="color:#75715e"># the first target is default goal! can be changed by inserting in head
+</span><span style="color:#75715e"></span>.DEFAULT_GOAL <span style="color:#f92672">:=</span> generate
+<span style="color:#75715e"># this phony target .DEFAULT_GOAL can run only one target at a time, why most makefiles include `all` as target that can call as many targets as needed:
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">all</span><span style="color:#f92672">:</span> say_hello generate
+<span style="color:#75715e"># Before running make, include another special phony target, .PHONY where defined all targets not files - make run its recipe regardless of whether a file with that name exists or what its last mod time is
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">.PHONY</span><span style="color:#f92672">:</span>all say_hello generate clean
+<span style="color:#a6e22e">all</span><span style="color:#f92672">:</span>say_hello generate
+
+<span style="color:#75715e"># Good practice not to call clean in all or put it as first target. Manually as arg
+</span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">make</span> clean
+
+<span style="color:#75715e"># ADVANCED EX
+</span><span style="color:#75715e"># Variables 
+</span><span style="color:#75715e"></span>CC <span style="color:#f92672">:=</span> gcc <span style="color:#75715e"># recursive expanded variable
+</span><span style="color:#75715e"></span>CC <span style="color:#f92672">:=</span> <span style="color:#e6db74">${</span>CC<span style="color:#e6db74">}</span>
+<span style="color:#a6e22e">hello</span><span style="color:#f92672">:</span>hello.c
+	<span style="color:#e6db74">${</span>CC<span style="color:#e6db74">}</span>hello.c -o hello <span style="color:#75715e"># recipe expands as below when passed 
+</span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">gcc</span> hello.c -o hello
+<span style="color:#75715e"># both ${CC} and £(CC) valid ref to call gcc
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">all</span><span style="color:#f92672">:</span>
+	@echo <span style="color:#e6db74">${</span>CC<span style="color:#e6db74">}</span>
+
+<span style="color:#75715e"># Example: compile all C programs by using var, patterns, func
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e"># Usage:
+</span><span style="color:#75715e"># make        # compile all binary
+</span><span style="color:#75715e"># make clean  # remove ALL binaries and objects
+</span><span style="color:#75715e"></span>
+.PHONY <span style="color:#f92672">=</span> all clean
+
+CC <span style="color:#f92672">=</span> gcc                        <span style="color:#75715e"># compiler to use
+</span><span style="color:#75715e"></span>
+LINKERFLAG <span style="color:#f92672">=</span> -lm
+
+SRCS <span style="color:#f92672">:=</span> <span style="color:#66d9ef">$(</span>wildcard *.c<span style="color:#66d9ef">)</span>
+BINS <span style="color:#f92672">:=</span> <span style="color:#66d9ef">$(</span>SRCS:%.c<span style="color:#f92672">=</span>%<span style="color:#66d9ef">)</span>
+
+<span style="color:#a6e22e">all</span><span style="color:#f92672">:</span> ${BINS}
+
+<span style="color:#a6e22e">%</span><span style="color:#f92672">:</span> %.o
+        @echo <span style="color:#e6db74">&#34;Checking..&#34;</span>
+        <span style="color:#e6db74">${</span>CC<span style="color:#e6db74">}</span> <span style="color:#e6db74">${</span>LINKERFLAG<span style="color:#e6db74">}</span> $&lt; -o $@
+
+<span style="color:#a6e22e">%.o</span><span style="color:#f92672">:</span> %.c
+        @echo <span style="color:#e6db74">&#34;Creating object..&#34;</span>
+        <span style="color:#e6db74">${</span>CC<span style="color:#e6db74">}</span> -c $&lt;
+
+<span style="color:#a6e22e">clean</span><span style="color:#f92672">:</span>
+        @echo <span style="color:#e6db74">&#34;Cleaning up...&#34;</span>
+        rm -rvf *.o <span style="color:#e6db74">${</span>BINS<span style="color:#e6db74">}</span>
+</code></pre></div>
+<p>Run <code>make</code> outputting as expected</p>
+
+<ul>
+<li>Not necessary target to be file, name for recipe could do &lsquo;phony targets&rsquo;</li>
+</ul>
+
+<h3 id="screen-multiple-windows-virtual-terminals-in-unix">SCREEN - Multiple Windows (virtual terminals) in UNIX</h3>
+
+<ul>
+<li>If local machine crashes / lose connection (e.g. SSH), the process or login sessions via <code>screen</code> persist - resumed with <code>screen -r</code> (may need ARG if multiple detached screens)
+
+<ul>
+<li>In some crashes may need to manually &ldquo;detach&rdquo; before &ldquo;Attach&rdquo;</li>
+<li>Find out current screens : <code>screen -list</code></li>
+<li>Possible states : dead, attached, detached</li>
+<li>To detach : <code>screen -D [PID].[machine_arguments]</code></li>
+<li>Resume : <code>screen -r [PID].[machine_arguments]</code></li>
+</ul></li>
+<li>Cut and paste between screens using CLI + Block copy feature + multiple pages copy/paste</li>
+<li>Detach for resuming after logging out !</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">screen <span style="color:#75715e"># start
+</span><span style="color:#75715e"></span>Ctrl-a c <span style="color:#75715e"># create new window/shell
+</span><span style="color:#75715e"></span>Ctrl-a k <span style="color:#75715e"># kill current window
+</span><span style="color:#75715e"></span>w <span style="color:#75715e"># list all
+</span><span style="color:#75715e"></span><span style="color:#ae81ff">0</span>-9 <span style="color:#75715e"># switch window
+</span><span style="color:#75715e"></span><span style="color:#f92672">[</span> <span style="color:#75715e"># start copy mode
+</span><span style="color:#75715e"></span><span style="color:#f92672">]</span> <span style="color:#75715e"># paste copied text
+</span><span style="color:#75715e"></span>D <span style="color:#75715e"># power detach and logout
+</span><span style="color:#75715e"></span>d # detach but keep shell window open</code></pre></div>
+<ul>
+<li>Copy a block : <code>Ctrl-a [</code> to move cursor (h, j, k, l) <code>0</code> or <code>^</code> moves to start and <code>$</code> moves to end ; <code>Ctrl-b</code> scrolls cursor back one page and <code>Ctrl-f</code> forward one ; to set left and right margins of copy <code>c</code> and <code>C</code> ; spacebar starts selecting text and ends ; to abort copy mode <code>Ctrl-g</code></li>
+<li>Other CMD : <code>screen unixcommand</code> in a new window</li>
+</ul>
 
 <h3 id="12-ml-cli">12 ML CLI</h3>
 

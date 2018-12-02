@@ -48,11 +48,22 @@
 
 <h1>Learning Scrapy</h1>
 
-<p><strong>OUTLINE</strong></p>
+<h2 id="table-of-contents">Table of Contents</h2>
 
-<p>[TOC]</p>
+<ol>
+<li><a href="#basic">Basic Crawling</a></li>
+<li><a href="#mobile">Mobile App</a></li>
+<li><a href="#recipe">Spider Recipes</a></li>
+<li><a href="#hub">Scrapinghub</a></li>
+<li><a href="#config">Configuration &amp; Management</a></li>
+<li><a href="#programming">Programming Scrapy</a></li>
+<li><a href="#pipeline">Pipeline Recipe</a></li>
+<li><a href="#official">Official Tutorial</a></li>
+</ol>
 
 <h1 id="basic-crawling">Basic Crawling</h1>
+
+<p><a name="basic"></a></p>
 
 <h3 id="ur-2im">$UR^2IM$</h3>
 
@@ -159,6 +170,8 @@ item <span style="color:#f92672">=</span> PropertiesItem()
 item[<span style="color:#e6db74">&#39;title&#39;</span>] <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;//*[@itemprop=&#34;name&#34;][1]/text()&#39;</span>)<span style="color:#f92672">.</span>extract()
 <span style="color:#75715e"># et les restes </span>
 <span style="color:#66d9ef">return</span> item</code></pre></div>
+<p><a name="pipeline"></a></p>
+
 <p>Now <code>scrape crawl basic</code> returns not LOG but DICT of the item. Scrapy is built around the ITEMs to be used by PIPELINEs for more functionalities.</p>
 
 <h3 id="saving-to-files">Saving to Files</h3>
