@@ -421,6 +421,12 @@ sed &lsquo;/sh$/d&rsquo; # del sh-ending</p>
 
 <h1 id="python-and-symlink">PYTHON and symlink</h1>
 
+<h3 id="rename-files">Rename Files</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> os<span style="color:#f92672">,</span> re<span style="color:#f92672">,</span> glob
+
+<span style="color:#66d9ef">for</span> file <span style="color:#f92672">in</span> glob<span style="color:#f92672">.</span>glob(<span style="color:#e6db74">&#39;*.pdf&#39;</span>):
+	new_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">.</span>join(re<span style="color:#f92672">.</span>findall(<span style="color:#e6db74">&#39;L\d\d|\.pdf&#39;</span>, file))
+	os<span style="color:#f92672">.</span>rename(file, new_name)</code></pre></div>
 <h3 id="learnt-about-ln-cmd-to-link-sh">Learnt about ln cmd to link .sh</h3>
 
 <p><code>brew unlink python &amp;&amp; brew link python</code></p>

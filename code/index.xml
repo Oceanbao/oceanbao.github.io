@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>DASK</title>
+      <link>/code/dask/</link>
+      <pubDate>Wed, 05 Dec 2018 15:52:43 -0500</pubDate>
+      
+      <guid>/code/dask/</guid>
+      <description>TOC  Tom Augspurger Talks Official: Dask.distributed &amp;amp; Kubernetes Matthew Rocklin Talks Jim Crist Talks Long SciPy Tutorial DataCamp Streamz  from IPython.core.interactiveshell import InteractiveShell InteractiveShell.ast_node_interactivity = &amp;#34;all&amp;#34; %config InlineBackend.figure_format = &amp;#39;retina&amp;#39; import numpy as np import pandas as pd import matplotlib.pyplot as plt Reference Tom Augspurger Github   Tabular Data in SKL and DaskML TPOT with Dask  Examples Scaling Pains  Model Complexity VS Data  Distributed SKL - using DASK to distribute computation on cluster (Large Model - Smaller Datasets)   Single-Machine Parallelism with SKL</description>
+    </item>
+    
+    <item>
       <title>NLP</title>
       <link>/code/nlp/</link>
       <pubDate>Sun, 25 Nov 2018 14:56:55 -0500</pubDate>
