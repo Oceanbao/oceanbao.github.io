@@ -385,6 +385,26 @@ less filename <span style="color:#75715e"># from end or beginning
 
 <p><a href="https://kvz.io/blog/2007/07/29/schedule-tasks-on-linux-using-crontab/">article</a></p>
 
+<h3 id="youtube-video-downloader">YouTube/Video Downloader</h3>
+
+<p>Format:</p>
+
+<p><code>youtube-dl -F &lt;URL&gt;</code></p>
+
+<p>Choosing index</p>
+
+<p><code>youtube-dl -f 37 &lt;URL&gt;</code></p>
+
+<p>Playlist</p>
+
+<p><code>youtube-dl -cit &lt;playlist_url&gt;</code></p>
+
+<p>Audio</p>
+
+<p><code>youtube-dl -x --audio-format mp3 &lt;video_url&gt;</code></p>
+
+<p><a href="https://github.com/rg3/youtube-dl/blob/master/README.md#readme">Manual</a></p>
+
 <h2 id="regex-e-g-using-sed-stream-editor">Regex e.g. using sed (stream editor)</h2>
 
 <p>cat /etc/passwd | sed # dump to sed pattern space (i.e. /pattern/action)</p>
