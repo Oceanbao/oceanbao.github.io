@@ -6,10 +6,19 @@
     <description>Recent content on Ocean Ode</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 18 Dec 2018 23:40:30 -0500</lastBuildDate>
+    <lastBuildDate>Thu, 20 Dec 2018 23:40:30 -0500</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>RISE Slide HTML</title>
+      <link>/code/rise-slide-html/</link>
+      <pubDate>Thu, 20 Dec 2018 23:40:30 -0500</pubDate>
+      
+      <guid>/code/rise-slide-html/</guid>
+      <description>TFP slides    if( window.location.search.match( /print-pdf/gi ) ) { var link = document.createElement( &#39;link&#39; ); link.rel = &#39;stylesheet&#39;; link.type = &#39;text/css&#39;; link.href = &#39;https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/print/pdf.css&#39;; document.getElementsByTagName( &#39;head&#39; )[0].appendChild( link ); }     MathJax.Hub.Config({ tex2jax: { inlineMath: [ [&#39;$&#39;,&#39;$&#39;], [&#34;\\(&#34;,&#34;\\)&#34;] ], displayMath: [ [&#39;$$&#39;,&#39;$$&#39;], [&#34;\\[&#34;,&#34;\\]&#34;] ], processEscapes: true, processEnvironments: true }, // Center justify equations in code and markdown cells. Elsewhere // we use CSS to left justify single line equations in code cells.</description>
+    </item>
     
     <item>
       <title>T SNE Bokeh Viz</title>
