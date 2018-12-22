@@ -13,17 +13,17 @@
 <meta name="description" content="Ocean on GitHub.">
 
 <meta name="twitter:card" content="summary">
-<meta name="twitter:domain" content="/">
+<meta name="twitter:domain" content="https://oceanbao.github.io/">
 
-<meta name="twitter:image" content="/tn.png">
+<meta name="twitter:image" content="https://oceanbao.github.io/tn.png">
 <meta name="twitter:title" property="og:title" itemprop="title name" content="Ocean Ode">
 <meta name="twitter:description" property="og:description" itemprop="description" content="Ocean on GitHub.">
 <meta name="og:type" content="website">
-<meta name="og:url" content="/">
-<meta name="og:image" itemprop="image primaryImageOfPage" content="/tn.png">
+<meta name="og:url" content="https://oceanbao.github.io/">
+<meta name="og:image" itemprop="image primaryImageOfPage" content="https://oceanbao.github.io/tn.png">
 
-<link rel="shortcut icon" href="/oceanicon.jpg" id="favicon">
-<link rel="stylesheet" href="/css/style.css">
+<link rel="shortcut icon" href="https://oceanbao.github.io/oceanicon.jpg" id="favicon">
+<link rel="stylesheet" href="https://oceanbao.github.io/css/style.css">
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
 
@@ -334,7 +334,7 @@
 <tr>
 <td></td>
 <td>Escapes a special character</td>
-<td>.*+\?    \^\/\</td>
+<td>.*+\?    \$\^\/\</td>
 <td>.*+?    $^/</td>
 </tr>
 
@@ -968,7 +968,31 @@
 </tr>
 </tbody>
 </table>
-</div>
+
+<h3 id="curly-quotes">Curly Quotes</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#e6db74">&#39;”&#39;</span><span style="color:#f92672">.</span>encode()
+
+<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\xe2\x80\x9d</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>decode()
+
+<span style="color:#e6db74">&#39;“&#39;</span><span style="color:#f92672">.</span>encode()
+
+<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\xe2\x80\x9c</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>decode()
+
+<span style="color:#e6db74">&#39;‘&#39;</span><span style="color:#f92672">.</span>encode()
+
+<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\xe2\x80\x98</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>decode()
+
+<span style="color:#e6db74">&#39;’&#39;</span><span style="color:#f92672">.</span>encode()
+
+<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\xe2\x80\x99</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>decode()
+
+<span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;Say (?:[&#34;“”])(.*)(?:[&#34;“”])&#39;</span>
+<span style="color:#75715e"># (?:[&#34;“”])    &lt;-- Start non-capturing group, and match one of the three possible quote typesnot return it</span>
+<span style="color:#75715e"># (.*)         &lt;-- Start a capture group, match anything and return it</span>
+<span style="color:#75715e"># (?:[&#34;“”])    &lt;-- Stop matching the string until another quote is found</span>
+
+<span style="color:#f92672">from</span> unidecode <span style="color:#f92672">import</span> unidecode
+line <span style="color:#f92672">=</span> unidecode(<span style="color:#e6db74">&#39;’&#39;</span>)</code></pre></div></div>
 
         
         <div class="section bottom-menu">
@@ -1004,7 +1028,7 @@
         
     
     &#183; 
-    <a href="/">
+    <a href="https://oceanbao.github.io/">
         main
     </a>
 

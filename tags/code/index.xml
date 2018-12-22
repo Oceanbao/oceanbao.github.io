@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Code on Ocean Ode</title>
-    <link>/tags/code/</link>
+    <link>https://oceanbao.github.io/tags/code/</link>
     <description>Recent content in Code on Ocean Ode</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 22 Oct 2018 16:02:02 -0400</lastBuildDate>
     
-	<atom:link href="/tags/code/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://oceanbao.github.io/tags/code/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>OMNICODE</title>
-      <link>/code/omnicode/</link>
+      <link>https://oceanbao.github.io/code/omnicode/</link>
       <pubDate>Mon, 22 Oct 2018 16:02:02 -0400</pubDate>
       
-      <guid>/code/omnicode/</guid>
+      <guid>https://oceanbao.github.io/code/omnicode/</guid>
       <description>UNIX Quick Reference FILE
 rm -r #delete dir rm -f # force remove file cp -r dir1 dir2 # copy 1 to 2 creating dir2 if inexist ln -s file link # create symbolic link link to file Process
 killall proc # kill all processes named proc * bg # lists stopped or background jobs; fg a # brings job a to foreground File Permissions
@@ -25,10 +25,10 @@ chmod octal file change permissions of file to octal,</description>
     
     <item>
       <title>hugo shortcode demo</title>
-      <link>/prose/hugo-shortcodes/</link>
+      <link>https://oceanbao.github.io/prose/hugo-shortcodes/</link>
       <pubDate>Fri, 16 Mar 2018 20:18:53 -0500</pubDate>
       
-      <guid>/prose/hugo-shortcodes/</guid>
+      <guid>https://oceanbao.github.io/prose/hugo-shortcodes/</guid>
       <description>Shortcodes are pre-made templates converting HTML codes into shortcodes in hugo. Here illustrates some:
 YouTube video:   Tweet: Why you (yes, you) should blog https://t.co/nORheJJj1i @wscsf
 &amp;mdash; Rachel Thomas (@math_rachel) July 28, 2017  Permalink in hugo: Qui
@@ -37,19 +37,19 @@ Instagram:   View this post on Instagram        Every time you visit, you&amp;#3
     
     <item>
       <title>Map: Linux/Docker/ML</title>
-      <link>/code/linux-and-docker/</link>
+      <link>https://oceanbao.github.io/code/linux-and-docker/</link>
       <pubDate>Mon, 19 Feb 2018 12:41:46 -0500</pubDate>
       
-      <guid>/code/linux-and-docker/</guid>
+      <guid>https://oceanbao.github.io/code/linux-and-docker/</guid>
       <description> </description>
     </item>
     
     <item>
       <title>Code Poetry</title>
-      <link>/prose/code-poetry/</link>
+      <link>https://oceanbao.github.io/prose/code-poetry/</link>
       <pubDate>Tue, 13 Feb 2018 13:56:12 -0500</pubDate>
       
-      <guid>/prose/code-poetry/</guid>
+      <guid>https://oceanbao.github.io/prose/code-poetry/</guid>
       <description>Pseudo code poem.
 if (this === that): try write_new_poem() except not_a_poet as e: return  Or just one long line&amp;hellip;
 console.log(&amp;#39;Sometimes lines are waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaay toooooooooooooooooooo looooooooooooooooooooooooooooooong&amp;#39;)  An embedded gist using shortcode:
