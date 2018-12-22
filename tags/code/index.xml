@@ -17,10 +17,7 @@
       <pubDate>Mon, 22 Oct 2018 16:02:02 -0400</pubDate>
       
       <guid>https://oceanbao.github.io/code/omnicode/</guid>
-      <description>UNIX Quick Reference FILE
-rm -r #delete dir rm -f # force remove file cp -r dir1 dir2 # copy 1 to 2 creating dir2 if inexist ln -s file link # create symbolic link link to file Process
-killall proc # kill all processes named proc * bg # lists stopped or background jobs; fg a # brings job a to foreground File Permissions
-chmod octal file change permissions of file to octal,</description>
+      <description>Regex e.g. using sed (stream editor) cat /etc/passwd | sed # dump to sed pattern space (i.e. /pattern/action) p (prints line) d (delete line) s/pattern1/pattern2/ (sub 1 with 2) examples ( &amp;lsquo;4, 10d&amp;rsquo; &amp;lsquo;4, +5d&amp;rsquo; &amp;lsquo;2, 5!d&amp;rsquo; &amp;lsquo;1~3d&amp;rsquo;) (sed -n &amp;lsquo;1, 3p&amp;rsquo;) sed &#39;s/old/new/g&#39; (global sub) [-p if subbed, print][-w FILENAME write sub result to file] [-I -i case][M or m empty string] Example: matching phone number (chaining) sed -e &#39;s/^[[:digit:]]\{3\}/(&amp;amp;)/g&#39; -e &#39;s/)[[:digit:]]\{3\}/&amp;amp;-/g&#39; phone.</description>
     </item>
     
     <item>

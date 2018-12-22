@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>BASH</title>
+      <link>https://oceanbao.github.io/code/bash/</link>
+      <pubDate>Sat, 22 Dec 2018 17:01:17 -0500</pubDate>
+      
+      <guid>https://oceanbao.github.io/code/bash/</guid>
+      <description>#!/bin/bash ############################################################################## # SHORTCUTS ##############################################################################  CTRL+A # move to beginning of line CTRL+B # moves backward one character CTRL+C # halts the current command CTRL+D # deletes one character backward or logs out of current session, similar to exit CTRL+E # moves to end of line CTRL+F # moves forward one character CTRL+G # aborts the current editing command and ring the terminal bell CTRL+J # same as RETURN CTRL+K # deletes (kill) forward to end of line CTRL+L # clears screen and redisplay the line CTRL+M # same as RETURN CTRL+N # next line in command history CTRL+O # same as RETURN, then displays next line in history file CTRL+P # previous line in command history CTRL+R # searches backward CTRL+S # searches forward CTRL+T # transposes two characters CTRL+U # kills backward from point to the beginning of line CTRL+V # makes the next character typed verbatim CTRL+W # kills the word behind the cursor CTRL+X # lists the possible filename completions of the current word CTRL+Y # retrieves (yank) last item killed CTRL+Z # stops the current command, resume with fg in the foreground or bg in the background  ALT+B # moves backward one word ALT+D # deletes next word ALT+F # moves forward one word  DELETE # deletes one character backward !</description>
+    </item>
+    
+    <item>
       <title>RISE Slide HTML</title>
       <link>https://oceanbao.github.io/code/rise-slide-html/</link>
       <pubDate>Thu, 20 Dec 2018 23:40:30 -0500</pubDate>
@@ -77,10 +86,7 @@ This chapter focuses on items.</description>
       <pubDate>Mon, 22 Oct 2018 16:02:02 -0400</pubDate>
       
       <guid>https://oceanbao.github.io/code/omnicode/</guid>
-      <description>UNIX Quick Reference FILE
-rm -r #delete dir rm -f # force remove file cp -r dir1 dir2 # copy 1 to 2 creating dir2 if inexist ln -s file link # create symbolic link link to file Process
-killall proc # kill all processes named proc * bg # lists stopped or background jobs; fg a # brings job a to foreground File Permissions
-chmod octal file change permissions of file to octal,</description>
+      <description>Regex e.g. using sed (stream editor) cat /etc/passwd | sed # dump to sed pattern space (i.e. /pattern/action) p (prints line) d (delete line) s/pattern1/pattern2/ (sub 1 with 2) examples ( &amp;lsquo;4, 10d&amp;rsquo; &amp;lsquo;4, +5d&amp;rsquo; &amp;lsquo;2, 5!d&amp;rsquo; &amp;lsquo;1~3d&amp;rsquo;) (sed -n &amp;lsquo;1, 3p&amp;rsquo;) sed &#39;s/old/new/g&#39; (global sub) [-p if subbed, print][-w FILENAME write sub result to file] [-I -i case][M or m empty string] Example: matching phone number (chaining) sed -e &#39;s/^[[:digit:]]\{3\}/(&amp;amp;)/g&#39; -e &#39;s/)[[:digit:]]\{3\}/&amp;amp;-/g&#39; phone.</description>
     </item>
     
     <item>
