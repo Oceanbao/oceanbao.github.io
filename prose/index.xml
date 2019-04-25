@@ -12,6 +12,21 @@
     
     
     <item>
+      <title>Becoming_MLE</title>
+      <link>https://oceanbao.github.io/prose/becoming_mle/</link>
+      <pubDate>Sun, 17 Mar 2019 16:01:01 -0400</pubDate>
+      
+      <guid>https://oceanbao.github.io/prose/becoming_mle/</guid>
+      <description>Becoming Machine Learning Engineer Goal Output = Service/Product as Software integrating end-to-end ecosystem.
+Summary of Skills  CS Fundamentals and Programming  Data Structure
+ Stacks queues multi-D arrays trees graphs  Algorithms
+ search sort optimisation Dynamic programming  Computation and Complexity
+ NP/P/NP-Complete O() approximate heuristics  Architecture
+ memory cache bandwidth deadlocks distributed processing   Probability and Statistics
+ Bayes Net Markov Decision Process HMM  Data Modeling and Evaluation</description>
+    </item>
+    
+    <item>
       <title>hugo shortcode demo</title>
       <link>https://oceanbao.github.io/prose/hugo-shortcodes/</link>
       <pubDate>Fri, 16 Mar 2018 20:18:53 -0500</pubDate>
@@ -20,7 +35,7 @@
       <description>Shortcodes are pre-made templates converting HTML codes into shortcodes in hugo. Here illustrates some:
 YouTube video:   Tweet: Why you (yes, you) should blog https://t.co/nORheJJj1i @wscsf
 &amp;mdash; Rachel Thomas (@math_rachel) July 28, 2017  Permalink in hugo: Qui
-Instagram:   View this post on Instagram        Every time you visit, you&amp;#39;ll find something fascinating in Kyoto, even on rainy nights; such as this dimly lit alley of #Pontocho filled with alluring atmosphere!</description>
+Instagram:    View this post on Instagram        Every time you visit, you&amp;#39;ll find something fascinating in Kyoto, even on rainy nights; such as this dimly lit alley of #Pontocho filled with alluring atmosphere!</description>
     </item>
     
     <item>

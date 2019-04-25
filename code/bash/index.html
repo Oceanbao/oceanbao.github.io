@@ -835,6 +835,24 @@ less filename <span style="color:#75715e"># from end or beginning
 <p><code>youtube-dl -x --audio-format mp3 &lt;video_url&gt;</code></p>
 
 <p><a href="https://github.com/rg3/youtube-dl/blob/master/README.md#readme">Manual</a></p>
+
+<h3 id="kill-proc-listening-on-port">KILL PROC LISTENING ON PORT</h3>
+
+<p><code>lsof -n -i4TCP:8787 | grep LISTEN | awk '{ print $2 }' | xargs kill</code></p>
+
+<h3 id="networking">NETWORKING</h3>
+
+<p><code>ip addr</code> shows IPs, MAC, port status etc</p>
+
+<p><code>ifconfig</code> similar output but including packets and bytes count</p>
+
+<p><code>route</code> <code>-n</code>  route table</p>
+
+<p><code>netstat -n</code> active connections</p>
+
+<p><code>netstat -l -p</code> listening ports and procs</p>
+
+<p><code>tcpdump</code> CLI Wireshark</p>
 </div>
 
         

@@ -88,6 +88,9 @@ Example: matching phone number (chaining)
 
 <p><code>sudo ln -s /usr/local/bin/python3 /usr/local/bin/python</code></p>
 
+<h3 id="lost-symlink-after-brew-update">Lost Symlink after Brew Update</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">find ./my-example-env -type l -delete
+mkvirtualenv my-example-env</code></pre></div>
 <h3 id="also-checkout-env-variables-created-in-virtualwrapper">also checkout env variables created in virtualwrapper</h3>
 
 <p>WORKON_HOME=/Users/Ocean/.virtualenvs
@@ -434,6 +437,30 @@ CMD+CTR+G : select all matched characters</p>
 <h2 id="docker">DOCKER</h2>
 
 <p>==================================================================</p>
+
+<h2 id="install-docker-on-linux">Install Docker on Linux</h2>
+
+<p>As of 2018, to install <code>docker-ce</code> on Ubuntu 16.04 or Ubuntu 18.04, the command for the automated install is:</p>
+
+<pre><code>curl https://get.docker.com | sudo sh
+</code></pre>
+
+<p>Read the security note printed in output toward the end of the install. Note that the script at the URL used above is maintained in the <a href="https://github.com/docker/docker-install/">docker-install</a> repo.</p>
+
+<p>This installs the package and the repo. To confirm:</p>
+
+<pre><code>$ apt list docker-ce* 2&gt;&amp;- | grep installed
+docker-ce/now 5:18.09.0~3-0~ubuntu-xenial amd64 [installed,local]
+docker-ce-cli/now 5:18.09.0~3-0~ubuntu-xenial amd64 [installed,local]
+</code></pre>
+
+<p>Verify installation:</p>
+
+<pre><code>sudo docker run hello-world
+sudo docker version
+</code></pre>
+
+<p>Continue with <a href="https://docs.docker.com/engine/installation/linux/linux-postinstall/">post-installation steps</a>.</p>
 
 <h2 id="basic-1">Basic</h2>
 
