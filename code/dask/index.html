@@ -61,8 +61,7 @@
 
 <li><h2 id="datacamp-datacamp"><a href="#datacamp">DataCamp</a></h2></li>
 
-<li><h2 id="streamz-streamz"><a href="#streamz">Streamz</a></h2></li>
-</ol>
+<li><h2 id="streamz-streamz"><a href="#streamz">Streamz</a></h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> IPython.core.interactiveshell <span style="color:#f92672">import</span> InteractiveShell
 InteractiveShell<span style="color:#f92672">.</span>ast_node_interactivity <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;all&#34;</span>
 
@@ -71,7 +70,9 @@ InteractiveShell<span style="color:#f92672">.</span>ast_node_interactivity <span
 
 <span style="color:#f92672">import</span> numpy <span style="color:#f92672">as</span> np
 <span style="color:#f92672">import</span> pandas <span style="color:#f92672">as</span> pd
-<span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#f92672">as</span> plt</code></pre></div>
+<span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#f92672">as</span> plt</code></pre></div></li>
+</ol>
+
 <h2 id="reference-tom-augspurger-github-https-github-com-tomaugspurger-a-id-tom-a">Reference <a href="https://github.com/TomAugspurger">Tom Augspurger Github</a> <a id="tom"></a></h2>
 
 <ul>
@@ -141,11 +142,12 @@ InteractiveShell<span style="color:#f92672">.</span>ast_node_interactivity <span
 <ul>
 <li><p>Dask_ML on scalable, parallel algos (to dig) <a href="https://git.io/vAi7C">Example of Pipeline in SKL</a></p></li>
 
-<li><p>Distributed System: Peer with systems like XGBoost or TensorFlow</p></li>
-</ul>
+<li><p>Distributed System: Peer with systems like XGBoost or TensorFlow</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> dask_ml.xgboost <span style="color:#f92672">as</span> xgb
 df <span style="color:#f92672">=</span> dd<span style="color:#f92672">.</span>read_csv()
-booster <span style="color:#f92672">=</span> xgb<span style="color:#f92672">.</span>train(client, params, X, y)</code></pre></div>
+booster <span style="color:#f92672">=</span> xgb<span style="color:#f92672">.</span>train(client, params, X, y)</code></pre></div></li>
+</ul>
+
 <h2 id="example-of-dask-ml">Example of dask_ml</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#reading the csv files</span>
 <span style="color:#f92672">import</span> dask.dataframe <span style="color:#f92672">as</span> dd
@@ -312,27 +314,26 @@ client<span style="color:#f92672">.</span>gather(A) <span style="color:#75715e">
 <li>refer doc for detail SGE&rsquo;s qsub example</li>
 </ul></li>
 
-<li><p>Using Python API session manually (listening port and Tornado IOLoop)</p></li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">  <span style="color:#f92672">from</span> distributed <span style="color:#f92672">import</span> Scheduler
-  <span style="color:#f92672">from</span> tornado.ioloop <span style="color:#f92672">import</span> IOLoop
-  <span style="color:#f92672">from</span> threading <span style="color:#f92672">import</span> Thread
-  loop <span style="color:#f92672">=</span> IOLoop<span style="color:#f92672">.</span>current()
-  t <span style="color:#f92672">=</span> Thread(target<span style="color:#f92672">=</span>loop<span style="color:#f92672">.</span>start, daemon<span style="color:#f92672">=</span>True)
-  t<span style="color:#f92672">.</span>start()
-  s <span style="color:#f92672">=</span> Scheduler(loop<span style="color:#f92672">=</span>loop)
-  s<span style="color:#f92672">.</span>start(<span style="color:#e6db74">&#39;tcp://:8786&#39;</span>)
+<li><p>Using Python API session manually (listening port and Tornado IOLoop)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> distributed <span style="color:#f92672">import</span> Scheduler
+<span style="color:#f92672">from</span> tornado.ioloop <span style="color:#f92672">import</span> IOLoop
+<span style="color:#f92672">from</span> threading <span style="color:#f92672">import</span> Thread
+loop <span style="color:#f92672">=</span> IOLoop<span style="color:#f92672">.</span>current()
+t <span style="color:#f92672">=</span> Thread(target<span style="color:#f92672">=</span>loop<span style="color:#f92672">.</span>start, daemon<span style="color:#f92672">=</span>True)
+t<span style="color:#f92672">.</span>start()
+s <span style="color:#f92672">=</span> Scheduler(loop<span style="color:#f92672">=</span>loop)
+s<span style="color:#f92672">.</span>start(<span style="color:#e6db74">&#39;tcp://:8786&#39;</span>)
   
-  <span style="color:#75715e"># on nodes</span>
-  <span style="color:#f92672">from</span> distributed <span style="color:#f92672">import</span> Worker
-  <span style="color:#f92672">from</span> tornado.ioloop <span style="color:#f92672">import</span> IOLoop
-  <span style="color:#f92672">from</span> threading <span style="color:#f92672">import</span> Thread
-  loop <span style="color:#f92672">=</span> IOLoop<span style="color:#f92672">.</span>current()
-  t <span style="color:#f92672">=</span> Thread(target<span style="color:#f92672">=</span>loop<span style="color:#f92672">.</span>start, daemon<span style="color:#f92672">=</span>True)
-  t<span style="color:#f92672">.</span>start()
-  w <span style="color:#f92672">=</span> Worker(<span style="color:#e6db74">&#39;tcp://127.0.0.1:8786&#39;</span>, loop<span style="color:#f92672">=</span>loop)
-  w<span style="color:#f92672">.</span>start() <span style="color:#75715e"># choose randomly assigned port</span></code></pre></div>
-<ul>
+<span style="color:#75715e"># on nodes</span>
+<span style="color:#f92672">from</span> distributed <span style="color:#f92672">import</span> Worker
+<span style="color:#f92672">from</span> tornado.ioloop <span style="color:#f92672">import</span> IOLoop
+<span style="color:#f92672">from</span> threading <span style="color:#f92672">import</span> Thread
+loop <span style="color:#f92672">=</span> IOLoop<span style="color:#f92672">.</span>current()
+t <span style="color:#f92672">=</span> Thread(target<span style="color:#f92672">=</span>loop<span style="color:#f92672">.</span>start, daemon<span style="color:#f92672">=</span>True)
+t<span style="color:#f92672">.</span>start()
+w <span style="color:#f92672">=</span> Worker(<span style="color:#e6db74">&#39;tcp://127.0.0.1:8786&#39;</span>, loop<span style="color:#f92672">=</span>loop)
+w<span style="color:#f92672">.</span>start() <span style="color:#75715e"># choose randomly assigned port</span></code></pre></div></li>
+
 <li><p>Using LocalCluster (<code>from distributed import LocalCluster \ client = LocalCluster(processes=False)</code> IOLoop in background thread)</p></li>
 
 <li><p>Using AWS (see Cloud Deployments)</p></li>
@@ -421,22 +422,22 @@ client<span style="color:#f92672">.</span>gather(A) <span style="color:#75715e">
 <h4 id="tornado-coroutines">Tornado Coroutines</h4>
 
 <ul>
-<li>ASYNC ENV then blocking funcs listed above become ASYN equivalents - MUST start client with <code>asynchronous=True</code> plus <code>yield</code> or <code>await</code> blocking functions</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">  <span style="color:#a6e22e">@gen.coroutine</span>
-  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f</span>():
-      client <span style="color:#f92672">=</span> await Client(asynchronous<span style="color:#f92672">=</span>True)
-      future <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>submit(func, <span style="color:#f92672">*</span>args)
-      result <span style="color:#f92672">=</span> await future
-      <span style="color:#66d9ef">return</span> result</code></pre></div>
+<li><p>ASYNC ENV then blocking funcs listed above become ASYN equivalents - MUST start client with <code>asynchronous=True</code> plus <code>yield</code> or <code>await</code> blocking functions</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#a6e22e">@gen.coroutine</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f</span>():
+  client <span style="color:#f92672">=</span> await Client(asynchronous<span style="color:#f92672">=</span>True)
+  future <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>submit(func, <span style="color:#f92672">*</span>args)
+  result <span style="color:#f92672">=</span> await future
+  <span style="color:#66d9ef">return</span> result</code></pre></div>
 <ul>
 <li><p>If reusing same client in ASYNC and SYNC ENV, apply that keyword at EACH method call</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">client <span style="color:#f92672">=</span> Client() <span style="color:#75715e"># normal blocking client</span>
 <span style="color:#a6e22e">@gen.coroutine</span>
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f</span>():
-    futures <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>map(func, L)
-    results <span style="color:#f92672">=</span> await client<span style="color:#f92672">.</span>gather(futures, asynchronous<span style="color:#f92672">=</span>True)
-    <span style="color:#66d9ef">return</span> results</code></pre></div></li>
+futures <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>map(func, L)
+results <span style="color:#f92672">=</span> await client<span style="color:#f92672">.</span>gather(futures, asynchronous<span style="color:#f92672">=</span>True)
+<span style="color:#66d9ef">return</span> results</code></pre></div></li>
+</ul></li>
 </ul>
 
 <h3 id="api-see-doc">API see Doc</h3>
@@ -485,13 +486,13 @@ client<span style="color:#f92672">.</span>gather(A) <span style="color:#75715e">
 <ol>
 <li><p>SLOW: gather array to local process, call <code>.shape</code></p></li>
 
-<li><p>FAST: Send lambda func up to cluster to compute shape</p></li>
-</ol>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"> x <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>submit(np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>random, (<span style="color:#ae81ff">1000</span>,<span style="color:#ae81ff">1000</span>)) <span style="color:#75715e"># x is future</span>
- <span style="color:#75715e"># SLOW</span>
- x<span style="color:#f92672">.</span>result()<span style="color:#f92672">.</span>shape() <span style="color:#75715e"># slow down by data transfer</span>
- <span style="color:#75715e"># FAST</span>
- client<span style="color:#f92672">.</span>submit(<span style="color:#66d9ef">lambda</span> a: a<span style="color:#f92672">.</span>shape, x)<span style="color:#f92672">.</span>result()</code></pre></div></li>
+<li><p>FAST: Send lambda func up to cluster to compute shape</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>submit(np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>random, (<span style="color:#ae81ff">1000</span>,<span style="color:#ae81ff">1000</span>)) <span style="color:#75715e"># x is future</span>
+<span style="color:#75715e"># SLOW</span>
+x<span style="color:#f92672">.</span>result()<span style="color:#f92672">.</span>shape() <span style="color:#75715e"># slow down by data transfer</span>
+<span style="color:#75715e"># FAST</span>
+client<span style="color:#f92672">.</span>submit(<span style="color:#66d9ef">lambda</span> a: a<span style="color:#f92672">.</span>shape, x)<span style="color:#f92672">.</span>result()</code></pre></div></li>
+</ol></li>
 </ul>
 
 <h4 id="user-larger-tasks">User larger tasks</h4>
@@ -499,18 +500,19 @@ client<span style="color:#f92672">.</span>gather(A) <span style="color:#75715e">
 <ul>
 <li><h4 id="scheduler-adds-aout-1ms-overhead-per-task-or-future-obj-slow-if-billions-of-tasks-if-func-run-faster-than-100ms-then-might-not-see-any-speedup-from-using-distributed-computing">scheduler adds aout 1ms overhead per task or Future obj, slow if billions of tasks - if func run faster than 100ms then might not see any speedup from using distributed computing !!</h4></li>
 
-<li><p>SOLUTION: BATCH INPUT INTO LARGER CHUNKS</p></li>
+<li><p>SOLUTION: BATCH INPUT INTO LARGER CHUNKS</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># SLOW</span>
+future <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>map(f, seq)
+len(futures) <span style="color:#75715e"># 100000000000 avoid large numbers of futures</span>
+<span style="color:#75715e"># FAST</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f_many</span>(chunk):
+  <span style="color:#66d9ef">return</span> [f(x) <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> chunk]
+<span style="color:#f92672">from</span> toolz <span style="color:#f92672">import</span> partition_all
+chunks <span style="color:#f92672">=</span> partition_all(<span style="color:#ae81ff">10000000</span>, seq) <span style="color:#75715e"># collect into groups of size 1000</span>
+futures <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>map(f_many, chunks)
+len(futures) <span style="color:#75715e"># 1000 compu on larger pieces of data at once</span></code></pre></div></li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">  <span style="color:#75715e"># SLOW</span>
-  future <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>map(f, seq)
-  len(futures) <span style="color:#75715e"># 100000000000 avoid large numbers of futures</span>
-  <span style="color:#75715e"># FAST</span>
-  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f_many</span>(chunk):
-      <span style="color:#66d9ef">return</span> [f(x) <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> chunk]
-  <span style="color:#f92672">from</span> toolz <span style="color:#f92672">import</span> partition_all
-  chunks <span style="color:#f92672">=</span> partition_all(<span style="color:#ae81ff">10000000</span>, seq) <span style="color:#75715e"># collect into groups of size 1000</span>
-  futures <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>map(f_many, chunks)
-  len(futures) <span style="color:#75715e"># 1000 compu on larger pieces of data at once</span></code></pre></div>
+
 <h4 id="adjust-betweeen-threads-and-processes">Adjust betweeen Threads and Processes!!!</h4>
 
 <ul>
@@ -587,25 +589,26 @@ client<span style="color:#f92672">.</span>gather(A) <span style="color:#75715e">
 <h4 id="worker-with-compute-persist">Worker with Compute/Persist</h4>
 
 <ul>
-<li><code>worker=</code> keyword in <code>scatter, submit, map</code></li>
-</ul>
+<li><p><code>worker=</code> keyword in <code>scatter, submit, map</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">client<span style="color:#f92672">.</span>submit(f, x, workers<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;127.0.0.1&#39;</span>)
 client<span style="color:#f92672">.</span>submit(f, x, workers<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;127.0.0.1:55852&#39;</span>)
 client<span style="color:#f92672">.</span>submit(f, x, workers<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;192.168.1.101&#39;</span>, <span style="color:#e6db74">&#39;192.168.1.100&#39;</span>])
-    <span style="color:#75715e"># more complex compu, specify certain parts of compu run on certain workers</span>
+<span style="color:#75715e"># more complex compu, specify certain parts of compu run on certain workers</span>
 x <span style="color:#f92672">=</span> delayed(f)(<span style="color:#ae81ff">1</span>)
 y <span style="color:#f92672">=</span> delayed(f)(<span style="color:#ae81ff">2</span>)
 z <span style="color:#f92672">=</span> delayed(g)(x, y)
 future <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>compute(z, workers<span style="color:#f92672">=</span>{z: <span style="color:#e6db74">&#39;127.0.0.1&#39;</span>,
-                                    x: <span style="color:#e6db74">&#39;192.168.0.1&#39;</span>})
+                                x: <span style="color:#e6db74">&#39;192.168.0.1&#39;</span>})
 
 future <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>compute(z, workers<span style="color:#f92672">=</span>{(x, y): [<span style="color:#e6db74">&#39;192.168.1.100&#39;</span>, <span style="color:#e6db74">&#39;192.168.1.101:9999&#39;</span>]})
 future <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>compute(z, workers<span style="color:#f92672">=</span>{(x, y): <span style="color:#e6db74">&#39;127.0.0.1&#39;</span>},
-                        allow_other_workers<span style="color:#f92672">=</span>True)
+                    allow_other_workers<span style="color:#f92672">=</span>True)
 future <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>compute(z, workers<span style="color:#f92672">=</span>{(x, y): <span style="color:#e6db74">&#39;127.0.0.1&#39;</span>},
-                        allow_other_workers<span style="color:#f92672">=</span>[x])
+                    allow_other_workers<span style="color:#f92672">=</span>[x])
 df <span style="color:#f92672">=</span> dd<span style="color:#f92672">.</span>read_csv(<span style="color:#e6db74">&#39;s3://...&#39;</span>)
-df <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>persist(df, workers<span style="color:#f92672">=</span>{df: <span style="color:#f92672">...</span>})</code></pre></div>
+df <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>persist(df, workers<span style="color:#f92672">=</span>{df: <span style="color:#f92672">...</span>})</code></pre></div></li>
+</ul>
+
 <h3 id="managing-computation">Managing Computation</h3>
 
 <ul>
@@ -658,14 +661,14 @@ df <span style="color:#f92672">=</span> client<span style="color:#f92672">.</spa
 <h4 id="concrete-value-to-futures">Concrete Value to Futures</h4>
 
 <ul>
-<li>Get futures from few ways: 1) above, by wrapping Futures with Dask collections , 2) submitting data / task directly to cluster by <code>client.scatter, client.submit or client.map</code></li>
-</ul>
+<li><p>Get futures from few ways: 1) above, by wrapping Futures with Dask collections , 2) submitting data / task directly to cluster by <code>client.scatter, client.submit or client.map</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">futures <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>scatter(args) <span style="color:#75715e"># Send data</span>
 future <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>submit(function, <span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwrags) <span style="color:#75715e"># Send single task</span>
-futures <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>map(function, sequence, <span style="color:#f92672">**</span>kwargs) <span style="color:#75715e"># Send many tasks</span></code></pre></div>
-<ul>
-<li>now <code>*args or **kwargs</code> can be nromal Python obj or other <code>Future</code> if to link tasks with dependencies</li>
-<li><strong>unlike Dask collections (dask.delayed) these task submissions happen at once, the concurrent.futures interface very similar to dask.delayed except that execution is immediate not lazy</strong></li>
+futures <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>map(function, sequence, <span style="color:#f92672">**</span>kwargs) <span style="color:#75715e"># Send many tasks</span></code></pre></div></li>
+
+<li><p>now <code>*args or **kwargs</code> can be nromal Python obj or other <code>Future</code> if to link tasks with dependencies</p></li>
+
+<li><p><strong>unlike Dask collections (dask.delayed) these task submissions happen at once, the concurrent.futures interface very similar to dask.delayed except that execution is immediate not lazy</strong></p></li>
 </ul>
 
 <h4 id="futures-to-concrete-values">Futures to Concrete Values</h4>
@@ -718,13 +721,15 @@ Client<span style="color:#f92672">.</span>scatter(data[, workers, broadcast, <sp
 
 <ul>
 <li>calls to <code>client.compute or client.persist</code> submit task graphs to cluster and retur future pointing to particular ouptut tasks</li>
-<li>compute returns single future per input, persist reutns a copy of collection with each block or partition repalced by single future, inshort <strong>use <code>persist</code> to keep full collection on cluster and <code>compute</code> when want a small result as a single future - persist is more common and often used with collections:</strong></li>
-</ul>
+
+<li><p>compute returns single future per input, persist reutns a copy of collection with each block or partition repalced by single future, inshort <strong>use <code>persist</code> to keep full collection on cluster and <code>compute</code> when want a small result as a single future - persist is more common and often used with collections:</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#75715e"># Construct dataframe, no work happens &gt;&gt;&gt; df = dd.read_csv(...)</span>
 <span style="color:#f92672">&gt;&gt;&gt;</span> df <span style="color:#f92672">=</span> df[df<span style="color:#f92672">.</span>x <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>]
 <span style="color:#f92672">&gt;&gt;&gt;</span> df <span style="color:#f92672">=</span> df<span style="color:#f92672">.</span>assign(z <span style="color:#f92672">=</span> df<span style="color:#f92672">.</span>x <span style="color:#f92672">+</span> df<span style="color:#f92672">.</span>y)
 <span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#75715e"># Pin data in distributed ram, this triggers computation &gt;&gt;&gt; df = client.persist(df)</span>
-<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#75715e"># continue operating on df</span></code></pre></div>
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#75715e"># continue operating on df</span></code></pre></div></li>
+</ul>
+
 <blockquote>
 <p>Build compu parsing CSV, filtering, adding col, up till this point all LAZY - simply a recipe to graph in df object -&gt; <code>.persist(df)</code> cut this graph off df sending it up to scheduler receiving future in return creating new df with shallow graph pointing right to them - more or less at once - continue working on new df while cluster running graph in back</p>
 </blockquote>
@@ -735,12 +740,14 @@ Client<span style="color:#f92672">.</span>scatter(data[, workers, broadcast, <sp
 <li><code>client.persist(df), client.compute(df)</code> ASYNC so differ from <code>df.compute()</code> or <code>dask.copute</code>, which blocks until result available</li>
 <li><code>.compute()</code> NOT persist any data on cluster - also brings entire result back to local -&gt; unwise to use on large data</li>
 <li>BUT <code>compute()</code> very easy for smaller result as concrete result most other tools expect !</li>
-<li>Typically use ASYNC ones to set up large collections and <code>df.compute()</code> for fast analyses:</li>
-</ul>
+
+<li><p>Typically use ASYNC ones to set up large collections and <code>df.compute()</code> for fast analyses:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#75715e"># df.compute() # This is bad and would likely flood local memory</span>
 <span style="color:#f92672">&gt;&gt;&gt;</span> df <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>persist(df) <span style="color:#75715e"># This is good and asynchronously pins df</span>
 <span style="color:#f92672">&gt;&gt;&gt;</span> df<span style="color:#f92672">.</span>x<span style="color:#f92672">.</span>sum()<span style="color:#f92672">.</span>compute() <span style="color:#75715e"># This is good because the result is small</span>
-<span style="color:#f92672">&gt;&gt;&gt;</span> future <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>compute(df<span style="color:#f92672">.</span>x<span style="color:#f92672">.</span>sum()) <span style="color:#75715e"># This is also good but less intuitive</span></code></pre></div>
+<span style="color:#f92672">&gt;&gt;&gt;</span> future <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>compute(df<span style="color:#f92672">.</span>x<span style="color:#f92672">.</span>sum()) <span style="color:#75715e"># This is also good but less intuitive</span></code></pre></div></li>
+</ul>
+
 <h4 id="clearing-data">Clearing data</h4>
 
 <ul>
@@ -897,16 +904,18 @@ IOLoop<span style="color:#f92672">.</span>current()<span style="color:#f92672">.
 <li>scale out if necessary</li>
 <li>almost always more efficient than multiprocessing scheduler</li>
 </ol></li>
-<li>Ligthweight
+
+<li><p>Ligthweight</p>
 
 <ol>
-<li>Worker stepup, task submission, result retrieval, shutdown:</li>
-</ol></li>
-</ul>
+<li><p>Worker stepup, task submission, result retrieval, shutdown:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">%%</span>time
 <span style="color:#66d9ef">with</span> Client(processes<span style="color:#f92672">=</span>False) <span style="color:#66d9ef">as</span> client:
-    future <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>submit(<span style="color:#66d9ef">lambda</span> x: x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">10</span>)
-    <span style="color:#66d9ef">print</span>(future<span style="color:#f92672">.</span>result())</code></pre></div>
+future <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>submit(<span style="color:#66d9ef">lambda</span> x: x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">10</span>)
+<span style="color:#66d9ef">print</span>(future<span style="color:#f92672">.</span>result())</code></pre></div></li>
+</ol></li>
+</ul>
+
 <h3 id="customised-programme-with-dask-example">Customised Programme with Dask (Example)</h3>
 
 <h4 id="futures-api">Futures API</h4>
@@ -1013,8 +1022,7 @@ running <span style="color:#f92672">=</span> as_completed(futures)
 <h4 id="worker-starts-client-scheduler">Worker Starts Client/Scheduler!</h4>
 
 <ul>
-<li>Submit tasks from tasks</li>
-</ul>
+<li><p>Submit tasks from tasks</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># tasks can get their own client </span>
 <span style="color:#75715e"># Remote client controls cluster</span>
 <span style="color:#75715e"># Task-on-worker can do anything you can do locally</span>
@@ -1022,27 +1030,26 @@ running <span style="color:#f92672">=</span> as_completed(futures)
 <span style="color:#f92672">from</span> dask.distributed <span style="color:#f92672">import</span> get_client, get_worker, secede, fire_and_forget
 
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">func</span>(<span style="color:#f92672">...</span>):
-    client <span style="color:#f92672">=</span> get_client()
-    futures <span style="color:#f92672">=</span> [client<span style="color:#f92672">.</span>submit(<span style="color:#f92672">...</span>) <span style="color:#66d9ef">for</span> <span style="color:#f92672">...</span>]
-    results <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>gather(futures)
-    <span style="color:#66d9ef">return</span> sum(results)
+client <span style="color:#f92672">=</span> get_client()
+futures <span style="color:#f92672">=</span> [client<span style="color:#f92672">.</span>submit(<span style="color:#f92672">...</span>) <span style="color:#66d9ef">for</span> <span style="color:#f92672">...</span>]
+results <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>gather(futures)
+<span style="color:#66d9ef">return</span> sum(results)
 
 future <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>submit(func, <span style="color:#f92672">...</span>)
 
 <span style="color:#75715e"># EX: fibonnacii</span>
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fib</span>(n):
-    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">or</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
-        <span style="color:#66d9ef">return</span> n
-    <span style="color:#66d9ef">else</span>:
-        client <span style="color:#f92672">=</span> get_client()
-        a <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>submit(fib, n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
-        b <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>submit(fib, n <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>)
-        <span style="color:#66d9ef">return</span> a<span style="color:#f92672">.</span>result() <span style="color:#f92672">+</span> b<span style="color:#f92672">.</span>result()
+<span style="color:#66d9ef">if</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">or</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+    <span style="color:#66d9ef">return</span> n
+<span style="color:#66d9ef">else</span>:
+    client <span style="color:#f92672">=</span> get_client()
+    a <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>submit(fib, n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+    b <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>submit(fib, n <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>)
+    <span style="color:#66d9ef">return</span> a<span style="color:#f92672">.</span>result() <span style="color:#f92672">+</span> b<span style="color:#f92672">.</span>result()
     
-future <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>submit(fib, <span style="color:#ae81ff">1000</span>)</code></pre></div>
-<ul>
-<li>Multi-client coordination</li>
-</ul>
+future <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>submit(fib, <span style="color:#ae81ff">1000</span>)</code></pre></div></li>
+
+<li><p>Multi-client coordination</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># multiple clients, communicating</span>
 
 <span style="color:#75715e"># multi-producer/consumer queue</span>
@@ -1059,54 +1066,53 @@ x <span style="color:#f92672">=</span> q<span style="color:#f92672">.</span>get(
 v <span style="color:#f92672">=</span> Variable()
 future <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>scatter(my_numpy_array)
 v<span style="color:#f92672">.</span>set(<span style="color:#ae81ff">123</span>)
-x <span style="color:#f92672">=</span> v<span style="color:#f92672">.</span>get()</code></pre></div>
-<ul>
-<li>Multi-consumer Multi-producer system</li>
-</ul>
+x <span style="color:#f92672">=</span> v<span style="color:#f92672">.</span>get()</code></pre></div></li>
+
+<li><p>Multi-consumer Multi-producer system</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Workers start clients</span>
 <span style="color:#75715e"># Tasks can submit more tasks</span>
 <span style="color:#75715e"># can do anything you can do locally</span>
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">producer</span>():
-    client <span style="color:#f92672">=</span> get_client()
-    <span style="color:#66d9ef">while</span> <span style="color:#f92672">not</span> stop<span style="color:#f92672">.</span>get():
-        data <span style="color:#f92672">=</span> get_data()
-        future <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>scatter(data)
-        q<span style="color:#f92672">.</span>put(future)
+client <span style="color:#f92672">=</span> get_client()
+<span style="color:#66d9ef">while</span> <span style="color:#f92672">not</span> stop<span style="color:#f92672">.</span>get():
+    data <span style="color:#f92672">=</span> get_data()
+    future <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>scatter(data)
+    q<span style="color:#f92672">.</span>put(future)
         
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">consumer</span>():
-    client <span style="color:#f92672">=</span> get_client()
-    <span style="color:#66d9ef">while</span> <span style="color:#f92672">not</span> stop<span style="color:#f92672">.</span>get():
-        future <span style="color:#f92672">=</span> q<span style="color:#f92672">.</span>get()
-        data <span style="color:#f92672">=</span> future<span style="color:#f92672">.</span>result()
-        <span style="color:#75715e"># do stuff with data</span>
+client <span style="color:#f92672">=</span> get_client()
+<span style="color:#66d9ef">while</span> <span style="color:#f92672">not</span> stop<span style="color:#f92672">.</span>get():
+    future <span style="color:#f92672">=</span> q<span style="color:#f92672">.</span>get()
+    data <span style="color:#f92672">=</span> future<span style="color:#f92672">.</span>result()
+    <span style="color:#75715e"># do stuff with data</span>
 q <span style="color:#f92672">=</span> Queue()
 stop <span style="color:#f92672">=</span> Variable()
 stop<span style="color:#f92672">.</span>set(False)
 
 producers <span style="color:#f92672">=</span> [client<span style="color:#f92672">.</span>submit(producer, <span style="color:#f92672">...</span>) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n)]
-consumers <span style="color:#f92672">=</span> [client<span style="color:#f92672">.</span>submit(consumer, <span style="color:#f92672">...</span>) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(m)]</code></pre></div>
-<ul>
-<li>Fully async await compliant</li>
-</ul>
+consumers <span style="color:#f92672">=</span> [client<span style="color:#f92672">.</span>submit(consumer, <span style="color:#f92672">...</span>) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(m)]</code></pre></div></li>
+
+<li><p>Fully async await compliant</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># support async/await syntax</span>
 <span style="color:#75715e"># support Tornado and AsyncIO event loops</span>
 async <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f</span>():
-    client <span style="color:#f92672">=</span> await Client(asynchronous<span style="color:#f92672">=</span>True)
+client <span style="color:#f92672">=</span> await Client(asynchronous<span style="color:#f92672">=</span>True)
     
-    futures <span style="color:#f92672">=</span> [client<span style="color:#f92672">.</span>submit(f, x) <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> L]
-    async <span style="color:#66d9ef">for</span> future <span style="color:#f92672">in</span> as_completed(futures):
-        result <span style="color:#f92672">=</span> await future
-        <span style="color:#75715e"># do things with result</span></code></pre></div>
-<ul>
-<li>Specify resource constriants like RAM or GPU</li>
-</ul>
+futures <span style="color:#f92672">=</span> [client<span style="color:#f92672">.</span>submit(f, x) <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> L]
+async <span style="color:#66d9ef">for</span> future <span style="color:#f92672">in</span> as_completed(futures):
+    result <span style="color:#f92672">=</span> await future
+    <span style="color:#75715e"># do things with result</span></code></pre></div></li>
+
+<li><p>Specify resource constriants like RAM or GPU</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># specify resources contrs</span>
 <span style="color:#75715e"># Good for GPU high RAM tasks</span>
 dask<span style="color:#f92672">-</span>worker <span style="color:#f92672">...</span> <span style="color:#f92672">--</span>resources <span style="color:#e6db74">&#34;GPU=2 FOO=1&#34;</span>
 dask<span style="color:#f92672">-</span>worker <span style="color:#f92672">...</span> <span style="color:#f92672">--</span>resources <span style="color:#e6db74">&#34;GPU=1 MEMORY=100e9&#34;</span>
 
 future <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>submit(func, x, resources<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#39;GPU&#39;</span>: <span style="color:#ae81ff">1</span>})
-future <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>submit(func, x, resources<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#39;MEMORY&#39;</span>: <span style="color:#ae81ff">60e9</span>})</code></pre></div>
+future <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>submit(func, x, resources<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#39;MEMORY&#39;</span>: <span style="color:#ae81ff">60e9</span>})</code></pre></div></li>
+</ul>
+
 <h1 id="jim-crist-talks-a-id-jim-a">Jim Crist Talks <a id="jim"></a></h1>
 
 <h3 id="parallel-numpy-and-pandas-through-task-scheduling">Parallel NumPy and Pandas through Task Scheduling</h3>
@@ -1172,12 +1178,11 @@ cleaned <span style="color:#f92672">=</span> [clean(i) <span style="color:#66d9e
 analyzed <span style="color:#f92672">=</span> analyze(cleaned)
 stored <span style="color:#f92672">=</span> store(analyze)</code></pre></div>
 <ul>
-<li>Example - dask.bag (any non-NumPy, non-DataFrame, collections)</li>
-</ul>
+<li><p>Example - dask.bag (any non-NumPy, non-DataFrame, collections)</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> dask.bag <span style="color:#f92672">as</span> db
 
 b <span style="color:#f92672">=</span> db<span style="color:#f92672">.</span>from_castra(<span style="color:#e6db74">&#39;reddit.castra&#39;</span> columns<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;subreddit&#39;</span>, <span style="color:#e6db74">&#39;body&#39;</span>],
-                   npartitions<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>)
+               npartitions<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>)
 matches_subreddit <span style="color:#f92672">=</span> b<span style="color:#f92672">.</span>filter(<span style="color:#66d9ef">lambda</span> x: x[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;MachineLearning&#39;</span>)
 words <span style="color:#f92672">=</span> matches_subreddit<span style="color:#f92672">.</span>pluck(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">.</span>map(to_words)<span style="color:#f92672">.</span>concat()
 top_words <span style="color:#f92672">=</span> words<span style="color:#f92672">.</span>frequencies()<span style="color:#f92672">.</span>topk(<span style="color:#ae81ff">100</span>, key<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">.</span>compute()
@@ -1186,7 +1191,9 @@ top_words <span style="color:#f92672">=</span> words<span style="color:#f92672">
 
 wc <span style="color:#f92672">=</span> WordCloud()
 wc <span style="color:#f92672">=</span> generate_from_frequencies(top_words)
-wc<span style="color:#f92672">.</span>to_image()</code></pre></div>
+wc<span style="color:#f92672">.</span>to_image()</code></pre></div></li>
+</ul>
+
 <h3 id="dataframes-on-cluster">DataFrames on Cluster</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> gcsfs <span style="color:#f92672">import</span> GCSFileSystem
 gcs <span style="color:#f92672">=</span> GCSFileSystem(token<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;cloud&#39;</span>)
@@ -1248,14 +1255,17 @@ min,max <span style="color:#75715e"># sharing mid values (y = f(x))</span></code
 <ul>
 <li><code>dask.dataframe.read_csv</code> only reads first lines of first file</li>
 <li>MAY incur dtype errors if missing</li>
-<li>SOLUTION
+
+<li><p>SOLUTION</p>
 
 <ol>
 <li>specify dtype</li>
-<li><code>assume_missing</code> to make dask assume col to be int (which disallow missing) are in fact floats (which allows)</li>
+
+<li><p><code>assume_missing</code> to make dask assume col to be int (which disallow missing) are in fact floats (which allows)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">dd<span style="color:#f92672">.</span>read_csv(filename, <span style="color:#f92672">...</span> dtype<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#39;col1&#39;</span>: str, <span style="color:#e6db74">&#39;col2&#39;</span>: float, <span style="color:#e6db74">&#39;col3&#39;</span>: bool})</code></pre></div></li>
 </ol></li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">dd<span style="color:#f92672">.</span>read_csv(filename, <span style="color:#f92672">...</span> dtype<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#39;col1&#39;</span>: str, <span style="color:#e6db74">&#39;col2&#39;</span>: float, <span style="color:#e6db74">&#39;col3&#39;</span>: bool})</code></pre></div>
+
 <p><strong>Just use normal Pandas syntax!</strong>
 <code>df.Column.max().compute()</code></p>
 
@@ -1270,8 +1280,7 @@ df2<span style="color:#f92672">.</span>npartitions</code></pre></div>
 </blockquote>
 
 <ul>
-<li>wrapper: <code>map_partitions, map_overlap, reduction</code></li>
-</ul>
+<li><p>wrapper: <code>map_partitions, map_overlap, reduction</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># individual wrapping</span>
 hours <span style="color:#f92672">=</span> df<span style="color:#f92672">.</span>Time <span style="color:#f92672">//</span> <span style="color:#ae81ff">100</span>
 hours_timedelta <span style="color:#f92672">=</span> hours<span style="color:#f92672">.</span>map_partitions(pd<span style="color:#f92672">.</span>to_timedelta, unit<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;h&#39;</span>)
@@ -1282,12 +1291,14 @@ timestamp <span style="color:#f92672">=</span> df<span style="color:#f92672">.</
 
 <span style="color:#75715e"># functional wrapping</span>
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">compute_timestamp</span>(df):
-    hours <span style="color:#f92672">=</span> df<span style="color:#f92672">.</span>Time <span style="color:#f92672">//</span> <span style="color:#ae81ff">100</span>
-    hours_timedelta <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>to_timedelta(hours, unit<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;h&#39;</span>)
-    mins <span style="color:#f92672">=</span> df<span style="color:#f92672">.</span>Time <span style="color:#f92672">%</span> <span style="color:#ae81ff">100</span>
-    mins_timedelta <span style="color:#f92672">=</span> d<span style="color:#f92672">.</span>to_timedelta(minutes, unit<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;m&#39;</span>)
-    <span style="color:#66d9ef">return</span> df<span style="color:#f92672">.</span>Date <span style="color:#f92672">+</span> hours_timedelta <span style="color:#f92672">+</span> mins_timedelta
-timestamp <span style="color:#f92672">=</span> df<span style="color:#f92672">.</span>map_partitions(compute_timestamp)</code></pre></div>
+hours <span style="color:#f92672">=</span> df<span style="color:#f92672">.</span>Time <span style="color:#f92672">//</span> <span style="color:#ae81ff">100</span>
+hours_timedelta <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>to_timedelta(hours, unit<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;h&#39;</span>)
+mins <span style="color:#f92672">=</span> df<span style="color:#f92672">.</span>Time <span style="color:#f92672">%</span> <span style="color:#ae81ff">100</span>
+mins_timedelta <span style="color:#f92672">=</span> d<span style="color:#f92672">.</span>to_timedelta(minutes, unit<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;m&#39;</span>)
+<span style="color:#66d9ef">return</span> df<span style="color:#f92672">.</span>Date <span style="color:#f92672">+</span> hours_timedelta <span style="color:#f92672">+</span> mins_timedelta
+timestamp <span style="color:#f92672">=</span> df<span style="color:#f92672">.</span>map_partitions(compute_timestamp)</code></pre></div></li>
+</ul>
+
 <p><strong>Dask.array / Dask.stack</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> h5py
 <span style="color:#f92672">from</span> glob <span style="color:#f92672">import</span> glob
@@ -1447,21 +1458,22 @@ df<span style="color:#f92672">.</span>loc[<span style="color:#e6db74">&#39;1992-
 
 <li><p><code>client.gather(future1, future2...)</code> pull back many futures</p></li>
 
-<li><p><strong>ALTERNATIVE way to exec work on cluster - submit/map with input as future, computation moves to data rather than other way around, and client (local python session) need never see the middle values - similar to building graph by <code>delayed</code> which can be used here with futures</strong> :</p></li>
+<li><p><strong>ALTERNATIVE way to exec work on cluster - submit/map with input as future, computation moves to data rather than other way around, and client (local python session) need never see the middle values - similar to building graph by <code>delayed</code> which can be used here with futures</strong> :</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x <span style="color:#f92672">=</span> delayed(inc)(<span style="color:#ae81ff">1</span>)
+total <span style="color:#f92672">=</span> delayed(add)(x, y)
+  
+fut <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>compute(total)
+fut
+fut<span style="color:#f92672">.</span>result() <span style="color:#75715e"># passing compu to cluster while freeing machine to do other works !!</span>
+  
+<span style="color:#75715e"># convert to submit()</span>
+x <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>submit(inc, <span style="color:#ae81ff">1</span>)
+total <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>submit(add, x, y)
+  
+<span style="color:#66d9ef">print</span>(total) <span style="color:#75715e"># a future</span>
+total<span style="color:#f92672">.</span>result() <span style="color:#75715e"># blocks untill compu done</span></code></pre></div></li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">  x <span style="color:#f92672">=</span> delayed(inc)(<span style="color:#ae81ff">1</span>)
-  total <span style="color:#f92672">=</span> delayed(add)(x, y)
-  
-  fut <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>compute(total)
-  fut
-  fut<span style="color:#f92672">.</span>result() <span style="color:#75715e"># passing compu to cluster while freeing machine to do other works !!</span>
-  
-  <span style="color:#75715e"># convert to submit()</span>
-  x <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>submit(inc, <span style="color:#ae81ff">1</span>)
-  total <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>submit(add, x, y)
-  
-  <span style="color:#66d9ef">print</span>(total) <span style="color:#75715e"># a future</span>
-  total<span style="color:#f92672">.</span>result() <span style="color:#75715e"># blocks untill compu done</span></code></pre></div>
+
 <blockquote>
 <h4 id="note-difference-total-compute-completes-immediately">NOTE difference: total.compute() completes immediately</h4>
 </blockquote>
@@ -1499,18 +1511,20 @@ client.gather(f)
 
 <ol>
 <li>Use Dask Joblib backend</li>
-<li>Use dklearn projects drop-in repalcements for <code>Pipeline, GridSearchCV, RndomSearchCV</code></li>
-</ol>
+
+<li><p>Use dklearn projects drop-in repalcements for <code>Pipeline, GridSearchCV, RndomSearchCV</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#Joblib</span>
 
 <span style="color:#f92672">from</span> joblib <span style="color:#f92672">import</span> parallel_backend
 <span style="color:#66d9ef">with</span> parallel_backend(<span style="color:#e6db74">&#39;dask.distributed&#39;</span>, scheduler_host<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;scheduler-address:8786&#39;</span>):
-    <span style="color:#75715e"># your now-clustered sklearn code here</span>
+<span style="color:#75715e"># your now-clustered sklearn code here</span>
     
 <span style="color:#75715e"># Dask-learn pipeline repalcement</span>
 
 <span style="color:#f92672">from</span> dklearn.grid_search <span style="color:#f92672">import</span> GridSearchCV
-<span style="color:#f92672">from</span> dklearn.pipeline <span style="color:#f92672">import</span> Pipeline</code></pre></div>
+<span style="color:#f92672">from</span> dklearn.pipeline <span style="color:#f92672">import</span> Pipeline</code></pre></div></li>
+</ol>
+
 <ul>
 <li>Neither perfect - but easiest to try</li>
 </ul>
@@ -1519,13 +1533,13 @@ client.gather(f)
 
 <ul>
 <li>SKL already paral across-cores using joblib, extensible map operation</li>
-<li>If extending Joblib to clusters then adding parallelism from joblib-enabled SKL at once</li>
-</ul>
+
+<li><p>If extending Joblib to clusters then adding parallelism from joblib-enabled SKL at once</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># sequential code demo joblib</span>
 <span style="color:#f92672">from</span> time <span style="color:#f92672">import</span> sleep
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">slowinc</span>(x):
-    sleep(<span style="color:#ae81ff">1</span>)
-    <span style="color:#66d9ef">return</span> x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+sleep(<span style="color:#ae81ff">1</span>)
+<span style="color:#66d9ef">return</span> x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
 
 <span style="color:#f92672">%</span>timeit [slowinc(i) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">10</span>)]
 
@@ -1535,25 +1549,28 @@ client.gather(f)
 <span style="color:#f92672">%</span>timeit Parallel(n_jobs<span style="color:#f92672">=-</span><span style="color:#ae81ff">1</span>)(delayed(slowinc)(i) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">10</span>))</code></pre></div>
 <pre><code>10 s ± 7.36 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
 5.03 s ± 3.65 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
-</code></pre>
+</code></pre></li>
+</ul>
 
 <h3 id="distributed-joblib">Distributed Joblib</h3>
 
 <ul>
 <li>API for other parallel systems to step in acting as execution engine - <code>parallel_backend</code> context manager to run with hundres or thousands of cores in nearby cluster</li>
-<li>Main value for SKL users is that SKL already uses <code>joblib.Parallel</code> inside - e.g. <code>n_jobs</code> or using JOBLIB together with <code>Dask.distributed</code> to parallelise across multi-node cluster</li>
-</ul>
+
+<li><p>Main value for SKL users is that SKL already uses <code>joblib.Parallel</code> inside - e.g. <code>n_jobs</code> or using JOBLIB together with <code>Dask.distributed</code> to parallelise across multi-node cluster</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> dask.distributed <span style="color:#f92672">import</span> Client
 client <span style="color:#f92672">=</span> Client()
 
 <span style="color:#f92672">from</span> sklearn.externals <span style="color:#f92672">import</span> joblib
 
 <span style="color:#66d9ef">with</span> joblib<span style="color:#f92672">.</span>parallel_backend(<span style="color:#e6db74">&#39;dask&#39;</span>): <span style="color:#75715e"># scheduler_host=&#39;scheduler-address:8786&#39;):</span>
-    <span style="color:#66d9ef">print</span>(Parallel()(delayed(slowinc)(i) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> list(range(<span style="color:#ae81ff">100</span>))))</code></pre></div>
+<span style="color:#66d9ef">print</span>(Parallel()(delayed(slowinc)(i) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> list(range(<span style="color:#ae81ff">100</span>))))</code></pre></div>
 <pre><code>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100]
 </code></pre>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">with</span> joblib<span style="color:#f92672">.</span>parallel_backend(<span style="color:#e6db74">&#39;dask&#39;</span>):
-    estimator <span style="color:#f92672">=</span> GridSearchCV(<span style="color:#f92672">...</span>) <span style="color:#75715e"># use joblib with Dask cluster</span></code></pre></div>
+estimator <span style="color:#f92672">=</span> GridSearchCV(<span style="color:#f92672">...</span>) <span style="color:#75715e"># use joblib with Dask cluster</span></code></pre></div></li>
+</ul>
+
 <h3 id="limitations">Limitations</h3>
 
 <ul>
@@ -1564,17 +1581,17 @@ client <span style="color:#f92672">=</span> Client()
 
 <ul>
 <li>Dask variants of SKL Pipeline, GSCV and RandomSCV better handle nested parallelism</li>
-<li>so if replace following imports may get both better single-threaded performance AND the ability to scale out to cluster</li>
-</ul>
+
+<li><p>so if replace following imports may get both better single-threaded performance AND the ability to scale out to cluster</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># full example</span>
 
 <span style="color:#f92672">from</span> sklearn.datasets <span style="color:#f92672">import</span> make_classification
 
 X, y <span style="color:#f92672">=</span> make_classification(n_samples<span style="color:#f92672">=</span><span style="color:#ae81ff">10000</span>,
-                           n_features<span style="color:#f92672">=</span><span style="color:#ae81ff">500</span>,
-                           n_classes<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>,
-                           n_redundant<span style="color:#f92672">=</span><span style="color:#ae81ff">250</span>,
-                           random_state<span style="color:#f92672">=</span><span style="color:#ae81ff">42</span>)
+                       n_features<span style="color:#f92672">=</span><span style="color:#ae81ff">500</span>,
+                       n_classes<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>,
+                       n_redundant<span style="color:#f92672">=</span><span style="color:#ae81ff">250</span>,
+                       random_state<span style="color:#f92672">=</span><span style="color:#ae81ff">42</span>)
 
 <span style="color:#f92672">from</span> sklearn <span style="color:#f92672">import</span> linear_model, decomposition
 <span style="color:#f92672">from</span> sklearn.pipeline <span style="color:#f92672">import</span> Pipeline
@@ -1583,22 +1600,22 @@ X, y <span style="color:#f92672">=</span> make_classification(n_samples<span sty
 logistic <span style="color:#f92672">=</span> linear_model<span style="color:#f92672">.</span>LogisticRegression()
 pca <span style="color:#f92672">=</span> decomposition<span style="color:#f92672">.</span>PCA()
 pipe <span style="color:#f92672">=</span> Pipeline(steps<span style="color:#f92672">=</span>[(<span style="color:#e6db74">&#39;pca&#39;</span>, pca),
-                       (<span style="color:#e6db74">&#39;logistic&#39;</span>, logistic)])
+                   (<span style="color:#e6db74">&#39;logistic&#39;</span>, logistic)])
 
 
 <span style="color:#75715e">#Parameters of pipelines can be set using ‘__’ separated parameter names:</span>
 grid <span style="color:#f92672">=</span> dict(pca__n_components<span style="color:#f92672">=</span>[<span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">150</span>, <span style="color:#ae81ff">250</span>],
-            logistic__C<span style="color:#f92672">=</span>[<span style="color:#ae81ff">1e-4</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">1e4</span>],
-            logistic__penalty<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;l1&#39;</span>, <span style="color:#e6db74">&#39;l2&#39;</span>])
+        logistic__C<span style="color:#f92672">=</span>[<span style="color:#ae81ff">1e-4</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">1e4</span>],
+        logistic__penalty<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;l1&#39;</span>, <span style="color:#e6db74">&#39;l2&#39;</span>])
 
 <span style="color:#75715e"># from sklearn.grid_search import GridSearchCV</span>
 <span style="color:#f92672">from</span> dklearn.grid_search <span style="color:#f92672">import</span> GridSearchCV
 
 estimator <span style="color:#f92672">=</span> GridSearchCV(pipe, grid)
 
-estimator<span style="color:#f92672">.</span>fit(X, y)</code></pre></div>
-<ul>
-<li>SKL performs this ~ 40s while Dask ML drop-in ~10sec, also if adding followling lines to connect to running cluster the scaling</li>
+estimator<span style="color:#f92672">.</span>fit(X, y)</code></pre></div></li>
+
+<li><p>SKL performs this ~ 40s while Dask ML drop-in ~10sec, also if adding followling lines to connect to running cluster the scaling</p></li>
 </ul>
 
 <blockquote>
@@ -1707,14 +1724,13 @@ client<span style="color:#f92672">.</span>rebalance([X, y])</code></pre></div>
 <h2 id="querying-python-interpreter-s-memory-usage">Querying Python interpreter&rsquo;s Memory Usage</h2>
 
 <ul>
-<li>below in code as example</li>
-</ul>
+<li><p>below in code as example</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> psutil<span style="color:#f92672">,</span> os
 
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">memory_footprint</span>():
-    <span style="color:#e6db74">&#39;&#39;&#39;Returns memory (MB) being used by Python process&#39;&#39;&#39;</span>
-    mem <span style="color:#f92672">=</span> psutil<span style="color:#f92672">.</span>Process(os<span style="color:#f92672">.</span>getpid())<span style="color:#f92672">.</span>memory_info()<span style="color:#f92672">.</span>rss
-    <span style="color:#66d9ef">return</span> (mem <span style="color:#f92672">/</span> <span style="color:#ae81ff">1024</span><span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
+<span style="color:#e6db74">&#39;&#39;&#39;Returns memory (MB) being used by Python process&#39;&#39;&#39;</span>
+mem <span style="color:#f92672">=</span> psutil<span style="color:#f92672">.</span>Process(os<span style="color:#f92672">.</span>getpid())<span style="color:#f92672">.</span>memory_info()<span style="color:#f92672">.</span>rss
+<span style="color:#66d9ef">return</span> (mem <span style="color:#f92672">/</span> <span style="color:#ae81ff">1024</span><span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
 
 before <span style="color:#f92672">=</span> memory_footprint()
 
@@ -1745,14 +1761,15 @@ Memory after: 204.66015625 MB
 
 <pre><code>0    52428800
 dtype: int64
-</code></pre>
+</code></pre></li>
+</ul>
 
 <h2 id="think-data-in-chunks">Think data in CHUNKs</h2>
 
 <ul>
 <li>Load and preprocess (filter etc) in chunks</li>
-<li>Memory used per chunk sequentially at a time</li>
-</ul>
+
+<li><p>Memory used per chunk sequentially at a time</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Filtering WDI data in chunks</span>
 
 <span style="color:#75715e"># Load CSV from zip url using requests, zipfile, io libraries !!</span>
@@ -1767,15 +1784,16 @@ zip<span style="color:#f92672">.</span>filelist
 
 <span style="color:#75715e"># filter in chunks then concatenate as one df</span>
 <span style="color:#66d9ef">for</span> chunk <span style="color:#f92672">in</span> pd<span style="color:#f92672">.</span>read_csv(zip<span style="color:#f92672">.</span>open(<span style="color:#e6db74">&#39;WDI.csv&#39;</span>), chunksize<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span>):
-    is_urban <span style="color:#f92672">=</span> chunk[<span style="color:#e6db74">&#39;Indicator Name&#39;</span>]<span style="color:#f92672">==</span><span style="color:#e6db74">&#39;Urban population (</span><span style="color:#e6db74">% o</span><span style="color:#e6db74">f total)&#39;</span>
-    is_AUS <span style="color:#f92672">=</span> chunk[<span style="color:#e6db74">&#39;Country Code&#39;</span>]<span style="color:#f92672">==</span><span style="color:#e6db74">&#39;AUS&#39;</span>
-    filtered <span style="color:#f92672">=</span> chunk<span style="color:#f92672">.</span>loc[is_urban <span style="color:#f92672">&amp;</span> is_AUS]
-    dfs<span style="color:#f92672">.</span>append(filtered)
+is_urban <span style="color:#f92672">=</span> chunk[<span style="color:#e6db74">&#39;Indicator Name&#39;</span>]<span style="color:#f92672">==</span><span style="color:#e6db74">&#39;Urban population (</span><span style="color:#e6db74">% o</span><span style="color:#e6db74">f total)&#39;</span>
+is_AUS <span style="color:#f92672">=</span> chunk[<span style="color:#e6db74">&#39;Country Code&#39;</span>]<span style="color:#f92672">==</span><span style="color:#e6db74">&#39;AUS&#39;</span>
+filtered <span style="color:#f92672">=</span> chunk<span style="color:#f92672">.</span>loc[is_urban <span style="color:#f92672">&amp;</span> is_AUS]
+dfs<span style="color:#f92672">.</span>append(filtered)
 pd<span style="color:#f92672">.</span>concat(dfs)</code></pre></div>
 <pre><code>[&lt;ZipInfo filename='WDI.csv' compress_type=deflate filemode='-rw-r--r--' external_attr=0x4000 file_size=10590570 compress_size=1140029&gt;,
- &lt;ZipInfo filename='__MACOSX/' filemode='drwxrwxr-x' external_attr=0x4000&gt;,
- &lt;ZipInfo filename='__MACOSX/._WDI.csv' compress_type=deflate filemode='-rw-r--r--' external_attr=0x4000 file_size=526 compress_size=326&gt;]
-</code></pre>
+&lt;ZipInfo filename='__MACOSX/' filemode='drwxrwxr-x' external_attr=0x4000&gt;,
+&lt;ZipInfo filename='__MACOSX/._WDI.csv' compress_type=deflate filemode='-rw-r--r--' external_attr=0x4000 file_size=526 compress_size=326&gt;]
+</code></pre></li>
+</ul>
 
 <div>
 <style scoped>
@@ -2178,24 +2196,22 @@ pd<span style="color:#f92672">.</span>concat(dfs)</code></pre></div>
 
 <ul>
 <li>def filter function</li>
-<li>apply using list_comprehension</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-chunks = [filter_func(chunk) for chunk in pd.read_csv(filename, chunksize=1000)]```" data-lang="chunks = [filter_func(chunk) for chunk in pd.read_csv(filename, chunksize=1000)]```">- Instead of list-comp, lazy evaluation method of generator saves memory
 
-``` chunks = (filter_func(chunk) for chunk in pd.read_csv(filename, chunksize=1000))```</code></pre></div>
-<ul>
-<li>yield on run, one at a time
-```</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sum = (chunk['feature'].sum() for chunk in chunks)" data-lang="sum = (chunk['feature'].sum() for chunk in chunks)">    sum(sum)```
-    - only when used will gen
+<li><p>apply using list_comprehension</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-chunks = [filter_func(chunk) for chunk in pd.read_csv(filename, chunksize=1000)]```" data-lang="chunks = [filter_func(chunk) for chunk in pd.read_csv(filename, chunksize=1000)]```">- Instead of list-comp, lazy evaluation method of generator saves memory</code></pre></div>
+<p>chunks = (filter_func(chunk) for chunk in pd.read_csv(filename, chunksize=1000))```</p>
+
+<pre><code>- yield on run, one at a time
+</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sum = (chunk['feature'].sum() for chunk in chunks)" data-lang="sum = (chunk['feature'].sum() for chunk in chunks)">sum(sum)```
+- only when used will gen
 
 ### Load multiple files via Generator
 
 ```template = &#39;filename_2015-{:02d}.csv&#39;```
-    - string formating expression
+- string formating expression
 ```filenames = (template.format(k) for k in range(1,13))```
-    - each item in filenames now yield &#39;names containing date from 01 to 12&#39;
+- each item in filenames now yield &#39;names containing date from 01 to 12&#39;
 
 
 ```python
@@ -2205,32 +2221,34 @@ req = requests.get(&#39;https://assets.datacamp.com/production/course_4299/datas
 zip = zipfile.ZipFile(io.BytesIO(req.content))
 zip.namelist</code></pre></div>
 <pre><code>[&lt;ZipInfo filename='flightdelays/' filemode='drwxr-xr-x' external_attr=0x4000&gt;,
- &lt;ZipInfo filename='flightdelays/flightdelays-2016-4.csv' compress_type=deflate filemode='-rw-r--r--' external_attr=0x4000 file_size=10901697 compress_size=1737653&gt;,
- &lt;ZipInfo filename='__MACOSX/' filemode='drwxrwxr-x' external_attr=0x4000&gt;,
- &lt;ZipInfo filename='__MACOSX/flightdelays/' filemode='drwxrwxr-x' external_attr=0x4000&gt;,
- &lt;ZipInfo filename='__MACOSX/flightdelays/._flightdelays-2016-4.csv' compress_type=deflate filemode='-rw-r--r--' external_attr=0x4000 file_size=2083 compress_size=1451&gt;,
- &lt;ZipInfo filename='flightdelays/flightdelays-2016-5.csv' compress_type=deflate filemode='-rw-r--r--' external_attr=0x4000 file_size=11342052 compress_size=1820857&gt;,
- &lt;ZipInfo filename='__MACOSX/flightdelays/._flightdelays-2016-5.csv' compress_type=deflate filemode='-rw-r--r--' external_attr=0x4000 file_size=2083 compress_size=1451&gt;,
- &lt;ZipInfo filename='flightdelays/flightdelays-2016-2.csv' compress_type=deflate filemode='-rw-r--r--' external_attr=0x4000 file_size=10014549 compress_size=1601161&gt;,
- &lt;ZipInfo filename='__MACOSX/flightdelays/._flightdelays-2016-2.csv' compress_type=deflate filemode='-rw-r--r--' external_attr=0x4000 file_size=2083 compress_size=1451&gt;,
- &lt;ZipInfo filename='flightdelays/flightdelays-2016-3.csv' compress_type=deflate filemode='-rw-r--r--' external_attr=0x4000 file_size=11357646 compress_size=1835871&gt;,
- &lt;ZipInfo filename='__MACOSX/flightdelays/._flightdelays-2016-3.csv' compress_type=deflate filemode='-rw-r--r--' external_attr=0x4000 file_size=2083 compress_size=1451&gt;,
- &lt;ZipInfo filename='flightdelays/flightdelays-2016-1.csv' compress_type=deflate filemode='-rw-r--r--' external_attr=0x4000 file_size=10546302 compress_size=1699366&gt;,
- &lt;ZipInfo filename='__MACOSX/flightdelays/._flightdelays-2016-1.csv' compress_type=deflate filemode='-rw-r--r--' external_attr=0x4000 file_size=2083 compress_size=1451&gt;]
+&lt;ZipInfo filename='flightdelays/flightdelays-2016-4.csv' compress_type=deflate filemode='-rw-r--r--' external_attr=0x4000 file_size=10901697 compress_size=1737653&gt;,
+&lt;ZipInfo filename='__MACOSX/' filemode='drwxrwxr-x' external_attr=0x4000&gt;,
+&lt;ZipInfo filename='__MACOSX/flightdelays/' filemode='drwxrwxr-x' external_attr=0x4000&gt;,
+&lt;ZipInfo filename='__MACOSX/flightdelays/._flightdelays-2016-4.csv' compress_type=deflate filemode='-rw-r--r--' external_attr=0x4000 file_size=2083 compress_size=1451&gt;,
+&lt;ZipInfo filename='flightdelays/flightdelays-2016-5.csv' compress_type=deflate filemode='-rw-r--r--' external_attr=0x4000 file_size=11342052 compress_size=1820857&gt;,
+&lt;ZipInfo filename='__MACOSX/flightdelays/._flightdelays-2016-5.csv' compress_type=deflate filemode='-rw-r--r--' external_attr=0x4000 file_size=2083 compress_size=1451&gt;,
+&lt;ZipInfo filename='flightdelays/flightdelays-2016-2.csv' compress_type=deflate filemode='-rw-r--r--' external_attr=0x4000 file_size=10014549 compress_size=1601161&gt;,
+&lt;ZipInfo filename='__MACOSX/flightdelays/._flightdelays-2016-2.csv' compress_type=deflate filemode='-rw-r--r--' external_attr=0x4000 file_size=2083 compress_size=1451&gt;,
+&lt;ZipInfo filename='flightdelays/flightdelays-2016-3.csv' compress_type=deflate filemode='-rw-r--r--' external_attr=0x4000 file_size=11357646 compress_size=1835871&gt;,
+&lt;ZipInfo filename='__MACOSX/flightdelays/._flightdelays-2016-3.csv' compress_type=deflate filemode='-rw-r--r--' external_attr=0x4000 file_size=2083 compress_size=1451&gt;,
+&lt;ZipInfo filename='flightdelays/flightdelays-2016-1.csv' compress_type=deflate filemode='-rw-r--r--' external_attr=0x4000 file_size=10546302 compress_size=1699366&gt;,
+&lt;ZipInfo filename='__MACOSX/flightdelays/._flightdelays-2016-1.csv' compress_type=deflate filemode='-rw-r--r--' external_attr=0x4000 file_size=2083 compress_size=1451&gt;]
 </code></pre>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Flight delay case</span>
 
 <span style="color:#75715e"># func for % delayed</span>
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">pct_delayed</span>(df):
-    n_delayed <span style="color:#f92672">=</span> (df[<span style="color:#e6db74">&#39;DEP_DELAY&#39;</span>]<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>)<span style="color:#f92672">.</span>sum() 
-    <span style="color:#66d9ef">return</span> n_delayed  <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span> <span style="color:#f92672">/</span> (len(df))
+n_delayed <span style="color:#f92672">=</span> (df[<span style="color:#e6db74">&#39;DEP_DELAY&#39;</span>]<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>)<span style="color:#f92672">.</span>sum() 
+<span style="color:#66d9ef">return</span> n_delayed  <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span> <span style="color:#f92672">/</span> (len(df))
 
 <span style="color:#75715e"># Make file-list from above zip object</span>
 filenames <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;flightdelays/flightdelays-2016-{:01d}.csv&#39;</span><span style="color:#f92672">.</span>format(k) <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">6</span>)]
 
 dataframes <span style="color:#f92672">=</span> (pd<span style="color:#f92672">.</span>read_csv(zip<span style="color:#f92672">.</span>open(file)) <span style="color:#66d9ef">for</span> file <span style="color:#f92672">in</span> filenames)
 
-monthly_delayed <span style="color:#f92672">=</span> [pct_delayed(df) <span style="color:#66d9ef">for</span> df <span style="color:#f92672">in</span> dataframes]</code></pre></div>
+monthly_delayed <span style="color:#f92672">=</span> [pct_delayed(df) <span style="color:#66d9ef">for</span> df <span style="color:#f92672">in</span> dataframes]</code></pre></div></li>
+</ul>
+
 <h2 id="generator-for-delaying-computing-and-saving-memory-usage-dask-to-simplify">Generator for delaying computing and saving memory usage: DASK to simplify</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> dask.delayed <span style="color:#f92672">import</span> delayed
 
@@ -2516,8 +2534,8 @@ dsets <span style="color:#f92672">=</span> [h5py<span style="color:#f92672">.</s
 monthly <span style="color:#f92672">=</span> [dask<span style="color:#f92672">.</span>array<span style="color:#f92672">.</span>from_array(d, chunks<span style="color:#f92672">=</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">444</span>,<span style="color:#ae81ff">922</span>)) <span style="color:#66d9ef">for</span> d <span style="color:#f92672">in</span> dsets]</code></pre></div>
 <ul>
 <li>monthly comprises 4 solitary dask.array with original shape (12,444,922) chunked by (1,444,922), equating to 12 chunks per dask.array</li>
-<li>Then to <strong>STACK</strong> them as one <code>dask.stack(array, axis=0)</code> row-wise ! Resulting dimension is (4, 12, 444, 922) in total and chunked as 4x12 (1,1,444,922)</li>
-</ul>
+
+<li><p>Then to <strong>STACK</strong> them as one <code>dask.stack(array, axis=0)</code> row-wise ! Resulting dimension is (4, 12, 444, 922) in total and chunked as 4x12 (1,1,444,922)</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Stack with the list of dask arrays: by_year</span>
 by_year <span style="color:#f92672">=</span> da<span style="color:#f92672">.</span>stack(monthly, axis<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
 
@@ -2529,10 +2547,9 @@ dset <span style="color:#f92672">=</span> h5py<span style="color:#f92672">.</spa
 climatology <span style="color:#f92672">=</span> da<span style="color:#f92672">.</span>from_array(dset[<span style="color:#e6db74">&#39;/tmax&#39;</span>], chunks<span style="color:#f92672">=</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">444</span>,<span style="color:#ae81ff">922</span>))
 
 <span style="color:#75715e"># Reshape the climatology data to be compatible with months</span>
-climatology <span style="color:#f92672">=</span> climatology<span style="color:#f92672">.</span>reshape(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">12</span>,<span style="color:#ae81ff">444</span>,<span style="color:#ae81ff">922</span>)</code></pre></div>
-<ul>
-<li>Further slicing with dask.array.nanmean() function ignoring missing value</li>
-</ul>
+climatology <span style="color:#f92672">=</span> climatology<span style="color:#f92672">.</span>reshape(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">12</span>,<span style="color:#ae81ff">444</span>,<span style="color:#ae81ff">922</span>)</code></pre></div></li>
+
+<li><p>Further slicing with dask.array.nanmean() function ignoring missing value</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Compute the difference: diff</span>
 diff <span style="color:#f92672">=</span> (by_year<span style="color:#f92672">-</span>climatology)<span style="color:#f92672">*</span><span style="color:#ae81ff">9</span><span style="color:#f92672">/</span><span style="color:#ae81ff">5</span>
 <span style="color:#75715e"># Compute the average over last two axes: avg</span>
@@ -2547,13 +2564,15 @@ ax<span style="color:#f92672">.</span>axhline(<span style="color:#ae81ff">0</spa
 ax<span style="color:#f92672">.</span>set_xlabel(<span style="color:#e6db74">&#39;Year&#39;</span>)
 ax<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74">&#39;Difference (degrees Fahrenheit)&#39;</span>)
 ax<span style="color:#f92672">.</span>legend(loc<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
-plt<span style="color:#f92672">.</span>show()</code></pre></div>
+plt<span style="color:#f92672">.</span>show()</code></pre></div></li>
+</ul>
+
 <h2 id="dask-dataframe-pandas-df">Dask DataFrame ~ Pandas DF</h2>
 
 <ul>
 <li>dask.dataframe as dd</li>
-<li><strong>High-level Scalable Pandas DF</strong></li>
-</ul>
+
+<li><p><strong>High-level Scalable Pandas DF</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Using WDI csv dataset</span>
 <span style="color:#f92672">import</span> dask.dataframe <span style="color:#f92672">as</span> dd
 
@@ -2570,11 +2589,11 @@ df<span style="color:#f92672">.</span>groupby(df<span style="color:#f92672">.</s
 NameError                                 Traceback (most recent call last)
 
 &lt;ipython-input-1-3e3642d3fe4c&gt; in &lt;module&gt;
-      2 import dask.dataframe as dd
-      3 
+  2 import dask.dataframe as dd
+  3 
 ----&gt; 4 req = requests.get('https://assets.datacamp.com/production/course_4299/datasets/WDI.zip')
-      5 zip = zipfile.ZipFile(io.BytesIO(req.content))
-      6 zip.NameToInfo
+  5 zip = zipfile.ZipFile(io.BytesIO(req.content))
+  6 zip.NameToInfo
 </code></pre>
 
 <pre><code>NameError: name 'requests' is not defined
@@ -2593,7 +2612,8 @@ yearly_mean <span style="color:#f92672">=</span> filtered<span style="color:#f92
 yearly_mean[<span style="color:#e6db74">&#39;value&#39;</span>]<span style="color:#f92672">.</span>plot<span style="color:#f92672">.</span>line()
 plt<span style="color:#f92672">.</span>show()</code></pre></div>
 <pre><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f1763ae4e80&gt;
-</code></pre>
+</code></pre></li>
+</ul>
 
 <p><img src="/Users/Ocean/Desktop/DASK/output_53_1.png" alt="png" /></p>
 
@@ -2647,8 +2667,8 @@ plt<span style="color:#f92672">.</span>show()</code></pre></div>
 
 <ul>
 <li>List of nested kinds: list, dict, string, etc</li>
-<li>Normally test file containing one \n separated text</li>
-</ul>
+
+<li><p>Normally test file containing one \n separated text</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> glob
 
 req <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;https://assets.datacamp.com/production/course_4299/datasets/sotu.zip&#39;</span>)
@@ -2674,7 +2694,7 @@ first_speech <span style="color:#f92672">=</span> one_element[<span style="color
 <span style="color:#66d9ef">print</span>(type(first_speech))
 <span style="color:#66d9ef">print</span>(first_speech[:<span style="color:#ae81ff">61</span>])</code></pre></div>
 <pre><code>&lt;class 'str'&gt;
- Fellow-Citizens of the Senate and House of Representatives: 
+Fellow-Citizens of the Senate and House of Representatives: 
 </code></pre>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Call .str.split(&#39; &#39;) from speeches and assign it to by_word</span>
 by_word <span style="color:#f92672">=</span> speeches<span style="color:#f92672">.</span>str<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39; &#39;</span>)
@@ -2725,18 +2745,20 @@ titles <span style="color:#f92672">=</span> overridden<span style="color:#f92672
 
 <span style="color:#75715e"># Define a function lifespan that takes a dictionary d as input</span>
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">lifespan</span>(d):
-    <span style="color:#75715e"># Convert to datetime</span>
-    current <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>to_datetime(d[<span style="color:#e6db74">&#39;current_status_date&#39;</span>])
-    intro <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>to_datetime(d[<span style="color:#e6db74">&#39;introduced_date&#39;</span>])
+<span style="color:#75715e"># Convert to datetime</span>
+current <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>to_datetime(d[<span style="color:#e6db74">&#39;current_status_date&#39;</span>])
+intro <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>to_datetime(d[<span style="color:#e6db74">&#39;introduced_date&#39;</span>])
 
-    <span style="color:#75715e"># Return the number of days</span>
-    <span style="color:#66d9ef">return</span> (current <span style="color:#f92672">-</span> intro)<span style="color:#f92672">.</span>days
+<span style="color:#75715e"># Return the number of days</span>
+<span style="color:#66d9ef">return</span> (current <span style="color:#f92672">-</span> intro)<span style="color:#f92672">.</span>days
 
 <span style="color:#75715e"># Filter bills_dicts: days</span>
 days <span style="color:#f92672">=</span> bills_dicts<span style="color:#f92672">.</span>filter(<span style="color:#66d9ef">lambda</span> s:s[<span style="color:#e6db74">&#39;current_status&#39;</span>]<span style="color:#f92672">==</span><span style="color:#e6db74">&#39;enacted_signed&#39;</span>)<span style="color:#f92672">.</span>map(lifespan)
 
 <span style="color:#75715e"># Print the mean value of the days Bag</span>
-<span style="color:#66d9ef">print</span>(days<span style="color:#f92672">.</span>mean()<span style="color:#f92672">.</span>compute())</code></pre></div>
+<span style="color:#66d9ef">print</span>(days<span style="color:#f92672">.</span>mean()<span style="color:#f92672">.</span>compute())</code></pre></div></li>
+</ul>
+
 <h2 id="all-together-detailed-analysis">All together Detailed Analysis</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Define @delayed-function read_flights</span>
 <span style="color:#a6e22e">@delayed</span>
@@ -2857,17 +2879,20 @@ avg_delay_time <span style="color:#f92672">=</span> by_event[<span style="color:
 <li>with pandas API</li>
 <li>plotting with Holoviews/Bokeh</li>
 </ul></li>
-<li>Streamz.dask
+
+<li><p>Streamz.dask</p>
 
 <ul>
 <li>full effecting on top of Dask</li>
 <li>adds millisec overhead and 10-20ms latency</li>
-<li>scales</li>
-</ul></li>
-</ol>
+
+<li><p>scales</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> IPython.display <span style="color:#f92672">import</span> HTML
 
-HTML(<span style="color:#e6db74">&#39;&lt;div style=&#34;position:relative;height:0;padding-bottom:56.25%&#34;&gt;&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/yI_yZoUaz60&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&#34; allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;&#39;</span>)</code></pre></div>
+HTML(<span style="color:#e6db74">&#39;&lt;div style=&#34;position:relative;height:0;padding-bottom:56.25%&#34;&gt;&lt;iframe width=&#34;560&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/yI_yZoUaz60&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&#34; allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;&#39;</span>)</code></pre></div></li>
+</ul></li>
+</ol>
+
 <div style="position:relative;height:0;padding-bottom:56.25%"><iframe width="560" height="315" src="https://www.youtube.com/embed/yI_yZoUaz60" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> streamz <span style="color:#f92672">import</span> Stream
 
@@ -3080,24 +3105,26 @@ NameError                                 Traceback (most recent call last)
 
 <ul>
 <li>Make func which is called when site visited - whatever it wants, here a simple line plot with doc.add_root() method</li>
-<li>This starts a Tornado web server creating new image whenever connected, similar to lib in Tornado or Flask - in this case piggybacks on Jupyter own IOLoop because Bokeh is built on Tornado it can play nicely with other <strong>async</strong> apps like Tornado or Asyncio</li>
-</ul>
+
+<li><p>This starts a Tornado web server creating new image whenever connected, similar to lib in Tornado or Flask - in this case piggybacks on Jupyter own IOLoop because Bokeh is built on Tornado it can play nicely with other <strong>async</strong> apps like Tornado or Asyncio</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> bokeh.server.server <span style="color:#f92672">import</span> Server
 <span style="color:#f92672">from</span> bokeh.application <span style="color:#f92672">import</span> Application
 <span style="color:#f92672">from</span> bokeh.application.handlers.function <span style="color:#f92672">import</span> FunctionHandler
 <span style="color:#f92672">from</span> bokeh.plotting <span style="color:#f92672">import</span> figure, ColumnDataSource
 
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">make_document</span>(doc):
-    fig <span style="color:#f92672">=</span> figure(title<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Line plot&#39;</span>, sizing_mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;scale_width&#39;</span>)
-    fig<span style="color:#f92672">.</span>line(x<span style="color:#f92672">=</span>[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>], y<span style="color:#f92672">=</span>[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">9</span>])
+fig <span style="color:#f92672">=</span> figure(title<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Line plot&#39;</span>, sizing_mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;scale_width&#39;</span>)
+fig<span style="color:#f92672">.</span>line(x<span style="color:#f92672">=</span>[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>], y<span style="color:#f92672">=</span>[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">9</span>])
     
-    doc<span style="color:#f92672">.</span>title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hellow, world!&#34;</span>
-    doc<span style="color:#f92672">.</span>add_root(fig)
+doc<span style="color:#f92672">.</span>title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hellow, world!&#34;</span>
+doc<span style="color:#f92672">.</span>add_root(fig)
     
 apps <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;/&#39;</span>: Application(FunctionHandler(make_document))}
 
 server <span style="color:#f92672">=</span> Server(apps, port<span style="color:#f92672">=</span><span style="color:#ae81ff">5000</span>)
-server<span style="color:#f92672">.</span>start()</code></pre></div>
+server<span style="color:#f92672">.</span>start()</code></pre></div></li>
+</ul>
+
 <h3 id="live-updates">Live Updates</h3>
 
 <ul>
@@ -3106,32 +3133,34 @@ server<span style="color:#f92672">.</span>start()</code></pre></div>
 <li>If defining plots around column data source then pushing more data into source, Bokeh will handle the rest - updating plots in broswer just needs pushing more data into object on server</li>
 <li>Below, make new object upding func adding new record, set up callback to call func every 100ms the graph</li>
 <li>Changing figures (or adding multiple figures, text, or visual elements, etc) full freedom over visual styling</li>
-<li>Changing around update func can pull data from sensors, shove in more data etc</li>
-</ul>
+
+<li><p>Changing around update func can pull data from sensors, shove in more data etc</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> random
 
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">make_document</span>(doc):
-    source <span style="color:#f92672">=</span> ColumnDataSource({<span style="color:#e6db74">&#39;x&#39;</span>: [], <span style="color:#e6db74">&#39;y&#39;</span>: [], <span style="color:#e6db74">&#39;color&#39;</span>: []})
+source <span style="color:#f92672">=</span> ColumnDataSource({<span style="color:#e6db74">&#39;x&#39;</span>: [], <span style="color:#e6db74">&#39;y&#39;</span>: [], <span style="color:#e6db74">&#39;color&#39;</span>: []})
 
-    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">update</span>():
-        new <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;x&#39;</span>: [random<span style="color:#f92672">.</span>random()],
-               <span style="color:#e6db74">&#39;y&#39;</span>: [random<span style="color:#f92672">.</span>random()],
-               <span style="color:#e6db74">&#39;color&#39;</span>: [random<span style="color:#f92672">.</span>choice([<span style="color:#e6db74">&#39;red&#39;</span>, <span style="color:#e6db74">&#39;blue&#39;</span>, <span style="color:#e6db74">&#39;green&#39;</span>])]}
-        source<span style="color:#f92672">.</span>stream(new)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">update</span>():
+    new <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;x&#39;</span>: [random<span style="color:#f92672">.</span>random()],
+           <span style="color:#e6db74">&#39;y&#39;</span>: [random<span style="color:#f92672">.</span>random()],
+           <span style="color:#e6db74">&#39;color&#39;</span>: [random<span style="color:#f92672">.</span>choice([<span style="color:#e6db74">&#39;red&#39;</span>, <span style="color:#e6db74">&#39;blue&#39;</span>, <span style="color:#e6db74">&#39;green&#39;</span>])]}
+    source<span style="color:#f92672">.</span>stream(new)
 
-    doc<span style="color:#f92672">.</span>add_periodic_callback(update, <span style="color:#ae81ff">100</span>)
+doc<span style="color:#f92672">.</span>add_periodic_callback(update, <span style="color:#ae81ff">100</span>)
 
-    fig <span style="color:#f92672">=</span> figure(title<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Streaming Circle Plot!&#39;</span>, sizing_mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;scale_width&#39;</span>,
-                 x_range<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>], y_range<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>])
-    fig<span style="color:#f92672">.</span>circle(source<span style="color:#f92672">=</span>source, x<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;x&#39;</span>, y<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;y&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;color&#39;</span>, size<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)
+fig <span style="color:#f92672">=</span> figure(title<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Streaming Circle Plot!&#39;</span>, sizing_mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;scale_width&#39;</span>,
+             x_range<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>], y_range<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>])
+fig<span style="color:#f92672">.</span>circle(source<span style="color:#f92672">=</span>source, x<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;x&#39;</span>, y<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;y&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;color&#39;</span>, size<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)
 
-    doc<span style="color:#f92672">.</span>title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Now with live updating!&#34;</span>
-    doc<span style="color:#f92672">.</span>add_root(fig)
+doc<span style="color:#f92672">.</span>title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Now with live updating!&#34;</span>
+doc<span style="color:#f92672">.</span>add_root(fig)
 
 apps <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;/&#39;</span>: Application(FunctionHandler(make_document))}
 
 server <span style="color:#f92672">=</span> Server(apps, port<span style="color:#f92672">=</span><span style="color:#ae81ff">5001</span>)
-server<span style="color:#f92672">.</span>start()</code></pre></div>
+server<span style="color:#f92672">.</span>start()</code></pre></div></li>
+</ul>
+
 <h3 id="real-example-dask-s-dashboard">Real example - Dask&rsquo;s dashboard</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">make_document</span>(doc):
     source <span style="color:#f92672">=</span> ColumnDataSource({<span style="color:#e6db74">&#39;time&#39;</span>: [time(), time() <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>],
@@ -3165,11 +3194,12 @@ server<span style="color:#f92672">.</span>start()</code></pre></div>
 <h2 id="streaming-dataframes">Streaming Dataframes</h2>
 
 <ul>
-<li><a href="http://matthewrocklin.com/blog/work/2017/10/16/streaming-dataframes-1">Article</a></li>
-</ul>
+<li><p><a href="http://matthewrocklin.com/blog/work/2017/10/16/streaming-dataframes-1">Article</a></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> streamz.dataframe <span style="color:#f92672">import</span> Random
 
-sdf <span style="color:#f92672">=</span> Random(freq<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;1ms&#39;</span>, interval<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;100ms&#39;</span>)</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"></code></pre></div></div>
+sdf <span style="color:#f92672">=</span> Random(freq<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;1ms&#39;</span>, interval<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;100ms&#39;</span>)</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"></code></pre></div></li>
+</ul>
+</div>
 
         
         <div class="section bottom-menu">

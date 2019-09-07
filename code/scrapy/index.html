@@ -108,28 +108,29 @@
 <li>date - datetime.datetime.now()</li>
 </ul></li>
 
-<li><p>With a list of fields, it&rsquo;s easy to mod and cutomise <code>class</code> default:</p></li>
-</ul>
+<li><p>With a list of fields, it&rsquo;s easy to mod and cutomise <code>class</code> default:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> scrapy.item <span style="color:#f92672">import</span> Item, Field
 
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PropertiesItem</span>(Item):
-    <span style="color:#75715e"># Primary fields</span>
-    title <span style="color:#f92672">=</span> Field()
-    price <span style="color:#f92672">=</span> Field()
-    description <span style="color:#f92672">=</span> Field()
-    address <span style="color:#f92672">=</span> Field()
-    image_urls <span style="color:#f92672">=</span> Field()
+<span style="color:#75715e"># Primary fields</span>
+title <span style="color:#f92672">=</span> Field()
+price <span style="color:#f92672">=</span> Field()
+description <span style="color:#f92672">=</span> Field()
+address <span style="color:#f92672">=</span> Field()
+image_urls <span style="color:#f92672">=</span> Field()
     
-    <span style="color:#75715e"># Calculated fields</span>
-    images <span style="color:#f92672">=</span> Field()
-    location <span style="color:#f92672">=</span> Field()
+<span style="color:#75715e"># Calculated fields</span>
+images <span style="color:#f92672">=</span> Field()
+location <span style="color:#f92672">=</span> Field()
     
-    <span style="color:#75715e"># Housekeeping fields</span>
-    url <span style="color:#f92672">=</span> Field()
-    project <span style="color:#f92672">=</span> Field()
-    spider <span style="color:#f92672">=</span> Field()
-    server <span style="color:#f92672">=</span> Field()
-    date <span style="color:#f92672">=</span> Field()</code></pre></div>
+<span style="color:#75715e"># Housekeeping fields</span>
+url <span style="color:#f92672">=</span> Field()
+project <span style="color:#f92672">=</span> Field()
+spider <span style="color:#f92672">=</span> Field()
+server <span style="color:#f92672">=</span> Field()
+date <span style="color:#f92672">=</span> Field()</code></pre></div></li>
+</ul>
+
 <h3 id="writing-spiders">Writing Spiders</h3>
 
 <p>Halfway, typically one spider per website or a section of website if large. A spider code implements $UR^2IM$ process. TIP: spider or project? A project groups <code>items</code> and spiders, designed for same type over many sites, as above can be used generally.</p>
@@ -244,8 +245,8 @@ item[<span style="color:#e6db74">&#39;title&#39;</span>] <span style="color:#f92
 </table>
 
 <p>Possible use of any Python expression as a processor. These are simply functions embedded in Scrapy, such that possible to try in SHELL</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># scrapy shell someweb
-</span><span style="color:#75715e"></span>from scrapy.loader.processors import MapCompose, Join
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># scrapy shell someweb</span>
+from scrapy.loader.processors import MapCompose, Join
 
 Join<span style="color:#f92672">()([</span><span style="color:#e6db74">&#39;hi&#39;</span>, <span style="color:#e6db74">&#39;John&#39;</span><span style="color:#f92672">])</span>
 &gt;&gt;&gt; u<span style="color:#e6db74">&#39;hi John&#39;</span></code></pre></div>
@@ -698,8 +699,8 @@ ContractFail: <span style="color:#e6db74">&#39;url&#39;</span> field is missing<
 <ul>
 <li>remove <code>start_urls</code> and <code>allows_domains</code></li>
 <li>use <code>start_requests()</code> and <code>Request</code> each row of data</li>
-<li>Store field names and XPATH from CSV in <code>request.meta</code> to use in <code>parse()</code></li>
-</ul>
+
+<li><p>Store field names and XPATH from CSV in <code>request.meta</code> to use in <code>parse()</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> csv
 
 <span style="color:#f92672">import</span> scrapy
@@ -709,25 +710,27 @@ ContractFail: <span style="color:#e6db74">&#39;url&#39;</span> field is missing<
 
 
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FromcsvSpider</span>(scrapy<span style="color:#f92672">.</span>Spider):
-    name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;fromcsv&#34;</span>
+name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;fromcsv&#34;</span>
 
-    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">start_requests</span>(self):
-        <span style="color:#66d9ef">with</span> open(getattr(self, <span style="color:#e6db74">&#34;file&#34;</span>, <span style="color:#e6db74">&#34;todo.csv&#34;</span>), <span style="color:#e6db74">&#34;rU&#34;</span>) <span style="color:#66d9ef">as</span> f:
-            reader <span style="color:#f92672">=</span> csv<span style="color:#f92672">.</span>DictReader(f)
-            <span style="color:#66d9ef">for</span> line <span style="color:#f92672">in</span> reader:
-                request <span style="color:#f92672">=</span> Request(line<span style="color:#f92672">.</span>pop(<span style="color:#e6db74">&#39;url&#39;</span>))
-                request<span style="color:#f92672">.</span>meta[<span style="color:#e6db74">&#39;fields&#39;</span>] <span style="color:#f92672">=</span> line
-                <span style="color:#66d9ef">yield</span> request
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">start_requests</span>(self):
+    <span style="color:#66d9ef">with</span> open(getattr(self, <span style="color:#e6db74">&#34;file&#34;</span>, <span style="color:#e6db74">&#34;todo.csv&#34;</span>), <span style="color:#e6db74">&#34;rU&#34;</span>) <span style="color:#66d9ef">as</span> f:
+        reader <span style="color:#f92672">=</span> csv<span style="color:#f92672">.</span>DictReader(f)
+        <span style="color:#66d9ef">for</span> line <span style="color:#f92672">in</span> reader:
+            request <span style="color:#f92672">=</span> Request(line<span style="color:#f92672">.</span>pop(<span style="color:#e6db74">&#39;url&#39;</span>))
+            request<span style="color:#f92672">.</span>meta[<span style="color:#e6db74">&#39;fields&#39;</span>] <span style="color:#f92672">=</span> line
+            <span style="color:#66d9ef">yield</span> request
 
-    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse</span>(self, response):
-        item <span style="color:#f92672">=</span> Item()
-        l <span style="color:#f92672">=</span> ItemLoader(item<span style="color:#f92672">=</span>item, response<span style="color:#f92672">=</span>response)
-        <span style="color:#66d9ef">for</span> name, xpath <span style="color:#f92672">in</span> response<span style="color:#f92672">.</span>meta[<span style="color:#e6db74">&#39;fields&#39;</span>]<span style="color:#f92672">.</span>iteritems():
-            <span style="color:#66d9ef">if</span> xpath:
-                item<span style="color:#f92672">.</span>fields[name] <span style="color:#f92672">=</span> Field()
-                l<span style="color:#f92672">.</span>add_xpath(name, xpath)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse</span>(self, response):
+    item <span style="color:#f92672">=</span> Item()
+    l <span style="color:#f92672">=</span> ItemLoader(item<span style="color:#f92672">=</span>item, response<span style="color:#f92672">=</span>response)
+    <span style="color:#66d9ef">for</span> name, xpath <span style="color:#f92672">in</span> response<span style="color:#f92672">.</span>meta[<span style="color:#e6db74">&#39;fields&#39;</span>]<span style="color:#f92672">.</span>iteritems():
+        <span style="color:#66d9ef">if</span> xpath:
+            item<span style="color:#f92672">.</span>fields[name] <span style="color:#f92672">=</span> Field()
+            l<span style="color:#f92672">.</span>add_xpath(name, xpath)
 
-        <span style="color:#66d9ef">return</span> l<span style="color:#f92672">.</span>load_item()</code></pre></div>
+    <span style="color:#66d9ef">return</span> l<span style="color:#f92672">.</span>load_item()</code></pre></div></li>
+</ul>
+
 <p>Observation:</p>
 
 <ul>
@@ -1280,51 +1283,39 @@ IMAGES_THUMBS <span style="color:#f92672">=</span> { <span style="color:#e6db74"
 <ul>
 <li><p>Allowing mod almost every aspect of Scrapy, the KING of them is <code>ITEM_PIPELINES</code> which allows use of Item Processing PIpelines. <code>COMMANDS_MODULE</code> allows adding custom commands, e.g. assuming added a <code>properties/hi.py</code> with</p></li>
 
-<li><p>```python
-from scrapy.commands import ScrapyCommand</p></li>
-</ul>
+<li><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> scrapy.commands <span style="color:#f92672">import</span> ScrapyCommand
+      
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Command</span>(ScrapyCommand):
+  default_settings <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;LOG_ENABLED&#39;</span>: False}
+  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">run</span>(self, args, opts):
+      <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;hello&#34;</span>)
+              
+<span style="color:#75715e"># Inside settings.py</span>
+COMMANDS_MODULE <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;properties.hi&#39;</span></code></pre></div></li>
 
-<p>class Command(ScrapyCommand):
-      default_settings = {&lsquo;LOG_ENABLED&rsquo;: False}
-      def run(self, args, opts):
-          print(&ldquo;hello&rdquo;)</p>
-
-<p># Inside settings.py
-  COMMANDS_MODULE = &lsquo;properties.hi&rsquo;
-  ```</p>
-
-<ul>
 <li><p>Soon as adding <code>COMMANDS_MODULE='properties.hi'</code> in <code>settings.py</code>, it activates this command showing up in help and run with <code>scrapy hi</code>. The settings defined in <code>default_settings</code> get merged into a project&rsquo;s settings overriding defaults but with lower priority to that defined in <code>settings.py</code> or in Shell CLI line.</p></li>
 
 <li><p>Scrapy uses <code>_BASE</code> dictionaries (e.g. <code>FEED_EXPORTERD_BASE</code>) to store default values for various framework extensions and then allows customising in <code>settings.py</code> and CLI by setting their non-<code>_BASE</code> version (e.g. <code>FEED_EXPORTERS</code>)</p></li>
 
 <li><p><code>DOWNLOADERS</code> or <code>SCHEULER</code> which hold package/class names for essential parts of system, potentially to be inherited from default downloader (<code>scrapy.core.downloader.Downloader</code>), overload a few methods, then set custom class on <code>DOWNLOADER</code> setting - allowing experimenting features and eases automated testing, if good comprehension.</p></li>
-</ul></li>
 
-<li><p><strong>Downloading</strong></p>
+<li><p><strong>Downloading</strong></p></li>
 
-<ul>
-<li><code>RETRY_*, REDIRECT_*, METAREFRESH_*</code> configure the Retry, Redirect and Meta-Refresh middlewares. E.g. <code>REDIRECT_PRIORITY_ADJUST = 2</code> MEANS PER REDIRECT, NEW REQUEST WILL BE SCHEDULED AFTER all non-redirected requests get served, and <code>REDIRECT_MAX_TIMES = 20</code> means after 20 redirects the downloader will give up and return whatever done. Be aware of these settings in case crawling some ill-cased sites, but default values will serve mostly. Same applies to <code>HTTPERROR_ALLOWED_CODES, URLLENGTH_LIMIT</code></li>
-</ul></li>
+<li><p><code>RETRY_*, REDIRECT_*, METAREFRESH_*</code> configure the Retry, Redirect and Meta-Refresh middlewares. E.g. <code>REDIRECT_PRIORITY_ADJUST = 2</code> MEANS PER REDIRECT, NEW REQUEST WILL BE SCHEDULED AFTER all non-redirected requests get served, and <code>REDIRECT_MAX_TIMES = 20</code> means after 20 redirects the downloader will give up and return whatever done. Be aware of these settings in case crawling some ill-cased sites, but default values will serve mostly. Same applies to <code>HTTPERROR_ALLOWED_CODES, URLLENGTH_LIMIT</code></p></li>
 
-<li><p><strong>Autothrottle</strong></p>
+<li><p><strong>Autothrottle</strong></p></li>
 
-<ul>
-<li><code>AUTOTHROTTLE_*</code> configures itself. But in practice, it tends to be somewhat conservative and difficult to tune, as it suses download latencies to gauge how loaded and target server are and adjusts delay accordinly. If having hard finding best value for <code>DOWNLOAD_DELAY</code> (default = 0), should find this module useful.</li>
-</ul></li>
+<li><p><code>AUTOTHROTTLE_*</code> configures itself. But in practice, it tends to be somewhat conservative and difficult to tune, as it suses download latencies to gauge how loaded and target server are and adjusts delay accordinly. If having hard finding best value for <code>DOWNLOAD_DELAY</code> (default = 0), should find this module useful.</p></li>
 
-<li><p><strong>Memory</strong></p>
+<li><p><strong>Memory</strong></p></li>
 
-<ul>
-<li><code>MEMUSAGE_*</code> enables and configures memory which shuts down spider if exceeding limit, useful in shared ENV where processes obey resources; more often, it&rsquo;s useful to receive just its warning e-mail by disabling the shut down by <code>MENUSAGE_LIMIT_MB = 0</code>. (ONLY APPLICABLE IN UNIX-LIKE OS)</li>
-<li><code>MEMDEBUG_ENABLED, MEMDEBUG_NOTIFY</code> configures debugger printing number of live references on spider close, overall, chasing memory leaks is NOT fun or easy, most importantly keeping crawls relatively short, batched, and accords with server&rsquo;s capacity. (E.g. no good reason to run batches of more than a few thousands pages or more than a few minutes long)</li>
-</ul></li>
+<li><p><code>MEMUSAGE_*</code> enables and configures memory which shuts down spider if exceeding limit, useful in shared ENV where processes obey resources; more often, it&rsquo;s useful to receive just its warning e-mail by disabling the shut down by <code>MENUSAGE_LIMIT_MB = 0</code>. (ONLY APPLICABLE IN UNIX-LIKE OS)</p></li>
 
-<li><p><strong>Logging and Debugging</strong></p>
+<li><p><code>MEMDEBUG_ENABLED, MEMDEBUG_NOTIFY</code> configures debugger printing number of live references on spider close, overall, chasing memory leaks is NOT fun or easy, most importantly keeping crawls relatively short, batched, and accords with server&rsquo;s capacity. (E.g. no good reason to run batches of more than a few thousands pages or more than a few minutes long)</p></li>
 
-<ul>
-<li><code>LOG_ENCODING, LOG_DATEFORMAT, LOG_FORMAT</code> fine tune logging and useful in using log-management solutions, like Splunk, Logstash. <code>DUPEFILTER_DEBUG, COOKIE_DEBUG</code> help debug relatively complex cases where exit unsual requests or lost sessions.</li>
-</ul></li>
+<li><p><strong>Logging and Debugging</strong></p></li>
+
+<li><p><code>LOG_ENCODING, LOG_DATEFORMAT, LOG_FORMAT</code> fine tune logging and useful in using log-management solutions, like Splunk, Logstash. <code>DUPEFILTER_DEBUG, COOKIE_DEBUG</code> help debug relatively complex cases where exit unsual requests or lost sessions.</p></li>
 </ul>
 
 <h1 id="programming-scrapy">Programming Scrapy</h1>
@@ -1385,162 +1376,179 @@ from scrapy.commands import ScrapyCommand</p></li>
 <h3 id="deferreds-and-deferred-chains">DEFERREDS AND DEFERRED CHAINS</h3>
 
 <p>Deferreds are most essential mechanism Twisted offers to help write asynchronous code. APIs use deferreds to allow definig sequences of actions to be called when certain evens occur.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> twisted.internet <span style="color:#f92672">import</span> defer
 
-d <span style="color:#f92672">=</span> defer<span style="color:#f92672">.</span>Deferred()
-d<span style="color:#f92672">.</span>called
-<span style="color:#75715e"># False</span>
+<p>```python</p></li>
+</ul>
 
-d<span style="color:#f92672">.</span>callback(<span style="color:#ae81ff">3</span>)
-d<span style="color:#f92672">.</span>called
-<span style="color:#75715e"># True</span>
+<p>from twisted.internet import defer</p>
 
-d<span style="color:#f92672">.</span>result
-<span style="color:#75715e"># 3</span></code></pre></div>
-<p>See that Deferred is at core a thing representing a value that hangs, when fire d called it&rsquo;s called state becomes True, result attribute is set to value set on callback.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">d <span style="color:#f92672">=</span> defer<span style="color:#f92672">.</span>Deferred()
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">foo</span>(v):
-    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;foo called&#34;</span>)
-    <span style="color:#66d9ef">return</span> v<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>
+<p>d = defer.Deferred()
+d.called</p>
 
-d<span style="color:#f92672">.</span>addCallback(foo)
-d<span style="color:#f92672">.</span>called
-<span style="color:#75715e"># Flase</span>
-d<span style="color:#f92672">.</span>callback(<span style="color:#ae81ff">3</span>)
-<span style="color:#75715e"># foo called</span>
-d<span style="color:#f92672">.</span>called
-<span style="color:#75715e"># True</span>
-d<span style="color:#f92672">.</span>result
-<span style="color:#75715e"># 4</span></code></pre></div>
-<p>The most powerful feature of deferred is that we can chain other ops to be called when a value is set. Add a <code>foo()</code> func as callabck of d.</p>
+<h1 id="false">False</h1>
 
-<h3 id="understanding-twisted-and-nonblocking-i-o">Understanding Twisted and nonblocking I/O</h3>
+<p>d.callback(3)
+d.called</p>
 
-<pre><code># ~*~ Twisted - A Python tale ~*~
+<h1 id="true">True</h1>
 
-from time import sleep
+<p>d.result</p>
 
-# Hello, I'm a developer and I mainly setup Wordpress.
-def install_wordpress(customer):
-	# Our hosting company Threads Ltd. is bad. I start installation and ...
-	print(&quot;Start installation for&quot;, customer)
-	# ...then wait till the installation finishes successfully. It is 
-	# boring and I'm speding most of my time waiting while consuming
-	# resources (RAM and CPU cycles). It's because the process is BLOCKING
-	sleep(3)
-	print(&quot;All done for&quot;, customer)
-	
-# I do this all day for our customers
-def developer_day(customers):
-	for customer in customers:
-		install_wordpress(customer)
-		
-developer_day( [&quot;Bill&quot;, &quot;Elon&quot;, &quot;Steve&quot;, &quot;Mark&quot;])
+<h1 id="3">3</h1>
 
-# Let's run it
-$ ./deferreds.py 1
-...
-* Elasped time: 12.03 seconds
+<pre><code>
+See that Deferred is at core a thing representing a value that hangs, when fire d called it's called state becomes True, result attribute is set to value set on callback.
+
 </code></pre>
 
-<p>What gotten is a sequential execution. 4 customers with 3 seconds processing each means 12 overall. Doesn&rsquo;t scale well.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> twisted.internet <span style="color:#f92672">import</span> reactor, defer, task
+<p>python
+d = defer.Deferred()
+def foo(v):
+    print(&ldquo;foo called&rdquo;)
+    return v+1</p>
 
-<span style="color:#75715e"># Twisted has a slightly different approach</span>
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">schedule_install</span>(customer):
-    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">schedule_install_wordpress</span>():
-        <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">on_done</span>():
-            <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Callback: Finished installation for&#34;</span>, customer)
-        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Scheduling: Installation for&#34;</span>, customer)
-        <span style="color:#66d9ef">return</span> task<span style="color:#f92672">.</span>deferLater(reactor, <span style="color:#ae81ff">3</span>, on_done)
-	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">all_done</span>(_):
-        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;All done for &#34;</span>, customer)
-	
-    <span style="color:#75715e"># For each customer, schedule these processes on the CRM and that is all has to do</span>
-    d <span style="color:#f92672">=</span> schedule_install_wordpress()
-    d<span style="color:#f92672">.</span>addCallback(all_done)
-    <span style="color:#66d9ef">return</span> d
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">twisted_developer_day</span>(customers):
-    work <span style="color:#f92672">=</span> [schedule_install(customer) <span style="color:#66d9ef">for</span> customer <span style="color:#f92672">in</span> customers]
-    join <span style="color:#f92672">=</span> defer<span style="color:#f92672">.</span>DeferredList(work)
-    join<span style="color:#f92672">.</span>addCallback(<span style="color:#66d9ef">lambda</span> _ : reactor<span style="color:#f92672">.</span>stop())
-    
-twisted_developer_day( [<span style="color:#e6db74">&#34;Customer </span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> i <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> xrange(<span style="color:#ae81ff">15</span>)])
+<p>d.addCallback(foo)
+d.called</p>
 
-reactor<span style="color:#f92672">.</span>run()</code></pre></div>
-<p>This processes all 15 customers in parallel, 45 seconds computation in just three seconds! The trick is replacing all blocking calls to sleep() with its Twisted counterpart <code>task.deferLater()</code> and callback.</p>
+<h1 id="flase">Flase</h1>
 
-<p>Guide to programming scrapy:</p>
+<p>d.callback(3)</p>
 
-<table>
-<thead>
-<tr>
-<th>Problem</th>
-<th>Solution</th>
-</tr>
-</thead>
+<h1 id="foo-called">foo called</h1>
 
-<tbody>
-<tr>
-<td>Specific to website crawled</td>
-<td>Mod Spider</td>
-</tr>
+<p>d.called</p>
 
-<tr>
-<td>Mod or storing ITEM - domain-specific, may be reused across projects</td>
-<td>Write an Item Pipeline</td>
-</tr>
+<h1 id="true-1">True</h1>
 
-<tr>
-<td>Mod or dropping Request/Reponse - domain-specific, mmay be reused across projects</td>
-<td>Write a spider middleware</td>
-</tr>
+<p>d.result</p>
 
-<tr>
-<td>Executing Requests/Responses - generic, like to support some custom login scheme or a special way to handle cookies</td>
-<td>Write a downloader middleware</td>
-</tr>
+<h1 id="4">4</h1>
 
-<tr>
-<td>All other problems</td>
-<td>Write an extension</td>
-</tr>
-</tbody>
-</table>
+<pre><code>
+The most powerful feature of deferred is that we can chain other ops to be called when a value is set. Add a `foo()` func as callabck of d.
 
-<h3 id="example-1-a-very-simple-pipeline">Example 1 - a very simple pipeline</h3>
+### Understanding Twisted and nonblocking I/O
 
-<p>Problem: Lots of spiders, but database need string format for indexing, changing individual spiders too much code.</p>
+</code></pre>
 
-<p>Write a postprocess item pipeline:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> datetime <span style="color:#f92672">import</span> datetime
+<h1 id="twisted-a-python-tale">~<em>~ Twisted - A Python tale ~</em>~</h1>
 
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TidyUp</span>(object):
-    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">process_item</span>(self, item, spider):
-        item[<span style="color:#e6db74">&#39;date&#39;</span>] <span style="color:#f92672">=</span> map(datetime<span style="color:#f92672">.</span>isoformat, item[<span style="color:#e6db74">&#39;date&#39;</span>])
-        <span style="color:#66d9ef">return</span> item</code></pre></div>
-<p>Simple class with <code>process_item()</code> method. Add it in <code>tidyup.py</code> insdie <code>pipelines</code> directory.</p>
+<p>from time import sleep</p>
 
-<p>NOTE: The placement of code is free, but a separate directory is a good idea.</p>
+<h1 id="hello-i-m-a-developer-and-i-mainly-setup-wordpress">Hello, I&rsquo;m a developer and I mainly setup Wordpress.</h1>
 
-<p>Now edit <code>settings.py</code> and set</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ITEM_PIPELINES = { 'properties.pipelines.tidyup.TidyUp' : 100 }`" data-lang="ITEM_PIPELINES = { 'properties.pipelines.tidyup.TidyUp' : 100 }`">The number 100 on dict defines the order in which pipelines are connected. If another pipeline has a smaller number, it will process ITEM prior to this pipeline.
+<p>def install_wordpress(customer):
+	# Our hosting company Threads Ltd. is bad. I start installation and &hellip;
+	print(&ldquo;Start installation for&rdquo;, customer)
+	# &hellip;then wait till the installation finishes successfully. It is
+	# boring and I&rsquo;m speding most of my time waiting while consuming
+	# resources (RAM and CPU cycles). It&rsquo;s because the process is BLOCKING
+	sleep(3)
+	print(&ldquo;All done for&rdquo;, customer)</p>
 
-The resulting `date` data will be `[&#39;2015-11-08T14:47:04.148232&#39;]` as ISO string.
+<h1 id="i-do-this-all-day-for-our-customers">I do this all day for our customers</h1>
+
+<p>def developer_day(customers):
+	for customer in customers:
+		install_wordpress(customer)</p>
+
+<p>developer_day( [&ldquo;Bill&rdquo;, &ldquo;Elon&rdquo;, &ldquo;Steve&rdquo;, &ldquo;Mark&rdquo;])</p>
+
+<h1 id="let-s-run-it">Let&rsquo;s run it</h1>
+
+<p>$ ./deferreds.py 1
+&hellip;
+* Elasped time: 12.03 seconds</p>
+
+<pre><code>
+What gotten is a sequential execution. 4 customers with 3 seconds processing each means 12 overall. Doesn't scale well.
+
+</code></pre>
+
+<p>python
+from twisted.internet import reactor, defer, task</p>
+
+<h1 id="twisted-has-a-slightly-different-approach">Twisted has a slightly different approach</h1>
+
+<p>def schedule_install(customer):
+    def schedule_install_wordpress():
+        def on_done():
+            print(&ldquo;Callback: Finished installation for&rdquo;, customer)
+        print(&ldquo;Scheduling: Installation for&rdquo;, customer)
+        return task.deferLater(reactor, 3, on_done)
+	def all<em>done(</em>):
+        print(&ldquo;All done for &ldquo;, customer)</p>
+
+<pre><code># For each customer, schedule these processes on the CRM and that is all has to do
+d = schedule_install_wordpress()
+d.addCallback(all_done)
+return d
+</code></pre>
+
+<p>def twisted_developer_day(customers):
+    work = [schedule_install(customer) for customer in customers]
+    join = defer.DeferredList(work)
+    join.addCallback(lambda _ : reactor.stop())</p>
+
+<p>twisted_developer_day( [&ldquo;Customer %d&rdquo; % i for i in xrange(15)])</p>
+
+<p>reactor.run()</p>
+
+<pre><code>
+This processes all 15 customers in parallel, 45 seconds computation in just three seconds! The trick is replacing all blocking calls to sleep() with its Twisted counterpart `task.deferLater()` and callback. 
+
+Guide to programming scrapy:
+
+| Problem                                                      | Solution                      |
+| ------------------------------------------------------------ | ----------------------------- |
+| Specific to website crawled                                  | Mod Spider                    |
+| Mod or storing ITEM - domain-specific, may be reused across projects | Write an Item Pipeline        |
+| Mod or dropping Request/Reponse - domain-specific, mmay be reused across projects | Write a spider middleware     |
+| Executing Requests/Responses - generic, like to support some custom login scheme or a special way to handle cookies | Write a downloader middleware |
+| All other problems                                           | Write an extension            |
 
 
 
-### Signals
+### Example 1 - a very simple pipeline
 
-Mechanism to add callbacks to events happening in system, such as when a spider opens, or when an item gets scraped. Hook to them using `crawler.signals.connect()` (see below example). There&#39;re just 11 of them and maybe the easiest way to understand in action. Below is a project having an extension hooking to all signals. Plus a Item Pipeline, one Downloader and one spider middleware, logging every method invocation. 
+Problem: Lots of spiders, but database need string format for indexing, changing individual spiders too much code.
 
-```python
-def parse(self, response):
-    for i in range(2):
-        item = HooksasyncItem()
-        item[&#39;name&#39;] = &#34;Hello %d&#34; % i
-        yield item
-	raise Exception(&#34;dead&#34;)</code></pre></div>
+Write a postprocess item pipeline:
+
+</code></pre>
+
+<p>python
+from datetime import datetime</p>
+
+<p>class TidyUp(object):
+    def process_item(self, item, spider):
+        item[&lsquo;date&rsquo;] = map(datetime.isoformat, item[&lsquo;date&rsquo;])
+        return item</p>
+
+<pre><code>
+Simple class with `process_item()` method. Add it in `tidyup.py` insdie `pipelines` directory.
+
+NOTE: The placement of code is free, but a separate directory is a good idea.
+
+Now edit `settings.py` and set
+
+</code></pre>
+
+<p>ITEM_PIPELINES = { &lsquo;properties.pipelines.tidyup.TidyUp&rsquo; : 100 }`</p>
+
+<p>The number 100 on dict defines the order in which pipelines are connected. If another pipeline has a smaller number, it will process ITEM prior to this pipeline.</p>
+
+<p>The resulting <code>date</code> data will be <code>['2015-11-08T14:47:04.148232']</code> as ISO string.</p>
+
+<h3 id="signals">Signals</h3>
+
+<p>Mechanism to add callbacks to events happening in system, such as when a spider opens, or when an item gets scraped. Hook to them using <code>crawler.signals.connect()</code> (see below example). There&rsquo;re just 11 of them and maybe the easiest way to understand in action. Below is a project having an extension hooking to all signals. Plus a Item Pipeline, one Downloader and one spider middleware, logging every method invocation.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse</span>(self, response):
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2</span>):
+        item <span style="color:#f92672">=</span> HooksasyncItem()
+        item[<span style="color:#e6db74">&#39;name&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hello </span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> i
+        <span style="color:#66d9ef">yield</span> item
+    <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">Exception</span>(<span style="color:#e6db74">&#34;dead&#34;</span>)</code></pre></div>
 <p>On the second ITEM, configured the Item Pipeline to raise a <code>DropItem</code> exception.</p>
 
 <p>This illustrates when certain signals get sent via logs:</p>
@@ -1600,31 +1608,31 @@ INFO: Extension, singal.sengine_stopped fired
     <span style="color:#66d9ef">def</span> __init__(self, crawler):
         self<span style="color:#f92672">.</span>crawler <span style="color:#f92672">=</span> crawler
         self<span style="color:#f92672">.</span>interval <span style="color:#f92672">=</span> crawler<span style="color:#f92672">.</span>settings<span style="color:#f92672">.</span>getfloat(<span style="color:#e6db74">&#39;LATENCIeS_INTERVAL&#39;</span>)
-        	<span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> self<span style="color:#f92672">.</span>interval:
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> self<span style="color:#f92672">.</span>interval:
                 <span style="color:#66d9ef">raise</span> NotConfigured
-		cs <span style="color:#f92672">=</span> crawler<span style="color:#f92672">.</span>signals
+        cs <span style="color:#f92672">=</span> crawler<span style="color:#f92672">.</span>signals
         cs<span style="color:#f92672">.</span>connect(self<span style="color:#f92672">.</span>_spider_opened, signal<span style="color:#f92672">=</span>signals<span style="color:#f92672">.</span>spider_opened)
         cs<span style="color:#f92672">.</span>connect(self<span style="color:#f92672">.</span>_spider_closed, signal<span style="color:#f92672">=</span>signals<span style="color:#f92672">.</span>spider_closed)
         cs<span style="color:#f92672">.</span>connect(self<span style="color:#f92672">.</span>_request_scheduled, signal<span style="color:#f92672">=</span>signals<span style="color:#f92672">.</span>request_scheduled)
         cs<span style="color:#f92672">.</span>connect(self<span style="color:#f92672">.</span>_request_received, signal<span style="color:#f92672">=</span>signals<span style="color:#f92672">.</span>request_received)
-		cs<span style="color:#f92672">.</span>connect(self<span style="color:#f92672">.</span>_item_scraped, signal<span style="color:#f92672">=</span>signals<span style="color:#f92672">.</span>item_scraped)
-		self<span style="color:#f92672">.</span>latency, self<span style="color:#f92672">.</span>proc_latency, self<span style="color:#f92672">.</span>items <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>
-	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_spider_opened</span>(self, spider):
+        cs<span style="color:#f92672">.</span>connect(self<span style="color:#f92672">.</span>_item_scraped, signal<span style="color:#f92672">=</span>signals<span style="color:#f92672">.</span>item_scraped)
+        self<span style="color:#f92672">.</span>latency, self<span style="color:#f92672">.</span>proc_latency, self<span style="color:#f92672">.</span>items <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_spider_opened</span>(self, spider):
         self<span style="color:#f92672">.</span>task <span style="color:#f92672">=</span> task<span style="color:#f92672">.</span>LoopingCall(self<span style="color:#f92672">.</span>_log, spider)
         self<span style="color:#f92672">.</span>task<span style="color:#f92672">.</span>start(self<span style="color:#f92672">.</span>interval)
         
-	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_spider_closed</span>(self, spider, reason):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_spider_closed</span>(self, spider, reason):
         <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>task<span style="color:#f92672">.</span>running:
             self<span style="color:#f92672">.</span>task<span style="color:#f92672">.</span>stop()
-	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_request_scheduled</span>(self, request, spider):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_request_scheduled</span>(self, request, spider):
         request<span style="color:#f92672">.</span>meta[<span style="color:#e6db74">&#39;schedule_time&#39;</span>] <span style="color:#f92672">=</span> time()
-	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_reponse_received</span>(self, response, request, spider):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_reponse_received</span>(self, response, request, spider):
         request<span style="color:#f92672">.</span>meta[<span style="color:#e6db74">&#39;received_time&#39;</span>] <span style="color:#f92672">=</span> time()
-	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_item_scraped</span>(self, item, response, spider):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_item_scraped</span>(self, item, response, spider):
         self<span style="color:#f92672">.</span>latency <span style="color:#f92672">+=</span> time() <span style="color:#f92672">-</span> response<span style="color:#f92672">.</span>meta[<span style="color:#e6db74">&#39;schedule_time&#39;</span>]
         self<span style="color:#f92672">.</span>proc_latency <span style="color:#f92672">+=</span> time() <span style="color:#f92672">-</span> response<span style="color:#f92672">.</span>meta[<span style="color:#e6db74">&#39;received_tieme&#39;</span>]
         self<span style="color:#f92672">.</span>items <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
-	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_log</span>(self, spider):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_log</span>(self, spider):
         irate <span style="color:#f92672">=</span> float(self<span style="color:#f92672">.</span>items) <span style="color:#f92672">/</span> self<span style="color:#f92672">.</span>interval
         latency <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>latency <span style="color:#f92672">/</span> slef<span style="color:#f92672">.</span>items <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>items <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">0</span>
         proc_latency <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>proc_latency <span style="color:#f92672">/</span> self<span style="color:#f92672">.</span>items <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>items <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">0</span>
@@ -1710,77 +1718,77 @@ ES_PIPELINE_URL <span style="color:#f92672">=</span> <span style="color:#e6db74"
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> scrapy
 
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">QuotesSpider</span>(scrapy<span style="color:#f92672">.</span>Spider):
-	name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;quotes&#34;</span>
-	allowed_domains <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;toscrape.com&#34;</span>]
-	start_urls <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;http://quotes.toscrape.com&#39;</span>]
+    name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;quotes&#34;</span>
+    allowed_domains <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;toscrape.com&#34;</span>]
+    start_urls <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;http://quotes.toscrape.com&#39;</span>]
 
-	<span style="color:#75715e"># Version1: Scraping by pages</span>
-	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse</span>(self, response):
-		self<span style="color:#f92672">.</span>log(f<span style="color:#e6db74">&#39;I just visited: {response.url}&#39;</span>)
-		<span style="color:#66d9ef">for</span> quote <span style="color:#f92672">in</span> response<span style="color:#f92672">.</span>css(<span style="color:#e6db74">&#39;div.quote&#39;</span>):
-			item <span style="color:#f92672">=</span> {
-				<span style="color:#e6db74">&#39;author_name&#39;</span>: quote<span style="color:#f92672">.</span>css(<span style="color:#e6db74">&#39;small.author::text&#39;</span>)<span style="color:#f92672">.</span>extract_first(),
-				<span style="color:#e6db74">&#39;text&#39;</span>: quote<span style="color:#f92672">.</span>css(<span style="color:#e6db74">&#39;span.text::text&#39;</span>)<span style="color:#f92672">.</span>extract_first(),
-				<span style="color:#e6db74">&#39;tags&#39;</span>: quote<span style="color:#f92672">.</span>css(<span style="color:#e6db74">&#39;a.tag::text&#39;</span>)<span style="color:#f92672">.</span>extract(),
-			}
-			<span style="color:#66d9ef">yield</span> item
-		<span style="color:#75715e"># follow pagination link</span>
-		next_page_url <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>css(<span style="color:#e6db74">&#39;li.next &gt; a::attr(href)&#39;</span>)<span style="color:#f92672">.</span>extract_first()
-		<span style="color:#75715e"># stop at null page link</span>
-		<span style="color:#66d9ef">if</span> next_page_url:
-			<span style="color:#75715e"># response.urljoin(&#39;relative path&#39;) joins with response.url(&#39;abs path&#39;)</span>
-			next_page_url <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>urljoin(next_page_url)
-			<span style="color:#66d9ef">yield</span> scrapy<span style="color:#f92672">.</span>Request(url<span style="color:#f92672">=</span>next_page_url, callback<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>parse)
+    <span style="color:#75715e"># Version1: Scraping by pages</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse</span>(self, response):
+        self<span style="color:#f92672">.</span>log(f<span style="color:#e6db74">&#39;I just visited: {response.url}&#39;</span>)
+        <span style="color:#66d9ef">for</span> quote <span style="color:#f92672">in</span> response<span style="color:#f92672">.</span>css(<span style="color:#e6db74">&#39;div.quote&#39;</span>):
+            item <span style="color:#f92672">=</span> {
+                <span style="color:#e6db74">&#39;author_name&#39;</span>: quote<span style="color:#f92672">.</span>css(<span style="color:#e6db74">&#39;small.author::text&#39;</span>)<span style="color:#f92672">.</span>extract_first(),
+                <span style="color:#e6db74">&#39;text&#39;</span>: quote<span style="color:#f92672">.</span>css(<span style="color:#e6db74">&#39;span.text::text&#39;</span>)<span style="color:#f92672">.</span>extract_first(),
+                <span style="color:#e6db74">&#39;tags&#39;</span>: quote<span style="color:#f92672">.</span>css(<span style="color:#e6db74">&#39;a.tag::text&#39;</span>)<span style="color:#f92672">.</span>extract(),
+            }
+            <span style="color:#66d9ef">yield</span> item
+        <span style="color:#75715e"># follow pagination link</span>
+        next_page_url <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>css(<span style="color:#e6db74">&#39;li.next &gt; a::attr(href)&#39;</span>)<span style="color:#f92672">.</span>extract_first()
+        <span style="color:#75715e"># stop at null page link</span>
+        <span style="color:#66d9ef">if</span> next_page_url:
+            <span style="color:#75715e"># response.urljoin(&#39;relative path&#39;) joins with response.url(&#39;abs path&#39;)</span>
+            next_page_url <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>urljoin(next_page_url)
+            <span style="color:#66d9ef">yield</span> scrapy<span style="color:#f92672">.</span>Request(url<span style="color:#f92672">=</span>next_page_url, callback<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>parse)
 
-	<span style="color:#75715e"># Version2: Scraping through links</span>
-	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse</span>(self, response):
-		<span style="color:#75715e"># collecting all links wishing to click on a page</span>
-		<span style="color:#75715e"># DEFAULT DUPEFILTER set to ignore duplicate pages</span>
-		urls <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>css(<span style="color:#e6db74">&#39;div.quote &gt; span &gt; a::attr(href)&#39;</span>)<span style="color:#f92672">.</span>extract()
-		<span style="color:#66d9ef">for</span> url <span style="color:#f92672">in</span> urls:
-			url <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>urljoin(url)
-			<span style="color:#66d9ef">yield</span> scrapy<span style="color:#f92672">.</span>Request(url<span style="color:#f92672">=</span>url, callback<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>parse_details) <span style="color:#75715e"># callback to be defined</span>
+    <span style="color:#75715e"># Version2: Scraping through links</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse</span>(self, response):
+        <span style="color:#75715e"># collecting all links wishing to click on a page</span>
+        <span style="color:#75715e"># DEFAULT DUPEFILTER set to ignore duplicate pages</span>
+        urls <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>css(<span style="color:#e6db74">&#39;div.quote &gt; span &gt; a::attr(href)&#39;</span>)<span style="color:#f92672">.</span>extract()
+        <span style="color:#66d9ef">for</span> url <span style="color:#f92672">in</span> urls:
+            url <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>urljoin(url)
+            <span style="color:#66d9ef">yield</span> scrapy<span style="color:#f92672">.</span>Request(url<span style="color:#f92672">=</span>url, callback<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>parse_details) <span style="color:#75715e"># callback to be defined</span>
 
-		<span style="color:#75715e"># follow pagination links</span>
-		<span style="color:#75715e"># same as above</span>
+        <span style="color:#75715e"># follow pagination links</span>
+        <span style="color:#75715e"># same as above</span>
 
-	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse_details</span>(self, response):
-		<span style="color:#66d9ef">yield</span> {
-			<span style="color:#e6db74">&#39;name&#39;</span>: response<span style="color:#f92672">.</span>css(<span style="color:#e6db74">&#39;h3.author-title::text&#39;</span>)<span style="color:#f92672">.</span>extract_first()
-			<span style="color:#e6db74">&#39;birth&#39;</span>: response<span style="color:#f92672">.</span>css(<span style="color:#e6db74">&#39;span.author-born-date::text&#39;</span>)<span style="color:#f92672">.</span>extract_first()
-		}
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse_details</span>(self, response):
+        <span style="color:#66d9ef">yield</span> {
+            <span style="color:#e6db74">&#39;name&#39;</span>: response<span style="color:#f92672">.</span>css(<span style="color:#e6db74">&#39;h3.author-title::text&#39;</span>)<span style="color:#f92672">.</span>extract_first()
+            <span style="color:#e6db74">&#39;birth&#39;</span>: response<span style="color:#f92672">.</span>css(<span style="color:#e6db74">&#39;span.author-born-date::text&#39;</span>)<span style="color:#f92672">.</span>extract_first()
+        }
 
 <span style="color:#75715e"># Version3: Scraping Infinite Scrolling Pages; finding APIs powering AJAX-based inf-scroll</span>
 <span style="color:#e6db74">&#34;&#34;&#34;Concept
 </span><span style="color:#e6db74">Using DevTool to inspect network as scrolling happens returning AJAX powered, mostly, JSON files;
 </span><span style="color:#e6db74">explorable inside DevTool;
 </span><span style="color:#e6db74">Preview by json library tools:
-</span><span style="color:#e6db74">response.text 	:revealing JSON format
-</span><span style="color:#e6db74">print(response.text) 	:readable format
+</span><span style="color:#e6db74">response.text   :revealing JSON format
+</span><span style="color:#e6db74">print(response.text)    :readable format
 </span><span style="color:#e6db74">import json
 </span><span style="color:#e6db74">data = json.loads(response.text)
-</span><span style="color:#e6db74">data.keys()		:prints keys
-</span><span style="color:#e6db74">data[&#39;quotes&#39;][0] 	:first element of quotes, a dict
-</span><span style="color:#e6db74">data[&#39;quotes&#39;][0][&#39;author&#39;][&#39;name&#39;] 	:lowest-level data
+</span><span style="color:#e6db74">data.keys()     :prints keys
+</span><span style="color:#e6db74">data[&#39;quotes&#39;][0]   :first element of quotes, a dict
+</span><span style="color:#e6db74">data[&#39;quotes&#39;][0][&#39;author&#39;][&#39;name&#39;]     :lowest-level data
 </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
 <span style="color:#f92672">import</span> json
 
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">QuoteScrollSpider</span>(scrapy<span style="color:#f92672">.</span>Spider):
-	name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;quotes-scroll&#34;</span>
-	api_url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;http://quotes.toscrape.com/api/quotes?page={}&#39;</span>
-	start_urls <span style="color:#f92672">=</span> [api_url<span style="color:#f92672">.</span>format(<span style="color:#ae81ff">1</span>)] <span style="color:#75715e"># KEY step</span>
+    name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;quotes-scroll&#34;</span>
+    api_url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;http://quotes.toscrape.com/api/quotes?page={}&#39;</span>
+    start_urls <span style="color:#f92672">=</span> [api_url<span style="color:#f92672">.</span>format(<span style="color:#ae81ff">1</span>)] <span style="color:#75715e"># KEY step</span>
 
-	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse</span>(self, response):
-		data <span style="color:#f92672">=</span> json<span style="color:#f92672">.</span>loads(response<span style="color:#f92672">.</span>text)
-		<span style="color:#66d9ef">for</span> quote <span style="color:#f92672">in</span> data[<span style="color:#e6db74">&#39;quotes&#39;</span>]:
-			<span style="color:#66d9ef">yield</span> {
-			<span style="color:#e6db74">&#39;author&#39;</span>: quote[<span style="color:#e6db74">&#39;author&#39;</span>][<span style="color:#e6db74">&#39;name&#39;</span>],
-			<span style="color:#e6db74">&#39;text&#39;</span>: quote[<span style="color:#e6db74">&#39;text&#39;</span>]
-			<span style="color:#e6db74">&#39;tags&#39;</span>: quote[<span style="color:#e6db74">&#39;tags&#39;</span>]
-			}
-		<span style="color:#66d9ef">if</span> data[<span style="color:#e6db74">&#39;has_next&#39;</span>]:
-			next_page <span style="color:#f92672">=</span> data[<span style="color:#e6db74">&#39;page&#39;</span>] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
-			<span style="color:#66d9ef">yield</span> scrapy<span style="color:#f92672">.</span>Request(url<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>api_url<span style="color:#f92672">.</span>format(next_page), callback<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>parse)
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse</span>(self, response):
+        data <span style="color:#f92672">=</span> json<span style="color:#f92672">.</span>loads(response<span style="color:#f92672">.</span>text)
+        <span style="color:#66d9ef">for</span> quote <span style="color:#f92672">in</span> data[<span style="color:#e6db74">&#39;quotes&#39;</span>]:
+            <span style="color:#66d9ef">yield</span> {
+            <span style="color:#e6db74">&#39;author&#39;</span>: quote[<span style="color:#e6db74">&#39;author&#39;</span>][<span style="color:#e6db74">&#39;name&#39;</span>],
+            <span style="color:#e6db74">&#39;text&#39;</span>: quote[<span style="color:#e6db74">&#39;text&#39;</span>]
+            <span style="color:#e6db74">&#39;tags&#39;</span>: quote[<span style="color:#e6db74">&#39;tags&#39;</span>]
+            }
+        <span style="color:#66d9ef">if</span> data[<span style="color:#e6db74">&#39;has_next&#39;</span>]:
+            next_page <span style="color:#f92672">=</span> data[<span style="color:#e6db74">&#39;page&#39;</span>] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+            <span style="color:#66d9ef">yield</span> scrapy<span style="color:#f92672">.</span>Request(url<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>api_url<span style="color:#f92672">.</span>format(next_page), callback<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>parse)
 
 <span style="color:#75715e"># Version4: Submitting Forms - POST requests such as logins</span>
 <span style="color:#e6db74">&#34;&#34;&#34;Concept
@@ -1790,30 +1798,30 @@ ES_PIPELINE_URL <span style="color:#f92672">=</span> <span style="color:#e6db74"
 </span><span style="color:#e6db74">Solution: submit form with user/pass + carf_token scraped at page-load
 </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LoginSpider</span>(scrapy<span style="color:#f92672">.</span>Spider):
-	name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;loging-spider&#39;</span>
-	login_url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;http://quotes.toscrape.com/login&#39;</span>
-	start_urls <span style="color:#f92672">=</span> [login_url]
+    name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;loging-spider&#39;</span>
+    login_url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;http://quotes.toscrape.com/login&#39;</span>
+    start_urls <span style="color:#f92672">=</span> [login_url]
 
-	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse</span>(self, response):
-		<span style="color:#75715e"># extract the CSRF token (selector depending on context)</span>
-		token <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>css(<span style="color:#e6db74">&#39;input[name=&#39;</span>csrf_token<span style="color:#e6db74">&#39;]::attr(value)&#39;</span>)<span style="color:#f92672">.</span>extract_first()
-		<span style="color:#75715e"># create a python dict with form values</span>
-		data <span style="color:#f92672">=</span> {
-			<span style="color:#e6db74">&#39;csrf_token&#39;</span>: token,
-			<span style="color:#e6db74">&#39;username&#39;</span>: <span style="color:#e6db74">&#39;whatever&#39;</span>,
-			<span style="color:#e6db74">&#39;password&#39;</span>: <span style="color:#e6db74">&#39;whatever&#39;</span>,
-		}
-		<span style="color:#75715e"># submit a POST request to web (url may differ from login page)</span>
-		<span style="color:#66d9ef">yield</span> scrapy<span style="color:#f92672">.</span>FormRequest(url<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>login_url, formdata<span style="color:#f92672">=</span>data, callback<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>parse<span style="color:#f92672">.</span>quotes)
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse</span>(self, response):
+        <span style="color:#75715e"># extract the CSRF token (selector depending on context)</span>
+        token <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>css(<span style="color:#e6db74">&#39;input[name=&#39;</span>csrf_token<span style="color:#e6db74">&#39;]::attr(value)&#39;</span>)<span style="color:#f92672">.</span>extract_first()
+        <span style="color:#75715e"># create a python dict with form values</span>
+        data <span style="color:#f92672">=</span> {
+            <span style="color:#e6db74">&#39;csrf_token&#39;</span>: token,
+            <span style="color:#e6db74">&#39;username&#39;</span>: <span style="color:#e6db74">&#39;whatever&#39;</span>,
+            <span style="color:#e6db74">&#39;password&#39;</span>: <span style="color:#e6db74">&#39;whatever&#39;</span>,
+        }
+        <span style="color:#75715e"># submit a POST request to web (url may differ from login page)</span>
+        <span style="color:#66d9ef">yield</span> scrapy<span style="color:#f92672">.</span>FormRequest(url<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>login_url, formdata<span style="color:#f92672">=</span>data, callback<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>parse<span style="color:#f92672">.</span>quotes)
 
 
-	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse_quotes</span>(self, response):
-		<span style="color:#e6db74">&#34;&#34;&#34;Parse the main page after the spider logged in&#34;&#34;&#34;</span>
-		<span style="color:#66d9ef">for</span> q <span style="color:#f92672">in</span> response<span style="color:#f92672">.</span>css(<span style="color:#e6db74">&#39;div.quote&#39;</span>):
-			<span style="color:#66d9ef">yield</span> {
-				<span style="color:#e6db74">&#39;author_name&#39;</span>: q<span style="color:#f92672">.</span>css(<span style="color:#e6db74">&#39;small.author::text&#39;</span>)<span style="color:#f92672">.</span>extract_first(),
-				<span style="color:#e6db74">&#39;author_url&#39;</span>: q<span style="color:#f92672">.</span>css(<span style="color:#e6db74">&#39;small.author ~ a[href*=&#34;goodreads.com&#34;]::attr(href)&#39;</span>)<span style="color:#f92672">.</span>extract_first()
-			}
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse_quotes</span>(self, response):
+        <span style="color:#e6db74">&#34;&#34;&#34;Parse the main page after the spider logged in&#34;&#34;&#34;</span>
+        <span style="color:#66d9ef">for</span> q <span style="color:#f92672">in</span> response<span style="color:#f92672">.</span>css(<span style="color:#e6db74">&#39;div.quote&#39;</span>):
+            <span style="color:#66d9ef">yield</span> {
+                <span style="color:#e6db74">&#39;author_name&#39;</span>: q<span style="color:#f92672">.</span>css(<span style="color:#e6db74">&#39;small.author::text&#39;</span>)<span style="color:#f92672">.</span>extract_first(),
+                <span style="color:#e6db74">&#39;author_url&#39;</span>: q<span style="color:#f92672">.</span>css(<span style="color:#e6db74">&#39;small.author ~ a[href*=&#34;goodreads.com&#34;]::attr(href)&#39;</span>)<span style="color:#f92672">.</span>extract_first()
+            }
 
 <span style="color:#75715e"># Even simpler way is to use FormRequest.from_request() directly parsing hidden field!!</span>
 <span style="color:#e6db74">&#34;&#34;&#34;
@@ -1821,13 +1829,13 @@ ES_PIPELINE_URL <span style="color:#f92672">=</span> <span style="color:#e6db74"
 </span><span style="color:#e6db74">This is how our spider&#39;s parse_tags() method looks:
 </span><span style="color:#e6db74">So, whenever you are dealing with forms containing some hidden fields and pre-filled values, use the from_response method because your code will look much cleaner.
 </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
-	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse_tags</span>(self, response):
-	    <span style="color:#66d9ef">for</span> tag <span style="color:#f92672">in</span> response<span style="color:#f92672">.</span>css(<span style="color:#e6db74">&#39;select#tag &gt; option ::attr(value)&#39;</span>)<span style="color:#f92672">.</span>extract():
-	        <span style="color:#66d9ef">yield</span> scrapy<span style="color:#f92672">.</span>FormRequest<span style="color:#f92672">.</span>from_response(
-	            response,
-	            formdata<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#39;tag&#39;</span>: tag},
-	            callback<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>parse_results,
-	        )
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse_tags</span>(self, response):
+        <span style="color:#66d9ef">for</span> tag <span style="color:#f92672">in</span> response<span style="color:#f92672">.</span>css(<span style="color:#e6db74">&#39;select#tag &gt; option ::attr(value)&#39;</span>)<span style="color:#f92672">.</span>extract():
+            <span style="color:#66d9ef">yield</span> scrapy<span style="color:#f92672">.</span>FormRequest<span style="color:#f92672">.</span>from_response(
+                response,
+                formdata<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#39;tag&#39;</span>: tag},
+                callback<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>parse_results,
+            )
 
 
 <span style="color:#75715e"># Version5: Scraping JS pages with Splash: scraping JS-based webs using Scrapy + Splash</span>
@@ -1836,37 +1844,37 @@ ES_PIPELINE_URL <span style="color:#f92672">=</span> <span style="color:#e6db74"
 </span><span style="color:#e6db74">Active inspection will show JS called content, which is not scraped by Scrapy;
 </span><span style="color:#e6db74">
 </span><span style="color:#e6db74">Splash - JS Engine
-</span><span style="color:#e6db74">	docker pull scrapinghub/splash
-</span><span style="color:#e6db74">	docker run -p 8050:8050 scrapinghub/splash
-</span><span style="color:#e6db74">		# now splash is LISTENING to the local 8050 port
-</span><span style="color:#e6db74">		# so Spider can REQUEST to it, Splash fetches the page, execute JS code on it, then returning rendered pages to spider
-</span><span style="color:#e6db74">	pip install scrapy-splash
+</span><span style="color:#e6db74">    docker pull scrapinghub/splash
+</span><span style="color:#e6db74">    docker run -p 8050:8050 scrapinghub/splash
+</span><span style="color:#e6db74">        # now splash is LISTENING to the local 8050 port
+</span><span style="color:#e6db74">        # so Spider can REQUEST to it, Splash fetches the page, execute JS code on it, then returning rendered pages to spider
+</span><span style="color:#e6db74">    pip install scrapy-splash
 </span><span style="color:#e6db74">
 </span><span style="color:#e6db74">Need to config SETTING:
 </span><span style="color:#e6db74">
-</span><span style="color:#e6db74">	DOWNLOADER_MIDDLEWARES = {
-</span><span style="color:#e6db74">	    &#39;scrapy_splash.SplashCookiesMiddleware&#39;: 723,
-</span><span style="color:#e6db74">	    &#39;scrapy_splash.SplashMiddleware&#39;: 725,
-</span><span style="color:#e6db74">	    &#39;scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware&#39;: 810,
-</span><span style="color:#e6db74">	}
+</span><span style="color:#e6db74">    DOWNLOADER_MIDDLEWARES = {
+</span><span style="color:#e6db74">        &#39;scrapy_splash.SplashCookiesMiddleware&#39;: 723,
+</span><span style="color:#e6db74">        &#39;scrapy_splash.SplashMiddleware&#39;: 725,
+</span><span style="color:#e6db74">        &#39;scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware&#39;: 810,
+</span><span style="color:#e6db74">    }
 </span><span style="color:#e6db74">
 </span><span style="color:#e6db74">The middleware needs to take precedence over HttpProxyMiddleware,
 </span><span style="color:#e6db74">which by default is at position 750, so we set the middleware positions to numbers below 750.
 </span><span style="color:#e6db74">
 </span><span style="color:#e6db74">You then need to set the SPLASH_URL setting in your project&#39;s settings.py:
-</span><span style="color:#e6db74">	SPLASH_URL = &#39;http://localhost:8050/&#39;
+</span><span style="color:#e6db74">    SPLASH_URL = &#39;http://localhost:8050/&#39;
 </span><span style="color:#e6db74">
 </span><span style="color:#e6db74">Don’t forget, if you’re using a Docker Machine on OS X or Windows, you will need to set this to the IP address of Docker’s virtual machine, e.g.:
-</span><span style="color:#e6db74">	SPLASH_URL = &#39;http://192.168.59.103:8050/&#39;
+</span><span style="color:#e6db74">    SPLASH_URL = &#39;http://192.168.59.103:8050/&#39;
 </span><span style="color:#e6db74">
 </span><span style="color:#e6db74">Enable SplashDeduplicateArgsMiddleware to support cache_args feature: it allows to save disk space by not storing duplicate Splash arguments multiple times in a disk request queue. If Splash 2.1+ is used the middleware also allows to save network traffic by not sending these duplicate arguments to Splash server multiple times.
-</span><span style="color:#e6db74">	SPIDER_MIDDLEWARES = {
+</span><span style="color:#e6db74">    SPIDER_MIDDLEWARES = {
 </span><span style="color:#e6db74">    &#39;scrapy_splash.SplashDeduplicateArgsMiddleware&#39;: 100,
-</span><span style="color:#e6db74">	}
+</span><span style="color:#e6db74">    }
 </span><span style="color:#e6db74">
 </span><span style="color:#e6db74">Scrapy currently doesn’t provide a way to override request fingerprints calculation globally, so you will also have to set a custom DUPEFILTER_CLASS and a custom cache storage backend:
-</span><span style="color:#e6db74">	DUPEFILTER_CLASS = &#39;scrapy_splash.SplashAwareDupeFilter&#39;
-</span><span style="color:#e6db74">	HTTPCACHE_STORAGE = &#39;scrapy_splash.SplashAwareFSCacheStorage&#39;
+</span><span style="color:#e6db74">    DUPEFILTER_CLASS = &#39;scrapy_splash.SplashAwareDupeFilter&#39;
+</span><span style="color:#e6db74">    HTTPCACHE_STORAGE = &#39;scrapy_splash.SplashAwareFSCacheStorage&#39;
 </span><span style="color:#e6db74">
 </span><span style="color:#e6db74">If you already use another cache storage backend, you will need to subclass it and replace all calls to scrapy.util.request.request_fingerprint with scrapy_splash.splash_request_fingerprint.
 </span><span style="color:#e6db74">
@@ -1880,16 +1888,16 @@ ES_PIPELINE_URL <span style="color:#f92672">=</span> <span style="color:#e6db74"
 <span style="color:#f92672">from</span> scrapy_splash <span style="color:#f92672">import</span> SplashRequest
 
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">QuotesJSSpider</span>(scrapy<span style="color:#f92672">.</span>Spider):
-	name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;quotesjs&#39;</span>
+    name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;quotesjs&#39;</span>
 
-	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">start_request</span>(self):
-		<span style="color:#66d9ef">yield</span> SplashRequest(
-			url<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;http://quotes.toscrape.com/js&#39;</span>,
-			callback<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>parse,
-			)
-	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse</span>(self, response):
-		<span style="color:#66d9ef">for</span> quote <span style="color:#f92672">in</span> response<span style="color:#f92672">.</span>css(<span style="color:#f92672">...</span>)
-		<span style="color:#66d9ef">yield</span> <span style="color:#f92672">...</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">start_request</span>(self):
+        <span style="color:#66d9ef">yield</span> SplashRequest(
+            url<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;http://quotes.toscrape.com/js&#39;</span>,
+            callback<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>parse,
+            )
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse</span>(self, response):
+        <span style="color:#66d9ef">for</span> quote <span style="color:#f92672">in</span> response<span style="color:#f92672">.</span>css(<span style="color:#f92672">...</span>)
+        <span style="color:#66d9ef">yield</span> <span style="color:#f92672">...</span>
 
         
 
@@ -1903,28 +1911,28 @@ ES_PIPELINE_URL <span style="color:#f92672">=</span> <span style="color:#e6db74"
 </span><span style="color:#e6db74">to modify page being rendered:
 </span><span style="color:#e6db74">
 </span><span style="color:#e6db74">EX: render page and mod its title dynamically
-</span><span style="color:#e6db74">	yield SplashRequest(
-</span><span style="color:#e6db74">	    &#39;http://example.com&#39;,
-</span><span style="color:#e6db74">	    endpoint=&#39;render.html&#39;,
-</span><span style="color:#e6db74">	    args={&#39;js_source&#39;: &#39;document.title=&#34;My Title&#34;;&#39;},
-</span><span style="color:#e6db74">	)
+</span><span style="color:#e6db74">    yield SplashRequest(
+</span><span style="color:#e6db74">        &#39;http://example.com&#39;,
+</span><span style="color:#e6db74">        endpoint=&#39;render.html&#39;,
+</span><span style="color:#e6db74">        args={&#39;js_source&#39;: &#39;document.title=&#34;My Title&#34;;&#39;},
+</span><span style="color:#e6db74">    )
 </span><span style="color:#e6db74">
 </span><span style="color:#e6db74">2) Splash Scripts
 </span><span style="color:#e6db74">Splash supports LUA scripts via execute endpoint. Preferred way for preload libraries
 </span><span style="color:#e6db74">choosing when to execute JS and retrieve output.
 </span><span style="color:#e6db74">
 </span><span style="color:#e6db74">Sample script:
-</span><span style="color:#e6db74">	function main(splash)
-</span><span style="color:#e6db74">	    assert(splash:go(splash.args.url))
-</span><span style="color:#e6db74">	    splash:wait(0.5)
-</span><span style="color:#e6db74">	    local title = splash:evaljs(&#34;document.title&#34;)
-</span><span style="color:#e6db74">	    return {title=title}
-</span><span style="color:#e6db74">	end
+</span><span style="color:#e6db74">    function main(splash)
+</span><span style="color:#e6db74">        assert(splash:go(splash.args.url))
+</span><span style="color:#e6db74">        splash:wait(0.5)
+</span><span style="color:#e6db74">        local title = splash:evaljs(&#34;document.title&#34;)
+</span><span style="color:#e6db74">        return {title=title}
+</span><span style="color:#e6db74">    end
 </span><span style="color:#e6db74">
 </span><span style="color:#e6db74">Need to send script to execute endpoint, in lua_source arguments, returning a JSON object having title:
-</span><span style="color:#e6db74">	{
-</span><span style="color:#e6db74">	    &#34;title&#34;: &#34;Some title&#34;
-</span><span style="color:#e6db74">	}
+</span><span style="color:#e6db74">    {
+</span><span style="color:#e6db74">        &#34;title&#34;: &#34;Some title&#34;
+</span><span style="color:#e6db74">    }
 </span><span style="color:#e6db74">
 </span><span style="color:#e6db74">Every script needs a main func to act as entry point. Able to return lua table be rendred as JSON, as here.
 </span><span style="color:#e6db74">Using splash:go function to tell Splash to visit the URL, splash:evaljs function lets run JS within page context,
@@ -1933,22 +1941,22 @@ ES_PIPELINE_URL <span style="color:#f92672">=</span> <span style="color:#e6db74"
 </span><span style="color:#e6db74">Test Splash scripts in browser at instance&#39;s index page set above, 
 </span><span style="color:#e6db74">For mouse-click function: using splash:mouse_click
 </span><span style="color:#e6db74">
-</span><span style="color:#e6db74">	function main(splash)
-</span><span style="color:#e6db74">	    assert(splash:go(splash.args.url))
-</span><span style="color:#e6db74">	    local get_dimensions = splash:jsfunc([[
-</span><span style="color:#e6db74">	        function () {
-</span><span style="color:#e6db74">	            var rect = document.getElementById(&#39;button&#39;).getClientRects()[0];
-</span><span style="color:#e6db74">	            return {&#34;x&#34;: rect.left, &#34;y&#34;: rect.top}
-</span><span style="color:#e6db74">	        }
-</span><span style="color:#e6db74">	    ]])
-</span><span style="color:#e6db74">	    splash:set_viewport_full()
-</span><span style="color:#e6db74">	    splash:wait(0.1)
-</span><span style="color:#e6db74">	    local dimensions = get_dimensions()
-</span><span style="color:#e6db74">	    splash:mouse_click(dimensions.x, dimensions.y)
-</span><span style="color:#e6db74">	    -- Wait split second to allow event to propagate.
-</span><span style="color:#e6db74">	    splash:wait(0.1)
-</span><span style="color:#e6db74">	    return splash:html()
-</span><span style="color:#e6db74">	end
+</span><span style="color:#e6db74">    function main(splash)
+</span><span style="color:#e6db74">        assert(splash:go(splash.args.url))
+</span><span style="color:#e6db74">        local get_dimensions = splash:jsfunc([[
+</span><span style="color:#e6db74">            function () {
+</span><span style="color:#e6db74">                var rect = document.getElementById(&#39;button&#39;).getClientRects()[0];
+</span><span style="color:#e6db74">                return {&#34;x&#34;: rect.left, &#34;y&#34;: rect.top}
+</span><span style="color:#e6db74">            }
+</span><span style="color:#e6db74">        ]])
+</span><span style="color:#e6db74">        splash:set_viewport_full()
+</span><span style="color:#e6db74">        splash:wait(0.1)
+</span><span style="color:#e6db74">        local dimensions = get_dimensions()
+</span><span style="color:#e6db74">        splash:mouse_click(dimensions.x, dimensions.y)
+</span><span style="color:#e6db74">        -- Wait split second to allow event to propagate.
+</span><span style="color:#e6db74">        splash:wait(0.1)
+</span><span style="color:#e6db74">        return splash:html()
+</span><span style="color:#e6db74">    end
 </span><span style="color:#e6db74">
 </span><span style="color:#e6db74">Here splash:jsfunc defined to return element coordinates, visible by splash:set_viewport_full, click element and return HTML
 </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
@@ -1957,21 +1965,21 @@ ES_PIPELINE_URL <span style="color:#f92672">=</span> <span style="color:#e6db74"
 <span style="color:#e6db74">&#34;&#34;&#34;
 </span><span style="color:#e6db74">Run Spider on Cloud: deploy, run and manage crawlers in cloud
 </span><span style="color:#e6db74">Above are single spider.py, now build a project
-</span><span style="color:#e6db74">	scrapy startproject quotes_crawler
+</span><span style="color:#e6db74">    scrapy startproject quotes_crawler
 </span><span style="color:#e6db74">Example, move one of above spiders to project and run
-</span><span style="color:#e6db74">	scrapy crawl spiderName
+</span><span style="color:#e6db74">    scrapy crawl spiderName
 </span><span style="color:#e6db74">
 </span><span style="color:#e6db74">Scraping Hub as Cloud
-</span><span style="color:#e6db74">	pip install shub
+</span><span style="color:#e6db74">    pip install shub
 </span><span style="color:#e6db74">
-</span><span style="color:#e6db74">	shub login # then API key
-</span><span style="color:#e6db74">	shub deploy # requring Project ID, which is digits on URL of project page
-</span><span style="color:#e6db74">		# review under Code &amp; Deploys
+</span><span style="color:#e6db74">    shub login # then API key
+</span><span style="color:#e6db74">    shub deploy # requring Project ID, which is digits on URL of project page
+</span><span style="color:#e6db74">        # review under Code &amp; Deploys
 </span><span style="color:#e6db74">Run -&gt; Spider -&gt; Job Units etc
 </span><span style="color:#e6db74">Inspect result under Job with downloadable formats
 </span><span style="color:#e6db74">Schedule features
 </span><span style="color:#e6db74">Also CLI
-</span><span style="color:#e6db74">	shub schedule quotes # run the spider
+</span><span style="color:#e6db74">    shub schedule quotes # run the spider
 </span><span style="color:#e6db74">&#34;&#34;&#34;</span></code></pre></div>
 <h2 id="udemy-video-summary">Udemy Video Summary</h2>
 
@@ -1980,45 +1988,40 @@ ES_PIPELINE_URL <span style="color:#f92672">=</span> <span style="color:#e6db74"
 <p>Root/scrapy.pyc [settings] path and [deploy] url and project folder</p>
 
 <p>Under ProjectFolder:
- - <strong>init</strong>.py      :directories
- - items.py         :item classes which be imported inside spider (via scrapy.loader.ItemLoader)
- - pipelines.py     :process_item and related processing as pipelines (init in settings.py -&gt; pipeline class inserted)</p>
+ - <strong>init</strong>.py 		:directories
+ - items.py 		:item classes which be imported inside spider (via scrapy.loader.ItemLoader)
+ - pipelines.py 	:process_item and related processing as pipelines (init in settings.py -&gt; pipeline class inserted)</p>
 
 <h3 id="2-avoiding-ban">(2) Avoiding Ban</h3>
 
-<pre><code>a) DOWNLOAD_DELAY or via time.sleep(random.randrange(1,3)) at end of code
-b) USER_AGENT 
-c) Proxies scrapy-proxies package or use VPN
-d) Professional work using ScrapingHub
-e) Be mindful of regulation and rights
-</code></pre>
+<p>	a) DOWNLOAD_DELAY or via time.sleep(random.randrange(1,3)) at end of code
+	b) USER_AGENT
+	c) Proxies scrapy-proxies package or use VPN
+	d) Professional work using ScrapingHub
+	e) Be mindful of regulation and rights</p>
 
 <h3 id="3-runspider-for-standalone-scripting">(3) Runspider for standalone scripting</h3>
 
-<pre><code>- Without use of ITEM/PIPELINE etc
-- Print out or yield result
-</code></pre>
+<p>	- Without use of ITEM/PIPELINE etc
+	- Print out or yield result</p>
 
 <h3 id="4-scrapy-spiders-crawlspider-has-more-functions-such-as-rule-which-need-importing-itself">(4) scrapy.spiders.CrawlSpider has more functions such as RULE, which need importing itself</h3>
 
-<pre><code>rules = (Rule(LinkExtractor(allow=('music'), deny_domains=('google.com')), callback='parse_be_defined', follow=False),) 
-</code></pre>
+<p>	rules = (Rule(LinkExtractor(allow=(&lsquo;music&rsquo;), deny_domains=(&lsquo;google.com&rsquo;)), callback=&lsquo;parse_be_defined&rsquo;, follow=False),)</p>
 
 <h3 id="5-scrapy-http-request-method-used-under-ordinary-parse-self-response-without-callback-to-loop-through-new-request-url-to-parse">(5) scrapy.http.Request method used under ordinary parse(self,response) WITHOUT callback to loop through new Request(url) to parse() !!</h3>
 
 <h3 id="6-relative-url-fixing-e-g-images">(6) relative URL fixing, e.g. images</h3>
 
-<pre><code>- Inspect HTML //img/@src to see relative path, e.g. ../../path/to/image.jpg
-- Replace ../../ with actual image URL
-    image_url = image_url.replace('../..', 'http://missingPath')
-</code></pre>
+<p>	- Inspect HTML //img/@src to see relative path, e.g. ../../path/to/image.jpg
+	- Replace ../../ with actual image URL
+		image_url = image_url.replace(&lsquo;../..&rsquo;, &lsquo;<a href="http://missingPath'">http://missingPath'</a>)</p>
 
 <h3 id="7-define-functions-to-extract-well-formated-datapoints-e-g-tables-of-data">(7) Define functions to extract well-formated datapoints, e.g. tables of data</h3>
 
-<pre><code>def product_info(response, value)
-    return response.xpath('//th[text()=&quot;' + value + '&quot;]/following-sibling::td/text()').extract_first()
-then use it to extract and save into ITEM key-value pairs
-</code></pre>
+<p>	def product_info(response, value)
+		return response.xpath(&lsquo;//th[text()=&ldquo;&rsquo; + value + &lsquo;&rdquo;]/following-sibling::td/text()&lsquo;).extract_first()
+	then use it to extract and save into ITEM key-value pairs</p>
 
 <h3 id="example-code">EXAMPLE CODE</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> scrapy <span style="color:#f92672">import</span> Spider
@@ -2032,33 +2035,33 @@ then use it to extract and save into ITEM key-value pairs
     allowed_domains
     start_urls
 
-	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse</span>(self, resonse):
-		books <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;//h3/a/@href&#39;</span>)<span style="color:#f92672">.</span>extract()
-		<span style="color:#66d9ef">for</span> book <span style="color:#f92672">in</span> books:
-			abs_url <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>urljoin(book)
-			<span style="color:#66d9ef">yield</span> Request(abs_url, callback<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>parse_book)
-		<span style="color:#75715e"># process next page</span>
-		next_url <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;//a[text()=&#34;next&#34;]/@href&#39;</span>)<span style="color:#f92672">.</span>extract_first()
-		abs_next_url <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>urljoin(next_url)
-		<span style="color:#66d9ef">yield</span> Request(abs_next_url)
-	
-	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse_book</span>(self, response):
-		title <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>css(<span style="color:#e6db74">&#39;h1::text&#39;</span>)<span style="color:#f92672">.</span>extract_first()
-		price <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;//*[@class=&#34;price_color&#34;]/text()&#39;</span>)<span style="color:#f92672">.</span>extract_first()
-		image_url (<span style="color:#66d9ef">as</span> above)
-		rating <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;//*[contains(@class, &#34;star-rating&#34;)]/@class&#39;</span>)<span style="color:#f92672">.</span>extract_first()
-		rating <span style="color:#f92672">=</span> rating<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;star-rating &#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>)
-	
-		description <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;//*[@id=&#34;product_description&#34;]/following-sibling::p/text()&#39;</span>)<span style="color:#f92672">.</span>extract_first()
-	
-		<span style="color:#75715e"># product table as above</span>
-		upc <span style="color:#f92672">=</span> product_info(response, <span style="color:#e6db74">&#39;UPC&#39;</span>)</code></pre></div>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse</span>(self, resonse):
+        books <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;//h3/a/@href&#39;</span>)<span style="color:#f92672">.</span>extract()
+        <span style="color:#66d9ef">for</span> book <span style="color:#f92672">in</span> books:
+            abs_url <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>urljoin(book)
+            <span style="color:#66d9ef">yield</span> Request(abs_url, callback<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>parse_book)
+        <span style="color:#75715e"># process next page</span>
+        next_url <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;//a[text()=&#34;next&#34;]/@href&#39;</span>)<span style="color:#f92672">.</span>extract_first()
+        abs_next_url <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>urljoin(next_url)
+        <span style="color:#66d9ef">yield</span> Request(abs_next_url)
+    
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse_book</span>(self, response):
+        title <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>css(<span style="color:#e6db74">&#39;h1::text&#39;</span>)<span style="color:#f92672">.</span>extract_first()
+        price <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;//*[@class=&#34;price_color&#34;]/text()&#39;</span>)<span style="color:#f92672">.</span>extract_first()
+        image_url (<span style="color:#66d9ef">as</span> above)
+        rating <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;//*[contains(@class, &#34;star-rating&#34;)]/@class&#39;</span>)<span style="color:#f92672">.</span>extract_first()
+        rating <span style="color:#f92672">=</span> rating<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;star-rating &#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>)
+    
+        description <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;//*[@id=&#34;product_description&#34;]/following-sibling::p/text()&#39;</span>)<span style="color:#f92672">.</span>extract_first()
+    
+        <span style="color:#75715e"># product table as above</span>
+        upc <span style="color:#f92672">=</span> product_info(response, <span style="color:#e6db74">&#39;UPC&#39;</span>)</code></pre></div>
 <hr />
 
 <h3 id="8-arguments-e-g-isolating-book-categories">(8) Arguments: e.g. isolating &lsquo;book categories&rsquo;</h3>
 
 <p>Update above code
-​   REMOVE start_url WITH:</p>
+​	REMOVE start_url WITH:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> __init__(self, category): <span style="color:#75715e"># constructor!</span>
 self<span style="color:#f92672">.</span>start_urls <span style="color:#f92672">=</span> [category] 
 
@@ -2073,9 +2076,9 @@ scrapy crawl bookspider <span style="color:#f92672">-</span>a category<span styl
 <span style="color:#f92672">import</span> os
 <span style="color:#f92672">import</span> glob
 
-	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">close</span>(self, reason):
-		csv_file <span style="color:#f92672">=</span> max(glob<span style="color:#f92672">.</span>iglob(<span style="color:#e6db74">&#39;*.csv&#39;</span>), keys<span style="color:#f92672">=</span>os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>getctime)
-		os<span style="color:#f92672">.</span>rename(csv_file, <span style="color:#e6db74">&#39;foobar.csv&#39;</span>)
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">close</span>(self, reason):
+        csv_file <span style="color:#f92672">=</span> max(glob<span style="color:#f92672">.</span>iglob(<span style="color:#e6db74">&#39;*.csv&#39;</span>), keys<span style="color:#f92672">=</span>os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>getctime)
+        os<span style="color:#f92672">.</span>rename(csv_file, <span style="color:#e6db74">&#39;foobar.csv&#39;</span>)
 
 <span style="color:#f92672">&gt;&gt;</span> <span style="color:#f92672">...</span> <span style="color:#f92672">-</span>o item<span style="color:#f92672">.</span>csv</code></pre></div>
 <h3 id="10-feeding">(10) Feeding</h3>
@@ -2087,7 +2090,7 @@ scrapy crawl bookspider <span style="color:#f92672">-</span>a category<span styl
 <p>Best first define Item class in items.py with all required datapoints + image
 Then change settings.py</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">ITEM_PIPELINES <span style="color:#f92672">=</span> {
-	<span style="color:#e6db74">&#39;scrapy.pipelines.images.ImagesPipeline&#39;</span>: <span style="color:#ae81ff">1</span>,
+    <span style="color:#e6db74">&#39;scrapy.pipelines.images.ImagesPipeline&#39;</span>: <span style="color:#ae81ff">1</span>,
 }
 IMAGES_STORE <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;local/folder&#39;</span></code></pre></div>
 <p>Then add ItemLoader and items.definedClass in spider.py</p>

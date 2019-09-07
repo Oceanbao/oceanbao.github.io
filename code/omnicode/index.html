@@ -387,8 +387,8 @@ locateOnScreen(imageFilename) <span style="color:#75715e"># returns (left, top, 
 <li><code>locateCenterOnScreen(image, grayscale=False)</code> - Returns (x, y) coordinates of the center of the first found instance of the <code>image</code> on the screen. Returns None if not found on the screen.</li>
 <li><code>locateAllOnScreen(image, grayscale=False)</code> - Returns a generator that yields (left, top, width, height) tuples for where the image is found on the screen.</li>
 <li><code>locate(needleImage, haystackImage, grayscale=False)</code> - Returns (left, top, width, height) coordinate of first found instance of <code>needleImage</code> in <code>haystackImage</code>. Returns None if not found on the screen.</li>
-<li><code>locateAll(needleImage, haystackImage, grayscale=False)</code> - Returns a generator that yields (left, top, width, height) tuples for where <code>needleImage</code> is found in <code>haystackImage</code>.</li>
-</ul>
+
+<li><p><code>locateAll(needleImage, haystackImage, grayscale=False)</code> - Returns a generator that yields (left, top, width, height) tuples for where <code>needleImage</code> is found in <code>haystackImage</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">for</span> pos <span style="color:#f92672">in</span> pyautogui<span style="color:#f92672">.</span>locateAllOnScreen(<span style="color:#e6db74">&#39;someButton.png&#39;</span>)
 <span style="color:#f92672">...</span>   <span style="color:#66d9ef">print</span>(pos)
 <span style="color:#f92672">...</span>
@@ -397,7 +397,9 @@ locateOnScreen(imageFilename) <span style="color:#75715e"># returns (left, top, 
 (<span style="color:#ae81ff">1395</span>, <span style="color:#ae81ff">640</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">50</span>)
 (<span style="color:#ae81ff">1838</span>, <span style="color:#ae81ff">676</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">50</span>)
 <span style="color:#f92672">&gt;&gt;&gt;</span> list(pyautogui<span style="color:#f92672">.</span>locateAllOnScreen(<span style="color:#e6db74">&#39;someButton.png&#39;</span>))
-[(<span style="color:#ae81ff">1101</span>, <span style="color:#ae81ff">252</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">50</span>), (<span style="color:#ae81ff">59</span>, <span style="color:#ae81ff">481</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">50</span>), (<span style="color:#ae81ff">1395</span>, <span style="color:#ae81ff">640</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">50</span>), (<span style="color:#ae81ff">1838</span>, <span style="color:#ae81ff">676</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">50</span>)]</code></pre></div>
+[(<span style="color:#ae81ff">1101</span>, <span style="color:#ae81ff">252</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">50</span>), (<span style="color:#ae81ff">59</span>, <span style="color:#ae81ff">481</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">50</span>), (<span style="color:#ae81ff">1395</span>, <span style="color:#ae81ff">640</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">50</span>), (<span style="color:#ae81ff">1838</span>, <span style="color:#ae81ff">676</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">50</span>)]</code></pre></div></li>
+</ul>
+
 <p>These “locate” functions are fairly expensive; they can take a full second to run. The best way to speed them up is to pass a <code>region</code>  argument (a 4-integer tuple of (left, top, width, height)) to only  search a smaller region of the screen instead of the full screen:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> pyautogui
 <span style="color:#f92672">&gt;&gt;&gt;</span> pyautogui<span style="color:#f92672">.</span>locateOnScreen(<span style="color:#e6db74">&#39;someButton.png&#39;</span>, region<span style="color:#f92672">=</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">300</span>, <span style="color:#ae81ff">400</span>))</code></pre></div>
@@ -635,8 +637,8 @@ $ docker commit --change <span style="color:#e6db74">&#34;ENV DEBUG true&#34;</s
 		&gt; f5283438590d
 $ docker inspect -f <span style="color:#e6db74">&#34;{{ .Config.Env }}&#34;</span> f5283438590d
 		&gt; <span style="color:#f92672">[</span>HOME<span style="color:#f92672">=</span>/ PATH<span style="color:#f92672">=</span>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin DEBUG<span style="color:#f92672">=</span>true<span style="color:#f92672">]</span>
-<span style="color:#75715e"># Commit with new CMD / EXPOSE
-</span><span style="color:#75715e"></span>$ docker commit --change<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;CMD [&#34;apachectl&#34;, &#34;-DFOREGROUND&#34;]&#39;</span> -c <span style="color:#e6db74">&#34;EXPOSE 80&#34;</span> c3f279d17e0a  svendowideit/testimage:version4
+<span style="color:#75715e"># Commit with new CMD / EXPOSE</span>
+$ docker commit --change<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;CMD [&#34;apachectl&#34;, &#34;-DFOREGROUND&#34;]&#39;</span> -c <span style="color:#e6db74">&#34;EXPOSE 80&#34;</span> c3f279d17e0a  svendowideit/testimage:version4
 	-m <span style="color:#f92672">(</span>commit message<span style="color:#f92672">)</span>
 	-p <span style="color:#f92672">(</span>pause container during commit<span style="color:#f92672">)</span></code></pre></div>
 <p>17) Connecting Containers (&ndash;link)</p>
@@ -648,24 +650,24 @@ docker run --rm -it --link myredis:redis redis bash
 &gt; set key value
 &gt; get key
 docker run --rm --volumes-from myreids -v <span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span>/backup:/backup debian cp /data/dum.rdb /backup/ 
-<span style="color:#75715e"># -v mount known dir on host and --volumes-from to connect new container to Redis db folder
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e"># cat /etc/hosts
-</span><span style="color:#75715e"></span>&gt; <span style="color:#ae81ff">127</span>.0.0.1		localhost
+<span style="color:#75715e"># -v mount known dir on host and --volumes-from to connect new container to Redis db folder</span>
+
+<span style="color:#75715e"># cat /etc/hosts</span>
+&gt; <span style="color:#ae81ff">127</span>.0.0.1		localhost
 &gt; ...
 &gt; <span style="color:#ae81ff">172</span>.17.0.2 	redis &lt;container ID&gt; redis_server
 
-<span style="color:#75715e"># ping redis
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e"># redis-cli -h redis
-</span><span style="color:#75715e"># redis:6379&gt; PING
-</span><span style="color:#75715e"></span>&gt; PONG
-<span style="color:#75715e"># redis:6379&gt; set myname ocean
-</span><span style="color:#75715e"></span>
+<span style="color:#75715e"># ping redis</span>
+
+<span style="color:#75715e"># redis-cli -h redis</span>
+<span style="color:#75715e"># redis:6379&gt; PING</span>
+&gt; PONG
+<span style="color:#75715e"># redis:6379&gt; set myname ocean</span>
+
 docker run -it --name redis_client2 --link redis_server:redis redis bash
-<span style="color:#75715e"># redis-cli -h redis
-</span><span style="color:#75715e"># redis:6379&gt; get myname
-</span><span style="color:#75715e"></span>&gt; ocean</code></pre></div>
+<span style="color:#75715e"># redis-cli -h redis</span>
+<span style="color:#75715e"># redis:6379&gt; get myname</span>
+&gt; ocean</code></pre></div>
 <h3 id="play-with-docker-tutorial">Play with Docker tutorial</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker container run <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>--detach <span style="color:#ae81ff">\
@@ -809,8 +811,8 @@ string(/html/head/title)
 
 <ul>
 <li>removing namespaces - bare element names to write more simple XPaths <code>response.selector.remove_namespaces()</code></li>
-<li>[] or list() return from response.xpath(&lsquo;//link&rsquo;) : returns [<Selector xpath='//link' data=u'<link xmlns="http://www.w3.org/2005/Atom">,..]</li>
-</ul>
+
+<li><p>[] or list() return from response.xpath(&lsquo;//link&rsquo;) : returns [<Selector xpath='//link' data=u'<link xmlns="http://www.w3.org/2005/Atom">,..]</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt;&gt;&gt; from scrapy import Selector
 &gt;&gt;&gt; sel <span style="color:#f92672">=</span> Selector<span style="color:#f92672">(</span>text<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;
 </span><span style="color:#e6db74">	&lt;div class=&#34;hero shout&#34;&gt;&lt;time datetime=&#34;2014-07-23 19:00&#34;&gt;Special date&lt;/time&gt;&lt;/div&gt;&#39;</span><span style="color:#f92672">)</span>
@@ -819,16 +821,18 @@ string(/html/head/title)
 
 &gt;&gt;&gt; response.xpath<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;//a[contains(@href, &#34;image&#34;)]/text()&#39;</span><span style="color:#f92672">)</span>.re<span style="color:#f92672">(</span>r<span style="color:#e6db74">&#39;Name:\s*(.*)&#39;</span><span style="color:#f92672">)</span>
 <span style="color:#f92672">[</span>u<span style="color:#e6db74">&#39;My image 1&#39;</span>,
- u<span style="color:#e6db74">&#39;My image 2&#39;</span>,
- u<span style="color:#e6db74">&#39;My image 3&#39;</span>,
- u<span style="color:#e6db74">&#39;My image 4&#39;</span>,
- u<span style="color:#e6db74">&#39;My image 5&#39;</span><span style="color:#f92672">]</span>
+u<span style="color:#e6db74">&#39;My image 2&#39;</span>,
+u<span style="color:#e6db74">&#39;My image 3&#39;</span>,
+u<span style="color:#e6db74">&#39;My image 4&#39;</span>,
+u<span style="color:#e6db74">&#39;My image 5&#39;</span><span style="color:#f92672">]</span>
 
 Use it to extract just the first matching string:
 &gt;&gt;&gt; response.xpath<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;//a[contains(@href, &#34;image&#34;)]/text()&#39;</span><span style="color:#f92672">)</span>.re_first<span style="color:#f92672">(</span>r<span style="color:#e6db74">&#39;Name:\s*(.*)&#39;</span><span style="color:#f92672">)</span>
 u<span style="color:#e6db74">&#39;My image 1&#39;</span>
 
-//a<span style="color:#f92672">[</span>contains<span style="color:#f92672">(</span>@href, <span style="color:#e6db74">&#34;image&#34;</span><span style="color:#f92672">)]</span>/img/@src 		value <span style="color:#e6db74">&#39;image.jpg&#39;</span> of &lt;a&gt; having href<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;image&#34;</span></code></pre></div>
+//a<span style="color:#f92672">[</span>contains<span style="color:#f92672">(</span>@href, <span style="color:#e6db74">&#34;image&#34;</span><span style="color:#f92672">)]</span>/img/@src 		value <span style="color:#e6db74">&#39;image.jpg&#39;</span> of &lt;a&gt; having href<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;image&#34;</span></code></pre></div></li>
+</ul>
+
 <h1 id="hugo">HUGO</h1>
 
 <hr />

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Code on Ocean Ode</title>
+    <title>code on Ocean Ode</title>
     <link>https://oceanbao.github.io/tags/code/</link>
-    <description>Recent content in Code on Ocean Ode</description>
+    <description>Recent content in code on Ocean Ode</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 22 Oct 2018 16:02:02 -0400</lastBuildDate>
@@ -27,9 +27,9 @@
       
       <guid>https://oceanbao.github.io/prose/hugo-shortcodes/</guid>
       <description>Shortcodes are pre-made templates converting HTML codes into shortcodes in hugo. Here illustrates some:
-YouTube video:   Tweet: Why you (yes, you) should blog https://t.co/nORheJJj1i @wscsf
-&amp;mdash; Rachel Thomas (@math_rachel) July 28, 2017  Permalink in hugo: Qui
-Instagram:    View this post on Instagram        Every time you visit, you&amp;#39;ll find something fascinating in Kyoto, even on rainy nights; such as this dimly lit alley of #Pontocho filled with alluring atmosphere!</description>
+Permalink in hugo: Qui
+Code higlighting: &amp;lt;section id=&amp;#34;main&amp;#34;&amp;gt; &amp;lt;div&amp;gt; &amp;lt;h1 id=&amp;#34;title&amp;#34;&amp;gt;{{ .Title }}&amp;lt;/h1&amp;gt; {{ range .Pages }} {{ .Render &amp;#34;summary&amp;#34;}} {{ end }} &amp;lt;/div&amp;gt; &amp;lt;/section&amp;gt;
+firgure or image:   title here   </description>
     </item>
     
     <item>
