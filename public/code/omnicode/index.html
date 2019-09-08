@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<meta name="description" content="Ocean on GitHub.">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:domain" content="https://oceanbao.github.io/">
+
+<meta name="twitter:image" content="https://oceanbao.github.io/tn.png">
+<meta name="twitter:title" property="og:title" itemprop="title name" content="Ocean Ode">
+<meta name="twitter:description" property="og:description" itemprop="description" content="Ocean on GitHub.">
+<meta name="og:type" content="website">
+<meta name="og:url" content="https://oceanbao.github.io/">
+<meta name="og:image" itemprop="image primaryImageOfPage" content="https://oceanbao.github.io/tn.png">
+
+<link rel="shortcut icon" href="https://oceanbao.github.io/oceanicon.jpg" id="favicon">
+<link rel="stylesheet" href="https://oceanbao.github.io/css/style.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+
+    
+
+    
+    
+    
+    <title>
+        
+        OMNICODE
+        
+    </title>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="section" id="title">OMNICODE</div>
+
+        <div class="section" id="content">
+
+<h2 id="regex-e-g-using-sed-stream-editor">Regex e.g. using sed (stream editor)</h2>
+
+<p><code>cat /etc/passwd | sed # dump to sed pattern space (i.e. /pattern/action)</code>
+<code>p (prints line)</code>
+<code>d (delete line)</code>
+<code>s/pattern1/pattern2/ (sub 1 with 2)</code>
+examples ( &lsquo;4, 10d&rsquo; &lsquo;4, +5d&rsquo; &lsquo;2, 5!d&rsquo; &lsquo;1~3d&rsquo;) (sed -n &lsquo;1, 3p&rsquo;)
+<code>sed 's/old/new/g' (global sub) [-p if subbed, print][-w FILENAME write sub result to file] [-I -i case][M or m empty string]</code>
+Example: matching phone number (chaining)
+<code>sed -e 's/^[[:digit:]]\{3\}/(&amp;)/g' -e 's/)[[:digit:]]\{3\}/&amp;-/g' phone.txt</code>
+<code>output: (555)555-1212 ...</code>
+<code>sed '/^daemon/d' # match starting-deamon and delete</code>
+<code>sed '/sh$/d' # del sh-ending</code></p>
+
+<ul>
+<li><p>special char: ^ ​$ . (any single char) * (&gt;0 of previous char) [chars]</p></li>
+
+<li><p>Making a BIN exec of any application
+<code>Scripting {#!/bin/bash /Application/LibreOffice.app/Contents/MacOS/soffice &quot;$@&quot;}</code></p></li>
+
+<li><p>Put .sh under /usr/local/bin named soffice
+<code>sudo chmod +x /usr/local/bin/soffice</code>
+<code>convert excel to pdf</code>
+<code>soffice --headless --convert-to pdf:&quot;filename&quot; /path/.xlsx</code></p></li>
+</ul>
+
+<h1 id="python-and-symlink">PYTHON and symlink</h1>
+
+<h3 id="rename-files">Rename Files</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> os<span style="color:#f92672">,</span> re<span style="color:#f92672">,</span> glob
+
+<span style="color:#66d9ef">for</span> file <span style="color:#f92672">in</span> glob<span style="color:#f92672">.</span>glob(<span style="color:#e6db74">&#39;*.pdf&#39;</span>):
+	new_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">.</span>join(re<span style="color:#f92672">.</span>findall(<span style="color:#e6db74">&#39;L\d\d|\.pdf&#39;</span>, file))
+	os<span style="color:#f92672">.</span>rename(file, new_name)</code></pre></div>
+<h3 id="learnt-about-ln-cmd-to-link-sh">Learnt about ln cmd to link .sh</h3>
+
+<p><code>brew unlink python &amp;&amp; brew link python</code></p>
+
+<h3 id="this-worked-to-create-python-with-python3">this worked to create python with python3</h3>
+
+<p><code>sudo ln -s /usr/local/bin/python3 /usr/local/bin/python</code></p>
+
+<h3 id="lost-symlink-after-brew-update">Lost Symlink after Brew Update</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">find ./my-example-env -type l -delete
+mkvirtualenv my-example-env</code></pre></div>
+<h3 id="also-checkout-env-variables-created-in-virtualwrapper">also checkout env variables created in virtualwrapper</h3>
+
+<p>WORKON_HOME=/Users/Ocean/.virtualenvs
+VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
+VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+VIRTUALENVWRAPPER_PROJECT_FILENAME=.project
+VIRTUALENVWRAPPER_WORKON_CD=1
+VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
+VIRTUALENVWRAPPER_HOOK_DIR=/Users/Ocean/.virtualenvs
+​   - some are scripted in .bash_profile</p>
+
+<p>creating env dir having exec files + a copy of pip library for installing pkg; omitting name assumes current dir
+<code>virtualenv new_project</code></p>
+
+<h3 id="to-change-interperter-globally">to change interperter globally</h3>
+
+<p><code>export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2.7</code></p>
+
+<h3 id="to-activate-env">to activate env</h3>
+
+<p><code>source new_project/bin/activate</code> # or ./</p>
+
+<h3 id="exiting-env">exiting env</h3>
+
+<p><code>deactivate</code></p>
+
+<h3 id="running-env-excluding-pkg-installed-globally-for-keeping-clean-default-after-1-7">running env excluding pkg installed globally for keeping clean (default after 1.7)</h3>
+
+<p><code>--no-site-packages</code></p>
+
+<h3 id="to-snapshot-current-state-of-env-pkg">to snapshot current state of env pkg</h3>
+
+<p><code>pip freeze &gt; requirements.txt</code> # use: <code>pip install -r requirements.txt</code></p>
+
+<h3 id="virtualenvwrapper-eases-env-usage-and-keeping-it-one">VIRTUALENVWRAPPER eases env usage and keeping it one</h3>
+
+<p><code>pip install virtualenvwrapper</code>
+<code>export WORKON_HOME=~/Envs</code> # create default env folder to store
+<code>source /usr/local/bin/virtualenvwrapper.sh</code></p>
+
+<h3 id="create-env">create env</h3>
+
+<p><code>mkvirtualenv new_project</code> # created such inside WORKEN_HOME dir i.e. ~/Envs</p>
+
+<h3 id="init-env">init env</h3>
+
+<p><code>workon new_project</code></p>
+
+<h3 id="combining-above-two">combining above two</h3>
+
+<p><code>mkproject newproject</code></p>
+
+<h3 id="to-delete">to delete</h3>
+
+<p><code>rmvirtualenv venv</code></p>
+
+<h3 id="useful-cmd">useful cmd</h3>
+
+<p><code>lsvirtualenv</code>
+<code>cdvirtualenv</code> # navigate into dir of currently activated env, so can view its site-packages, e.g.
+<code>cdsitepackages</code> # like above, but straight to pkg dir
+<code>lssitepackages</code> # shows contents of pkg dir</p>
+
+<h3 id="load-zip-file-from-url">Load Zip file from URL</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> requests
+<span style="color:#f92672">import</span> io
+<span style="color:#f92672">import</span> zipfile
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">download_extract_zip</span>(url):
+    <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    Download a ZIP file and extract its contents in memory
+</span><span style="color:#e6db74">    yields (filename, file-like object) pairs
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+    response <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(url)
+    <span style="color:#66d9ef">with</span> zipfile<span style="color:#f92672">.</span>ZipFile(io<span style="color:#f92672">.</span>BytesIO(response<span style="color:#f92672">.</span>content)) <span style="color:#66d9ef">as</span> thezip:
+        <span style="color:#66d9ef">for</span> zipinfo <span style="color:#f92672">in</span> thezip<span style="color:#f92672">.</span>infolist():
+            <span style="color:#66d9ef">with</span> thezip<span style="color:#f92672">.</span>open(zipinfo) <span style="color:#66d9ef">as</span> thefile:
+                <span style="color:#66d9ef">yield</span> zipinfo<span style="color:#f92672">.</span>filename, thefile</code></pre></div>
+<h2 id="basic">Basic</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># BASE TYPES (immutable)</span>
+int <span style="color:#ae81ff">783</span> <span style="color:#ae81ff">0</span>(null) <span style="color:#ae81ff">0b010</span>(binary) <span style="color:#ae81ff">0</span>o642(octal) <span style="color:#ae81ff">0xF3</span>(hexa)
+float <span style="color:#ae81ff">9.23</span> <span style="color:#ae81ff">0.0</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1.7e-6</span>
+bool True False
+str <span style="color:#e6db74">&#34;One</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Two&#34;</span> <span style="color:#e6db74">&#34;I</span><span style="color:#ae81ff">\&#39;</span><span style="color:#e6db74">m&#34;</span> <span style="color:#e6db74">&#34;&#34;&#34;X</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">\Y</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">Z&#34;&#34;&#34;</span>
+bytes <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;toto</span><span style="color:#ae81ff">\xfe\775</span><span style="color:#e6db74">&#34;</span>
+
+<span style="color:#75715e"># CONTAINER TYPES</span>
+<span style="color:#75715e"># Ordered Sequences (fast index access, repeatable values)</span>
+list [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">9</span>] [<span style="color:#e6db74">&#34;x&#34;</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">8.9</span>] [<span style="color:#e6db74">&#34;mot&#34;</span>]
+tuple (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">9</span>) <span style="color:#ae81ff">11</span>,<span style="color:#e6db74">&#34;y&#34;</span>,<span style="color:#ae81ff">7.4</span> (<span style="color:#e6db74">&#34;mot&#34;</span>,) <span style="color:#75715e"># immutable</span>
+str bytes <span style="color:#75715e"># immutable</span>
+<span style="color:#75715e"># key containers (no a priori order, fast key access, each key unique)</span>
+dict {<span style="color:#e6db74">&#34;key&#34;</span>:<span style="color:#e6db74">&#34;value&#34;</span>} dict(a<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, b<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>, k<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;v&#34;</span>)
+set {<span style="color:#e6db74">&#34;key1&#34;</span>, <span style="color:#e6db74">&#34;key2&#34;</span>} {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">0</span>} <span style="color:#75715e"># keys=hasable values (base types, immutables)</span>
+frozenset <span style="color:#75715e"># immutable set</span>
+
+<span style="color:#75715e"># IDENTIFIERS (for var, fuc, modules, classes.. names)</span>
+a<span style="color:#f92672">...</span>zA<span style="color:#f92672">...</span>Z_ a<span style="color:#f92672">...</span>zA<span style="color:#f92672">...</span>Z_0<span style="color:#f92672">...</span><span style="color:#ae81ff">9</span>
+	<span style="color:#75715e"># diacritics allowed but should be avoided</span>
+    <span style="color:#75715e"># language keywords forbidden</span>
+    <span style="color:#75715e"># lower/UPPER discrimination</span>
+    	<span style="color:#75715e"># (yes) a toto x7 y_max BigOne</span>
+        <span style="color:#75715e"># (no) 8y and for</span>
+
+<span style="color:#75715e"># VAR</span>
+a<span style="color:#f92672">=</span>b<span style="color:#f92672">=</span>c<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> <span style="color:#75715e"># assignemnt to same value</span>
+a, b <span style="color:#f92672">=</span> b, a
+a, <span style="color:#f92672">*</span>b <span style="color:#f92672">=</span> seq
+<span style="color:#f92672">*</span>a, b <span style="color:#f92672">=</span> seq <span style="color:#75715e"># unpacking of sequence in item and list</span>
+<span style="color:#66d9ef">del</span> x
+
+<span style="color:#75715e"># CONVERSION</span>
+int(<span style="color:#e6db74">&#34;15&#34;</span>) <span style="color:#f92672">-&gt;</span> <span style="color:#ae81ff">15</span>
+int(<span style="color:#e6db74">&#34;3f&#34;</span>, <span style="color:#ae81ff">16</span>) <span style="color:#f92672">-&gt;</span> <span style="color:#ae81ff">63</span> <span style="color:#75715e"># integer number base in 2nd param)</span>
+int(<span style="color:#ae81ff">15.56</span>) <span style="color:#f92672">-&gt;</span> <span style="color:#ae81ff">15</span> 
+float(<span style="color:#e6db74">&#34;-11.25e8&#34;</span>) <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1124000000.0</span>
+round(<span style="color:#ae81ff">15.56</span>, <span style="color:#ae81ff">1</span>) <span style="color:#f92672">-&gt;</span> <span style="color:#ae81ff">15.6</span>
+bool(x) <span style="color:#f92672">-&gt;</span> Flase <span style="color:#66d9ef">for</span> NULL x, empty container x, None <span style="color:#f92672">or</span> False x; True <span style="color:#66d9ef">else</span>
+str(x) <span style="color:#f92672">-&gt;</span> <span style="color:#e6db74">&#34;...&#34;</span> <span style="color:#75715e"># repr string of x for display </span>
+chr(<span style="color:#ae81ff">64</span>) <span style="color:#f92672">-&gt;</span> <span style="color:#e6db74">&#34;@&#34;</span> ord(<span style="color:#e6db74">&#39;@&#39;</span>) <span style="color:#f92672">-&gt;</span> <span style="color:#ae81ff">64</span> <span style="color:#75715e"># code and char</span>
+repr(x) <span style="color:#f92672">-&gt;</span> <span style="color:#e6db74">&#34;....&#34;</span> <span style="color:#75715e"># literal repr string of x</span>
+bytes( [<span style="color:#ae81ff">72</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">64</span>] ) <span style="color:#f92672">-&gt;</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;H</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">@&#39;</span>
+list(<span style="color:#e6db74">&#34;abc&#34;</span>) <span style="color:#f92672">-&gt;</span> [<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;b&#39;</span>, <span style="color:#e6db74">&#39;c&#39;</span>]
+dict([(<span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#34;three&#34;</span>), (<span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#34;one&#34;</span>)]) <span style="color:#f92672">-&gt;</span> {<span style="color:#ae81ff">1</span>:<span style="color:#e6db74">&#39;one&#39;</span>, <span style="color:#ae81ff">3</span>:<span style="color:#e6db74">&#39;three&#39;</span>}
+set([<span style="color:#e6db74">&#34;one&#34;</span>, <span style="color:#e6db74">&#34;two&#34;</span>]) <span style="color:#f92672">-&gt;</span> {<span style="color:#e6db74">&#39;one&#39;</span>, <span style="color:#e6db74">&#39;two&#39;</span>}
+<span style="color:#75715e">#separator str and sequence of str -&gt; assembled str</span>
+<span style="color:#e6db74">&#39;:&#39;</span><span style="color:#f92672">.</span>join([<span style="color:#e6db74">&#39;toto&#39;</span>, <span style="color:#e6db74">&#39;12&#39;</span>, <span style="color:#e6db74">&#39;pswd&#39;</span>]) <span style="color:#f92672">-&gt;</span> <span style="color:#e6db74">&#39;toto:12:pswd&#39;</span>
+<span style="color:#75715e"># str splitted on whitespsaces -&gt; list of str</span>
+<span style="color:#e6db74">&#34;words with spaces&#34;</span><span style="color:#f92672">.</span>split() <span style="color:#f92672">-&gt;</span> [<span style="color:#e6db74">&#39;words&#39;</span>, <span style="color:#e6db74">&#39;with&#39;</span>, <span style="color:#e6db74">&#39;spaces&#39;</span>]
+<span style="color:#75715e"># str splitted on separator str -&gt; list of str</span>
+<span style="color:#e6db74">&#34;1,4,8,2&#34;</span><span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34;,&#34;</span>) <span style="color:#f92672">-&gt;</span> [<span style="color:#e6db74">&#39;1&#39;</span>,<span style="color:#e6db74">&#39;4&#39;</span>,<span style="color:#e6db74">&#39;8&#39;</span>,<span style="color:#e6db74">&#39;2&#39;</span>]
+<span style="color:#75715e"># sequence of one type -&gt; list of another type (via COMP)</span>
+[int(x) <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> (<span style="color:#e6db74">&#39;1&#39;</span>, <span style="color:#e6db74">&#39;29&#39;</span>, <span style="color:#e6db74">&#39;-3&#39;</span>)] <span style="color:#f92672">-&gt;</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">29</span>,<span style="color:#ae81ff">3</span>]
+
+<span style="color:#75715e"># SEQUENCE CONTAINERS INDEXING (lists, tuples, strings, bytes)</span>
+<span style="color:#75715e"># [start:end:step]</span>
+
+<span style="color:#75715e"># EXCEPTION ON ERROR</span>
+<span style="color:#75715e"># signaling error</span>
+<span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">Exception</span>(<span style="color:#f92672">...</span>)
+<span style="color:#66d9ef">finally</span> <span style="color:#75715e"># block for final processing in all cases</span>
+<span style="color:#75715e"># error processing:</span>
+<span style="color:#66d9ef">try</span>:
+    <span style="color:#75715e"># normal processing block</span>
+<span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+    <span style="color:#75715e"># error processing block</span></code></pre></div>
+<h2 id="pyautogui">PyAutoGui</h2>
+
+<p>Move mouse to coordinates of screen</p>
+
+<p><code>pyautogui.moveTo(x, y)</code></p>
+
+<p>To find out about Pixels screen size - assigning width and height of screen. Anchors to work with to find item on screens of any size.</p>
+
+<p><code>x, y = pyautogui.size()</code></p>
+
+<p>Similarly, position() will return x and y vaule but instead of MAX height and width, this returns CURRENT location of mouse. Handy in pinpointing where on screen want to clik.</p>
+
+<p><code>x, y = pyautogui.position()</code></p>
+
+<p>CLICKing right or left button, e.g. first moveTo and Click</p>
+
+<p><code>pyautogui.click()</code>, <code>pyautogui.click(button='right')</code>, <code>pyautogui.click(200,200)</code></p>
+
+<p><code>pyautogui.click(x=moveToX, y=moveToY, clicks=num_of_clicks, interval=secs_between_clicks, button='left')</code></p>
+
+<p>Using Keyboard + typing text</p>
+
+<p><code>pyautogui.typewrite('The text to type')</code></p>
+
+<p>Use functional keys, like &lsquo;enter&rsquo;, say, to browser Twitter. Instead of passing string, pass a LIST of command, &lsquo;enter&rsquo;, or several key names.</p>
+
+<p><code>pyautogui.typewrite( [ 'enter' ] )</code></p>
+
+<p><code>pyautogui.typewrite( ['a', 'b', 'left', 'left', 'X', 'Y'] )</code></p>
+
+<blockquote>
+<p>this will output &ldquo;XYab&rdquo; because it types &lsquo;ab&rsquo;, then moves cursor left two spaces, then &lsquo;XY&rsquo; !!!!!!</p>
+</blockquote>
+
+<p>Sustained key press - they require no button names to LIST, useful for creating programes playing video games.</p>
+
+<p><code>KeyDown(keyname)</code> or <code>keyUp(keyname)</code></p>
+
+<p><strong>Example: Browsing Twitter</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> pyautogui
+<span style="color:#f92672">from</span> time <span style="color:#f92672">import</span> sleep
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">browse</span>(website):
+    <span style="color:#66d9ef">global</span> x <span style="color:#75715e"># assigned later globally</span>
+    <span style="color:#66d9ef">global</span> y
+    
+    pyautogui<span style="color:#f92672">.</span>moveTo(<span style="color:#ae81ff">0</span>, y<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#75715e"># using Windows Search</span>
+    pyautogui<span style="color:#f92672">.</span>click()
+    sleep(<span style="color:#ae81ff">1</span>) <span style="color:#75715e"># wait for loading</span>
+    pyautogui<span style="color:#f92672">.</span>typewrite(<span style="color:#e6db74">&#39;Google Chrome&#39;</span>)
+    sleep(<span style="color:#ae81ff">1</span>)
+    pyautogui<span style="color:#f92672">.</span>typewrite([<span style="color:#e6db74">&#39;enter&#39;</span>])
+    sleep(<span style="color:#ae81ff">5</span>)
+    pyautogui<span style="color:#f92672">.</span>moveTo(<span style="color:#ae81ff">297</span>, <span style="color:#ae81ff">63</span>)
+    pyautogui<span style="color:#f92672">.</span>click()
+    	<span style="color:#75715e"># same as pyautogui.click(297, 62)</span>
+    pyautogui<span style="color:#f92672">.</span>typewrite(website)
+    pyautogui<span style="color:#f92672">.</span>typewrite([<span style="color:#e6db74">&#39;enter&#39;</span>])
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">tweet</span>(content):
+    browse(<span style="color:#e6db74">&#39;www.twitter.com&#39;</span>)
+    <span style="color:#66d9ef">global</span> x
+    <span style="color:#66d9ef">global</span> y
+    sleep(<span style="color:#ae81ff">5</span>)
+    pyautogui<span style="color:#f92672">.</span>moveTo(x<span style="color:#f92672">-</span><span style="color:#ae81ff">271</span>, <span style="color:#ae81ff">105</span>) <span style="color:#75715e"># location gotten via position()</span>
+    pyautogui<span style="color:#f92672">.</span>click()
+    sleep(<span style="color:#ae81ff">1</span>)
+    pyautogui<span style="color:#f92672">.</span>typewrite(content)
+    pyautogui<span style="color:#f92672">.</span>moveTo(x<span style="color:#f92672">-</span><span style="color:#ae81ff">666</span>, <span style="color:#ae81ff">492</span>)
+    pyautogui<span style="color:#f92672">.</span>click()
+
+<span style="color:#75715e"># Get tweet from CLI</span>
+theTweet <span style="color:#f92672">=</span> input(<span style="color:#e6db74">&#39;Tweet: &#39;</span>)
+x, y <span style="color:#f92672">=</span> pyautogui<span style="color:#f92672">.</span>size()
+tweet(theTweet)</code></pre></div>
+<p><strong>Automating Boring Stuff</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Mouse Control</span>
+click()
+click([x, y])
+doubleClick()
+rightClick()
+moveTo(x, y [, duration <span style="color:#f92672">=</span> seconds])
+moveRel(x_offset, y_offset [, duration <span style="color:#f92672">=</span> sec]) <span style="color:#75715e"># relative pixel</span>
+dragTo(x, y [, duration <span style="color:#f92672">=</span> sec]) 
+dragRel(x_offset, y_offest, [, duration <span style="color:#f92672">=</span>sec])
+displayMousePosition()
+<span style="color:#75715e"># Keyboard control</span>
+typewrite(<span style="color:#e6db74">&#39;Text here&#39;</span>, [, interval <span style="color:#f92672">=</span> sec])
+press(<span style="color:#e6db74">&#39;pageup&#39;</span>)
+pyautogui<span style="color:#f92672">.</span>KEYBOARD_KEYS
+hotkey(<span style="color:#e6db74">&#39;crtl&#39;</span>, <span style="color:#e6db74">&#39;o&#39;</span>)
+<span style="color:#75715e"># Image Recognition</span>
+	<span style="color:#75715e"># sudo apt-get scrot</span>
+pixel(x, y) <span style="color:#75715e"># returns RGB tuple</span>
+screenshot([filename]) <span style="color:#75715e"># return PIL/Pillow image obj [saves to file]</span>
+locateOnScreen(imageFilename) <span style="color:#75715e"># returns (left, top, width, height) tuple or None</span></code></pre></div>
+<p>Scrolling</p>
+
+<p><code>pyautogui.scroll(amount_to_scroll, x=moveToX, y=moveToY)</code></p>
+
+<p>The full list of key names is in <code>pyautogui.KEYBOARD_KEYS</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> pyautogui<span style="color:#f92672">.</span>hotkey(<span style="color:#e6db74">&#39;ctrl&#39;</span>, <span style="color:#e6db74">&#39;c&#39;</span>)  <span style="color:#75715e"># ctrl-c to copy</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> pyautogui<span style="color:#f92672">.</span>hotkey(<span style="color:#e6db74">&#39;ctrl&#39;</span>, <span style="color:#e6db74">&#39;v&#39;</span>)  <span style="color:#75715e"># ctrl-v to paste</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> pyautogui<span style="color:#f92672">.</span>alert(<span style="color:#e6db74">&#39;This displays some text with an OK button.&#39;</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> pyautogui<span style="color:#f92672">.</span>confirm(<span style="color:#e6db74">&#39;This displays text and has an OK and Cancel button.&#39;</span>)
+<span style="color:#e6db74">&#39;OK&#39;</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> pyautogui<span style="color:#f92672">.</span>prompt(<span style="color:#e6db74">&#39;This lets the user type in a string and press OK.&#39;</span>)
+<span style="color:#e6db74">&#39;This is what I typed in.&#39;</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> pyautogui<span style="color:#f92672">.</span>screenshot()  <span style="color:#75715e"># returns a Pillow/PIL Image object</span>
+<span style="color:#f92672">&lt;</span>PIL<span style="color:#f92672">.</span>Image<span style="color:#f92672">.</span>Image image mode<span style="color:#f92672">=</span>RGB size<span style="color:#f92672">=</span><span style="color:#ae81ff">1920</span>x1080 at <span style="color:#ae81ff">0x24C3EF0</span><span style="color:#f92672">&gt;</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> pyautogui<span style="color:#f92672">.</span>screenshot(<span style="color:#e6db74">&#39;foo.png&#39;</span>)  <span style="color:#75715e"># returns a Pillow/PIL Image object, and saves it to a file</span>
+<span style="color:#f92672">&lt;</span>PIL<span style="color:#f92672">.</span>Image<span style="color:#f92672">.</span>Image image mode<span style="color:#f92672">=</span>RGB size<span style="color:#f92672">=</span><span style="color:#ae81ff">1920</span>x1080 at <span style="color:#ae81ff">0x31AA198</span><span style="color:#f92672">&gt;</span>
+
+<span style="color:#f92672">&gt;&gt;&gt;</span> pyautogui<span style="color:#f92672">.</span>locateOnScreen(<span style="color:#e6db74">&#39;looksLikeThis.png&#39;</span>)  <span style="color:#75715e"># returns (left, top, width, height) of first place it is found</span>
+(<span style="color:#ae81ff">863</span>, <span style="color:#ae81ff">417</span>, <span style="color:#ae81ff">70</span>, <span style="color:#ae81ff">13</span>)
+
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> pyautogui<span style="color:#f92672">.</span>locateAllOnScreen(<span style="color:#e6db74">&#39;looksLikeThis.png&#39;</span>)
+<span style="color:#f92672">...</span>
+<span style="color:#f92672">...</span>
+(<span style="color:#ae81ff">863</span>, <span style="color:#ae81ff">117</span>, <span style="color:#ae81ff">70</span>, <span style="color:#ae81ff">13</span>)
+(<span style="color:#ae81ff">623</span>, <span style="color:#ae81ff">137</span>, <span style="color:#ae81ff">70</span>, <span style="color:#ae81ff">13</span>)
+(<span style="color:#ae81ff">853</span>, <span style="color:#ae81ff">577</span>, <span style="color:#ae81ff">70</span>, <span style="color:#ae81ff">13</span>)
+(<span style="color:#ae81ff">883</span>, <span style="color:#ae81ff">617</span>, <span style="color:#ae81ff">70</span>, <span style="color:#ae81ff">13</span>)
+(<span style="color:#ae81ff">973</span>, <span style="color:#ae81ff">657</span>, <span style="color:#ae81ff">70</span>, <span style="color:#ae81ff">13</span>)
+(<span style="color:#ae81ff">933</span>, <span style="color:#ae81ff">877</span>, <span style="color:#ae81ff">70</span>, <span style="color:#ae81ff">13</span>)
+
+<span style="color:#f92672">&gt;&gt;&gt;</span> list(pyautogui<span style="color:#f92672">.</span>locateAllOnScreen(<span style="color:#e6db74">&#39;looksLikeThis.png&#39;</span>))
+[(<span style="color:#ae81ff">863</span>, <span style="color:#ae81ff">117</span>, <span style="color:#ae81ff">70</span>, <span style="color:#ae81ff">13</span>), (<span style="color:#ae81ff">623</span>, <span style="color:#ae81ff">137</span>, <span style="color:#ae81ff">70</span>, <span style="color:#ae81ff">13</span>), (<span style="color:#ae81ff">853</span>, <span style="color:#ae81ff">577</span>, <span style="color:#ae81ff">70</span>, <span style="color:#ae81ff">13</span>), (<span style="color:#ae81ff">883</span>, <span style="color:#ae81ff">617</span>, <span style="color:#ae81ff">70</span>, <span style="color:#ae81ff">13</span>), (<span style="color:#ae81ff">973</span>, <span style="color:#ae81ff">657</span>, <span style="color:#ae81ff">70</span>, <span style="color:#ae81ff">13</span>), (<span style="color:#ae81ff">933</span>, <span style="color:#ae81ff">877</span>, <span style="color:#ae81ff">70</span>, <span style="color:#ae81ff">13</span>)]
+
+
+<span style="color:#f92672">&gt;&gt;&gt;</span> pyautogui<span style="color:#f92672">.</span>locateCenterOnScreen(<span style="color:#e6db74">&#39;looksLikeThis.png&#39;</span>)  <span style="color:#75715e"># returns center x and y</span>
+(<span style="color:#ae81ff">898</span>, <span style="color:#ae81ff">423</span>)
+
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> pyautogui
+<span style="color:#f92672">&gt;&gt;&gt;</span> im <span style="color:#f92672">=</span> pyautogui<span style="color:#f92672">.</span>screenshot(<span style="color:#e6db74">&#39;saved.png&#39;</span>, region<span style="color:#f92672">=</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">300</span>, <span style="color:#ae81ff">400</span>))
+
+<span style="color:#f92672">&gt;&gt;&gt;</span> button7location <span style="color:#f92672">=</span> pyautogui<span style="color:#f92672">.</span>locateOnScreen(<span style="color:#e6db74">&#39;calc7key.png&#39;</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> button7location
+(<span style="color:#ae81ff">1416</span>, <span style="color:#ae81ff">562</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">41</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> button7x, button7y <span style="color:#f92672">=</span> pyautogui<span style="color:#f92672">.</span>center(button7location)
+<span style="color:#f92672">&gt;&gt;&gt;</span> button7x, button7y
+(<span style="color:#ae81ff">1441</span>, <span style="color:#ae81ff">582</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> pyautogui<span style="color:#f92672">.</span>click(button7x, button7y)  <span style="color:#75715e"># clicks the center of where the 7 button was found</span>
+
+<span style="color:#f92672">&gt;&gt;&gt;</span> x, y <span style="color:#f92672">=</span> pyautogui<span style="color:#f92672">.</span>locateCenterOnScreen(<span style="color:#e6db74">&#39;calc7key.png&#39;</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> pyautogui<span style="color:#f92672">.</span>click(x, y)</code></pre></div>
+<p>There are several “locate” functions. They all start looking at the  top-left corner of the screen (or image) and look to the right and then  down. The arguments can either be a</p>
+
+<ul>
+<li><code>locateOnScreen(image, grayscale=False)</code> - Returns (left, top, width, height) coordinate of first found instance of the <code>image</code> on the screen. Returns None if not found on the screen.</li>
+<li><code>locateCenterOnScreen(image, grayscale=False)</code> - Returns (x, y) coordinates of the center of the first found instance of the <code>image</code> on the screen. Returns None if not found on the screen.</li>
+<li><code>locateAllOnScreen(image, grayscale=False)</code> - Returns a generator that yields (left, top, width, height) tuples for where the image is found on the screen.</li>
+<li><code>locate(needleImage, haystackImage, grayscale=False)</code> - Returns (left, top, width, height) coordinate of first found instance of <code>needleImage</code> in <code>haystackImage</code>. Returns None if not found on the screen.</li>
+
+<li><p><code>locateAll(needleImage, haystackImage, grayscale=False)</code> - Returns a generator that yields (left, top, width, height) tuples for where <code>needleImage</code> is found in <code>haystackImage</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">for</span> pos <span style="color:#f92672">in</span> pyautogui<span style="color:#f92672">.</span>locateAllOnScreen(<span style="color:#e6db74">&#39;someButton.png&#39;</span>)
+<span style="color:#f92672">...</span>   <span style="color:#66d9ef">print</span>(pos)
+<span style="color:#f92672">...</span>
+(<span style="color:#ae81ff">1101</span>, <span style="color:#ae81ff">252</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">50</span>)
+(<span style="color:#ae81ff">59</span>, <span style="color:#ae81ff">481</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">50</span>)
+(<span style="color:#ae81ff">1395</span>, <span style="color:#ae81ff">640</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">50</span>)
+(<span style="color:#ae81ff">1838</span>, <span style="color:#ae81ff">676</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">50</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> list(pyautogui<span style="color:#f92672">.</span>locateAllOnScreen(<span style="color:#e6db74">&#39;someButton.png&#39;</span>))
+[(<span style="color:#ae81ff">1101</span>, <span style="color:#ae81ff">252</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">50</span>), (<span style="color:#ae81ff">59</span>, <span style="color:#ae81ff">481</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">50</span>), (<span style="color:#ae81ff">1395</span>, <span style="color:#ae81ff">640</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">50</span>), (<span style="color:#ae81ff">1838</span>, <span style="color:#ae81ff">676</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">50</span>)]</code></pre></div></li>
+</ul>
+
+<p>These “locate” functions are fairly expensive; they can take a full second to run. The best way to speed them up is to pass a <code>region</code>  argument (a 4-integer tuple of (left, top, width, height)) to only  search a smaller region of the screen instead of the full screen:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> pyautogui
+<span style="color:#f92672">&gt;&gt;&gt;</span> pyautogui<span style="color:#f92672">.</span>locateOnScreen(<span style="color:#e6db74">&#39;someButton.png&#39;</span>, region<span style="color:#f92672">=</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">300</span>, <span style="color:#ae81ff">400</span>))</code></pre></div>
+<h3 id="pixel-matching">Pixel Matching</h3>
+
+<p>To obtain the RGB color of a pixel in a screenshot, use the Image object’s <code>getpixel()</code> method:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> pyautogui
+<span style="color:#f92672">&gt;&gt;&gt;</span> im <span style="color:#f92672">=</span> pyautogui<span style="color:#f92672">.</span>screenshot()
+<span style="color:#f92672">&gt;&gt;&gt;</span> im<span style="color:#f92672">.</span>getpixel((<span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">200</span>))
+(<span style="color:#ae81ff">130</span>, <span style="color:#ae81ff">135</span>, <span style="color:#ae81ff">144</span>)</code></pre></div>
+<p>Or as a single function, call the <code>pixel()</code> PyAutoGUI function, which is a wrapper for the previous calls:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> pyautogui
+<span style="color:#f92672">&gt;&gt;&gt;</span> pyautogui<span style="color:#f92672">.</span>pixel(<span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">200</span>)
+(<span style="color:#ae81ff">130</span>, <span style="color:#ae81ff">135</span>, <span style="color:#ae81ff">144</span>)</code></pre></div>
+<p>If you just need to verify that a single pixel matches a given pixel, call the <code>pixelMatchesColor()</code> function, passing it the X coordinate, Y coordinate, and RGB tuple of the color it represents:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> pyautogui
+<span style="color:#f92672">&gt;&gt;&gt;</span> pyautogui<span style="color:#f92672">.</span>pixelMatchesColor(<span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">200</span>, (<span style="color:#ae81ff">130</span>, <span style="color:#ae81ff">135</span>, <span style="color:#ae81ff">144</span>))
+True
+<span style="color:#f92672">&gt;&gt;&gt;</span> pyautogui<span style="color:#f92672">.</span>pixelMatchesColor(<span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">200</span>, (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>))
+False</code></pre></div>
+<p>The optional <code>tolerance</code> keyword argument specifies how much each of the red, green, and blue values can vary while still matching:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> pyautogui
+<span style="color:#f92672">&gt;&gt;&gt;</span> pyautogui<span style="color:#f92672">.</span>pixelMatchesColor(<span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">200</span>, (<span style="color:#ae81ff">130</span>, <span style="color:#ae81ff">135</span>, <span style="color:#ae81ff">144</span>))
+True
+<span style="color:#f92672">&gt;&gt;&gt;</span> pyautogui<span style="color:#f92672">.</span>pixelMatchesColor(<span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">200</span>, (<span style="color:#ae81ff">140</span>, <span style="color:#ae81ff">125</span>, <span style="color:#ae81ff">134</span>))
+False
+<span style="color:#f92672">&gt;&gt;&gt;</span> pyautogui<span style="color:#f92672">.</span>pixelMatchesColor(<span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">200</span>, (<span style="color:#ae81ff">140</span>, <span style="color:#ae81ff">125</span>, <span style="color:#ae81ff">134</span>), tolerance<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)
+True</code></pre></div>
+<h2 id="atom-shortcut">ATOM shortcut</h2>
+
+<p>===============================================================
+S+CMD D : duplicate lines
+CTR+CMD ARROW : move lines up/down
+CMD+D : select next matched characters
+CMD+CTR+G : select all matched characters</p>
+
+<h2 id="docker">DOCKER</h2>
+
+<p>==================================================================</p>
+
+<h2 id="install-docker-on-linux">Install Docker on Linux</h2>
+
+<p>As of 2018, to install <code>docker-ce</code> on Ubuntu 16.04 or Ubuntu 18.04, the command for the automated install is:</p>
+
+<pre><code>curl https://get.docker.com | sudo sh
+</code></pre>
+
+<p>Read the security note printed in output toward the end of the install. Note that the script at the URL used above is maintained in the <a href="https://github.com/docker/docker-install/">docker-install</a> repo.</p>
+
+<p>This installs the package and the repo. To confirm:</p>
+
+<pre><code>$ apt list docker-ce* 2&gt;&amp;- | grep installed
+docker-ce/now 5:18.09.0~3-0~ubuntu-xenial amd64 [installed,local]
+docker-ce-cli/now 5:18.09.0~3-0~ubuntu-xenial amd64 [installed,local]
+</code></pre>
+
+<p>Verify installation:</p>
+
+<pre><code>sudo docker run hello-world
+sudo docker version
+</code></pre>
+
+<p>Continue with <a href="https://docs.docker.com/engine/installation/linux/linux-postinstall/">post-installation steps</a>.</p>
+
+<h2 id="basic-1">Basic</h2>
+
+<p>docker &ndash;version
+docker version
+docker info</p>
+
+<p>docker container ls
+docker container ls &ndash;all
+docker container ls -aq</p>
+
+<p>docker build -t friendlyhello .  # Create image using this directory&rsquo;s Dockerfile
+docker run -p 4000:80 friendlyhello  # Run &ldquo;friendlyname&rdquo; mapping port 4000 to 80
+docker run -d -p 4000:80 friendlyhello         # Same thing, but in detached mode
+docker container ls                                # List all running containers
+docker container ls -a             # List all containers, even those not running
+docker container stop <hash>           # Gracefully stop the specified container
+docker container kill <hash>         # Force shutdown of the specified container
+docker container rm <hash>        # Remove specified container from this machine
+docker container rm $(docker container ls -a -q)         # Remove all containers
+docker image ls -a                             # List all images on this machine
+docker image rm <image id>            # Remove specified image from this machine
+docker image rm $(docker image ls -a -q)   # Remove all images from this machine
+docker login             # Log in this CLI session using your Docker credentials
+docker tag <image> username/repository:tag  # Tag <image> for upload to registry
+docker push username/repository:tag            # Upload tagged image to registry
+docker run username/repository:tag                   # Run image from a registry
+docker stack ls                                            # List stacks or apps
+docker stack deploy -c <composefile> <appname>  # Run the specified Compose file
+docker service ls                 # List running services associated with an app
+docker service ps <service>                  # List tasks associated with an app
+docker inspect <task or container>                   # Inspect task or container
+docker container ls -q                                      # List container IDs
+docker stack rm <appname>                             # Tear down an application
+docker swarm leave &ndash;force      # Take down a single node swarm from the manager
+docker-machine create &ndash;driver virtualbox myvm1 # Create a VM (Mac, Win7, Linux)
+docker-machine create -d hyperv &ndash;hyperv-virtual-switch &ldquo;myswitch&rdquo; myvm1 # Win10
+docker-machine env myvm1                # View basic information about your node
+docker-machine ssh myvm1 &ldquo;docker node ls&rdquo;         # List the nodes in your swarm
+docker-machine ssh myvm1 &ldquo;docker node inspect <node ID>&rdquo;        # Inspect a node
+docker-machine ssh myvm1 &ldquo;docker swarm join-token -q worker&rdquo;   # View join token
+docker-machine ssh myvm1   # Open an SSH session with the VM; type &ldquo;exit&rdquo; to end
+docker node ls                # View nodes in swarm (while logged on to manager)
+docker-machine ssh myvm2 &ldquo;docker swarm leave&rdquo;  # Make the worker leave the swarm
+docker-machine ssh myvm1 &ldquo;docker swarm leave -f&rdquo; # Make master leave, kill swarm
+docker-machine ls # list VMs, asterisk shows which VM this shell is talking to
+docker-machine start myvm1            # Start a VM that is currently not running
+docker-machine env myvm1      # show environment variables and command for myvm1
+<code>eval $(docker-machine env myvm1)</code>         # Mac command to connect shell to myvm1
+docker stack deploy -<span class="">c</span> <file> <app>  # Deploy an app; command shell must be set to talk to manager (myvm1), uses loca<span class="">l</span> Compose file
+docker-machine scp docker-compose.yml myvm1:~ # Copy file to node&rsquo;s home dir (only required if you use ssh to connect<span class=""> </span>to manager and dep<span class="">l</span>oy the app)
+docker-machine ssh myvm1 &ldquo;docker stack deploy -c <file> <app>&rdquo;   # Deploy an app using ssh (you must have first copie<span class="">d</span> the Compose file to myvm<span class="">1</span>)
+<code>eval $(docker-machine env -u)</code>    # Disconnect shell from VMs, use native docker
+<code>docker-machine stop $(docker-machine ls -q)</code># Stop all running VMs
+<code>docker-machine rm $(docker-machine ls -q)</code> # Delete all VMs and their disk images</p>
+
+<p>1) Lists running containers
+​   docker ps
+​   docker ps -a
+​   docker ps -q &ldquo;quiet or only IDs&rdquo;</p>
+
+<p>2) Build a docker image using Dockerfile in current dir(.)
+​   docker build -t <image_name> .</p>
+
+<p>3) Run docker container (NOTE OPTIONs below able to overwrite Dockerfile specs !! useful at runtime)
+​   sodu docker run [OPTION] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG&hellip;]</p>
+
+<pre><code>&quot;sudo docker run -it --name=&quot;jupyter&quot; -p 8888:8888 -u=&quot;root&quot; -v ~/REPO_Docker/Docker_ML:/home/jupyter oceanbao/machine_learning:base bash&quot;
+
+# Detached vs foreground: if use -d=true and --rm, container removed at exit;
+# foreground attach console to ps stdin/stdout/stderr and even pretend to be TTY
+-a=[]   : attach to 'STDIN', 'STDOUT', 'STDERR'
+-t      : allocate a pseudo-tty
+-i      : keep STDIN open even if not attached
+    docker run -a stdin -a stdout -i -t ubuntu /bin/bash
+-it     : must specify for shell ps
+    echo test | docker run -i busybox cat
+# ID: 3 ways as UUID long identifier, UUID short identifier, Name
+--name [NAME]   : specify name, otherwise daemon assign randomly
+--pid=&quot;&quot;    : set PID ps Namespace mode 'container:&lt;name|id&gt;': joins another cont's PID namespace / 'host': use the host's PID namespace inside container
+# Network settings
+    --dns=[]           : Set custom dns servers for the container
+    --network=&quot;bridge&quot; : Connect a container to a network
+                          'bridge': create a network stack on the default Docker bridge
+                          'none': no networking
+                          'container:&lt;name|id&gt;': reuse another container's network stack
+                          'host': use the Docker host network stack
+                          '&lt;network-name&gt;|&lt;network-id&gt;': connect to a user-defined network
+    --network-alias=[] : Add network-scoped alias for the container
+    --add-host=&quot;&quot;      : Add a line to /etc/hosts (host:IP)
+    --mac-address=&quot;&quot;   : Sets the container's Ethernet device's MAC address
+    --ip=&quot;&quot;            : Sets the container's Ethernet device's IPv4 address
+    --ip6=&quot;&quot;           : Sets the container's Ethernet device's IPv6 address
+    --link-local-ip=[] : Sets one or more container's Ethernet device's link local IPv4/IPv6 addresses
+# Clean up [--rm]: persist by default helping debugging' --rm=true ALSO removes anonymous vol linked with container except those specified 
+# Runtime constraints on resources (see online doc)
+# Overriding Dockerfile image defaults !!
+    --entrypoint=&quot;&quot;     :passing clears out any default CMD
+    -p=[]       :publish container's port or range of ports to host (-p 8888:8888) (docker port :see mapping)
+    --link=&quot;&quot;   :add link to another container &lt;name/id&gt;:alias or &lt;name/id&gt;
+    -e &quot;&quot;       :HOME=, USER=, HOSTNAME=, PAHT=, 
+# Volume shared filesystems
+    -v [host-src:]container-dest[:&lt;options&gt;]
+# User
+    -u=&quot;&quot;
+
+
+docker start &lt;containerID&gt; # rerun after exit; use docker ps -a to see list
+</code></pre>
+
+<p>4) Pull docker image from Dockerhub
+​   docker pull <image_name></p>
+
+<p>5) List all volumes
+​   docker volume ls</p>
+
+<p>6) List
+​   docker container ls
+​   docker image ls
+​   docker volume ls
+​   docker network ls</p>
+
+<p>7) Show logs
+​   docker logs &ndash;follow<container_name></p>
+
+<p>8) Remove a container
+​   docker rm <image_name></p>
+
+<pre><code># remove all with caution!!
+docker rm $(docker ps -aq) 
+</code></pre>
+
+<p>9) Remove an img
+​   docker rmi <image_name></p>
+
+<p>10) Stop a container
+​   docker stop <container_name> &ldquo;can be hash ID&rdquo;
+​   docker stop $(docker ps -q) &ldquo;stop all&rdquo;</p>
+
+<p>11) Shutdown
+​   docker kill <container_name></p>
+
+<p>12) Clean all containers and images
+​   docker rm $(docker ps -a -q)
+​   docker rmi $(docker images -q)</p>
+
+<p>13) Delete unused resources
+​   docker container prune &ldquo;remove all stopped containers&rdquo;
+​   docker volume prune &ldquo;remove all unused volumes&rdquo;
+​   docker image prune &ldquo;remove unused images&rdquo;
+​   docker system prune -a -f &ndash;volumes</p>
+
+<p>14) Push image into Dockerhub</p>
+
+<p>​   docker login &ndash;username <username> &ndash;password <password>
+​   docker tage <my_image> <username/my_repo>
+​   docker push <username/my_repo></p>
+
+<p>15) Enter terminal after docker run
+​   <code>docker exec -i -t &lt;container_name&gt; /bin/sh</code></p>
+
+<p>16) Commit as New Image from a container&rsquo;s changes
+​   <code>docker commit [OPTIONS] CONTAINER [REPO[:TAG]]
+​   -c (apply Dockerfile to the created image)</code>
+​       The &ndash;change option will apply Dockerfile instructions to the image that is created.
+​       Supported Dockerfile instructions:
+​       <code>CMD|ENTRYPOINT|ENV|EXPOSE|LABEL|ONBUILD|USER|VOLUME|WORKD</code>
+​       Example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker inspect -f <span style="color:#e6db74">&#34;{{ .Config.Env }}&#34;</span> c3f279d17e0a
+		&gt; <span style="color:#f92672">[</span>HOME<span style="color:#f92672">=</span>/ PATH<span style="color:#f92672">=</span>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin<span style="color:#f92672">]</span>
+$ docker commit --change <span style="color:#e6db74">&#34;ENV DEBUG true&#34;</span> c3f279d17e0a  svendowideit/testimage:version3
+		&gt; f5283438590d
+$ docker inspect -f <span style="color:#e6db74">&#34;{{ .Config.Env }}&#34;</span> f5283438590d
+		&gt; <span style="color:#f92672">[</span>HOME<span style="color:#f92672">=</span>/ PATH<span style="color:#f92672">=</span>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin DEBUG<span style="color:#f92672">=</span>true<span style="color:#f92672">]</span>
+<span style="color:#75715e"># Commit with new CMD / EXPOSE</span>
+$ docker commit --change<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;CMD [&#34;apachectl&#34;, &#34;-DFOREGROUND&#34;]&#39;</span> -c <span style="color:#e6db74">&#34;EXPOSE 80&#34;</span> c3f279d17e0a  svendowideit/testimage:version4
+	-m <span style="color:#f92672">(</span>commit message<span style="color:#f92672">)</span>
+	-p <span style="color:#f92672">(</span>pause container during commit<span style="color:#f92672">)</span></code></pre></div>
+<p>17) Connecting Containers (&ndash;link)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker pull redis
+docker run -d --name redis_server redis
+docker run -it --name redis_client1 --link redis_server:redis redis bash
+docker run --rm -it --link myredis:redis redis bash
+&gt; redis-cli -h redis -p <span style="color:#ae81ff">6379</span>
+&gt; set key value
+&gt; get key
+docker run --rm --volumes-from myreids -v <span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span>/backup:/backup debian cp /data/dum.rdb /backup/ 
+<span style="color:#75715e"># -v mount known dir on host and --volumes-from to connect new container to Redis db folder</span>
+
+<span style="color:#75715e"># cat /etc/hosts</span>
+&gt; <span style="color:#ae81ff">127</span>.0.0.1		localhost
+&gt; ...
+&gt; <span style="color:#ae81ff">172</span>.17.0.2 	redis &lt;container ID&gt; redis_server
+
+<span style="color:#75715e"># ping redis</span>
+
+<span style="color:#75715e"># redis-cli -h redis</span>
+<span style="color:#75715e"># redis:6379&gt; PING</span>
+&gt; PONG
+<span style="color:#75715e"># redis:6379&gt; set myname ocean</span>
+
+docker run -it --name redis_client2 --link redis_server:redis redis bash
+<span style="color:#75715e"># redis-cli -h redis</span>
+<span style="color:#75715e"># redis:6379&gt; get myname</span>
+&gt; ocean</code></pre></div>
+<h3 id="play-with-docker-tutorial">Play with Docker tutorial</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker container run <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>--detach <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>--name mydb <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>-e MYSQL_ROOT_PASSWORD<span style="color:#f92672">=</span>my-secret-pw <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>mysql:latest
+
+docker container logs mydb
+docker container top mydb
+
+docker container run <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>--detach <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>--publish <span style="color:#ae81ff">80</span>:80 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>--name linux_tweet_app <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>--mount type<span style="color:#f92672">=</span>bind,source<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>,target<span style="color:#f92672">=</span>/usr/share/nginx/html <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>$DOCKERID/linux_tweet_app:1.0</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"> FROM nginx:latest<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span> COPY index.html /usr/share/nginx/html<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span> COPY linux.png /usr/share/nginx/html<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span> EXPOSE <span style="color:#ae81ff">80</span> <span style="color:#ae81ff">443</span>     <span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span> CMD <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;nginx&#34;</span>, <span style="color:#e6db74">&#34;-g&#34;</span>, <span style="color:#e6db74">&#34;daemon off;&#34;</span><span style="color:#f92672">]</span></code></pre></div>
+<h3 id="resources-usage">Resources Usage</h3>
+
+<p><code>docker ps --format &quot;{{.Names}}&quot; | xargs docker stats</code></p>
+
+<h2 id="o-reilly-docker">O&rsquo;reilly DOCKER</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"></code></pre></div>
+<h1 id="xpath">XPATH</h1>
+
+<hr />
+
+<p>Xpath is a language for addressing parts of an XML document - 1.0</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">- element nodes &lt;p&gt;...&lt;/p&gt; or tag
+- attribute nodes href<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;page.html&#34;</span>
+- text nodes <span style="color:#e6db74">&#34;Some Title&#34;</span> NOT ELEMENTS
+- comment nodes &lt;!-- comment... --&gt;
+
+- //html/head/title <span style="color:#f92672">=</span> $$$&lt;title&gt;....&lt;/title&gt;$$$
+- //meta/@content <span style="color:#f92672">=</span> &lt;meta content<span style="color:#f92672">=</span>$$<span style="color:#e6db74">$&#34;text...stuff&#34;</span>$$$ http-equiv<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;content-type&#34;</span>&gt;
+- //div/div<span style="color:#f92672">[</span>@class<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;second&#34;</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> $$$&lt;div class<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;second&#34;</span>&gt; everything in side &lt;/div&gt;$$$
+- //div/a/text<span style="color:#f92672">()</span> <span style="color:#f92672">=</span> ... &lt;a href<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;page3.html&#34;</span>&gt;$autre lien$&lt;/a&gt; ....
+- //div/a/@href <span style="color:#f92672">=</span>  ... &lt;a href<span style="color:#f92672">=</span>$$<span style="color:#e6db74">$&#34;page3.html&#34;</span>$$$&gt;autre lien&lt;/a&gt; ....</code></pre></div>
+<h2 id="step1-step2-each-step-axis-nodetest-predicate-whitespace-no-matter">/step1/step2/&hellip; each step: AXIS :: NODETEST [PREDICATE]* WHITESPACE NO MATTER</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">/html/head/title <span style="color:#f92672">=</span> /child:: html /child:: head /child:: title
+//meta/@content <span style="color:#f92672">=</span> /descendant-or-self:: node<span style="color:#f92672">()</span>/child:: meta/attribute:: content
+//div/div<span style="color:#f92672">[</span>@class<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;second&#34;</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> /descend-or-self::node<span style="color:#f92672">()</span> /child::div /child::div <span style="color:#f92672">[</span> attribute::class <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;second&#34;</span><span style="color:#f92672">]</span>
+//body//*<span style="color:#f92672">[</span>self::ul or self::ol<span style="color:#f92672">]</span>//li :multiple node names testing, middle-location</code></pre></div>
+<p><strong>AXES = directions</strong>
+self = context
+parent, child = direct hop
+ancestor, ancestor-or-self, descendant, descendant-or-self, = multi-hop
+following, following-sibling, preceding, preceding-sibling = document order
+attribute, namespace = non-element**</p>
+
+<p><strong>PREDICATE nested:</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">//div<span style="color:#f92672">[</span>p<span style="color:#f92672">[</span>a/@href<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sample.html&#34;</span><span style="color:#f92672">]]</span>
+* <span style="color:#f92672">=</span> all element nodes bar text/attribute, etc .//* !<span style="color:#f92672">=</span> .//node<span style="color:#f92672">()</span>
+	@* <span style="color:#f92672">=</span> attribute::*	all attribute nodes
+// <span style="color:#f92672">=</span> /descendant-or-self::node<span style="color:#f92672">()</span>/
+	. <span style="color:#f92672">=</span> self::node<span style="color:#f92672">()</span> 	the context node
+.. <span style="color:#f92672">=</span> parent::node<span style="color:#f92672">()</span></code></pre></div>
+<p><strong>ATTRIBUTE @</strong></p>
+
+<pre><code>//@id
+//BBB[@id]
+//BBB[@name]
+//BBB[not(@*)]
+ATTRIBUTE VALUES
+//BBB[@id='b1']
+//BBB[@name='bbb']
+//BBB[normalize-space(@name)='bbb']
+</code></pre>
+
+<p><strong>NODE COUNTING</strong></p>
+
+<pre><code>//*[count(BBB)=2]
+//*[count(*)=2]
+count(//@*)
+</code></pre>
+
+<p><strong>NAMING ELEMENT</strong></p>
+
+<pre><code>//*[name()='BBB']
+//*[starts-with(name(), 'B')]
+//*[contains(name(), 'C')]
+</code></pre>
+
+<p><strong>COMBINING</strong></p>
+
+<pre><code>//AAA/EEE | //DDD/CCC | /AAA
+</code></pre>
+
+<p>EXAMPLES:</p>
+
+<pre><code>//div[ a [text() = &quot;link&quot;]] 	
+​	:div having a tag with text 'link' = //div[ a/text()=&quot;link&quot;]
+//a[starts-with(@href, &quot;https&quot;)]	
+​	:all a tag with href starting with 'https'
+//p[ a/@href=&quot;https://scrapy.org&quot; ]
+​	:value of href attribute from all a tag
+//div[@id='footer']/preceding-sibling::text()[1]	
+​	:first text node before div footer
+//p[text()=&quot;Footer text&quot;]/..	
+​	:select parent of &lt;p&gt; embedding 'Footer text'
+//*[p/text()=&quot;Footer text&quot;]		
+​	:from all tag, &lt;p&gt; child having text &quot;Footer text&quot;
+//li//@href 	
+​	:all of href attributes under li, return its value
+//li[re:test(@class, &quot;item-\d$&quot;)]//@href 	
+​	:like above, but only class attribute end in &quot;item-\d$&quot;
+string(/html/head/title) 	
+​	:returns string repr of elements
+</code></pre>
+
+<p><strong>VARIABLES</strong></p>
+
+<pre><code>//div[@id=$val]/a/text(),  val='images'	element 'id' attr having 'images'
+//div[count(a)=$cnt]/@id,  cnt=5 	find 'id' attr of &lt;div&gt; having 5 &lt;a&gt; children
+</code></pre>
+
+<p><strong>TRICK</strong></p>
+
+<pre><code>.//text()	collection of text elements as node-set
+//a[contains(.//text(), 'target')] = string ONLY first element
+//a[contains(., 'target')] = all of &lt;a&gt; tag having 'target'; '.' means current node !!
+</code></pre>
+
+<p><strong>SPECIFIC CLASS SELECTION</strong></p>
+
+<pre><code>//*[contains(concat(' ', normalize-space(@class), ' '), ' content ')]
+</code></pre>
+
+<p><strong>CSS + XPATH</strong></p>
+
+<pre><code>css(&quot;.content&quot;).xpath('@class').extract()
+</code></pre>
+
+<p><strong>SCRAPY TIP</strong></p>
+
+<ul>
+<li>removing namespaces - bare element names to write more simple XPaths <code>response.selector.remove_namespaces()</code></li>
+
+<li><p>[] or list() return from response.xpath(&lsquo;//link&rsquo;) : returns [<Selector xpath='//link' data=u'<link xmlns="http://www.w3.org/2005/Atom">,..]</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt;&gt;&gt; from scrapy import Selector
+&gt;&gt;&gt; sel <span style="color:#f92672">=</span> Selector<span style="color:#f92672">(</span>text<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;
+</span><span style="color:#e6db74">	&lt;div class=&#34;hero shout&#34;&gt;&lt;time datetime=&#34;2014-07-23 19:00&#34;&gt;Special date&lt;/time&gt;&lt;/div&gt;&#39;</span><span style="color:#f92672">)</span>
+&gt;&gt;&gt; sel.css<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;.shout&#39;</span><span style="color:#f92672">)</span>.xpath<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;./time/@datetime&#39;</span><span style="color:#f92672">)</span>.extract<span style="color:#f92672">()</span>
+<span style="color:#f92672">[</span>u<span style="color:#e6db74">&#39;2014-07-23 19:00&#39;</span><span style="color:#f92672">]</span>
+
+&gt;&gt;&gt; response.xpath<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;//a[contains(@href, &#34;image&#34;)]/text()&#39;</span><span style="color:#f92672">)</span>.re<span style="color:#f92672">(</span>r<span style="color:#e6db74">&#39;Name:\s*(.*)&#39;</span><span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>u<span style="color:#e6db74">&#39;My image 1&#39;</span>,
+u<span style="color:#e6db74">&#39;My image 2&#39;</span>,
+u<span style="color:#e6db74">&#39;My image 3&#39;</span>,
+u<span style="color:#e6db74">&#39;My image 4&#39;</span>,
+u<span style="color:#e6db74">&#39;My image 5&#39;</span><span style="color:#f92672">]</span>
+
+Use it to extract just the first matching string:
+&gt;&gt;&gt; response.xpath<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;//a[contains(@href, &#34;image&#34;)]/text()&#39;</span><span style="color:#f92672">)</span>.re_first<span style="color:#f92672">(</span>r<span style="color:#e6db74">&#39;Name:\s*(.*)&#39;</span><span style="color:#f92672">)</span>
+u<span style="color:#e6db74">&#39;My image 1&#39;</span>
+
+//a<span style="color:#f92672">[</span>contains<span style="color:#f92672">(</span>@href, <span style="color:#e6db74">&#34;image&#34;</span><span style="color:#f92672">)]</span>/img/@src 		value <span style="color:#e6db74">&#39;image.jpg&#39;</span> of &lt;a&gt; having href<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;image&#34;</span></code></pre></div></li>
+</ul>
+
+<h1 id="hugo">HUGO</h1>
+
+<hr />
+
+<p>Quickstart</p>
+
+<h3 id="create-new-site-in-folder-quickstart">Create New Site in folder quickstart</h3>
+
+<p>hugo new site quickstart</p>
+
+<h3 id="add-theme">Add Theme</h3>
+
+<p>git init
+git submodule add <a href="https://github.com/budparr/gohugo-theme-ananke.git">https://github.com/budparr/gohugo-theme-ananke.git</a> themes/ananke</p>
+
+<h3 id="edit-config-toml-to-add-ananake-theme">Edit config.toml to add Ananake Theme</h3>
+
+<p>echo &lsquo;theme = &ldquo;ananke&rdquo;&rsquo; &gt;&gt; config.toml</p>
+
+<h3 id="add-content">Add Content</h3>
+
+<p>hugo new posts/my-first-post.md</p>
+
+<h3 id="start-server-with-drafts-enabled">Start server with drafts enabled</h3>
+
+<p>hugo server -D</p>
+
+<h3 id="customize-theme-configure-config-toml">Customize Theme configure config.toml</h3>
+
+<p>Install and Use Themes</p>
+
+<h3 id="cloning-entire-hugo-theme-repo-on-locally">Cloning entire Hugo Theme repo on locally</h3>
+
+<p>git clone &ndash;depth 1 &ndash;recursive <a href="https://github.com/gohugoio/hugoThemes.git">https://github.com/gohugoio/hugoThemes.git</a> themes</p>
+
+<h3 id="before-using-a-theme-remove-git-folder-in-that-theme-s-root-folder">Before using a theme, remove .git folder in that theme&rsquo;s root folder</h3>
+
+<h3 id="single-theme">Single Theme</h3>
+
+<p>cd themes
+git clone URL_TO_THEME</p>
+
+<h3 id="apply-theme-hugo-applies-decided-theme-first-then-applies-anthing-local-allowing-easier-customisation-while-retinaing-compatibility-with-upstream-version-of-theme">Apply theme: Hugo applies decided theme first then applies anthing local, allowing easier customisation while retinaing compatibility with upstream version of theme</h3>
+
+<pre><code>- change theme via CLI
+`hugo -t themename`
+- or add when servering
+`hugo server -t themename`
+- config File method: add theme directly to site config file
+theme: themename
+</code></pre>
+
+<h3 id="github-hosting-2-types-of-pages-user-org-page-and-project-pages">GitHub Hosting: 2 types of Pages - User/Org Page and Project Pages</h3>
+
+<ol>
+<li><p>User Page: Content from &lsquo;master&rsquo; branch will be used to publish Page site</p>
+
+<ul>
+<li><code>create &lt;PROJECT&gt;</code> repo on GitHub e.g. blog having Hugo&rsquo;s content and other source files</li>
+<li><code>create &lt;USERNAME&gt;.github.io repo</code>, where lie fully rendered version of Hugo website</li>
+<li><code>git clone &lt;PROJECT_URL&gt; &amp;&amp; cd &lt;PROJECT&gt;</code></li>
+<li><code>hugo server -t &lt;theme&gt;</code></li>
+<li><code>inspect and rm -rf public</code></li>
+<li><code>git submodule add -b master git@github.com:&lt;username&gt;/&lt;username&gt;.github.io.git public</code>
+
+<ul>
+<li>creating a git submodule</li>
+<li>when run hugo CLI to build site to public folder, it will have a different remote origin (i.e. hosted GitHub repo)</li>
+<li>auto steps with script deploy.sh
+<code>./deploy.sh</code> &ldquo;commit message&rdquo; to update username.github.io</li>
+</ul></li>
+</ul></li>
+
+<li><p>Project Pages</p>
+
+<ul>
+<li>ensure baseURL key-value in site configuration reflects full URL of GitHub pages repo</li>
+<li>e.g. <username>.github.io/<project>/</li>
+<li>Deploy from /docs folder on master branch</li>
+<li>change Hugo publish directory in site&rsquo;s config.toml and config.yaml</li>
+<li>publishDir = &ldquo;docs&rdquo;</li>
+<li>publishDir: docs</li>
+<li>after running hugo, push master branch to remote repo and choose docs/ folder as source</li>
+<li>Settings (project) -&gt; GitHub Pages -&gt; Source: master branch /docs folder</li>
+<li>docs/ option is simplest but need setting a publish dir in site config;
+Deploy from gh-pages branch</li>
+
+<li><p>or point to gh-pages branch, more complex but keeps source and rendered site separate + using default public folder
+<code>echo &quot;public&quot; &gt;&gt; .gitignore</code>
+<code>git checkout --orphan gh-pages</code>
+<code>git reset --hard</code>
+<code>git commit --allow-empty -m &quot;Init gh-pages branch&quot;</code>
+<code>git push upstream gh-pages</code>
+<code>git checkout master</code></p></li>
+
+<li><p>Build and Deploy
+<code>rm -rf public</code>
+<code>git worktree add -B gh-pages public upstream/gh-pages</code></p></li>
+
+<li><p>regenerate site usng hugo and commit fiels on gh-pages branch
+<code>hugo</code>
+<code>cd public &amp;&amp; git add --all &amp;&amp; git commit -m &quot;Publishing to gh-pages&quot; &amp;&amp; cd ..</code>
+<code>git push upstream gh-pages</code></p></li>
+
+<li><p>set gh-pages as Publish Branch</p></li>
+
+<li><p>Settings -&gt; GitHub Pages -&gt; Source: select &lsquo;gh-pages branch&rsquo; -&gt; Save</p></li>
+
+<li><p>refer to auto-script as publish_to_ghpages.sh</p></li>
+
+<li><p>this will abort if there are pending changes in working dir and ensure all existing output files are removed. Adjust script to need: include final push to remote repo if no need to take a look or add echo domainname.com &gt;&gt; CNAME if set up for customised domain</p></li>
+</ul></li>
+</ol>
+</div>
+
+        
+        <div class="section bottom-menu">
+<hr />
+<p>
+
+
+    
+
+    
+        
+            <a href="/code">
+                code
+            </a>
+        
+    
+    
+        
+            &#183; 
+            <a href="/prose">
+                prose
+            </a>
+        
+            &#183; 
+            <a href="/gallery">
+                gallery
+            </a>
+        
+            &#183; 
+            <a href="/qui">
+                qui et quoi?
+            </a>
+        
+    
+    &#183; 
+    <a href="https://oceanbao.github.io/">
+        main
+    </a>
+
+</p></div>
+        
+
+        <div class="section footer">Ocean Ode</div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<meta name="description" content="Ocean on GitHub.">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:domain" content="https://oceanbao.github.io/">
+
+<meta name="twitter:image" content="https://oceanbao.github.io/tn.png">
+<meta name="twitter:title" property="og:title" itemprop="title name" content="Ocean Ode">
+<meta name="twitter:description" property="og:description" itemprop="description" content="Ocean on GitHub.">
+<meta name="og:type" content="website">
+<meta name="og:url" content="https://oceanbao.github.io/">
+<meta name="og:image" itemprop="image primaryImageOfPage" content="https://oceanbao.github.io/tn.png">
+
+<link rel="shortcut icon" href="https://oceanbao.github.io/oceanicon.jpg" id="favicon">
+<link rel="stylesheet" href="https://oceanbao.github.io/css/style.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+
+    
+
+    
+    
+    
+    <title>
+        
+        BASH
+        
+    </title>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="section" id="title">BASH</div>
+
+        <div class="section" id="content">
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span><span style="color:#75715e">##############################################################################</span>
+<span style="color:#75715e"># SHORTCUTS</span>
+<span style="color:#75715e">##############################################################################</span>
+
+
+CTRL+A  <span style="color:#75715e"># move to beginning of line</span>
+CTRL+B  <span style="color:#75715e"># moves backward one character</span>
+CTRL+C  <span style="color:#75715e"># halts the current command</span>
+CTRL+D  <span style="color:#75715e"># deletes one character backward or logs out of current session, similar to exit</span>
+CTRL+E  <span style="color:#75715e"># moves to end of line</span>
+CTRL+F  <span style="color:#75715e"># moves forward one character</span>
+CTRL+G  <span style="color:#75715e"># aborts the current editing command and ring the terminal bell</span>
+CTRL+J  <span style="color:#75715e"># same as RETURN</span>
+CTRL+K  <span style="color:#75715e"># deletes (kill) forward to end of line</span>
+CTRL+L  <span style="color:#75715e"># clears screen and redisplay the line</span>
+CTRL+M  <span style="color:#75715e"># same as RETURN</span>
+CTRL+N  <span style="color:#75715e"># next line in command history</span>
+CTRL+O  <span style="color:#75715e"># same as RETURN, then displays next line in history file</span>
+CTRL+P  <span style="color:#75715e"># previous line in command history</span>
+CTRL+R  <span style="color:#75715e"># searches backward</span>
+CTRL+S  <span style="color:#75715e"># searches forward</span>
+CTRL+T  <span style="color:#75715e"># transposes two characters</span>
+CTRL+U  <span style="color:#75715e"># kills backward from point to the beginning of line</span>
+CTRL+V  <span style="color:#75715e"># makes the next character typed verbatim</span>
+CTRL+W  <span style="color:#75715e"># kills the word behind the cursor</span>
+CTRL+X  <span style="color:#75715e"># lists the possible filename completions of the current word</span>
+CTRL+Y  <span style="color:#75715e"># retrieves (yank) last item killed</span>
+CTRL+Z  <span style="color:#75715e"># stops the current command, resume with fg in the foreground or bg in the background</span>
+
+ALT+B   <span style="color:#75715e"># moves backward one word</span>
+ALT+D   <span style="color:#75715e"># deletes next word</span>
+ALT+F   <span style="color:#75715e"># moves forward one word</span>
+
+DELETE  <span style="color:#75715e"># deletes one character backward</span>
+!!      <span style="color:#75715e"># repeats the last command</span>
+exit    <span style="color:#75715e"># logs out of current session</span>
+
+
+<span style="color:#75715e">##############################################################################</span>
+<span style="color:#75715e"># BASH BASICS</span>
+<span style="color:#75715e">##############################################################################</span>
+
+env                 <span style="color:#75715e"># displays all environment variables</span>
+
+echo $SHELL         <span style="color:#75715e"># displays the shell you&#39;re using</span>
+echo $BASH_VERSION  <span style="color:#75715e"># displays bash version</span>
+
+bash                <span style="color:#75715e"># if you want to use bash (type exit to go back to your previously opened shell)</span>
+whereis bash        <span style="color:#75715e"># finds out where bash is on your system</span>
+which bash          <span style="color:#75715e"># finds out which program is executed as &#39;bash&#39; (default: /bin/bash, can change across environments)</span>
+
+clear               <span style="color:#75715e"># clears content on window (hide displayed lines)</span>
+
+
+<span style="color:#75715e">##############################################################################</span>
+<span style="color:#75715e"># FILE COMMANDS</span>
+<span style="color:#75715e">##############################################################################</span>
+
+
+ls                            <span style="color:#75715e"># lists your files in current directory, ls &lt;dir&gt; to print files in a specific directory</span>
+ls -l                         <span style="color:#75715e"># lists your files in &#39;long format&#39;, which contains the exact size of the file, who owns the file and who has the right to look at it, and when it was last modified</span>
+ls -a                         <span style="color:#75715e"># lists all files, including hidden files (name beginning with &#39;.&#39;)</span>
+ln -s &lt;filename&gt; &lt;link&gt;       <span style="color:#75715e"># creates symbolic link to file</span>
+touch &lt;filename&gt;              <span style="color:#75715e"># creates or updates (edit) your file</span>
+cat &lt;filename&gt;                <span style="color:#75715e"># prints file raw content (will not be interpreted)</span>
+any_command &gt; &lt;filename&gt;      <span style="color:#75715e"># &#39;&gt;&#39; is used to perform redirections, it will set any_command&#39;s stdout to file instead of &#34;real stdout&#34; (generally /dev/stdout)</span>
+more &lt;filename&gt;               <span style="color:#75715e"># shows the first part of a file (move with space and type q to quit)</span>
+head &lt;filename&gt;               <span style="color:#75715e"># outputs the first lines of file (default: 10 lines)</span>
+tail &lt;filename&gt;               <span style="color:#75715e"># outputs the last lines of file (useful with -f option) (default: 10 lines)</span>
+vim &lt;filename&gt;                <span style="color:#75715e"># opens a file in VIM (VI iMproved) text editor, will create it if it doesn&#39;t exist</span>
+mv &lt;filename1&gt; &lt;dest&gt;         <span style="color:#75715e"># moves a file to destination, behavior will change based on &#39;dest&#39; type (dir: file is placed into dir; file: file will replace dest (tip: useful for renaming))</span>
+cp &lt;filename1&gt; &lt;dest&gt;         <span style="color:#75715e"># copies a file</span>
+rm &lt;filename&gt;                 <span style="color:#75715e"># removes a file</span>
+diff &lt;filename1&gt; &lt;filename2&gt;  <span style="color:#75715e"># compares files, and shows where they differ</span>
+wc &lt;filename&gt;                 <span style="color:#75715e"># tells you how many lines, words and characters there are in a file. Use -lwc (lines, word, character) to ouput only 1 of those informations</span>
+chmod -options &lt;filename&gt;     <span style="color:#75715e"># lets you change the read, write, and execute permissions on your files (more infos: SUID, GUID)</span>
+gzip &lt;filename&gt;               <span style="color:#75715e"># compresses files using gzip algorithm</span>
+gunzip &lt;filename&gt;             <span style="color:#75715e"># uncompresses files compressed by gzip</span>
+gzcat &lt;filename&gt;              <span style="color:#75715e"># lets you look at gzipped file without actually having to gunzip it</span>
+lpr &lt;filename&gt;                <span style="color:#75715e"># prints the file</span>
+lpq                           <span style="color:#75715e"># checks out the printer queue</span>
+lprm &lt;jobnumber&gt;              <span style="color:#75715e"># removes something from the printer queue</span>
+genscript                     <span style="color:#75715e"># converts plain text files into postscript for printing and gives you some options for formatting</span>
+dvips &lt;filename&gt;              <span style="color:#75715e"># prints .dvi files (i.e. files produced by LaTeX)</span>
+grep &lt;pattern&gt; &lt;filenames&gt;    <span style="color:#75715e"># looks for the string in the files</span>
+grep -r &lt;pattern&gt; &lt;dir&gt;       <span style="color:#75715e"># search recursively for pattern in directory</span>
+
+
+<span style="color:#75715e">##############################################################################</span>
+<span style="color:#75715e"># DIRECTORY COMMANDS</span>
+<span style="color:#75715e">##############################################################################</span>
+
+
+mkdir &lt;dirname&gt;  <span style="color:#75715e"># makes a new directory</span>
+cd               <span style="color:#75715e"># changes to home</span>
+cd &lt;dirname&gt;     <span style="color:#75715e"># changes directory</span>
+pwd              <span style="color:#75715e"># tells you where you currently are</span>
+
+
+<span style="color:#75715e">##############################################################################</span>
+<span style="color:#75715e"># SSH, SYSTEM INFO &amp; NETWORK COMMANDS</span>
+<span style="color:#75715e">##############################################################################</span>
+
+
+ssh user@host            <span style="color:#75715e"># connects to host as user</span>
+ssh -p &lt;port&gt; user@host  <span style="color:#75715e"># connects to host on specified port as user</span>
+ssh-copy-id user@host    <span style="color:#75715e"># adds your ssh key to host for user to enable a keyed or passwordless login</span>
+
+whoami                   <span style="color:#75715e"># returns your username</span>
+passwd                   <span style="color:#75715e"># lets you change your password</span>
+quota -v                 <span style="color:#75715e"># shows what your disk quota is</span>
+date                     <span style="color:#75715e"># shows the current date and time</span>
+cal                      <span style="color:#75715e"># shows the month&#39;s calendar</span>
+uptime                   <span style="color:#75715e"># shows current uptime</span>
+w                        <span style="color:#75715e"># displays whois online</span>
+finger &lt;user&gt;            <span style="color:#75715e"># displays information about user</span>
+uname -a                 <span style="color:#75715e"># shows kernel information</span>
+man &lt;command&gt;            <span style="color:#75715e"># shows the manual for specified command</span>
+df                       <span style="color:#75715e"># shows disk usage</span>
+du &lt;filename&gt;            <span style="color:#75715e"># shows the disk usage of the files and directories in filename (du -s give only a total)</span>
+last &lt;yourUsername&gt;      <span style="color:#75715e"># lists your last logins</span>
+ps -u yourusername       <span style="color:#75715e"># lists your processes</span>
+kill &lt;PID&gt;               <span style="color:#75715e"># kills the processes with the ID you gave</span>
+killall &lt;processname&gt;    <span style="color:#75715e"># kill all processes with the name</span>
+top                      <span style="color:#75715e"># displays your currently active processes</span>
+bg                       <span style="color:#75715e"># lists stopped or background jobs ; resume a stopped job in the background</span>
+fg                       <span style="color:#75715e"># brings the most recent job in the foreground</span>
+fg &lt;job&gt;                 <span style="color:#75715e"># brings job to the foreground</span>
+
+ping &lt;host&gt;              <span style="color:#75715e"># pings host and outputs results</span>
+whois &lt;domain&gt;           <span style="color:#75715e"># gets whois information for domain</span>
+dig &lt;domain&gt;             <span style="color:#75715e"># gets DNS information for domain</span>
+dig -x &lt;host&gt;            <span style="color:#75715e"># reverses lookup host</span>
+wget &lt;file&gt;              <span style="color:#75715e"># downloads file</span>
+
+
+<span style="color:#75715e">##############################################################################</span>
+<span style="color:#75715e"># VARIABLES</span>
+<span style="color:#75715e">##############################################################################</span>
+
+
+varname<span style="color:#f92672">=</span>value                <span style="color:#75715e"># defines a variable</span>
+varname<span style="color:#f92672">=</span>value command        <span style="color:#75715e"># defines a variable to be in the environment of a particular subprocess</span>
+echo $varname                <span style="color:#75715e"># checks a variable&#39;s value</span>
+echo $$                      <span style="color:#75715e"># prints process ID of the current shell</span>
+echo $!                      <span style="color:#75715e"># prints process ID of the most recently invoked background job</span>
+echo $?                      <span style="color:#75715e"># displays the exit status of the last command</span>
+export VARNAME<span style="color:#f92672">=</span>value         <span style="color:#75715e"># defines an environment variable (will be available in subprocesses)</span>
+
+array<span style="color:#f92672">[</span><span style="color:#ae81ff">0</span><span style="color:#f92672">]=</span>valA                <span style="color:#75715e"># how to define an array</span>
+array<span style="color:#f92672">[</span><span style="color:#ae81ff">1</span><span style="color:#f92672">]=</span>valB
+array<span style="color:#f92672">[</span><span style="color:#ae81ff">2</span><span style="color:#f92672">]=</span>valC
+array<span style="color:#f92672">=([</span><span style="color:#ae81ff">2</span><span style="color:#f92672">]=</span>valC <span style="color:#f92672">[</span><span style="color:#ae81ff">0</span><span style="color:#f92672">]=</span>valA <span style="color:#f92672">[</span><span style="color:#ae81ff">1</span><span style="color:#f92672">]=</span>valB<span style="color:#f92672">)</span>  <span style="color:#75715e"># another way</span>
+array<span style="color:#f92672">=(</span>valA valB valC<span style="color:#f92672">)</span>              <span style="color:#75715e"># and another</span>
+
+<span style="color:#e6db74">${</span>array[i]<span style="color:#e6db74">}</span>                  <span style="color:#75715e"># displays array&#39;s value for this index. If no index is supplied, array element 0 is assumed</span>
+<span style="color:#e6db74">${#</span>array[i]<span style="color:#e6db74">}</span>                 <span style="color:#75715e"># to find out the length of any element in the array</span>
+<span style="color:#e6db74">${#</span>array[@]<span style="color:#e6db74">}</span>                 <span style="color:#75715e"># to find out how many values there are in the array</span>
+
+declare -a                   <span style="color:#75715e"># the variables are treaded as arrays</span>
+declare -f                   <span style="color:#75715e"># uses function names only</span>
+declare -F                   <span style="color:#75715e"># displays function names without definitions</span>
+declare -i                   <span style="color:#75715e"># the variables are treaded as integers</span>
+declare -r                   <span style="color:#75715e"># makes the variables read-only</span>
+declare -x                   <span style="color:#75715e"># marks the variables for export via the environment</span>
+
+<span style="color:#e6db74">${</span>varname<span style="color:#66d9ef">:-</span>word<span style="color:#e6db74">}</span>             <span style="color:#75715e"># if varname exists and isn&#39;t null, return its value; otherwise return word</span>
+<span style="color:#e6db74">${</span>varname:=word<span style="color:#e6db74">}</span>             <span style="color:#75715e"># if varname exists and isn&#39;t null, return its value; otherwise set it word and then return its value</span>
+<span style="color:#e6db74">${</span>varname:?message<span style="color:#e6db74">}</span>          <span style="color:#75715e"># if varname exists and isn&#39;t null, return its value; otherwise print varname, followed by message and abort the current command or script</span>
+<span style="color:#e6db74">${</span>varname:+word<span style="color:#e6db74">}</span>             <span style="color:#75715e"># if varname exists and isn&#39;t null, return word; otherwise return null</span>
+<span style="color:#e6db74">${</span>varname:offset:length<span style="color:#e6db74">}</span>     <span style="color:#75715e"># performs substring expansion. It returns the substring of $varname starting at offset and up to length characters</span>
+
+<span style="color:#e6db74">${</span>variable#pattern<span style="color:#e6db74">}</span>          <span style="color:#75715e"># if the pattern matches the beginning of the variable&#39;s value, delete the shortest part that matches and return the rest</span>
+<span style="color:#e6db74">${</span>variable##pattern<span style="color:#e6db74">}</span>         <span style="color:#75715e"># if the pattern matches the beginning of the variable&#39;s value, delete the longest part that matches and return the rest</span>
+<span style="color:#e6db74">${</span>variable%pattern<span style="color:#e6db74">}</span>          <span style="color:#75715e"># if the pattern matches the end of the variable&#39;s value, delete the shortest part that matches and return the rest</span>
+<span style="color:#e6db74">${</span>variable%%pattern<span style="color:#e6db74">}</span>         <span style="color:#75715e"># if the pattern matches the end of the variable&#39;s value, delete the longest part that matches and return the rest</span>
+<span style="color:#e6db74">${</span>variable/pattern/string<span style="color:#e6db74">}</span>   <span style="color:#75715e"># the longest match to pattern in variable is replaced by string. Only the first match is replaced</span>
+<span style="color:#e6db74">${</span>variable//pattern/string<span style="color:#e6db74">}</span>  <span style="color:#75715e"># the longest match to pattern in variable is replaced by string. All matches are replaced</span>
+
+<span style="color:#e6db74">${#</span>varname<span style="color:#e6db74">}</span>                  <span style="color:#75715e"># returns the length of the value of the variable as a character string</span>
+
+*<span style="color:#f92672">(</span>patternlist<span style="color:#f92672">)</span>               <span style="color:#75715e"># matches zero or more occurrences of the given patterns</span>
++<span style="color:#f92672">(</span>patternlist<span style="color:#f92672">)</span>               <span style="color:#75715e"># matches one or more occurrences of the given patterns</span>
+?<span style="color:#f92672">(</span>patternlist<span style="color:#f92672">)</span>               <span style="color:#75715e"># matches zero or one occurrence of the given patterns</span>
+@<span style="color:#f92672">(</span>patternlist<span style="color:#f92672">)</span>               <span style="color:#75715e"># matches exactly one of the given patterns</span>
+!<span style="color:#f92672">(</span>patternlist<span style="color:#f92672">)</span>               <span style="color:#75715e"># matches anything except one of the given patterns</span>
+
+<span style="color:#66d9ef">$(</span>UNIX command<span style="color:#66d9ef">)</span>              <span style="color:#75715e"># command substitution: runs the command and returns standard output</span>
+
+
+<span style="color:#75715e">##############################################################################</span>
+<span style="color:#75715e"># FUNCTIONS</span>
+<span style="color:#75715e">##############################################################################</span>
+
+
+<span style="color:#75715e"># The function refers to passed arguments by position (as if they were positional parameters), that is, $1, $2, and so forth.</span>
+<span style="color:#75715e"># $@ is equal to &#34;$1&#34; &#34;$2&#34;... &#34;$N&#34;, where N is the number of positional parameters. $# holds the number of positional parameters.</span>
+
+
+<span style="color:#66d9ef">function</span> functname<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+  shell commands
+<span style="color:#f92672">}</span>
+
+unset -f functname  <span style="color:#75715e"># deletes a function definition</span>
+declare -f          <span style="color:#75715e"># displays all defined functions in your login session</span>
+
+
+<span style="color:#75715e">##############################################################################</span>
+<span style="color:#75715e"># FLOW CONTROLS</span>
+<span style="color:#75715e">##############################################################################</span>
+
+
+statement1 <span style="color:#f92672">&amp;&amp;</span> statement2  <span style="color:#75715e"># and operator</span>
+statement1 <span style="color:#f92672">||</span> statement2  <span style="color:#75715e"># or operator</span>
+
+-a                        <span style="color:#75715e"># and operator inside a test conditional expression</span>
+-o                        <span style="color:#75715e"># or operator inside a test conditional expression</span>
+
+<span style="color:#75715e"># STRINGS</span>
+
+str1 <span style="color:#f92672">=</span> str2               <span style="color:#75715e"># str1 matches str2</span>
+str1 !<span style="color:#f92672">=</span> str2              <span style="color:#75715e"># str1 does not match str2</span>
+str1 &lt; str2               <span style="color:#75715e"># str1 is less than str2 (alphabetically)</span>
+str1 &gt; str2               <span style="color:#75715e"># str1 is greater than str2 (alphabetically)</span>
+-n str1                   <span style="color:#75715e"># str1 is not null (has length greater than 0)</span>
+-z str1                   <span style="color:#75715e"># str1 is null (has length 0)</span>
+
+<span style="color:#75715e"># FILES</span>
+
+-a file                   <span style="color:#75715e"># file exists</span>
+-d file                   <span style="color:#75715e"># file exists and is a directory</span>
+-e file                   <span style="color:#75715e"># file exists; same -a</span>
+-f file                   <span style="color:#75715e"># file exists and is a regular file (i.e., not a directory or other special type of file)</span>
+-r file                   <span style="color:#75715e"># you have read permission</span>
+-s file                   <span style="color:#75715e"># file exists and is not empty</span>
+-w file                   <span style="color:#75715e"># your have write permission</span>
+-x file                   <span style="color:#75715e"># you have execute permission on file, or directory search permission if it is a directory</span>
+-N file                   <span style="color:#75715e"># file was modified since it was last read</span>
+-O file                   <span style="color:#75715e"># you own file</span>
+-G file                   <span style="color:#75715e"># file&#39;s group ID matches yours (or one of yours, if you are in multiple groups)</span>
+file1 -nt file2           <span style="color:#75715e"># file1 is newer than file2</span>
+file1 -ot file2           <span style="color:#75715e"># file1 is older than file2</span>
+
+<span style="color:#75715e"># NUMBERS</span>
+
+-lt                       <span style="color:#75715e"># less than</span>
+-le                       <span style="color:#75715e"># less than or equal</span>
+-eq                       <span style="color:#75715e"># equal</span>
+-ge                       <span style="color:#75715e"># greater than or equal</span>
+-gt                       <span style="color:#75715e"># greater than</span>
+-ne                       <span style="color:#75715e"># not equal</span>
+
+<span style="color:#66d9ef">if</span> condition
+<span style="color:#66d9ef">then</span>
+  statements
+<span style="color:#f92672">[</span><span style="color:#66d9ef">elif</span> condition
+  <span style="color:#66d9ef">then</span> statements...<span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span><span style="color:#66d9ef">else</span>
+  statements<span style="color:#f92672">]</span>
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#66d9ef">for</span> x in <span style="color:#f92672">{</span><span style="color:#ae81ff">1</span>..10<span style="color:#f92672">}</span>
+<span style="color:#66d9ef">do</span>
+  statements
+<span style="color:#66d9ef">done</span>
+
+<span style="color:#66d9ef">for</span> name <span style="color:#f92672">[</span>in list<span style="color:#f92672">]</span>
+<span style="color:#66d9ef">do</span>
+  statements that can use $name
+<span style="color:#66d9ef">done</span>
+
+<span style="color:#66d9ef">for</span> <span style="color:#f92672">((</span> initialisation ; ending condition ; update <span style="color:#f92672">))</span>
+<span style="color:#66d9ef">do</span>
+  statements...
+<span style="color:#66d9ef">done</span>
+
+<span style="color:#66d9ef">case</span> expression in
+  pattern1 <span style="color:#f92672">)</span>
+    statements ;;
+  pattern2 <span style="color:#f92672">)</span>
+    statements ;;
+<span style="color:#66d9ef">esac</span>
+
+<span style="color:#66d9ef">select</span> name <span style="color:#f92672">[</span>in list<span style="color:#f92672">]</span>
+<span style="color:#66d9ef">do</span>
+  statements that can use $name
+<span style="color:#66d9ef">done</span>
+
+<span style="color:#66d9ef">while</span> condition; <span style="color:#66d9ef">do</span>
+  statements
+<span style="color:#66d9ef">done</span>
+
+<span style="color:#66d9ef">until</span> condition; <span style="color:#66d9ef">do</span>
+  statements
+<span style="color:#66d9ef">done</span>
+
+<span style="color:#75715e">##############################################################################</span>
+<span style="color:#75715e"># COMMAND-LINE PROCESSING CYCLE</span>
+<span style="color:#75715e">##############################################################################</span>
+
+
+<span style="color:#75715e"># The default order for command lookup is functions, followed by built-ins, with scripts and executables last.</span>
+<span style="color:#75715e"># There are three built-ins that you can use to override this order: `command`, `builtin` and `enable`.</span>
+
+command  <span style="color:#75715e"># removes alias and function lookup. Only built-ins and commands found in the search path are executed</span>
+builtin  <span style="color:#75715e"># looks up only built-in commands, ignoring functions and commands found in PATH</span>
+enable   <span style="color:#75715e"># enables and disables shell built-ins</span>
+
+eval     <span style="color:#75715e"># takes arguments and run them through the command-line processing steps all over again</span>
+
+
+<span style="color:#75715e">##############################################################################</span>
+<span style="color:#75715e"># INPUT/OUTPUT REDIRECTORS</span>
+<span style="color:#75715e">##############################################################################</span>
+
+
+cmd1|cmd2  <span style="color:#75715e"># pipe; takes standard output of cmd1 as standard input to cmd2</span>
+&lt; file     <span style="color:#75715e"># takes standard input from file</span>
+&gt; file     <span style="color:#75715e"># directs standard output to file</span>
+&gt;&gt; file    <span style="color:#75715e"># directs standard output to file; append to file if it already exists</span>
+&gt;|file     <span style="color:#75715e"># forces standard output to file even if noclobber is set</span>
+n&gt;|file    <span style="color:#75715e"># forces output to file from file descriptor n even if noclobber is set</span>
+&lt;&gt; file    <span style="color:#75715e"># uses file as both standard input and standard output</span>
+n&lt;&gt;file    <span style="color:#75715e"># uses file as both input and output for file descriptor n</span>
+n&gt;file     <span style="color:#75715e"># directs file descriptor n to file</span>
+n&lt;file     <span style="color:#75715e"># takes file descriptor n from file</span>
+n&gt;&gt;file    <span style="color:#75715e"># directs file description n to file; append to file if it already exists</span>
+n&gt;&amp;        <span style="color:#75715e"># duplicates standard output to file descriptor n</span>
+n&lt;&amp;        <span style="color:#75715e"># duplicates standard input from file descriptor n</span>
+n&gt;&amp;m       <span style="color:#75715e"># file descriptor n is made to be a copy of the output file descriptor</span>
+n&lt;&amp;m       <span style="color:#75715e"># file descriptor n is made to be a copy of the input file descriptor</span>
+&amp;&gt;file     <span style="color:#75715e"># directs standard output and standard error to file</span>
+&lt;&amp;-        <span style="color:#75715e"># closes the standard input</span>
+&gt;&amp;-        <span style="color:#75715e"># closes the standard output</span>
+n&gt;&amp;-       <span style="color:#75715e"># closes the ouput from file descriptor n</span>
+n&lt;&amp;-       <span style="color:#75715e"># closes the input from file descripor n</span>
+
+
+<span style="color:#75715e">##############################################################################</span>
+<span style="color:#75715e"># PROCESS HANDLING</span>
+<span style="color:#75715e">##############################################################################</span>
+
+
+<span style="color:#75715e"># To suspend a job, type CTRL+Z while it is running. You can also suspend a job with CTRL+Y.</span>
+<span style="color:#75715e"># This is slightly different from CTRL+Z in that the process is only stopped when it attempts to read input from terminal.</span>
+<span style="color:#75715e"># Of course, to interrupt a job, type CTRL+C.</span>
+
+myCommand &amp;  <span style="color:#75715e"># runs job in the background and prompts back the shell</span>
+
+jobs         <span style="color:#75715e"># lists all jobs (use with -l to see associated PID)</span>
+
+fg           <span style="color:#75715e"># brings a background job into the foreground</span>
+fg %+        <span style="color:#75715e"># brings most recently invoked background job</span>
+fg %-        <span style="color:#75715e"># brings second most recently invoked background job</span>
+fg %N        <span style="color:#75715e"># brings job number N</span>
+fg %string   <span style="color:#75715e"># brings job whose command begins with string</span>
+fg %?string  <span style="color:#75715e"># brings job whose command contains string</span>
+
+kill -l      <span style="color:#75715e"># returns a list of all signals on the system, by name and number</span>
+kill PID     <span style="color:#75715e"># terminates process with specified PID</span>
+
+ps           <span style="color:#75715e"># prints a line of information about the current running login shell and any processes running under it</span>
+ps -a        <span style="color:#75715e"># selects all processes with a tty except session leaders</span>
+
+trap cmd sig1 sig2  <span style="color:#75715e"># executes a command when a signal is received by the script</span>
+trap <span style="color:#e6db74">&#34;&#34;</span> sig1 sig2   <span style="color:#75715e"># ignores that signals</span>
+trap - sig1 sig2    <span style="color:#75715e"># resets the action taken when the signal is received to the default</span>
+
+disown &lt;PID|JID&gt;    <span style="color:#75715e"># removes the process from the list of jobs</span>
+
+wait                <span style="color:#75715e"># waits until all background jobs have finished</span>
+
+
+<span style="color:#75715e">##############################################################################</span>
+<span style="color:#75715e"># TIPS &amp; TRICKS</span>
+<span style="color:#75715e">##############################################################################</span>
+
+
+<span style="color:#75715e"># set an alias</span>
+cd; nano .bash_profile
+&gt; alias gentlenode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ssh admin@gentlenode.com -p 3404&#39;</span>  <span style="color:#75715e"># add your alias in .bash_profile</span>
+
+<span style="color:#75715e"># to quickly go to a specific directory</span>
+cd; nano .bashrc
+&gt; shopt -s cdable_vars
+&gt; export websites<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/Users/mac/Documents/websites&#34;</span>
+
+source .bashrc
+cd $websites
+
+
+<span style="color:#75715e">##############################################################################</span>
+<span style="color:#75715e"># DEBUGGING SHELL PROGRAMS</span>
+<span style="color:#75715e">##############################################################################</span>
+
+
+bash -n scriptname  <span style="color:#75715e"># don&#39;t run commands; check for syntax errors only</span>
+set -o noexec       <span style="color:#75715e"># alternative (set option in script)</span>
+
+bash -v scriptname  <span style="color:#75715e"># echo commands before running them</span>
+set -o verbose      <span style="color:#75715e"># alternative (set option in script)</span>
+
+bash -x scriptname  <span style="color:#75715e"># echo commands after command-line processing</span>
+set -o xtrace       <span style="color:#75715e"># alternative (set option in script)</span>
+
+trap <span style="color:#e6db74">&#39;echo $varname&#39;</span> EXIT  <span style="color:#75715e"># useful when you want to print out the values of variables at the point that your script exits</span>
+
+<span style="color:#66d9ef">function</span> errtrap <span style="color:#f92672">{</span>
+  es<span style="color:#f92672">=</span>$?
+  echo <span style="color:#e6db74">&#34;ERROR line </span>$1<span style="color:#e6db74">: Command exited with status </span>$es<span style="color:#e6db74">.&#34;</span>
+<span style="color:#f92672">}</span>
+
+trap <span style="color:#e6db74">&#39;errtrap $LINENO&#39;</span> ERR  <span style="color:#75715e"># is run whenever a command in the surrounding script or function exits with non-zero status</span> 
+
+<span style="color:#66d9ef">function</span> dbgtrap <span style="color:#f92672">{</span>
+  echo <span style="color:#e6db74">&#34;badvar is </span>$badvar<span style="color:#e6db74">&#34;</span>
+<span style="color:#f92672">}</span>
+
+trap dbgtrap DEBUG  <span style="color:#75715e"># causes the trap code to be executed before every statement in a function or script</span>
+<span style="color:#75715e"># ...section of code in which the problem occurs...</span>
+trap - DEBUG  <span style="color:#75715e"># turn off the DEBUG trap</span>
+
+<span style="color:#66d9ef">function</span> returntrap <span style="color:#f92672">{</span>
+  echo <span style="color:#e6db74">&#34;A return occurred&#34;</span>
+<span style="color:#f92672">}</span>
+
+trap returntrap RETURN  <span style="color:#75715e"># is executed each time a shell function or a script executed with the . or source commands finishes executing</span></code></pre></div>
+<h1 id="unix">UNIX</h1>
+
+<h3 id="quick-reference">Quick Reference</h3>
+
+<p><strong>FILE</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rm -r <span style="color:#75715e">#delete dir</span>
+rm -f <span style="color:#75715e"># force remove file</span>
+cp -r dir1 dir2 <span style="color:#75715e"># copy 1 to 2 creating dir2 if inexist</span>
+ln -s file link <span style="color:#75715e"># create symbolic link link to file</span></code></pre></div>
+<p><strong>Process</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">killall proc <span style="color:#75715e"># kill all processes named proc *</span>
+bg <span style="color:#75715e"># lists stopped or background jobs;</span> 
+fg a <span style="color:#75715e"># brings job a to foreground</span></code></pre></div>
+<p><strong>File Permissions</strong></p>
+
+<p><code>chmod octal file</code>  change permissions of file to octal,</p>
+
+<p><strong>SSH</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ssh user@host
+ssh -p port user@host <span style="color:#75715e"># connect to host on port port as user</span>
+ssh-copy-id user@host <span style="color:#75715e"># add key to host for user to enable a keyed or passwordless login</span></code></pre></div>
+<p><strong>Searching</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">grep pattern files <span style="color:#75715e"># search for pattern in files</span>
+grep -r pattern dir <span style="color:#75715e"># search recursively for pattern in dir</span>
+command | grep pattern <span style="color:#75715e"># search for pattern in output of command</span>
+locate file <span style="color:#75715e"># find all instances of file</span></code></pre></div>
+<p><strong>Sys info</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cal, uptime, 
+w <span style="color:#75715e"># who is online</span>
+finger user <span style="color:#75715e"># info about user</span>
+uname -a <span style="color:#75715e"># kernel info</span>
+cat /proc /cpuinfo
+cat /proc /meminfo
+df <span style="color:#75715e"># disk usage</span>
+du <span style="color:#75715e"># dir space suage</span>
+free <span style="color:#75715e"># mem and swap usage</span>
+whereis <span style="color:#75715e"># possible loc of app</span>
+which app <span style="color:#75715e"># which app will be run by default</span></code></pre></div>
+<p><strong>Compression</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">tar cf file.tar files <span style="color:#75715e"># create a tar named file.tar containing files</span>
+tar xf file.tar <span style="color:#75715e"># extract files</span>
+tar czf file.tar.gz files <span style="color:#75715e"># create a tar with Gzip comp</span>
+tar xzf file.tar.gz <span style="color:#75715e"># extract tar using Gzip</span>
+tar cjf file.tar.bz2 <span style="color:#75715e"># creat tar with Bzip2</span>
+gzip file <span style="color:#75715e"># comp file and rename to file.gz (gzip -d)</span></code></pre></div>
+<p><strong>Network</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">whois domain <span style="color:#75715e"># get whois info for domain</span>
+dig domain <span style="color:#75715e"># get DNS info for domain</span>
+dig -x host <span style="color:#75715e"># reverse lookup host</span>
+wget file</code></pre></div>
+<p><strong>Installation</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># install from source:</span>
+./configure
+make
+make install
+dpkg -i pkg.deb <span style="color:#75715e"># install a pckg (Debian)</span>
+rpm -Uvh pkg.rpm</code></pre></div>
+<h3 id="find-file-in-current-dir-with-filename-full-path-printed">Find file in current dir with filename, full path printed</h3>
+
+<p>find &ldquo;$(pwd -P)&rdquo; -name &ldquo;.zshrc&rdquo;</p>
+
+<h3 id="make">MAKE</h3>
+
+<p><code>make</code> reads <code>Makefile</code> defining set of tasks to be executed (e.g. compile a program from source code)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-makefile" data-lang="makefile"><span style="color:#a6e22e">say_hello</span><span style="color:#f92672">:</span> <span style="color:#75715e"># func name, aka TARGET; DEPENDENCIES follow here
+</span><span style="color:#75715e"></span>	echo <span style="color:#e6db74">&#34;Hello World&#34;</span> <span style="color:#75715e"># RECIPE using DEPENDENCIES to make TARGET</span>
+	
+<span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> prerequisites
+<span style="color:#960050;background-color:#1e0010">&lt;TAB&gt;recipe</span>
+
+<span style="color:#75715e"># a target might be binary file depending on prereq (source files) which can also be target depending on other deps
+</span><span style="color:#75715e"></span>
+<span style="color:#a6e22e">final_target</span><span style="color:#f92672">:</span> sub_target final_target.c
+	Recipe_to_create_final_target
+<span style="color:#a6e22e">sub_target</span><span style="color:#f92672">:</span> sub_target.c
+	Recipe_to_create_sub_target
+
+<span style="color:#75715e"># To suppress echoing (refer to first example) the acutal CMD, add @
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">say_hello</span><span style="color:#f92672">:</span>
+	@echo <span style="color:#e6db74">&#34;Hello World&#34;</span>
+<span style="color:#a6e22e">generate</span><span style="color:#f92672">:</span>
+	@echo <span style="color:#e6db74">&#34;Creating empty text files...&#34;</span>
+	touch file-<span style="color:#f92672">{</span><span style="color:#ae81ff">1</span>..10<span style="color:#f92672">}</span>.txt
+<span style="color:#a6e22e">clean</span><span style="color:#f92672">:</span>
+	@echo <span style="color:#e6db74">&#34;Cleaning up...&#34;</span>
+	rm *.txt
+<span style="color:#75715e"># the first target is default goal! can be changed by inserting in head
+</span><span style="color:#75715e"></span>.DEFAULT_GOAL <span style="color:#f92672">:=</span> generate
+<span style="color:#75715e"># this phony target .DEFAULT_GOAL can run only one target at a time, why most makefiles include `all` as target that can call as many targets as needed:
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">all</span><span style="color:#f92672">:</span> say_hello generate
+<span style="color:#75715e"># Before running make, include another special phony target, .PHONY where defined all targets not files - make run its recipe regardless of whether a file with that name exists or what its last mod time is
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">.PHONY</span><span style="color:#f92672">:</span>all say_hello generate clean
+<span style="color:#a6e22e">all</span><span style="color:#f92672">:</span>say_hello generate
+
+<span style="color:#75715e"># Good practice not to call clean in all or put it as first target. Manually as arg
+</span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">make</span> <span style="color:#960050;background-color:#1e0010">clean</span>
+
+<span style="color:#75715e"># ADVANCED EX
+</span><span style="color:#75715e"># Variables 
+</span><span style="color:#75715e"></span>CC <span style="color:#f92672">:=</span> gcc <span style="color:#75715e"># recursive expanded variable</span>
+CC <span style="color:#f92672">:=</span> <span style="color:#e6db74">${</span>CC<span style="color:#e6db74">}</span>
+<span style="color:#a6e22e">hello</span><span style="color:#f92672">:</span>hello.c
+	<span style="color:#e6db74">${</span>CC<span style="color:#e6db74">}</span>hello.c -o hello <span style="color:#75715e"># recipe expands as below when passed</span> 
+<span style="color:#960050;background-color:#1e0010">gcc</span> <span style="color:#960050;background-color:#1e0010">hello.c</span> <span style="color:#960050;background-color:#1e0010">-o</span> <span style="color:#960050;background-color:#1e0010">hello</span>
+<span style="color:#75715e"># both ${CC} and £(CC) valid ref to call gcc
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">all</span><span style="color:#f92672">:</span>
+	@echo <span style="color:#e6db74">${</span>CC<span style="color:#e6db74">}</span>
+
+<span style="color:#75715e"># Example: compile all C programs by using var, patterns, func
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e"># Usage:
+</span><span style="color:#75715e"># make        # compile all binary
+</span><span style="color:#75715e"># make clean  # remove ALL binaries and objects
+</span><span style="color:#75715e"></span>
+.PHONY <span style="color:#f92672">=</span> all clean
+
+CC <span style="color:#f92672">=</span> gcc                        <span style="color:#75715e"># compiler to use</span>
+
+LINKERFLAG <span style="color:#f92672">=</span> -lm
+
+SRCS <span style="color:#f92672">:=</span> <span style="color:#66d9ef">$(</span>wildcard *.c<span style="color:#66d9ef">)</span>
+BINS <span style="color:#f92672">:=</span> <span style="color:#66d9ef">$(</span>SRCS:%.c<span style="color:#f92672">=</span>%<span style="color:#66d9ef">)</span>
+
+<span style="color:#a6e22e">all</span><span style="color:#f92672">:</span> ${BINS}
+
+<span style="color:#a6e22e">%</span><span style="color:#f92672">:</span> %.o
+        @echo <span style="color:#e6db74">&#34;Checking..&#34;</span>
+        <span style="color:#e6db74">${</span>CC<span style="color:#e6db74">}</span> <span style="color:#e6db74">${</span>LINKERFLAG<span style="color:#e6db74">}</span> $&lt; -o $@
+
+<span style="color:#a6e22e">%.o</span><span style="color:#f92672">:</span> %.c
+        @echo <span style="color:#e6db74">&#34;Creating object..&#34;</span>
+        <span style="color:#e6db74">${</span>CC<span style="color:#e6db74">}</span> -c $&lt;
+
+<span style="color:#a6e22e">clean</span><span style="color:#f92672">:</span>
+        @echo <span style="color:#e6db74">&#34;Cleaning up...&#34;</span>
+        rm -rvf *.o <span style="color:#e6db74">${</span>BINS<span style="color:#e6db74">}</span>
+</code></pre></div>
+<p>Run <code>make</code> outputting as expected</p>
+
+<ul>
+<li>Not necessary target to be file, name for recipe could do &lsquo;phony targets&rsquo;</li>
+</ul>
+
+<h3 id="screen-multiple-windows-virtual-terminals-in-unix">SCREEN - Multiple Windows (virtual terminals) in UNIX</h3>
+
+<ul>
+<li>If local machine crashes / lose connection (e.g. SSH), the process or login sessions via <code>screen</code> persist - resumed with <code>screen -r</code> (may need ARG if multiple detached screens)
+
+<ul>
+<li>In some crashes may need to manually &ldquo;detach&rdquo; before &ldquo;Attach&rdquo;</li>
+<li>Find out current screens : <code>screen -list</code></li>
+<li>Possible states : dead, attached, detached</li>
+<li>To detach : <code>screen -D [PID].[machine_arguments]</code></li>
+<li>Resume : <code>screen -r [PID].[machine_arguments]</code></li>
+</ul></li>
+<li>Cut and paste between screens using CLI + Block copy feature + multiple pages copy/paste</li>
+
+<li><p>Detach for resuming after logging out !</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">screen <span style="color:#75715e"># start</span>
+Ctrl-a c <span style="color:#75715e"># create new window/shell</span>
+Ctrl-a k <span style="color:#75715e"># kill current window</span>
+w <span style="color:#75715e"># list all</span>
+<span style="color:#ae81ff">0</span>-9 <span style="color:#75715e"># switch window</span>
+<span style="color:#f92672">[</span> <span style="color:#75715e"># start copy mode</span>
+<span style="color:#f92672">]</span> <span style="color:#75715e"># paste copied text</span>
+D <span style="color:#75715e"># power detach and logout</span>
+d <span style="color:#75715e"># detach but keep shell window open</span></code></pre></div></li>
+
+<li><p>Copy a block : <code>Ctrl-a [</code> to move cursor (h, j, k, l) <code>0</code> or <code>^</code> moves to start and <code>$</code> moves to end ; <code>Ctrl-b</code> scrolls cursor back one page and <code>Ctrl-f</code> forward one ; to set left and right margins of copy <code>c</code> and <code>C</code> ; spacebar starts selecting text and ends ; to abort copy mode <code>Ctrl-g</code></p></li>
+
+<li><p>Other CMD : <code>screen unixcommand</code> in a new window</p></li>
+</ul>
+
+<h3 id="12-ml-cli">12 ML CLI</h3>
+
+<ul>
+<li><code>wget &lt;URL.ext&gt;</code>      file retriver for downloading files</li>
+<li><code>cat</code>     outputting file for preview</li>
+<li><code>wc</code>      procuding counts, word/line/byte/ etc</li>
+<li><code>head / tail</code></li>
+<li><code>cut -d ',' -f 5 iris.csv</code>    <strong>slicing</strong> out sections of line of text; <strong>fifth</strong> col using comma delimiter</li>
+<li><code>uniq</code>    unique count of pipeline |</li>
+<li><code>awk '/setosa/ { print $0 }' iris.csv</code></li>
+<li><code>sed / history</code></li>
+</ul>
+
+<h3 id="globbing">Globbing</h3>
+
+<ol>
+<li>list all files anywhere under folder
+
+<ul>
+<li><code>ls folder/**/*.txt</code></li>
+</ul></li>
+<li>print results
+
+<ul>
+<li><code>print -l folder/*/*</code></li>
+</ul></li>
+<li>wildcard, in crux regex!
+
+<ul>
+<li><code>*&lt;1-10&gt;.txt</code></li>
+<li><code>[a]*.txt</code></li>
+<li><code>(ab|bc)*.txt</code></li>
+<li><code>[^cC]*.txt</code></li>
+</ul></li>
+<li>qualifiers
+<code>*(/) # directories</code>
+<code>*(.) # regular files</code>
+<code>*(L0) # empty files</code>
+<code>*(Lk+3) # greater than 3KB</code>
+<code>*(mh-1) # modified in last hour</code>
+<code>*(om[1,3]) # ordered most to least recently mod and show last 3</code></li>
+
+<li><p>show all not having a file</p>
+
+<pre><code>print -l folder/*/*(e:'[[ ! -e $REPLY/file ]]':)
+	e: ensued by delimited 'cmd'
+	$REPLY variable has all file name return one per time
+	[[ -e file ]] is cond.expression returns true if file exits, i.e. not true here
+</code></pre></li>
+
+<li><p>modifier: return file name
+<code>*.txt(:t)</code> # tail
+<code>*.txt(:t:r)</code> # removed ext
+<code>*.txt(:e)</code> # returns ext</p></li>
+
+<li><p>storing glob as variable</p>
+
+<ul>
+<li><code>my_file=(folder/data/europe/*.txt([1]))</code></li>
+<li><code>print -l ${my_file:h}</code></li>
+</ul></li>
+</ol>
+
+<h3 id="magic-tabbing">Magic tabbing</h3>
+
+<ol>
+<li>Modify .sh file as executable
+
+<ul>
+<li><code>chmod u+x file.sh</code></li>
+</ul></li>
+<li>Add to PATH for simple CLI (saved in ~/bin)
+
+<ul>
+<li><code>export PATH=$PATH:~/bin</code> # add to end</li>
+</ul></li>
+</ol>
+
+<h3 id="ghostscript-gs-modifying-pdf">Ghostscript: gs -modifying pdf</h3>
+
+<ol>
+<li>combine pdf files
+
+<ul>
+<li><code>gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress -sOutputFile=merged.pdf mine1.pdf mine2.pdf</code></li>
+</ul></li>
+<li>combine + super-shrink
+
+<ul>
+<li><code>gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/default -dNOPAUSE -dQUIET -dBATCH -dDetectDuplicateImages -dCompressFonts=true -r150 -sOutputFile=output.pdf input.pdf</code></li>
+</ul></li>
+<li>Convert PDF to PNG
+
+<ul>
+<li><code>gs -dNOPAUSE -dBATCH -sDEVICE=png16m -sOutputFile=&quot;Pic-%d.png&quot; input.pdf</code></li>
+</ul></li>
+</ol>
+
+<h3 id="print-file-specially">Print file specially</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">- pr -2t filename <span style="color:#75715e"># 2-column + trimmed</span>
+- grep <span style="color:#f92672">[</span>-v print all UN-match pattern<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-n with line num.<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-l only name of files<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-c counts<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-i caseless<span style="color:#f92672">]</span>
+- ls -l | grep -i <span style="color:#e6db74">&#34;aug&#34;</span> | sort +4n</code></pre></div>
+<ol>
+<li>print process in full
+
+<ul>
+<li><code>ps -f</code></li>
+<li><code>kill -9 'PID'</code></li>
+</ul></li>
+<li>run process in backend; bring foreground
+
+<ul>
+<li><code>ls -a &amp;</code></li>
+<li><code>fg jobid # jobs for finding id</code></li>
+</ul></li>
+<li>check OS of UNIX
+
+<ul>
+<li><code>uname -a</code></li>
+</ul></li>
+<li>display current drive info or disk utility
+
+<ul>
+<li><code>df -h</code> # human readable for</li>
+<li><code>du -h dir</code> # dito</li>
+</ul></li>
+<li>display process (omitting long command line &amp; include them)
+
+<ul>
+<li><code>ps -ef</code></li>
+<li><code>ps -auxwww</code></li>
+</ul></li>
+<li>list all processes using a particular file
+
+<ul>
+<li><code>lsof | grep &quot;filename&quot;</code></li>
+</ul></li>
+<li>word replacing in file
+
+<ul>
+<li><code>sed s/old/new/g filename</code></li>
+</ul></li>
+<li>list only 3rd column of a tap-sep files
+
+<ul>
+<li><code>cut -f3 filename</code> # awk is another app</li>
+</ul></li>
+</ol>
+
+<h3 id="user-mgt">User MGT</h3>
+
+<p><code>useradd / usermod / userdel (repace user with group)</code> # files stored in /etc/passwd &amp; /group</p>
+
+<h3 id="files-system-of-unix">Files System of UNIX</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">/bin  exec binary to all users
+/dev  device drivers
+/etc  supervisor dir cmds, config files, valid users, ethernet, hosts
+/lib  shared library files maybe kernel-related filees
+/boot booting Files
+/proc processes marked as a file
+/var  variable-length files such as log and print</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">file filename <span style="color:#75715e"># display file type</span>
+head filename
+less filename <span style="color:#75715e"># from end or beginning</span>
+more filename <span style="color:#75715e"># from beginning to back</span>
+whereis <span style="color:#75715e"># show location of files</span>
+which filename <span style="color:#75715e"># location of a file if it is in PATH</span></code></pre></div>
+<h3 id="scheduling-task-cron">Scheduling Task CRON</h3>
+
+<p><a href="https://kvz.io/blog/2007/07/29/schedule-tasks-on-linux-using-crontab/">article</a></p>
+
+<h3 id="youtube-video-downloader">YouTube/Video Downloader</h3>
+
+<p>Format:</p>
+
+<p><code>youtube-dl -F &lt;URL&gt;</code></p>
+
+<p>Choosing index</p>
+
+<p><code>youtube-dl -f 37 &lt;URL&gt;</code></p>
+
+<p>Playlist</p>
+
+<p><code>youtube-dl -cit &lt;playlist_url&gt;</code></p>
+
+<p>Audio</p>
+
+<p><code>youtube-dl -x --audio-format mp3 &lt;video_url&gt;</code></p>
+
+<p><a href="https://github.com/rg3/youtube-dl/blob/master/README.md#readme">Manual</a></p>
+
+<h3 id="kill-proc-listening-on-port">KILL PROC LISTENING ON PORT</h3>
+
+<p><code>lsof -n -i4TCP:8787 | grep LISTEN | awk '{ print $2 }' | xargs kill</code></p>
+
+<h3 id="networking">NETWORKING</h3>
+
+<p><code>ip addr</code> shows IPs, MAC, port status etc</p>
+
+<p><code>ifconfig</code> similar output but including packets and bytes count</p>
+
+<p><code>route</code> <code>-n</code>  route table</p>
+
+<p><code>netstat -n</code> active connections</p>
+
+<p><code>netstat -l -p</code> listening ports and procs</p>
+
+<p><code>tcpdump</code> CLI Wireshark</p>
+</div>
+
+        
+        <div class="section bottom-menu">
+<hr />
+<p>
+
+
+    
+
+    
+        
+            <a href="/code">
+                code
+            </a>
+        
+    
+    
+        
+            &#183; 
+            <a href="/prose">
+                prose
+            </a>
+        
+            &#183; 
+            <a href="/gallery">
+                gallery
+            </a>
+        
+            &#183; 
+            <a href="/qui">
+                qui et quoi?
+            </a>
+        
+    
+    &#183; 
+    <a href="https://oceanbao.github.io/">
+        main
+    </a>
+
+</p></div>
+        
+
+        <div class="section footer">Ocean Ode</div>
+    </div>
+</body>
+
+</html>

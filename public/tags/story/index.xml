@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>story on Ocean Ode</title>
+    <link>https://oceanbao.github.io/tags/story/</link>
+    <description>Recent content in story on Ocean Ode</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 08 Sep 2019 13:03:24 +0800</lastBuildDate>
+    
+	<atom:link href="https://oceanbao.github.io/tags/story/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>La Langue</title>
+      <link>https://oceanbao.github.io/prose/deledele/</link>
+      <pubDate>Sun, 08 Sep 2019 13:03:24 +0800</pubDate>
+      
+      <guid>https://oceanbao.github.io/prose/deledele/</guid>
+      <description>Title La vie, c&amp;rsquo;est une belle chose. Malheureusement, les gens qui la savent.</description>
+    </item>
+    
+    <item>
+      <title>Becoming_MLE</title>
+      <link>https://oceanbao.github.io/prose/becoming_mle/</link>
+      <pubDate>Sun, 17 Mar 2019 16:01:01 -0400</pubDate>
+      
+      <guid>https://oceanbao.github.io/prose/becoming_mle/</guid>
+      <description>Becoming Machine Learning Engineer Goal Output = Service/Product as Software integrating end-to-end ecosystem.
+Summary of Skills  CS Fundamentals and Programming  Data Structure
+ Stacks queues multi-D arrays trees graphs  Algorithms
+ search sort optimisation Dynamic programming  Computation and Complexity
+ NP/P/NP-Complete O() approximate heuristics  Architecture
+ memory cache bandwidth deadlocks distributed processing   Probability and Statistics
+ Bayes Net Markov Decision Process HMM  Data Modeling and Evaluation</description>
+    </item>
+    
+  </channel>
+</rss>
