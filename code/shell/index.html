@@ -915,7 +915,32 @@ echo <span style="color:#e6db74">&#34;stderr&#34;</span> &gt;&amp;<span style="c
 ls <span style="color:#f92672">&amp;&amp;</span> echo <span style="color:#e6db74">&#34;test&#34;</span> | tee file1 file2 file3 <span style="color:#f92672">&amp;&amp;</span> ls
 
 <span style="color:#75715e"># | pipe stdout to input, &gt; &lt; takes input elsewhere</span>
-printf <span style="color:#e6db74">&#34;1\n2\n3&#34;</span> &gt; file <span style="color:#f92672">&amp;&amp;</span> sort &lt; file</code></pre></div></div>
+printf <span style="color:#e6db74">&#34;1\n2\n3&#34;</span> &gt; file <span style="color:#f92672">&amp;&amp;</span> sort &lt; file</code></pre></div>
+<p>TEXT EDIT</p>
+
+<p>```shell</p>
+
+<h1 id="using-sed-this-doesn">using sed - this doesn</h1>
+
+<p>find .txt -exec sed -i &lsquo;1s/^/task goes here\n/&rsquo; todo.txt</p>
+
+<h1 id="add-text-on-first-10-lines">add <text> on first 10 lines</h1>
+
+<p>sed -i &lsquo;1,10s/^/<text> /&rsquo; file</p>
+
+<p># sub
+ cat &lt;(echo &ldquo;before&rdquo;) text.txt &gt; newfile.txt</p>
+
+<h1 id="append-prepend-text-to-file-in-loops">Append/prepend text to file in loops</h1>
+
+<p>for file in *.txt ; do
+  printf &lsquo;%s\n&rsquo; 0a this is text . w | ed -s &ldquo;$file&rdquo;
+done</p>
+
+<h1 id="edit-additional-text-extra-step">Edit additional text (extra step)</h1>
+
+<h1 id="define-text-in-txt">define text in .txt</h1>
+</div>
 
         
         <div class="section bottom-menu">
