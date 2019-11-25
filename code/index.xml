@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Code on Ocean Ode</title>
@@ -10,6 +10,15 @@
     
 	<atom:link href="https://oceanbao.github.io/code/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Ideation</title>
+      <link>https://oceanbao.github.io/code/ideation/</link>
+      <pubDate>Fri, 04 Oct 2019 17:42:33 +0800</pubDate>
+      
+      <guid>https://oceanbao.github.io/code/ideation/</guid>
+      <description>Steve Klabnik: WASM + Rust + Serverless Rust  Fast and Memory safe language Hard to learn but better programming Close tie with WebAssembly  WASM  Originated as asm.js - a fast subset of JS Developped into an universal binary runnable on web browser and elsewhere WASI the runtime interface for other languages (see Lin Clark&amp;rsquo;s talk)  Serverless  With Rust and WASM, any app can run anywhere  Rasa NLU Lessons  Train INTENT and MESSAGE in single NN to be language agnostic (any lang tokenizable) Out-of-data and Fallback policies to improve service Form collection required from user before Decision Feedback loop of system itself logging to improve the system (i.</description>
+    </item>
     
     <item>
       <title>SHELL</title>

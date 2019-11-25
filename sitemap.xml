@@ -1,6 +1,16 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://oceanbao.github.io/code/ideation/</loc>
+    <lastmod>2019-10-04T17:42:33+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oceanbao.github.io/</loc>
+    <lastmod>2019-10-04T17:42:33+08:00</lastmod>
+  </url>
   
   <url>
     <loc>https://oceanbao.github.io/tags/blog/</loc>
@@ -9,11 +19,6 @@
   
   <url>
     <loc>https://oceanbao.github.io/prose/end-of-summer/</loc>
-    <lastmod>2019-09-10T15:15:52+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://oceanbao.github.io/</loc>
     <lastmod>2019-09-10T15:15:52+08:00</lastmod>
   </url>
   

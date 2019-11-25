@@ -35,7 +35,7 @@
     
     <title>
         
-        code
+        Ideation
         
     </title>
 </head>
@@ -43,62 +43,82 @@
 <body>
 
     <div class="wrap">
-        <div class="section" id="title">code</div>
+        <div class="section" id="title">Ideation</div>
         <aside>
-            
+            <nav id="TableOfContents">
+<ul>
+<li><a href="#steve-klabnik-wasm-rust-serverless">Steve Klabnik: WASM + Rust + Serverless</a>
+<ul>
+<li><a href="#rust">Rust</a></li>
+<li><a href="#wasm">WASM</a></li>
+<li><a href="#serverless">Serverless</a></li>
+</ul></li>
+<li><a href="#rasa-nlu-lessons">Rasa NLU Lessons</a></li>
+<li><a href="#spacy-conference-talks">spaCy Conference Talks</a>
+<ul>
+<li><a href="#mark-neumann-scispacy-and-non-ml-extension">Mark Neumann: SciSpacy and Non-ML Extension</a>
+<ul>
+<li><a href="#build-domain-model">Build Domain Model</a></li>
+</ul></li>
+<li><a href="#quartz-language-model">Quartz Language Model</a></li>
+</ul></li>
+</ul>
+</nav>
         </aside>
-        
-<div class="section" id="content">
-    
-    <ul>
-        
-        <li>
-            
+        <div class="section" id="content">
 
-            Mon Oct 22, 2018 --
+<h1 id="steve-klabnik-wasm-rust-serverless">Steve Klabnik: WASM + Rust + Serverless</h1>
 
-            
-            <a href="https://oceanbao.github.io/code/omnicode/">
-                OMNICODE
-            </a>
-        </li>
-        
-        <li>
-            
+<h2 id="rust">Rust</h2>
 
-            Fri Mar 16, 2018 --
+<ul>
+<li>Fast and Memory safe language</li>
+<li>Hard to learn but better programming</li>
+<li>Close tie with WebAssembly</li>
+</ul>
 
-            
-            <a href="https://oceanbao.github.io/prose/hugo-shortcodes/">
-                hugo shortcode demo
-            </a>
-        </li>
-        
-        <li>
-            
+<h2 id="wasm">WASM</h2>
 
-            Mon Feb 19, 2018 --
+<ul>
+<li>Originated as asm.js - a fast subset of JS</li>
+<li>Developped into an universal binary runnable on web browser and elsewhere</li>
+<li>WASI the runtime interface for other languages (see Lin Clark&rsquo;s talk)</li>
+</ul>
 
-            
-            <a href="https://oceanbao.github.io/code/linux-and-docker/">
-                Map: Linux/Docker/ML
-            </a>
-        </li>
-        
-        <li>
-            
+<h2 id="serverless">Serverless</h2>
 
-            Tue Feb 13, 2018 --
+<ul>
+<li>With Rust and WASM, any app can run anywhere</li>
+</ul>
 
-            
-            <a href="https://oceanbao.github.io/prose/code-poetry/">
-                Code Poetry
-            </a>
-        </li>
-        
-    </ul>
+<h1 id="rasa-nlu-lessons">Rasa NLU Lessons</h1>
+
+<ol>
+<li>Train INTENT and MESSAGE in single NN to be language agnostic (any lang tokenizable)</li>
+<li>Out-of-data and Fallback policies to improve service</li>
+<li>Form collection required from user before Decision</li>
+<li>Feedback loop of system itself logging to improve the system (i.e. logging user-bot conversation to extract more labels)</li>
+</ol>
+
+<h1 id="spacy-conference-talks">spaCy Conference Talks</h1>
+
+<h2 id="mark-neumann-scispacy-and-non-ml-extension">Mark Neumann: SciSpacy and Non-ML Extension</h2>
+
+<h3 id="build-domain-model">Build Domain Model</h3>
+
+<ol>
+<li>Entities</li>
+<li>POS + Dependencies</li>
+<li>Vector</li>
+<li>Mixing in generic text to have both worlds</li>
+</ol>
+
+<p><a href="https://docs.google.com/presentation/d/1CEc3pTMLX-XV1zgirydhURZdcNlgB2l4TXQv6mxLhy8/edit#slide=id.g5afab164be_0_116">spaCy IRL slide</a></p>
+
+<h2 id="quartz-language-model">Quartz Language Model</h2>
+
+<p><a href="https://speakerdeck.com/ddqz/a-natural-language-pipeline?slide=27">link to slide</a></p>
 </div>
-
 
         
         <div class="section bottom-menu">

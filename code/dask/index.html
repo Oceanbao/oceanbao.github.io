@@ -41,9 +41,227 @@
 </head>
 
 <body>
+
     <div class="wrap">
         <div class="section" id="title">DASK</div>
-
+        <aside>
+            <nav id="TableOfContents">
+<ul>
+<li><a href="#toc">TOC</a>
+<ul>
+<li><a href="#tom-augspurger-talks-tom"><a href="#tom">Tom Augspurger Talks</a></a></li>
+<li><a href="#official-dask-distributed-kubernetes-official"><a href="#official">Official: Dask.distributed &amp; Kubernetes</a></a></li>
+<li><a href="#matthew-rocklin-talks-rocklin"><a href="#rocklin">Matthew Rocklin Talks</a></a></li>
+<li><a href="#jim-crist-talks-jim"><a href="#jim">Jim Crist Talks</a></a></li>
+<li><a href="#long-scipy-tutorial-long"><a href="#long">Long SciPy Tutorial</a></a></li>
+<li><a href="#datacamp-datacamp"><a href="#datacamp">DataCamp</a></a></li>
+<li><a href="#streamz-streamz"><a href="#streamz">Streamz</a></a></li>
+<li><a href="#reference-tom-augspurger-github-https-github-com-tomaugspurger-a-id-tom-a">Reference <a href="https://github.com/TomAugspurger">Tom Augspurger Github</a> <a id="tom"></a></a>
+<ul>
+<li><a href="#examples-https-github-com-dask-dask-examples"><a href="https://github.com/dask/dask-examples">Examples</a></a></li>
+</ul></li>
+</ul></li>
+<li><a href="#scaling-pains">Scaling Pains</a>
+<ul>
+<li><a href="#example-of-dask-ml">Example of dask_ml</a></li>
+</ul></li>
+<li><a href="#official-doc-dask-distributed-kubernetes-a-id-official-a">Official Doc Dask.distributed &amp; Kubernetes <a id="official"></a></a>
+<ul>
+<li><a href="#quickstart-official-doc">QuickStart Official Doc</a>
+<ul>
+<li>
+<ul>
+<li><a href="#restart-cluter-scheduler-at-error">Restart Cluter/Scheduler at error</a></li>
+</ul></li>
+<li><a href="#map-and-submit">Map and Submit</a></li>
+<li><a href="#gather">Gather</a></li>
+<li><a href="#setup-network">Setup Network</a>
+<ul>
+<li><a href="#note-both-scheduler-worker-neet-to-accept-tcp-connections-default-port-8786-and-random-for-workers-if-firewall-need-port-worker-port-keywords">NOTE both scheduler/worker neet to accept TCP connections, default port 8786 and random for workers - if firewall need <code>--port -worker-port</code> keywords</a></li>
+</ul></li>
+<li><a href="#custom-init">Custom INIT</a></li>
+<li><a href="#client-primary-entry-point-overall">Client (Primary Entry Point overall)</a>
+<ul>
+<li><a href="#concurrent-futures">Concurrent.futures</a></li>
+<li><a href="#dask-parent-lib-auto-parallel-algo-on-dsets">Dask (Parent lib, auto-parallel algo on dsets)</a></li>
+<li><a href="#dask-normal-compute-synchronous-blocking-interpreter-till-complete-dask-distributed-allows-asynchronous-trigging-ops-in-background-and-persist-in-memo-while-taking-on-other-works-typically-handled-with-client-persist-for-large-result-set-and-client-compute-smaller-result">Dask normal <code>.compute()</code> SYNCHRONOUS<code>, blocking interpreter till complete -</code>dask.distributed<code>allows ASYNCHRONOUS trigging ops in background and persist in MEMO while taking on other works - typically handled with</code>Client.persist<code>for large result set and</code>Client.compute` smaller result</a></li>
+<li><a href="#pure-func-by-default">Pure Func by Default</a></li>
+<li><a href="#tornado-coroutines">Tornado Coroutines</a></li>
+</ul></li>
+<li><a href="#api-see-doc">API see Doc</a></li>
+<li><a href="#q-a">Q&amp;A</a></li>
+<li><a href="#diagnosis">Diagnosis</a>
+<ul>
+<li><a href="#task-on-and-off-times">Task On and Off Times</a></li>
+<li><a href="#statistical-profiling">Statistical Profiling</a></li>
+</ul></li>
+<li><a href="#efficiency">Efficiency</a>
+<ul>
+<li><a href="#leave-data-on-cluster">Leave data on cluster</a></li>
+<li><a href="#user-larger-tasks">User larger tasks</a></li>
+<li><a href="#scheduler-adds-aout-1ms-overhead-per-task-or-future-obj-slow-if-billions-of-tasks-if-func-run-faster-than-100ms-then-might-not-see-any-speedup-from-using-distributed-computing">scheduler adds aout 1ms overhead per task or Future obj, slow if billions of tasks - if func run faster than 100ms then might not see any speedup from using distributed computing !!</a></li>
+<li><a href="#adjust-betweeen-threads-and-processes">Adjust betweeen Threads and Processes!!!</a></li>
+<li><a href="#dont-go-distributed">DONT GO Distributed</a></li>
+</ul></li>
+<li><a href="#limit">LIMIT</a>
+<ul>
+<li><a href="#performance">Performance</a></li>
+<li><a href="#workers-are-just-python-processes-inheriting-all-pros-and-cons-of-python-not-bound-or-limit-in-any-way-production-may-wish-to-run-dask-workers-within-containers">Workers are just Python processes, inheriting all pros and cons of Python - Not bound or limit in any way, PRODUCTION may wish to run dask-workers within CONTAINERS !!</a></li>
+<li><a href="#assumptions-on-func-and-data">Assumptions on FUNC and DATA</a></li>
+</ul></li>
+<li><a href="#security">Security</a></li>
+<li><a href="#data-locality">Data Locality</a>
+<ul>
+<li><a href="#user-control">User Control</a></li>
+<li><a href="#worker-with-compute-persist">Worker with Compute/Persist</a></li>
+</ul></li>
+<li><a href="#managing-computation">Managing Computation</a>
+<ul>
+<li><a href="#dask-collections-to-concrete-values">Dask Collections to Concrete Values</a></li>
+<li><a href="#dask-collection-to-futures">Dask Collection to Futures</a></li>
+<li><a href="#concrete-value-to-futures">Concrete Value to Futures</a></li>
+<li><a href="#futures-to-concrete-values">Futures to Concrete Values</a></li>
+<li><a href="#futures-to-dask-collections">Futures to Dask Collections</a></li>
+</ul></li>
+<li><a href="#managing-mem">Managing MEM</a>
+<ul>
+<li><a href="#creating-futures">Creating Futures</a></li>
+<li><a href="#persisting-collections">Persisting Collections</a></li>
+<li><a href="#difference-with-dask-compute">Difference with dask.compute</a></li>
+<li><a href="#clearing-data">Clearing data</a></li>
+<li><a href="#hard-clearing-ddata">Hard Clearing ddata</a></li>
+<li><a href="#resilience">Resilience</a></li>
+</ul></li>
+<li><a href="#advanced-techniques">Advanced techniques</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#matthew-rocklin-talks-a-id-rocklin-a">Matthew Rocklin Talks <a id="rocklin"></a></a>
+<ul>
+<li><a href="#dask">DASK</a>
+<ul>
+<li><a href="#single-machine-scheduler">Single Machine Scheduler</a></li>
+<li><a href="#distributed-scheduler">Distributed Scheduler</a></li>
+<li><a href="#concurrent-futures-pep-3148">Concurrent.futures (PEP 3148)</a></li>
+<li><a href="#async-await">Async/Await</a></li>
+<li><a href="#dask-distributed-scheduler-even-on-single-machine"><code>dask.distributed</code> Scheduler (Even on Single Machine)</a></li>
+<li><a href="#customised-programme-with-dask-example">Customised Programme with Dask (Example)</a>
+<ul>
+<li><a href="#futures-api">Futures API</a></li>
+<li><a href="#track-dependencies-on-the-fly">Track dependencies ON-THE-FLY</a></li>
+<li><a href="#convenient-methods-exist-to-support-asynchronous-workloads">Convenient methods exist to support asynchronous workloads</a></li>
+<li><a href="#worker-starts-client-scheduler">Worker Starts Client/Scheduler!</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><a href="#jim-crist-talks-a-id-jim-a">Jim Crist Talks <a id="jim"></a></a>
+<ul>
+<li>
+<ul>
+<li><a href="#parallel-numpy-and-pandas-through-task-scheduling">Parallel NumPy and Pandas through Task Scheduling</a></li>
+<li><a href="#dataframes-on-cluster">DataFrames on Cluster</a>
+<ul>
+<li><a href="#parallelise-normal-python-code">Parallelise Normal Python code</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#long-scipy-tutorial-2017-a-id-long-a">Long SciPy Tutorial 2017 <a id="long"></a></a>
+<ul>
+<li><a href="#dask-dataframe">Dask.dataframe</a>
+<ul>
+<li><a href="#client-default-creating-one-worker-per-core">Client() default-creating ONE WORKER PER CORE</a></li>
+</ul></li>
+<li><a href="#cluster-creation-cluster-specific-dask-cli-available-es2-kubernetes">Cluster Creation: Cluster-specific DASK-CLI available (ES2, Kubernetes)</a>
+<ul>
+<li><a href="#dask-worker-schedulerip-will-default-single-worker-process-with-threads-as-cores-available">dask-worker <code>schedulerIP</code> will default SINGLE WORKER PROCESS with #THREADS AS CORES AVAILABLE</a></li>
+</ul></li>
+<li><a href="#accessing-same-dataset-among-workers">ACCESSING SAME DATASET among WORKERS</a>
+<ul>
+<li><a href="#however-if-setting-date-column-as-index-then-faster-calling-set-index-persist-new-set-of-df-partitions-stored-in-mem-sorted-along-index-col-dask-shuffles-data-by-date-set-index-per-partition-store-in-cluster-mem">HOWEVER: if setting <code>Date</code> column as index then FASTER - calling <code>set_index</code> + <code>persist</code> =&gt; new set of DF partitions stored IN-MEM, sorted along index col - DASK shuffles data by date, set index per partition, store in cluster-MEM</a></li>
+</ul></li>
+<li><a href="#relatively-costly-but-gain-certain-query-speed">Relatively COSTLY - but gain certain query-speed</a></li>
+<li><a href="#time-series-index-datetimeindex-pandas-are-supported">TIME SERIES INDEX: <code>DatetimeIndex</code> pandas are supported</a></li>
+</ul></li>
+<li><a href="#distributed-features">DISTRIBUTED FEATURES</a>
+<ul>
+<li>
+<ul>
+<li><a href="#note-difference-total-compute-completes-immediately">NOTE difference: total.compute() completes immediately</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#two-easy-ways-to-skl-dask">Two Easy Ways to SKL+DASK</a>
+<ul>
+<li><a href="#joblib">Joblib</a></li>
+<li><a href="#distributed-joblib">Distributed Joblib</a></li>
+<li><a href="#limitations">Limitations</a></li>
+<li><a href="#dask-learn-pipeline-and-gridsearch">Dask-Learn Pipeline and GridSearch</a></li>
+<li><a href="#better">Better</a></li>
+</ul></li>
+<li><a href="#convex-optimisation-algo-with-dask">Convex Optimisation Algo with Dask</a>
+<ul>
+<li><a href="#prototyping-algo-in-dask">Prototyping Algo in Dask</a></li>
+<li><a href="#example-fitting-large-lm-using-array-parallelism-and-customised-from-dask">Example - fitting large LM using array parallelism and customised from Dask</a></li>
+<li><a href="#array-programming">Array Programming</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#datacamp-a-id-datacamp-a">DataCamp <a id="datacamp"></a></a></li>
+<li><a href="#working-with-big-data">Working with BIG DATA</a>
+<ul>
+<li><a href="#time-and-bit">Time and Bit</a></li>
+<li><a href="#querying-python-interpreter-s-memory-usage">Querying Python interpreter&rsquo;s Memory Usage</a></li>
+<li><a href="#think-data-in-chunks">Think data in CHUNKs</a>
+<ul>
+<li><a href="#managing-data-with-generators">Managing Data with Generators</a></li>
+</ul></li>
+<li><a href="#generator-for-delaying-computing-and-saving-memory-usage-dask-to-simplify">Generator for delaying computing and saving memory usage: DASK to simplify</a></li>
+<li><a href="#visualising-complex-dependency-loops-computations">Visualising complex dependency loops / computations</a></li>
+<li><a href="#dask-arrays-and-chunking">Dask Arrays and Chunking</a>
+<ul>
+<li><a href="#dask-scheduler-auto-assign-multiple-processors-threads-concurrently-available">Dask scheduler auto-assign multiple processors/threads concurrently available !</a></li>
+</ul></li>
+<li><a href="#multi-dimension-array-wrangling-similar-to-numpy">Multi-Dimension Array Wrangling ~ similar to Numpy</a>
+<ul>
+<li><a href="#wrangling-with-arrays">Wrangling with Arrays</a>
+<ul>
+<li><a href="#sample-code">Sample Code</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#dask-dataframe-pandas-df">Dask DataFrame ~ Pandas DF</a></li>
+<li><a href="#timing-dask-df-loading-and-computation">Timing Dask DF Loading and Computation</a>
+<ul>
+<li>
+<ul>
+<li><a href="#decision-to-both-largely-depends-on-whehter">Decision to both largely depends on whehter</a></li>
+<li><a href="#example-analysing-full-year-taxi-tipping">Example analysing full-year taxi tipping</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#dask-bag-and-globbing">Dask Bag and Globbing</a></li>
+<li><a href="#all-together-detailed-analysis">All together Detailed Analysis</a></li>
+</ul></li>
+<li><a href="#streamz-streaming-data-analysis-pythonic-with-dask-a-id-streamz-a">Streamz - Streaming Data Analysis Pythonic with Dask <a id="streamz"></a></a>
+<ul>
+<li>
+<ul>
+<li><a href="#code-to-create-random-json-data">Code to create random JSON data</a></li>
+<li><a href="#basic-streams-and-map">Basic Streams and Map</a></li>
+</ul></li>
+<li><a href="#async-computation">Async Computation</a>
+<ul>
+<li><a href="#mock-continous-updates">Mock Continous updates</a></li>
+<li><a href="#accumulators">Accumulators</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#streaming-bokeh-server">Streaming + Bokeh Server</a>
+<ul>
+<li>
+<ul>
+<li><a href="#launch-bokeh-servers-from-notebook">Launch Bokeh Servers from Notebook</a></li>
+<li><a href="#live-updates">Live Updates</a></li>
+<li><a href="#real-example-dask-s-dashboard">Real example - Dask&rsquo;s dashboard</a></li>
+</ul></li>
+<li><a href="#streaming-dataframes">Streaming Dataframes</a></li>
+</ul></li>
+</ul>
+</nav>
+        </aside>
         <div class="section" id="content">
 
 <h1 id="toc">TOC</h1>
@@ -3217,6 +3435,16 @@ sdf <span style="color:#f92672">=</span> Random(freq<span style="color:#f92672">
         
     
     
+        
+            &#183; 
+            <a href="https://tiny.cc/oceannotebook">
+                notebook
+            </a>
+        
+            &#183; 
+            <a href="https://github.com/Oceanbao/KEN">
+                KEN
+            </a>
         
             &#183; 
             <a href="/prose">

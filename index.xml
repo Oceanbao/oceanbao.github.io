@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ocean Ode</title>
@@ -6,10 +6,19 @@
     <description>Recent content on Ocean Ode</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 10 Sep 2019 15:15:52 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 04 Oct 2019 17:42:33 +0800</lastBuildDate>
     
 	<atom:link href="https://oceanbao.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Ideation</title>
+      <link>https://oceanbao.github.io/code/ideation/</link>
+      <pubDate>Fri, 04 Oct 2019 17:42:33 +0800</pubDate>
+      
+      <guid>https://oceanbao.github.io/code/ideation/</guid>
+      <description>Steve Klabnik: WASM + Rust + Serverless Rust  Fast and Memory safe language Hard to learn but better programming Close tie with WebAssembly  WASM  Originated as asm.js - a fast subset of JS Developped into an universal binary runnable on web browser and elsewhere WASI the runtime interface for other languages (see Lin Clark&amp;rsquo;s talk)  Serverless  With Rust and WASM, any app can run anywhere  Rasa NLU Lessons  Train INTENT and MESSAGE in single NN to be language agnostic (any lang tokenizable) Out-of-data and Fallback policies to improve service Form collection required from user before Decision Feedback loop of system itself logging to improve the system (i.</description>
+    </item>
     
     <item>
       <title>End of Summer</title>
@@ -133,7 +142,8 @@ Ocean here. A static site hosted GitHub for all my quirks and quintnesses, blogs
       <description>Shortcodes are pre-made templates converting HTML codes into shortcodes in hugo. Here illustrates some:
 Permalink in hugo: Qui
 Code higlighting: &amp;lt;section id=&amp;#34;main&amp;#34;&amp;gt; &amp;lt;div&amp;gt; &amp;lt;h1 id=&amp;#34;title&amp;#34;&amp;gt;{{ .Title }}&amp;lt;/h1&amp;gt; {{ range .Pages }} {{ .Render &amp;#34;summary&amp;#34;}} {{ end }} &amp;lt;/div&amp;gt; &amp;lt;/section&amp;gt;
-firgure or image:   title here   </description>
+firgure or image:   title herecaption here
+  </description>
     </item>
     
     <item>

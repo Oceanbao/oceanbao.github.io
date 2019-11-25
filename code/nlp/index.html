@@ -41,9 +41,248 @@
 </head>
 
 <body>
+
     <div class="wrap">
         <div class="section" id="title">NLP</div>
-
+        <aside>
+            <nav id="TableOfContents">
+<ul>
+<li><a href="#nlp-primer">NLP - Primer</a></li>
+<li><a href="#string-primer">String Primer</a>
+<ul>
+<li>
+<ul>
+<li><a href="#unicode">Unicode</a></li>
+</ul></li>
+<li><a href="#regular-expression-strings-with-special-syntax">Regular Expression - strings with special syntax</a>
+<ul>
+<li><a href="#common-regex-patterns">Common Regex Patterns</a></li>
+</ul></li>
+<li><a href="#tokenisation">Tokenisation</a>
+<ul>
+<li>
+<ul>
+<li><a href="#diff-search-match">Diff(search, match)</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#advanced-tokenisation">Advanced Tokenisation</a>
+<ul>
+<li>
+<ul>
+<li><a href="#unicode-ranges-for-emoji-are">Unicode ranges for emoji are:</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#charting-word-length">Charting Word Length</a></li>
+</ul></li>
+<li><a href="#bag-of-word-counting">Bag-of-word Counting</a>
+<ul>
+<li><a href="#text-preprocessing">Text Preprocessing</a></li>
+<li><a href="#gensim">GENSIM</a></li>
+</ul></li>
+<li><a href="#tf-idf-gensim">Tf-idf + Gensim</a>
+<ul>
+<li>
+<ul>
+<li><a href="#w-i-j-tf-i-j-log-frac-n-df-i">$w<em>{i,j} = tf</em>{i,j} * \log(\frac{N}{df_i})$</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#named-entity-recognition">Named Entity Recognition</a>
+<ul>
+<li><a href="#stanford-corenlp-library">Stanford CoreNLP Library</a></li>
+</ul></li>
+<li><a href="#spacy-nlp-library-similar-to-gensim">SpaCy - NLP library similar to Gensim</a>
+<ul>
+<li><a href="#why-spacy-for-ner">Why SpaCy for NER</a></li>
+<li><a href="#language-model-stats-model-for-nlp-tasks">Language Model - stats model for NLP tasks</a>
+<ul>
+<li><a href="#basic-cleaning-by-spacy">Basic Cleaning by SpaCy</a></li>
+<li><a href="#tokenizing-text">Tokenizing Text</a></li>
+<li><a href="#pos-tagging-tensorizer">POS tagging - <strong>tensorizer</strong></a></li>
+<li><a href="#dependency-parsing">Dependency Parsing</a></li>
+<li><a href="#ner">NER</a></li>
+<li><a href="#rule-based-matching">Rule-based matching</a></li>
+<li><a href="#preprocessing">Preprocessing</a></li>
+</ul></li>
+<li><a href="#gensim-vectorising-text-and-n-grams">GENSIM - Vectorising Text and N-grams</a></li>
+<li><a href="#vectorised-word">Vectorised Word</a>
+<ul>
+<li><a href="#bow-most-straightforward">BOW - most straightforward</a></li>
+<li><a href="#tf-idf">TF-IDF</a></li>
+<li><a href="#other-forms">Other Forms</a></li>
+<li><a href="#vectorisation-in-gensim">Vectorisation in GENSIM</a>
+<ul>
+<li><a href="#n-gram-plus-more-preprocessing">N-gram plus more preprocessing</a></li>
+</ul></li>
+<li><a href="#recap">RECAP</a></li>
+</ul></li>
+<li><a href="#pos-tagging-and-applications">POS-Tagging and Applications</a>
+<ul>
+<li>
+<ul>
+<li><a href="#pos-tagging-in-spacy-97-accuracy-battery-packed">POS-Tagging in SpaCy (97% accuracy battery-packed)</a></li>
+<li><a href="#adding-defined-training-models">Adding Defined Training Models</a></li>
+<li><a href="#small-examples-of-pos-usage">Small Examples of POS usage</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#ner-tagging-and-applications">NER-Tagging and Applications</a>
+<ul>
+<li><a href="#ner-tagging-in-spacy-skipped-nltk-case">NER-Tagging in SpaCy (skipped NLTK case)</a>
+<ul>
+<li><a href="#ner-tagging-training-in-spacy">NER-Tagging Training in SpaCy</a></li>
+<li><a href="#2-training-example-blank-model-and-adding-new-entity">2 Training Example: Blank model and Adding New Entity</a></li>
+<li><a href="#adding-new-class-to-model">Adding New Class to Model</a></li>
+</ul></li>
+<li><a href="#visualisation">VISUALISATION</a></li>
+<li><a href="#dependency-parsing-1">DEPENDENCY PARSING</a>
+<ul>
+<li>
+<ul>
+<li><a href="#dependency-parsing-in-python-nltk">Dependency Parsing in Python (NLTK)</a></li>
+</ul></li>
+<li><a href="#dependency-parsing-in-spacy">Dependency Parsing in SpaCy</a></li>
+<li><a href="#training-dep-parsers">Training DEP Parsers</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#topic-models">Topic Models</a>
+<ul>
+<li>
+<ul>
+<li><a href="#topic-models-in-gensim">Topic Models in GENSIM</a></li>
+<li><a href="#topic-model-in-skl">Topic Model in SKL</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#advanced-topic-model">Advanced Topic Model</a>
+<ul>
+<li>
+<ul>
+<li><a href="#hyperparam-in-tm">HyperParam in TM</a></li>
+<li><a href="#exploring-documents-after-satisfactory-tm-runs">Exploring Documents after Satisfactory TM runs</a></li>
+<li><a href="#topic-coherence-and-evaluation">Topic Coherence and Evaluation</a></li>
+<li><a href="#visualising-tm">Visualising TM</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#clustering-and-classifying">Clustering and Classifying</a>
+<ul>
+<li>
+<ul>
+<li><a href="#clustering">Clustering</a></li>
+<li><a href="#classifying">Classifying</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#similarity-queries-and-summarisation">Similarity Queries and Summarisation</a>
+<ul>
+<li>
+<ul>
+<li><a href="#similarity-metrics">Similarity Metrics</a></li>
+<li><a href="#similarity-queries">Similarity Queries</a></li>
+<li><a href="#summarising-text">Summarising Text</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#word2vec-doc2vec-in-gensim">Word2Vec, Doc2Vec in GENSIM</a>
+<ul>
+<li>
+<ul>
+<li><a href="#w2v-with-gensim">W2V with GENSIM</a></li>
+</ul></li>
+<li><a href="#doc2vec">Doc2Vec</a></li>
+<li><a href="#other-word-embeddings">Other Word Embeddings</a>
+<ul>
+<li><a href="#glove">GloVe</a></li>
+<li><a href="#fasttext">FastText</a></li>
+<li><a href="#wordrank">WordRank</a></li>
+<li><a href="#varembed">Varembed</a></li>
+<li><a href="#poincare">Poincare</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#deep-learning-for-text">Deep Learning for Text</a>
+<ul>
+<li><a href="#generating-text">Generating Text</a></li>
+</ul></li>
+<li><a href="#keras-and-spacy-for-dl">Keras and SpaCy for DL</a>
+<ul>
+<li>
+<ul>
+<li><a href="#keras-and-spacy">Keras and SpaCy</a></li>
+<li><a href="#classification-with-keras">Classification with Keras</a></li>
+<li><a href="#classification-with-spacy">Classification with SpaCy</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#ideas-for-project">Ideas for Project</a>
+<ul>
+<li>
+<ul>
+<li><a href="#reddit-sense2vec-spacy">Reddit Sense2Vec SpaCy</a></li>
+<li><a href="#twitter-mining">Twitter Mining</a></li>
+<li><a href="#chatbot">Chatbot</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><a href="#polyglot-ner-polygplot">Polyglot NER <code>polygplot</code></a>
+<ul>
+<li>
+<ul>
+<li><a href="#spanish-ner">Spanish NER</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#sl-with-nlp">SL with NLP</a>
+<ul>
+<li><a href="#imdb-movie-example">IMDB Movie Example</a></li>
+<li><a href="#possible-features-in-text-classification">Possible Features in Text-Classification</a>
+<ul>
+<li><a href="#testing-using-naive-bayes-classifier">Testing using Naive Bayes Classifier</a></li>
+<li><a href="#simple-nlp-complex-problems">Simple NLP, Complex Problems</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#chatbot-1">ChatBot</a>
+<ul>
+<li><a href="#personification">Personification</a>
+<ul>
+<li><a href="#using-regex-to-match-pattern-and-respond">Using Regex to Match Pattern and Respond</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#nlu-sub-nlp">NLU - Sub-NLP</a></li>
+<li><a href="#ml-in-chatbot">ML in Chatbot</a>
+<ul>
+<li><a href="#spacy-module">SpaCy module</a></li>
+<li><a href="#from-word-vector-to-ml-intent-and-classification">From Word-Vector to ML Intent and Classification</a></li>
+<li><a href="#entity-extraction">Entity Extraction</a>
+<ul>
+<li><a href="#dependency-parsing-is-complex-topic">Dependency Parsing is complex topic</a></li>
+</ul></li>
+<li><a href="#robust-nlu-with-rasa">Robust NLU with Rasa</a>
+<ul>
+<li><a href="#special-predicting-typo-or-unseen-word">Special - predicting typo or unseen word</a></li>
+</ul></li>
+<li><a href="#rasa">Rasa</a></li>
+<li><a href="#virtual-assistance">Virtual Assistance</a></li>
+<li><a href="#exploring-db-with-nl">Exploring DB with NL</a>
+<ul>
+<li><a href="#above-find-and-match-any-range-combination">Above find and match any range combination</a></li>
+</ul></li>
+<li><a href="#incremental-slot-filling-and-negation">Incremental Slot Filling and Negation</a>
+<ul>
+<li>
+<ul>
+<li><a href="#basic-negation">Basic Negation</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#statefulness">Statefulness</a></li>
+<li><a href="#question-and-queuing-answers">Question and Queuing Answers</a>
+<ul>
+<li>
+<ul>
+<li><a href="#incorporate-it-into-send-message-func">Incorporate it into send_message() func</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#frontiers-of-dialogue-tech">Frontiers of dialogue tech</a>
+<ul>
+<li><a href="#no-specified-intent-or-etc-utterly-data-driven">No specified intent or etc, utterly data-driven</a></li>
+<li><a href="#language-generation">Language generation</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+        </aside>
         <div class="section" id="content">
 
 <h1 id="nlp-primer">NLP - Primer</h1>
@@ -4890,6 +5129,16 @@ seed <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;i&#39
         
     
     
+        
+            &#183; 
+            <a href="https://tiny.cc/oceannotebook">
+                notebook
+            </a>
+        
+            &#183; 
+            <a href="https://github.com/Oceanbao/KEN">
+                KEN
+            </a>
         
             &#183; 
             <a href="/prose">

@@ -41,9 +41,127 @@
 </head>
 
 <body>
+
     <div class="wrap">
         <div class="section" id="title">Scrapy</div>
-
+        <aside>
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+</ul></li>
+<li><a href="#basic-crawling">Basic Crawling</a>
+<ul>
+<li>
+<ul>
+<li><a href="#ur-2im">$UR^2IM$</a></li>
+<li><a href="#scrapy-project">Scrapy Project</a></li>
+<li><a href="#defining-items">Defining ITEMS</a></li>
+<li><a href="#writing-spiders">Writing Spiders</a></li>
+<li><a href="#populating-item">Populating ITEM</a></li>
+<li><a href="#saving-to-files">Saving to Files</a></li>
+<li><a href="#clean-up-item-loader-and-housekeeping-fields">Clean Up - ITEM LOADER and housekeeping fields</a></li>
+<li><a href="#creating-contracts">Creating Contracts</a>
+<ul>
+<li><a href="#recap-code">RECAP CODE</a></li>
+</ul></li>
+<li><a href="#more-urls">MORE URLS</a></li>
+<li><a href="#two-direction-crawling">Two-Direction Crawling</a></li>
+<li><a href="#two-direction-crawling-with-crawlspider">Two-Direction Crawling with CrawlSpider</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#from-scrapy-to-a-mobile-app">From Scrapy to a MOBILE APP</a>
+<ul>
+<li>
+<ul>
+<li><a href="#choosing-a-mobile-app-framework">Choosing a Mobile App Framework</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#quick-spider-recipes">Quick Spider Recipes</a>
+<ul>
+<li>
+<ul>
+<li><a href="#a-spider-that-logs-in">A spider that logs in</a></li>
+<li><a href="#a-spider-that-uses-json-apis-and-ajax-pages">A spider that uses JSON APIs and AJAX pages</a></li>
+<li><a href="#passing-arguments-between-responses">Passing arguments between responses</a></li>
+<li><a href="#30x-faster-spider">30x Faster Spider</a></li>
+<li><a href="#spider-crawling-based-on-excel-file">Spider crawling based on Excel file</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#deploying-to-scrapinghub">Deploying to Scrapinghub</a>
+<ul>
+<li>
+<ul>
+<li><a href="#programmatic-access-to-scrapinghub-jobs-data">Programmatic Access to Scrapinghub Jobs/Data</a></li>
+<li><a href="#scheduling-recurring-crawls">Scheduling Recurring Crawls</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#configuration-and-management">Configuration and Management</a>
+<ul>
+<li>
+<ul>
+<li><a href="#settings">Settings</a></li>
+<li><a href="#essential-settings">Essential Settings</a></li>
+<li><a href="#further-settings">Further settings</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#programming-scrapy">Programming Scrapy</a>
+<ul>
+<li>
+<ul>
+<li><a href="#scrapy-is-a-twisted-application">SCRAPY IS A TWISTED APPLICATION</a></li>
+<li><a href="#deferreds-and-deferred-chains">DEFERREDS AND DEFERRED CHAINS</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#false">False</a></li>
+<li><a href="#true">True</a></li>
+<li><a href="#3">3</a></li>
+<li><a href="#flase">Flase</a></li>
+<li><a href="#foo-called">foo called</a></li>
+<li><a href="#true-1">True</a></li>
+<li><a href="#4">4</a></li>
+<li><a href="#twisted-a-python-tale">~<em>~ Twisted - A Python tale ~</em>~</a></li>
+<li><a href="#hello-i-m-a-developer-and-i-mainly-setup-wordpress">Hello, I&rsquo;m a developer and I mainly setup Wordpress.</a></li>
+<li><a href="#i-do-this-all-day-for-our-customers">I do this all day for our customers</a></li>
+<li><a href="#let-s-run-it">Let&rsquo;s run it</a></li>
+<li><a href="#twisted-has-a-slightly-different-approach">Twisted has a slightly different approach</a>
+<ul>
+<li>
+<ul>
+<li><a href="#signals">Signals</a></li>
+<li><a href="#example-2-an-extension-measuring-thorugput-and-latencies">Example 2 - an extension measuring thorugput and latencies</a></li>
+<li><a href="#extending-beyond-middlewares">EXTENDING BEYOND MIDDLEWARES</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#pipeline-recipes">PIPELINE Recipes</a>
+<ul>
+<li>
+<ul>
+<li><a href="#using-rest-apis">Using REST APIs</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#official-scrapy-tutorial">Official Scrapy Tutorial</a>
+<ul>
+<li><a href="#udemy-video-summary">Udemy Video Summary</a>
+<ul>
+<li><a href="#1-scrapy-architecture">(1) Scrapy Architecture</a></li>
+<li><a href="#2-avoiding-ban">(2) Avoiding Ban</a></li>
+<li><a href="#3-runspider-for-standalone-scripting">(3) Runspider for standalone scripting</a></li>
+<li><a href="#4-scrapy-spiders-crawlspider-has-more-functions-such-as-rule-which-need-importing-itself">(4) scrapy.spiders.CrawlSpider has more functions such as RULE, which need importing itself</a></li>
+<li><a href="#5-scrapy-http-request-method-used-under-ordinary-parse-self-response-without-callback-to-loop-through-new-request-url-to-parse">(5) scrapy.http.Request method used under ordinary parse(self,response) WITHOUT callback to loop through new Request(url) to parse() !!</a></li>
+<li><a href="#6-relative-url-fixing-e-g-images">(6) relative URL fixing, e.g. images</a></li>
+<li><a href="#7-define-functions-to-extract-well-formated-datapoints-e-g-tables-of-data">(7) Define functions to extract well-formated datapoints, e.g. tables of data</a></li>
+<li><a href="#example-code">EXAMPLE CODE</a></li>
+<li><a href="#8-arguments-e-g-isolating-book-categories">(8) Arguments: e.g. isolating &lsquo;book categories&rsquo;</a></li>
+<li><a href="#9-scrapy-functions-executed-at-end-of-crawling">(9) Scrapy Functions: executed at end of crawling</a></li>
+<li><a href="#10-feeding">(10) Feeding</a></li>
+<li><a href="#11-image-download-via-built-in-imagespipeline">(11) Image Download via built-in ImagesPipeline</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+        </aside>
         <div class="section" id="content">
 
 <h1>Learning Scrapy</h1>
@@ -2112,6 +2230,16 @@ IMAGES_STORE <span style="color:#f92672">=</span> <span style="color:#e6db74">&#
         
     
     
+        
+            &#183; 
+            <a href="https://tiny.cc/oceannotebook">
+                notebook
+            </a>
+        
+            &#183; 
+            <a href="https://github.com/Oceanbao/KEN">
+                KEN
+            </a>
         
             &#183; 
             <a href="/prose">
