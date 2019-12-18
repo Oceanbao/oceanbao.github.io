@@ -39,7 +39,7 @@ firgure or image:   title herecaption here
       <pubDate>Mon, 19 Feb 2018 12:41:46 -0500</pubDate>
       
       <guid>https://oceanbao.github.io/code/linux-and-docker/</guid>
-      <description> </description>
+      <description></description>
     </item>
     
     <item>
@@ -49,8 +49,8 @@ firgure or image:   title herecaption here
       
       <guid>https://oceanbao.github.io/prose/code-poetry/</guid>
       <description>Pseudo code poem.
-if (this === that): try write_new_poem() except not_a_poet as e: return  Or just one long line&amp;hellip;
-console.log(&amp;#39;Sometimes lines are waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaay toooooooooooooooooooo looooooooooooooooooooooooooooooong&amp;#39;)  An embedded gist using shortcode:
+if (this === that): try write_new_poem() except not_a_poet as e: return Or just one long line&amp;hellip;
+console.log(&amp;#39;Sometimes lines are waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaay toooooooooooooooooooo looooooooooooooooooooooooooooooong&amp;#39;) An embedded gist using shortcode:
  </description>
     </item>
     

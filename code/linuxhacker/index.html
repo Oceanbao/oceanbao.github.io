@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<meta name="description" content="Ocean on GitHub.">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:domain" content="https://oceanbao.github.io/">
+
+<meta name="twitter:image" content="https://oceanbao.github.io/tn.png">
+<meta name="twitter:title" property="og:title" itemprop="title name" content="Ocean Ode">
+<meta name="twitter:description" property="og:description" itemprop="description" content="Ocean on GitHub.">
+<meta name="og:type" content="website">
+<meta name="og:url" content="https://oceanbao.github.io/">
+<meta name="og:image" itemprop="image primaryImageOfPage" content="https://oceanbao.github.io/tn.png">
+
+<link rel="shortcut icon" href="https://oceanbao.github.io/oceanicon.jpg" id="favicon">
+<link rel="stylesheet" href="https://oceanbao.github.io/css/style.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+
+    
+
+    
+    
+    
+    <title>
+        
+        LinuxHacker
+        
+    </title>
+</head>
+
+<body>
+
+    <div class="wrap">
+        <div class="section" id="title">LinuxHacker</div>
+        <aside>
+            <nav id="TableOfContents"></nav>
+        </aside>
+        <div class="section" id="content"><p>[toc]</p>
+<h1 id="text-wrangling">Text Wrangling</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cat /etc/snort/snort.conf
+
+nl /etc/snort.conf 
+
+<span style="color:#75715e"># example</span>
+tail -n+507 /etc/snort/snort.conf | head -n <span style="color:#ae81ff">6</span>
+
+sed s/mysql/MySQL/g /etc/snort/snort.conf &gt; snort2.conf
+</code></pre></div><h1 id="network">Network</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl https://ipinfo.io/ip
+
+ifconfig
+iwconfig
+
+ifconfig eth0 192.168.181.115
+
+ifconfig etho0 192.168.181.115 netmask 255.255.0.0 broadcast 192.168.1.255
+
+ifconfig etho down
+ifconfig etho hw ether 00:11:22:33:44:55
+ifconfig etho up
+
+dhclient etho
+
+dig hackers-arise.com ns
+dig hackers-arise.com mx
+vim /etc/resolv.conf 
+vim /etc/hosts
+
+ss <span style="color:#75715e"># new netstat</span>
+https://www.tecmint.com/ss-command-examples-in-linux/
+
+ip addr show
+ip route show
+mtr baidu.com
+printf <span style="color:#e6db74">&#39;HEAD / HTTP/1.1\r\nHost: www.baidu.com\r\n\r\n&#39;</span> | nc www.baidu.com
+
+</code></pre></div><h1 id="app">APP</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">apt-cache search snort
+
+cat /etc/apt/sources.list
+deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main 
+deb-src http://ppa.launchpad.net/weupd8team/java/ubuntu precise main
+
+git clone https://www.github.com/balle/bluediving.git
+</code></pre></div><h1 id="file">FILE</h1>
+<p><strong>USER</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">compgen -u
+less /etc/passwd
+
+cut -d: -f1 /etc/passwd
+getent passwd | awk -F:<span style="color:#e6db74">&#39;{print $1}&#39;</span>
+
+who
+<span style="color:#75715e"># The second column will give you what type of connection it is: if it’s represented with a “:X” where X is a number, it means it is using a Graphical User Interface (GUI) or Desktop session such as Gnome, XDE, etc; if it says “pts/X” where X is a number, it means it’s a connection made through SSH protocol (command line).</span>
+
+<span style="color:#75715e"># list all cmd available</span>
+compgen -c
+
+chown $user $file
+chgrp $group $app
+
+chmod <span style="color:#ae81ff">777</span> FILE
+chmod u-w FILE <span style="color:#75715e"># user minus write</span>
+
+</code></pre></div><p>`drwxr-xr-x 5 root root 4096 Dec 5 10:47 charsets</p>
+<ul>
+<li>file type</li>
+<li>Permission of owner, group, users</li>
+<li>number of links</li>
+<li>size</li>
+</ul>
+<p>Exploit SUID files</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find / -user root -perm -4000
+</code></pre></div><p><strong>rsync</strong></p>
+<p><a href="https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/">https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/</a></p>
+<p><a href="https://www.tecmint.com/sync-files-using-rsync-with-non-standard-ssh-port/">https://www.tecmint.com/sync-files-using-rsync-with-non-standard-ssh-port/</a></p>
+</div>
+
+        
+        <div class="section bottom-menu">
+<hr />
+<p>
+
+
+    
+
+    
+        
+            <a href="/code">
+                code
+            </a>
+        
+    
+    
+        
+            &#183; 
+            <a href="https://tiny.cc/oceannotebook">
+                notebook
+            </a>
+        
+            &#183; 
+            <a href="https://github.com/Oceanbao/KEN">
+                KEN
+            </a>
+        
+            &#183; 
+            <a href="/prose">
+                prose
+            </a>
+        
+            &#183; 
+            <a href="/gallery">
+                gallery
+            </a>
+        
+            &#183; 
+            <a href="/qui">
+                qui et quoi?
+            </a>
+        
+    
+    &#183; 
+    <a href="https://oceanbao.github.io/">
+        main
+    </a>
+
+</p></div>
+        
+
+        <div class="section footer">Ocean Ode
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script></div>
+    </div>
+</body>
+
+</html>

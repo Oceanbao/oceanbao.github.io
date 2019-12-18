@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<meta name="description" content="Ocean on GitHub.">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:domain" content="https://oceanbao.github.io/">
+
+<meta name="twitter:image" content="https://oceanbao.github.io/tn.png">
+<meta name="twitter:title" property="og:title" itemprop="title name" content="Ocean Ode">
+<meta name="twitter:description" property="og:description" itemprop="description" content="Ocean on GitHub.">
+<meta name="og:type" content="website">
+<meta name="og:url" content="https://oceanbao.github.io/">
+<meta name="og:image" itemprop="image primaryImageOfPage" content="https://oceanbao.github.io/tn.png">
+
+<link rel="shortcut icon" href="https://oceanbao.github.io/oceanicon.jpg" id="favicon">
+<link rel="stylesheet" href="https://oceanbao.github.io/css/style.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+
+    
+
+    
+    
+    
+    <title>
+        
+        VIM
+        
+    </title>
+</head>
+
+<body>
+
+    <div class="wrap">
+        <div class="section" id="title">VIM</div>
+        <aside>
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#operators">Operators</a></li>
+    <li><a href="#text-objects">Text Objects</a></li>
+    <li><a href="#motions">Motions</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#always-be-scrolling">Always be Scrolling</a></li>
+    <li><a href="#basic-editing">Basic Editing</a></li>
+    <li><a href="#-search">/ Search</a></li>
+    <li><a href="#bookmarks">Bookmarks</a></li>
+    <li><a href="#ctrl--and-ctrl-t---pm">Ctrl-] and Ctrl-t - PM</a></li>
+    <li><a href="#ctrl-o-and-ctrl-i---cycle-through-jumps-and-g-g-cycle-thru-changes">Ctrl-O and Ctrl-I - cycle through :jumps and g;, g cycle thru :changes</a>
+      <ul>
+        <li><a href="#demo-1">DEMO</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#advanced-editing-and-motion">Advanced Editing and Motion</a></li>
+    <li><a href="#plugin">Plugin</a></li>
+    <li><a href="#add-some-plugins-between-these-2-lines-usernamerepo-format">add some plugins between these 2 lines / format</a></li>
+    <li><a href="#text">Text</a></li>
+    <li><a href="#build-test-execute">Build, Test, Execute</a></li>
+  </ul>
+</nav>
+        </aside>
+        <div class="section" id="content"><p>[toc]</p>
+<h1 id="modes">Modes</h1>
+<ol>
+<li>Normal - <code>Esc</code></li>
+<li>Insert - <code>i, a, c</code></li>
+<li>Visual - <code>v, V, Ctrl-v</code></li>
+<li>Command - <code>:, /</code></li>
+</ol>
+<h2 id="operators">Operators</h2>
+<ul>
+<li><code>c</code> - change</li>
+<li><code>d</code> - delete</li>
+<li><code>y</code> - yank into registery</li>
+<li><code>~</code> - swap case</li>
+<li><code>gu</code> - make lower</li>
+<li><code>gU</code> - make uppper</li>
+<li><code>!</code> - filter to external program</li>
+<li><code>&lt;</code> - shift left</li>
+<li><code>=</code> - indent</li>
+</ul>
+<h2 id="text-objects">Text Objects</h2>
+<ul>
+<li><code>aw</code> - a word</li>
+<li><code>iw</code> - inner word</li>
+<li><code>ap</code> - a paragraph</li>
+<li><code>at</code> - a tag</li>
+<li><code>it</code> - inner block</li>
+</ul>
+<h2 id="motions">Motions</h2>
+<ul>
+<li><code>%</code> - go to 1st matching paren/bracket</li>
+<li><code>[count]+</code> - down to 1st non-blank char of line</li>
+<li><code>[count]$</code> - to end of line</li>
+<li><code>[count]f/F{char}</code> - to next of {char}</li>
+<li><code>[count]h/j/k/l</code></li>
+<li><code>[count]]m</code> - go to onset of next method</li>
+<li><code>[count]w/W</code> - go ot word/WORD to the right</li>
+<li><code>[count]b/B</code> - go to word/WORD to the left</li>
+<li><code>[count]e/E</code> - go to end of word/WORD right</li>
+<li><code>[count][ops][text obj / motions]</code></li>
+<li><code>6+</code> - go down to 6x line</li>
+<li><code>gUaW</code> - cap a WORD</li>
+<li><code>3ce</code> - 3x change to word end</li>
+<li><code>4$</code> - 4x go to end of line</li>
+<li><code>d]m</code> - delete to start of next method</li>
+</ul>
+<p><strong>TRICK</strong></p>
+<ul>
+<li>0w - head first word</li>
+<li>d} - enter delete action + motion, e.g. delete till next block</li>
+<li>d% - delete entire content in ()</li>
+<li>C - change rest of cursor</li>
+<li>d/ct + CHAR - delete / change till CHAR</li>
+<li>Ctrl-w + s/v/q - split current window</li>
+<li>:windo - exec for ALL windows</li>
+<li>:sf FILE</li>
+<li>:tabc - close tab</li>
+<li>:tabo - close all other tabs</li>
+<li>:tabf FILE - find and open FILE in new tab</li>
+<li></li>
+<li></li>
+</ul>
+<h1 id="demo">DEMO</h1>
+<ul>
+<li><code>vi -U NONE -O *</code> - open all and splits</li>
+<li>change inside quotation marks <code>ci'</code></li>
+<li>reverse <code>u</code></li>
+<li>find &ldquo;p&rdquo; <code>fp</code> , delete <code>x</code> and paste <code>p</code></li>
+<li>creating index of pwd
+<ul>
+<li><code>:ctags </code></li>
+<li>then go to definition <code>g&lt;Ctrl-]&gt;</code></li>
+<li>go to file <code>gf</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="always-be-scrolling">Always be Scrolling</h2>
+<ul>
+<li><code>zt</code> - top of page</li>
+<li><code>zz</code> - middle</li>
+<li><code>zb</code> - bottom</li>
+<li><code>H, M, L</code></li>
+<li><code>Ctrl-U/D, Ctrl-F/B, Ctrl-Y/E</code></li>
+</ul>
+<h2 id="basic-editing">Basic Editing</h2>
+<ul>
+<li><code>!:e[dit][++opt][+cmd]{file}</code></li>
+<li><code>:fin[d][!][++opt][+cmd]{file}</code></li>
+<li><code>gf</code></li>
+<li><code>Ctrl-^</code></li>
+</ul>
+<h2 id="-search"><code>/</code> Search</h2>
+<ul>
+<li><code>/{patt}[/]&lt;CR&gt;</code></li>
+<li><code>?{patt}[?]&lt;CR&gt;</code></li>
+<li><code>[Count]n</code> - repeat last search [count] times</li>
+<li><code>[Count]N</code> - opposite ibis</li>
+<li><code>*</code> - serach</li>
+<li><code>#</code> - bis opposite</li>
+<li><code>gd</code> - go to local declaration</li>
+<li><code>:set hls!</code> - toggle serach highlightig</li>
+</ul>
+<h2 id="bookmarks">Bookmarks</h2>
+<ul>
+<li><code>m{a-zA-Z}</code></li>
+<li><code>:marks</code> - show all current mraks in use</li>
+<li>``{mark} , &lsquo;{mark}` - access</li>
+<li>``., &lsquo;.` - jump to last update</li>
+</ul>
+<h2 id="ctrl--and-ctrl-t---pm"><code>Ctrl-] and Ctrl-t</code> - PM</h2>
+<h2 id="ctrl-o-and-ctrl-i---cycle-through-jumps-and-g-g-cycle-thru-changes"><code>Ctrl-O and Ctrl-I</code> - cycle through <code>:jumps</code> and <code>g;, g</code> cycle thru <code>:changes</code></h2>
+<h3 id="demo-1">DEMO</h3>
+<p><strong>Set bookmarks <code>'V</code> as <code>~/.vimrc</code> for easy setting</strong></p>
+<ul>
+<li>
+<p>after accessing <code>'V</code>, jump back <code>Ctrl-^</code></p>
+</li>
+<li>
+<p>working dir-tree: <code>:20vs .</code> read 20-char visual split current dir</p>
+</li>
+<li>
+<p>instead of <code>:e /path/file</code> to find and edit, do <code>:find file.py</code></p>
+</li>
+<li>
+<p>find file and vertical split <code>:vert sf FILE</code></p>
+</li>
+<li>
+<p>change viewpoints <code>Ctrl-Wx</code></p>
+</li>
+<li>
+<p>change windows <code>Ctrl-Ww</code></p>
+</li>
+<li>
+<p>need to save current buffers viewpoints + windows -&gt; add new tab[windows[buffers]]</p>
+<ul>
+<li><code>:tabf FILE</code> + <code>:vert sf FILE</code> - open tab + find + vert-split new files</li>
+</ul>
+</li>
+<li>
+<p>go to next tab - <code>gt</code></p>
+</li>
+<li>
+<p>preview files via tree <code>p</code> and <code>Ctrl-Wz</code> to close</p>
+</li>
+<li>
+<p>navigate windows <code>Ctrl-W hjkl</code></p>
+</li>
+<li>
+<p>find in current file with {patt} <code>:vim {patt} %</code></p>
+<ul>
+<li>navigate all matched via quick fix list <code>:cn&lt;enter&gt;</code></li>
+<li>then do <code>@:</code> to repeat {cmd}</li>
+</ul>
+</li>
+<li>
+<p>find all matched in all files of interest</p>
+<ul>
+<li>make arglist first then &ldquo;grep&rdquo;</li>
+<li><code>:args **/*.py</code></li>
+<li><code>:vim {patt} ##</code></li>
+</ul>
+</li>
+<li>
+<p>replace {patt} with {patt1}</p>
+<ul>
+<li><code>:cdo s/{patt}/{patt1}/g</code></li>
+<li>navigate back to check <code>:cp&lt;enter&gt;</code></li>
+</ul>
+</li>
+<li>
+<p>first, VISUAL mode for drag-selection</p>
+<ul>
+<li><code>Ctrl-V hjkl</code> (delete <code>x</code>)</li>
+</ul>
+</li>
+</ul>
+<h1 id="master-vim">Master VIM</h1>
+<p><strong>.vimrc</strong></p>
+<ul>
+<li>test before add to file <code>:set autoindent</code> and find doc <code>:set tabstop?</code></li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">syntax on 
+filetype plugin indent on <span style="color:#e6db74">&#34; Enable file type based on indentation.
+</span><span style="color:#e6db74">set autoindent
+</span><span style="color:#e6db74">set expandtab &#34;</span> Expand tabs to spaces. Essential in Python.
+set tabstop=<span style="color:#ae81ff">4</span> <span style="color:#e6db74">&#34; Num. of spaces tab counted for.
+</span><span style="color:#e6db74">set shiftwidth=4 &#34;</span> num. spaces to use for autoindent.
+set backspace=<span style="color:#ae81ff">2</span> &#34; fix backspace bevaiour on most terminals.
+colorscheme murphy
+</code></pre></div><ul>
+<li>cycle through built-in colorschemes <code>:colorscheme + &lt;space&gt; + &lt;Tab&gt;</code></li>
+</ul>
+<p><strong>Basic</strong></p>
+<ul>
+<li>open-edit in vim <code>:e FILE</code></li>
+<li>save-write <code>:w {FILE} &lt;CR&gt;</code>  file name optional</li>
+<li>write-quit <code>:wq</code> or just quit <code>:q</code> or force quit <code>:q!</code></li>
+</ul>
+<p><strong>Swap files</strong></p>
+<p>Default tracking changes in swap files that are auto-gen during editing, recovered via VIM or SSH</p>
+<ul>
+<li>prevent <code>.swp</code> littering in current dir set a dir in <code>.vimrc</code> by <code>set directory=$HOME/.vim/swap//</code>  or disable <code>set noswapfile</code></li>
+</ul>
+<p><strong>Motion</strong></p>
+<ul>
+<li>
+<p><code>n[hjkl]</code> n times</p>
+</li>
+<li>
+<p>move to B-next-word <code>w</code> , E-closest-word <code>e</code>, backward to B-word <code>b</code></p>
+</li>
+<li>
+<p>cap above to treat all but white-space as word! <strong>non-space</strong> sequence as WORD</p>
+</li>
+<li>
+<p>move paragraph (&gt;2 newlines) <code>{</code> and <code>}</code></p>
+</li>
+</ul>
+<p><strong>Simple edit change</strong></p>
+<ul>
+<li><code>cw</code>  to change + next word</li>
+<li><code>c3e</code>  (comma counts as a word)</li>
+<li><code>cb</code> change back word</li>
+<li><code>c4l</code>  intriguing as change 4 chars until <code>l</code></li>
+<li>NOTE: <code>cw</code> == <code>ce</code> a legacy</li>
+<li><strong>structure</strong> <code>&lt;cmd&gt; &lt;num&gt; &lt;move&gt;/&lt;text-object&gt;</code></li>
+<li>example:
+<ul>
+<li>start by moving to <code>3&lt;space&gt;</code> till last WORD <code>3W</code></li>
+<li>change-delete word + enter into insert mode <code>cw</code></li>
+</ul>
+</li>
+<li>delete <code>d</code> behave as normal with <code>w</code> and <code>e</code></li>
+<li><code>cc</code> clears whole line + insert mode + keeping indentation</li>
+<li><code>dd</code> deletes entire line</li>
+<li>tip: <code>v</code> enter Visual mode to select before above edits</li>
+</ul>
+<p><strong>Persistent undo and repeat</strong></p>
+<ul>
+<li>
+<p><code>u</code> undo last ops and <code>&lt;Ctrl&gt; r</code> to redo</p>
+</li>
+<li>
+<p>enable persistent undo in vimrc <code>set undofile</code></p>
+<ul>
+<li>
+<p>set file fir:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#66d9ef">if</span> !isdirectory<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;HOME/.vim/undodir&#34;</span><span style="color:#f92672">)</span>
+    call mkdir<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/.vom/undodir</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74">&#34;p&#34;</span><span style="color:#f92672">)</span>
+endif
+set undofir<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/.vim/undodir</span><span style="color:#e6db74">&#34;</span>
+</code></pre></div></li>
+</ul>
+</li>
+</ul>
+<p><strong>loop through keyword in help</strong></p>
+<ul>
+<li><code>:h &lt;keyword&gt; + &lt;Ctrl&gt; + D</code> to loop through before <!-- raw HTML omitted --></li>
+<li>SEARCH in general: <code>/search &lt;term&gt;</code>  - forward and <code>?search term</code> backward</li>
+</ul>
+<h2 id="advanced-editing-and-motion">Advanced Editing and Motion</h2>
+<p><strong>plugin</strong></p>
+<ul>
+<li><code>mkdir -p ~/.vim/pack/plugins/start</code></li>
+<li>vimcr:
+<ul>
+<li><code>packloadall &quot; Load all plugins</code></li>
+<li><code>silent! helptags ALL &quot; Load help files for all plugins</code></li>
+</ul>
+</li>
+<li>install plugin found on GitHub <code>git clone &lt;.../nerdtree.git&gt; ~/.vim/pack/plugins/start/nerdtree</code></li>
+</ul>
+<p><strong>Workspace</strong></p>
+<ul>
+<li>Buffers = internal repr files for switching between files quickly</li>
+<li>Windows organise workspace by displaying multi-files next to each other</li>
+<li>Tabs a collection of windows</li>
+<li>Folds to hide and expand portions of files, making large files easier to navigate</li>
+</ul>
+<p><strong>Buffers</strong></p>
+<ul>
+<li>
+<p>print all by these synonyms <code>:ls</code> <code>:buffers</code> <code>:files</code></p>
+<ul>
+<li><code>1 %a &quot;file.py&quot; line 30</code>
+<ul>
+<li>1 = buffer number staying constant over Vim session</li>
+<li>% = current window</li>
+<li>a = active, loaded, visible</li>
+<li>line 30 = current cursor pos</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>when open multiple files, switching files via buffer number <code>:b1</code> or <code>:b &lt;partial filename&gt; + &lt;Tab&gt;</code> (for looping)  or next-previous <code>:bn :bp</code></p>
+</li>
+<li>
+<p>useful plugin <code>https://github.com/tpope/vim-unimpaired</code></p>
+</li>
+<li>
+<p><code>:bn</code> - next buffers</p>
+</li>
+<li>
+<p><code>:b {filename}</code> - go to buffer filename</p>
+</li>
+<li>
+<p><code>:bd</code> - delete current buffers</p>
+</li>
+<li>
+<p><code>:buffers</code> - print all buffers</p>
+</li>
+<li>
+<p><code>:bufdo {cmd}</code> - exec cmd to all buffers</p>
+</li>
+<li>
+<p><code>:n</code> - next file (based on arglist)</p>
+</li>
+<li>
+<p><code>:arga {filename}</code> - add to arglist</p>
+</li>
+<li>
+<p>&lsquo;:argl {files}&rsquo; - make a local arg copy via files</p>
+</li>
+<li>
+<p><code>:args</code> - print all arguments</p>
+</li>
+</ul>
+<p><strong>arglist</strong></p>
+<ul>
+<li><code>args **/**.yaml</code> - make arglist with all such files</li>
+<li>followed directly by <code>:sall</code> to split all and display in a new tab (<code>:vert sall</code> ibis)</li>
+<li><code>windo difft</code> - do for all windows diff on files</li>
+</ul>
+<p><strong>Windows</strong></p>
+<ul>
+<li>split <code>:split &lt;file&gt;</code> or <code>:sp</code> or vertical <code>:vsplit :vs</code></li>
+<li>move windows <code>Ctrl + w [+ hjkl]</code></li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># binding for ease split in vimrc</span>
+<span style="color:#e6db74">&#34;</span><span style="color:#e6db74"> Fast split navigation with Ctrl + hjkl
+</span><span style="color:#e6db74">noremap &lt;c-h&gt; &lt;c-w&gt;&lt;c-h&gt;
+</span><span style="color:#e6db74">noremap &lt;c-j&gt; &lt;c-w&gt;&lt;c-j&gt;
+</span><span style="color:#e6db74">noremap &lt;c-k&gt; &lt;c-w&gt;&lt;c-k&gt;
+</span><span style="color:#e6db74">noremap &lt;c-l&gt; &lt;c-w&gt;&lt;c-l&gt;
+</span></code></pre></div><ul>
+<li>
+<p>close <code>Ctrl + w + q</code>  or <code>:bd</code> delete-buffer-close-window</p>
+</li>
+<li>
+<p>close all else <code>Ctrl + w + o</code></p>
+</li>
+<li>
+<p>save all and quit <code>:wqa</code> !!!</p>
+</li>
+<li>
+<p><code>:Bd</code> keeping window on closing buffer <code>command! Bd :bp | :sp | :bn | :bd</code></p>
+</li>
+<li>
+<p>movement prefix <code>&lt;Ctrl&gt; + w</code>:</p>
+<ul>
+<li><code>H</code> to leftmost</li>
+<li><code>J</code> to bottom</li>
+<li><code>K</code> to top</li>
+<li><code>L</code> to rightmost</li>
+</ul>
+</li>
+<li>
+<p><code>Ctrl w r</code> moves all windows within the row / column to the right or downwards <code>R</code> for reverse</p>
+</li>
+<li>
+<p><code>Ctrl w x</code> exchanges contents of a window with the next one (or previous one if it's considered a last window)</p>
+</li>
+<li>
+<p><code>Ctrl w =</code> equalise h-w of all windows!!!</p>
+</li>
+<li>
+<p>resizings:</p>
+<ul>
+<li><code>:resize +N</code> up height by N rows (<code>:res</code>) (or just N)</li>
+<li><code>:vertical resize -N</code> down width by N columns (<code>:vert res</code>)</li>
+<li>shortcut: <code>Ctrl w -/+/&gt;/&lt;</code></li>
+</ul>
+</li>
+<li>
+<p><code>:windo {cmd}</code> - exec for all windows</p>
+</li>
+<li>
+<p><code>:sf {FILE}</code> - split windows and <code>:find {FILE}</code></p>
+</li>
+<li>
+<p><code>:vert {cmd}</code> - make any cmd use vert split</p>
+</li>
+<li>
+<p><code>:vnew {FILE}</code> - open new file in vertical splits</p>
+</li>
+</ul>
+<p><strong>Tabs</strong></p>
+<ul>
+<li>used to switch between <strong>collections of windows</strong> for multi-workspace</li>
+<li>often used for different projects or set of files within the same session</li>
+<li><code>:tabnew</code> open new with empty buffer or <code>+ &lt;file&gt;</code></li>
+<li><code>gt</code> to move to next tab, <code>gT</code> back</li>
+<li><code>:tabclose</code> or close all windows it contains <code>:q</code></li>
+<li><code>tabmove N</code> to place tab after the Nth tab</li>
+</ul>
+<p><strong>Folds</strong></p>
+<ul>
+<li>setting auto-folding python files <code>set foldmethod=indent</code></li>
+<li><code>zo</code> open current fold while <code>zc</code> close it or <code>za</code> to toggle</li>
+<li>visualise pos of folds <code>:set foldcolumn=N</code> were N [0, 12]</li>
+<li><code>zR</code> open all <code>zM</code> close all</li>
+</ul>
+<p><strong>Folding methods</strong> following <code>foldmethod</code></p>
+<p><code>indent</code> - langs having indentation syntax</p>
+<p><code>expr</code> - regex based and extremely powerful</p>
+<p><code>marker</code> - special markup like <code>{{{</code> <code>}}}</code></p>
+<p><code>syntax</code> - not every lang supported</p>
+<p><code>diff</code> - auto used when operating diff mode</p>
+<p><strong>File tree</strong></p>
+<ul>
+<li><strong>Netrw</strong> the built-in file manager
+<ul>
+<li><code>:Ex</code> (<code>:Explore</code>) or a sym-key <code>:e .</code></li>
+<li><code>&lt;CR&gt;</code> opens files/dirs; <code>-</code> goes up dir; <code>D</code> deletes file/dir; <code>R</code> rename</li>
+<li><code>:Vex</code> opens Netrw vert-split (<code>:Sex</code>, <code>:Lex</code>)</li>
+<li>go to remote <code>:Ex sftp://&lt;domain&gt;/&lt;dir&gt;/</code> or <code>:e scp://&lt;domain&gt;/&lt;dir&gt;/&lt;file&gt;</code></li>
+</ul>
+</li>
+<li><strong>:e with wildmenu enabled</strong> via <code>set wildmenu</code>
+<ul>
+<li>emulating autocomplete <code>:e + &lt;Tab&gt;</code> (<code>Shift + Tab</code> reverses)</li>
+<li><code>set wildmode=list:longest,full</code> &ldquo;complete till longest string then open wildmenu</li>
+</ul>
+</li>
+<li><strong>NERDTree</strong> invoking via <code>:NERDTree</code>
+<ul>
+<li>move by <code>hjkl</code> or arrow Enter or <code>o</code> to open</li>
+<li>bookmarking while cursor over: <code>:Bookmark</code> then <code>B</code> to display</li>
+<li>always display bookmars <code>let NERDTreeShowBookmarks = 1</code></li>
+<li>toggle <code>:NERDTreeToggle</code> or startup enabled <code>autocmd VimEnter * NERDTree</code></li>
+<li>close it when it's last open window:
+<ul>
+<li><code>autocmd bufenter * if (winnr(&quot;$&quot;) == 1 &amp;&amp; exists (&quot;b:NERDTree&quot;) &amp;&amp; \ b:NERDTree.isTabTree()) | q | endif</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>plugins</strong></p>
+<ul>
+<li>Vinegar - <code>I</code> toggles help bar and <code>Shift ~</code> take to home dir</li>
+<li>CtrlP - fuzzy completion <code>Ctrl P</code> shows list of files in project dir
+<ul>
+<li><code>Ctrl j/k</code> up/down list of files <code>f b</code> to cycle thru options <code>:CtrlPBuffer</code> for buffers</li>
+</ul>
+</li>
+</ul>
+<p><strong>Movement in Text</strong></p>
+<ul>
+<li><code>t</code> until followed by character in line while <code>T</code> backwards</li>
+<li><code>f</code> find followed by character to search in line <code>F</code> backwards</li>
+<li><code>_</code> moves to B of line <code>$</code> to end !!!</li>
+<li>word = numbers, letters, underscores / WORD = any but space</li>
+<li><code>ge</code> moves to end of previous word</li>
+<li><code>Shift {</code> to B of paragrah</li>
+<li><code>Shift (</code> to B of sentenes</li>
+<li><code>H</code> to head of window <code>L</code> to bottom of window (current)</li>
+<li><code>Ctrl f</code> == page down <code>Ctrl b</code> for page up</li>
+<li><code>/</code> followed by string searches document <code>Shift ?</code> backwards</li>
+<li><code>gg</code> to top of file</li>
+<li><code>G</code> to end of file</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">			gg	
+			?
+			H
+			<span style="color:#f92672">{</span>
+			k
+^ F T <span style="color:#f92672">(</span> b ge h  l w e <span style="color:#f92672">)</span> t f $
+			j
+			<span style="color:#f92672">}</span>
+			L
+			Ctrl+f
+			/
+			G
+</code></pre></div><ul>
+<li>move by line numbers enabled by <code>:set nu</code>  (put in vimrc for startup)
+<ul>
+<li>jump <code>:N</code> where N is absolute line number</li>
+<li>jump to N in file <code>vim file +14</code></li>
+<li>jump <code>:+N</code> relative down (<code>:set relativenumber</code>)</li>
+</ul>
+</li>
+</ul>
+<p><strong>Jump into INSERT</strong></p>
+<ul>
+<li><code>a</code> insert after cursor <code>A</code> at end of line (== <code>$a</code>)</li>
+<li><code>I</code> insert at B-line after indent</li>
+<li><code>o</code> adds new line below cursor + insert <code>O</code> above</li>
+<li><code>gi</code> insert last exit</li>
+<li><code>C</code> deletes txt to the right of cursor til E-line</li>
+<li><code>cc</code> or <code>S</code> deletes contents of line</li>
+<li><code>s</code> deletes single char</li>
+</ul>
+<p><strong>Searching / and ?</strong></p>
+<ul>
+<li>fastest way to move!!</li>
+<li>Cycling thru matches in the same buffer <code>n</code> <code>N</code></li>
+<li><code>set hlsearch</code> (best in vimrc) highlights match (off by <code>:noh</code>)</li>
+<li><code>set incsearch</code> makes dynamic move to first match</li>
+</ul>
+<p><strong>Searching across files</strong></p>
+<ul>
+<li><code>:grep</code> uses system grep</li>
+<li><code>:vimgrep</code>
+<ul>
+<li><code>+ &lt;patt&gt; &lt;path&gt;.patt</code> be string or Vim-like regex</li>
+<li>e.g. searching <code>calc</code> by <code>:vimgrep animal **/*.py</code></li>
+<li>navigate <code>:cn</code> or <code>:cp</code> or visual quickfix window <code>:copen</code> then <code>j k</code> to jump and enter - close by <code>:q</code> or <code>Ctrl w q</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>ack</strong></p>
+<ul>
+<li>spiritual successor of grep for code search <code>sudo apt install ack-grep</code></li>
+<li><code>ack --python Animal</code></li>
+<li>Vim plugin integrates <code>ack.vim</code> then do <code>:Ack --python Aniimal</code></li>
+</ul>
+<p><strong>Text Object</strong></p>
+<ul>
+<li><code>di)</code> == delete inside parentheses !!!</li>
+<li><code>c2aw</code> == change outside of two words to delete two words</li>
+<li><code>i</code> inner objects do not include white space or next char while <code>a</code> outer do</li>
+<li>common code text objects: <code>' &quot; ) ] &gt; }</code></li>
+<li>Verb <code>d</code> or <code>c</code> + Number <code>2</code> + Adjective <code>i</code> or <code>a</code> + Noun <code>)</code> or <code>w</code> etc</li>
+</ul>
+<p><strong>EasyMotion</strong></p>
+<ul>
+<li>invoke by <code>\\</code> + desired movement key</li>
+</ul>
+<p><strong>Registers</strong></p>
+<ul>
+<li>yank <code>y</code> to copy text + movement or text object (usable in visual mode)</li>
+<li><code>ye</code> copy till E-word to copy into register then <code>p</code> to paste</li>
+<li>more to see</li>
+</ul>
+<p><strong>Copying from outside VIM</strong></p>
+<ul>
+<li><code>*</code> register the main clipboard</li>
+<li><code>+</code> register Linux only used for <code>Ctrl c / v</code> style</li>
+<li><code>&quot;*p</code> to paste from primary clipboard or <code>&quot;+yy</code> to yank a line into Linux's clipboard</li>
+<li>setting default
+<ul>
+<li><code>set clipboard=unnamed &quot; copy into system (*) register</code></li>
+<li><code>set clipboard=unnamedplus</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="plugin">Plugin</h2>
+<p>Managers</p>
+<ul>
+<li>vim-plug - fetch file (<code>.../master/plug.vim</code>) then save in <code>./vim/autoload/plug.vim</code> (fetch single file <code>curl -fLo &lt;dest&gt; --create-dirs &lt;source&gt;</code>)
+<ul>
+<li>update .vimrc <code>call plug#begin()</code> and <code>call plug#end()</code></li>
+<li>
+<h2 id="add-some-plugins-between-these-2-lines-usernamerepo-format">add some plugins between these 2 lines <!-- raw HTML omitted -->/<!-- raw HTML omitted --> format</h2>
+<ul>
+<li></li>
+<li></li>
+<li><code>Plug 'scrooloose/nerdtree'</code></li>
+</ul>
+</li>
+<li>save and reload (<code>:w | source $MYVIMRC</code>) Do <code>:PlugInstall</code> to install</li>
+<li><code>:PlugUpdate</code> and <code>:PlugClean</code> to delete</li>
+<li><code>:PlugUpgrade</code> for vim-plug itself + reload file</li>
+<li>two modes of loading (after above line <code>, { 'on': 'NERDTreeToggle'}</code> and <code>, {'for': 'markdow'}</code>)</li>
+<li>For UNIX, add this for transporting to new machine</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#66d9ef">if</span> empty <span style="color:#f92672">(</span>glob <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;~/.vim/autoload/plug.vim&#39;</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span>
+	silent !curl -fLo ...
+	autocmd VimEnter * PlugInstall --sync | source $MYVIMRX
+endif
+</code></pre></div><p>Profiling speed</p>
+<ul>
+<li><code>vim --startuptime time.log</code> check bottleneck timestams</li>
+</ul>
+<p><strong>MODE</strong></p>
+<ul>
+<li>Normal Mode
+<ul>
+<li><code>Ctrl-b/e</code> B-line and E-line</li>
+<li><code>Ctrl-f</code> opens editable CLI window with history (as a buffer, edit and exec again, <code>Ctrl-c</code> to close)</li>
+</ul>
+</li>
+<li>Insert mode
+<ul>
+<li><code>Ctrl-o</code> to do single cmd then back to insert</li>
+</ul>
+</li>
+<li>Visual and Select mode
+<ul>
+<li><code>v</code> char-wise <code>V</code> line-wise <code>Ctrl-v</code> block-wise</li>
+<li><code>o</code> go to other end of highlighted text to expand-select</li>
+</ul>
+</li>
+<li>Replace mode <code>R</code> and <code>r</code></li>
+<li>Terminal mode <code>:terminal</code> or <code>:term</code> + cmd for single exec</li>
+</ul>
+<h2 id="text">Text</h2>
+<p>Autocomplete</p>
+<ul>
+<li>type name of function + <code>Ctrl n/p</code> to cycle</li>
+<li>insert-completion mode <code>Ctrl x</code> + <code>Ctrl i</code> to complete whole line <code>Ctrl j]</code> to complete tags <code>Ctrl f</code> complets filenames</li>
+</ul>
+<p>YouCompleteMe</p>
+<ul>
+<li>semantic autocomplete; intelligent suggestion; display doc etc</li>
+<li>dependencies <code>sudo apt install cmake llvm</code></li>
+<li>if using vim-plug: <code>let g:plug_timeout = 300 \n Plug 'Valloric/YouCompleteMe', { 'do': './install.py'}</code></li>
+<li>save files then <code>:source $MYVIMRC | PlugInstall</code></li>
+<li>enable semantic engine <code>.</code> in insert or manually <code>Ctrl space</code></li>
+<li>For python jumping to method definition: <code>noremap &lt;leader&gt;] :YcmCompleter GoTo&lt;cr&gt;</code> then <code>\]</code> when cursor over func call</li>
+</ul>
+<p>Navigating code base with tags</p>
+<ul>
+<li><code>gd</code> for local and <code>gD</code> for global</li>
+</ul>
+<p>Exuberant Ctags</p>
+<ul>
+<li>External utility generating tag files <code>sudo apt install ctags</code></li>
+<li><code>ctags -R .</code> to navigate project and creating tags file in dir <code>set tags=tags;</code> for looking files recursively in parent dir</li>
+<li><code>Ctrl ]</code> + tag to the definition and <code>Ctrl t</code> to go back in tag stack</li>
+<li><code>:tn</code> and <code>:tp</code> cycle tags <code>:ts</code> select manu</li>
+</ul>
+<h2 id="build-test-execute">Build, Test, Execute</h2>
+<p><strong>Integrating Git Vim - vim-fugitive</strong></p>
+<ul>
+<li><code>:Gstatus</code> == <code>git status</code> but interactive for cycling through files <code>Ctrl-n/p</code>
+<ul>
+<li><code>-</code> stage/unstage file, <code>cc</code>or<code>:Gcommit</code> , <code>D</code> or<code>:GDiff</code> open a diff, <code>Glog</code> history</li>
+<li>Tip: <code>:copen</code> pops quickfix window, <code>:cnext</code> <code>:cprevious</code> navigate</li>
+<li><code>:Gblame</code>  with shortcuts <code>C, A, D</code> resizing, <code>Enter</code> opens a diff of chosen commit, <code>o</code> opens diff of chosen commit in split,</li>
+</ul>
+</li>
+</ul>
+<p><strong>Resovling conflicts with vimdiff</strong></p>
+<ul>
+<li>in terminal <code>vimdiff file1 file2</code></li>
+<li>move change <code>]c</code> forward <code>[c</code> backwards</li>
+<li><code>do</code> or <code>:diffget</code> moves change to active window</li>
+<li><code>dp</code> or <code>:diffput</code> pushes change from active window</li>
+<li>configure Git to use vimdiff as merge tool:
+<ul>
+<li><code>git config --global merge.tool vimdiff</code>, <code>git config --global merge.conflictstyle diff3</code> , <code>git config --global mergetool.prompt false</code></li>
+</ul>
+</li>
+<li>example:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git checkout -b branch-tmp
+<span style="color:#75715e"># edit some codes</span>
+git add . <span style="color:#f92672">&amp;&amp;</span> git commit -m <span style="color:#e6db74">&#34;Branch-chnage&#34;</span>
+git checkout master
+<span style="color:#75715e"># edit some codes differently</span>
+git add . <span style="color:#f92672">&amp;&amp;</span> git commit -m <span style="color:#e6db74">&#34;Master-change&#34;</span>
+git merge branch-tmp
+<span style="color:#75715e"># stdout: Conflict</span>
+git mergetool 
+</code></pre></div><ul>
+<li>
+<p>In view are 4 windows:</p>
+<ul>
+<li>pos-1 is master branche or local changes</li>
+<li>pos-2 <strong>closest common ancestor</strong></li>
+<li>pos-3 branch-tmp in conflict</li>
+<li>pos-4 MERGE shows conflict markers as <code>&lt;&lt;&lt;&lt; ... &gt;&gt;&gt;&gt;</code></li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">&lt;&lt;&lt;</span><span style="color:#f92672">&lt;&lt;&lt;</span> <span style="color:#f92672">[</span>LOCAL commit/branch<span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span>LOCAL change<span style="color:#f92672">]</span>
+<span style="color:#f92672">||</span><span style="color:#f92672">||</span><span style="color:#f92672">||</span>| merged common ancestors
+<span style="color:#f92672">[</span>BASE - closest common ancestor<span style="color:#f92672">]</span>
+<span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span>
+<span style="color:#f92672">[</span>REMOTE change<span style="color:#f92672">]</span>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; <span style="color:#f92672">[</span>REMOTE commint/branch<span style="color:#f92672">]</span>
+</code></pre></div><blockquote>
+<p>assuming keeping REMOTE (branch-tmp), move cursor to window MERGED (pos-4), move cursor to the next change (<code>]c</code> and <code>[c</code> to move by changes), and execute <code>diffget REMOTE</code></p>
+</blockquote>
+<ul>
+<li>this will change from REMOTE file and place it into MERGED file
+<ul>
+<li>Get a REMOTE change using <code>:diffg R</code></li>
+<li>Get a BASE change using <code>:diffg B</code></li>
+<li>Get a LOCAL change using <code>:diffg L</code></li>
+<li>Save-exit <code>:wqa</code></li>
+<li>free to discard <code>.orig</code> files after</li>
+<li>commit</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+        
+        <div class="section bottom-menu">
+<hr />
+<p>
+
+
+    
+
+    
+        
+            <a href="/code">
+                code
+            </a>
+        
+    
+    
+        
+            &#183; 
+            <a href="https://tiny.cc/oceannotebook">
+                notebook
+            </a>
+        
+            &#183; 
+            <a href="https://github.com/Oceanbao/KEN">
+                KEN
+            </a>
+        
+            &#183; 
+            <a href="/prose">
+                prose
+            </a>
+        
+            &#183; 
+            <a href="/gallery">
+                gallery
+            </a>
+        
+            &#183; 
+            <a href="/qui">
+                qui et quoi?
+            </a>
+        
+    
+    &#183; 
+    <a href="https://oceanbao.github.io/">
+        main
+    </a>
+
+</p></div>
+        
+
+        <div class="section footer">Ocean Ode
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script></div>
+    </div>
+</body>
+
+</html>

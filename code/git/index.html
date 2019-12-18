@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<meta name="description" content="Ocean on GitHub.">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:domain" content="https://oceanbao.github.io/">
+
+<meta name="twitter:image" content="https://oceanbao.github.io/tn.png">
+<meta name="twitter:title" property="og:title" itemprop="title name" content="Ocean Ode">
+<meta name="twitter:description" property="og:description" itemprop="description" content="Ocean on GitHub.">
+<meta name="og:type" content="website">
+<meta name="og:url" content="https://oceanbao.github.io/">
+<meta name="og:image" itemprop="image primaryImageOfPage" content="https://oceanbao.github.io/tn.png">
+
+<link rel="shortcut icon" href="https://oceanbao.github.io/oceanicon.jpg" id="favicon">
+<link rel="stylesheet" href="https://oceanbao.github.io/css/style.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+
+    
+
+    
+    
+    
+    <title>
+        
+        GIT
+        
+    </title>
+</head>
+
+<body>
+
+    <div class="wrap">
+        <div class="section" id="title">GIT</div>
+        <aside>
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#commit">Commit</a></li>
+    <li><a href="#log">Log</a></li>
+    <li><a href="#undoing">Undoing</a></li>
+    <li><a href="#tag">Tag</a></li>
+    <li><a href="#alias">Alias</a></li>
+    <li><a href="#branching">Branching</a></li>
+    <li><a href="#rebasing">Rebasing</a></li>
+    <li><a href="#branching-1">Branching</a></li>
+    <li><a href="#3-ways-to-branch-in">3 Ways to Branch In</a>
+      <ul>
+        <li><a href="#merge">Merge</a></li>
+        <li><a href="#rebasing-1">Rebasing</a></li>
+        <li><a href="#cherry-picking">Cherry-Picking</a></li>
+      </ul>
+    </li>
+    <li><a href="#remote-repo">Remote Repo</a>
+      <ul>
+        <li><a href="#fetch">Fetch</a></li>
+        <li><a href="#pull">Pull</a></li>
+      </ul>
+    </li>
+    <li><a href="#simple-git-workflow">Simple Git Workflow</a></li>
+    <li><a href="#pro-git">Pro Git</a></li>
+  </ul>
+</nav>
+        </aside>
+        <div class="section" id="content"><p><strong>ONLY PUT SOURCE FILES INTO VERSION CONTROL, NEVER GENERATED FILES</strong></p>
+<ul>
+<li>source is any file authoured</li>
+<li>generated file that which computer created</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git init projectName
+cd projectName
+
+<span style="color:#75715e"># credential</span>
+git config --global user.name <span style="color:#e6db74">&#34;User&#34;</span>
+git config --global user.email <span style="color:#e6db74">&#34;user@user.com&#34;</span>
+
+<span style="color:#75715e"># staging</span>
+git add .
+
+<span style="color:#75715e"># write to history</span>
+git commit -m <span style="color:#e6db74">&#34;message&#34;</span>
+
+<span style="color:#75715e"># branches [-c:copy, -m:move, -d:delete]</span>
+git branch -c my-branch
+<span style="color:#75715e"># checkout to branch</span>
+git checkout my-branch
+
+<span style="color:#75715e"># merge with current branch</span>
+git merge my-branch
+
+<span style="color:#75715e"># remote</span>
+git remote add vue https://github.com/vuejs/vue.git
+
+<span style="color:#75715e"># Changes</span>
+<span style="color:#75715e"># stashes - create tmp records of WIP to return</span>
+git stash
+git stash list
+git stash apply stash@<span style="color:#f92672">{</span>0<span style="color:#f92672">}</span>
+
+<span style="color:#75715e"># cancel all current stage changes</span>
+git reset
+<span style="color:#75715e"># revert to commit ID</span>
+git revert fc95eb...
+
+
+</code></pre></div><p><strong>Example of gitignore</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">__pycache__
+venv
+env
+.pytest_cache
+.coverage
+</code></pre></div><p><strong>Checkouting paste SHA or label</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git checkout 946b99.... <span style="color:#f92672">(</span>20-bit<span style="color:#f92672">)</span>
+Note: checking out....
+
+You are in <span style="color:#e6db74">&#39;detached HEAD&#39;</span> state. 
+
+If you want to creat ea new branch to retain commits you create, you may <span style="color:#66d9ef">do</span> so <span style="color:#f92672">(</span>now or later<span style="color:#f92672">)</span> by using -b with the checkout cmd e.g.:
+
+	git checkout -b &lt;new-branch-name&gt;
+	
+HEAD is now at 956b99b... added myname module
+</code></pre></div><ul>
+<li>HEAD is Git's name for whatever SHA you happen to be looking at at any time, NOT what is on your filesystem or what is in your staging area - it means what Git thinks you have checked out.</li>
+<li>For example: when looking at (HEAD at) old SHA, HEAD is behind <strong>master</strong> SHA
+<ul>
+<li>to get back (1) checkout SHA_of_master</li>
+<li>(2) checkout master</li>
+</ul>
+</li>
+</ul>
+<h2 id="commit">Commit</h2>
+<p><code>git commit -a</code> - auto-stage all tracked files (modified tracked files not staged)</p>
+<p><code>git difftool</code> - use difftool to diff</p>
+<p><code>git diff --staged</code></p>
+<p><code>git rm</code></p>
+<p><code>git rm --cached</code> - keep file in working tree but remove it from staging</p>
+<p><code>git rm log/\*.log</code> - <code>\*</code> due to Git does own filename expansion in addition to shell's filename expansion, removing all <code>.log</code> extension in <code>log/</code> dir</p>
+<p><code>git mv old_name new_name</code> - combines <code>mv old new; git rm old; git add new;</code></p>
+<h2 id="log">Log</h2>
+<p><code>git log</code></p>
+<p><code>-p / --patch</code></p>
+<p><code>--pretty=oneline, short, full, fuller</code></p>
+<p><code>--pretty=format:&quot;&lt;PATTERN&gt;&quot;</code></p>
+<p><code>%H, %h, %T (tree hash), %t, %P, %p, %an, %ae, %ar, %ad, %cn, %ce, %cr, %cd, %s</code></p>
+<p><code>git log -S function_name</code></p>
+<p><code>--since, --after, --until, --before, --author, --committer, --grep</code></p>
+<h2 id="undoing">Undoing</h2>
+<p><code>git commit --amend</code> - replace previous commit with new staged</p>
+<p><code>git reset HEAD FILE_2_UNSTAGE</code> - unstage file</p>
+<p><code>git checkout -- FILE_2_UNMODIFIEd</code> - revert to original (last commit, initially cloned, or however got into working tree) <strong>this is dangerous - any local changes are gone!</strong></p>
+<h2 id="tag">Tag</h2>
+<p><code>git tag -a v1.4 -m &quot;detail of </code>1.4&rdquo;</p>
+<p><code>git tag</code></p>
+<p><code>git tag show v1.4</code></p>
+<p><code>git tag -a v1.2 9fceb02</code> - tag a commit afterwards</p>
+<p><code>git push origin v1.5</code> - sharing tag to remote branch</p>
+<p><code>git push origin --tags</code> - pushing all tags to remote server</p>
+<p><code>git tag -d v1.5</code> - delete tag</p>
+<p><code>git push origin :refs/tags/v1.5</code> - null value before colon is being pushed to remote tag name, effectively deleting it</p>
+<p><code>git push origin --delete &lt;tagname&gt;</code> - more intuitively</p>
+<p><code>git checkout 2.0.0</code> - view tags</p>
+<p><code>git checkout -b version2 v2.0.0</code> - version2 branch will be slightly diff than v2.0.0 tag since it will move forawrd with new changes so do be careful</p>
+<h2 id="alias">Alias</h2>
+<p><code>git config --global alias.co checkout</code></p>
+<p><code>git config --global alias.unstage 'reset HEAD --'</code></p>
+<p><code>git config --global alias.last 'log -1 HEAD'</code></p>
+<h2 id="branching">Branching</h2>
+<p><code>git log --oneline --decorate -graph --all</code> - shows divergence</p>
+<p>CASE:</p>
+<ol>
+<li>do some work on web</li>
+<li>make branch for new user story</li>
+<li>do some work in branch</li>
+<li>critical fix
+<ol>
+<li>switch to PROD branch</li>
+<li>make branch to add fix</li>
+<li>after tested, merge fix and push to PROD</li>
+<li>switch back to original user story and resume</li>
+</ol>
+</li>
+</ol>
+<ul>
+<li>
+<p>started with single tree of some commits</p>
+</li>
+<li>
+<p>start to work on issue #53</p>
+</li>
+<li>
+<p>create new branch</p>
+</li>
+<li>
+<p><code>git checkout -b issue53</code></p>
+</li>
+<li>
+<p><code>vim index.html</code> - do some work moves issue53 forward since checked out (HEAD it)</p>
+</li>
+<li>
+<p><code>git commit -a -m 'added a new footer [issue 53]</code></p>
+</li>
+<li>
+<p>apply fix to master - BUT best to have CLEAN working tree when switching branches - (around by stashing and amending) now assuming committed all changes</p>
+</li>
+<li>
+<p><code>git checkout master</code></p>
+</li>
+<li>
+<p><code>git checkout -b hotfix</code>  - work</p>
+</li>
+<li>
+<p><code>vim index.html</code></p>
+</li>
+<li>
+<p><code>git commit -a -m 'fixed the broken email address'</code></p>
+</li>
+<li>
+<p><code>git checkout master</code> - now merge hotfix back into master to deploy PROD</p>
+</li>
+<li>
+<p><code>git merge hotfix</code> - &ldquo;fast-forward&rdquo; since hotfix merged in was directly ahead of previous, Git simply moves the pointer forward - in other words, merging one commit with a commit that can be reached by following the first commit's history, Git simplifies things by moving the pointer forward as there is NO divergent work to merge together</p>
+</li>
+<li>
+<p>first delete hotfix branch, as no longer need it - the master points at the SAME place</p>
+</li>
+<li>
+<p><code>git branch -d hotfix</code></p>
+</li>
+<li>
+<p><code>git checkout issue53</code></p>
+</li>
+<li>
+<p><code>vim index.html</code></p>
+</li>
+<li>
+<p><code>git commit -a -m 'finished new footer [issue 53]</code></p>
+</li>
+<li>
+<p>NOW either <code>git merge master</code> to get master into issue53, or wait to integrate changes until decided to pull the issue53 back into master later</p>
+</li>
+<li>
+<p>NOW finished, merge issue53 into master, much like before</p>
+</li>
+<li>
+<p><code>git checkout master</code></p>
+</li>
+<li>
+<p><code>git merge issue53</code></p>
+</li>
+<li>
+<p>looks different as dev history diverged from some older point, not direct ancestor, Git does a simple three-way merge, using two snapshots pointed to by the branch tips and common ancester of two</p>
+</li>
+<li>
+<p>now ok to close ticket of issue53 and delete branch</p>
+</li>
+<li>
+<p>CONFLICT (modified the same file on divergent branches)</p>
+<ul>
+<li>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#960050;background-color:#1e0010">&lt;</span>&lt; <span style="color:#f92672">HEAD:</span> <span style="color:#a6e22e">index</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">html</span>
+<span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;footer&#34;</span>&gt;text&lt;/<span style="color:#f92672">div</span>&gt;
+========
+&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;footer&#34;</span>&gt;
+    please content .....
+&lt;/<span style="color:#f92672">div</span>&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; issue53:index.html
+</code></pre></div></li>
+<li>
+<p>version HEAD (master branch as it's checked out when running merge) is top part, everything above =======, while issue53 branch is below.</p>
+</li>
+<li>
+<p>can use <code>git mergetool</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<p>MANAGEMENT</p>
+<ul>
+<li><code>git branch -v</code> - branch with last commit</li>
+<li><code>git branch --merged / --no-merged</code> - which branch is merged into current or not</li>
+<li><code>git checkout -b serverfix origin/serverfix</code> - gives local branch that can work on starts where origin/serverfix is</li>
+<li><code>git checkout --track origin/serverfix</code> - tracking branch (upstream branch) is local branches that have direct relationship to a remote branch, if tracking and <code>git pull</code> Git knows which server to fetch and merge in; clone auto-make master tracking origin/master, BUT can set up other tracking branches if wish - ones tracking branches on other remotes, or not tracking master; e.g.</li>
+<li>so common that even a shortcut for shortcut - if branch to checkout (a) nonexistent, and (b) exactly matches a name on only one remote, Git creating a tracking branch <code>git checkout serverfix</code></li>
+<li><code>git checkout -b sf origin/serverfix</code> - set up a local branch different name than remote (sf pull from origin/serverfix)</li>
+<li><code>git branch -u origin/serverfix</code> - already a local branch and set it to a remote just pulled down, or change upstream branch tracking</li>
+<li><code>git branch -vv</code> see tracking branches set up and position</li>
+<li><code>git pull</code> - checks what SERVER/BRANCH the CURRENT branch is tracking, fetch + merge IN remote branch
+<ul>
+<li>better to fetch + merge explicily</li>
+</ul>
+</li>
+<li><code>git push origin --delete serverfix</code> - deleting remote branch (remove the pointer from the server, server generally lingers data till GC, so easy to recover)</li>
+</ul>
+<h2 id="rebasing">Rebasing</h2>
+<ul>
+<li>another way to integrate changes besides merge</li>
+<li>instead of 3-way merge, apply patch of one on top of master track - take all changes committed on one and replay on another</li>
+<li><code>git checkout experiment</code> + <code>git rebase master</code> - works by going to common ancestor, getting diff of each to temp files, resetting current branch to the same commit as branch rebasing onto, and applying each change in turn</li>
+<li>at this point, can go back to master and merge <code>git checkout master</code> and <code>git merge experiment</code></li>
+<li>cleaner history!</li>
+<li>Example: mainline (master), branch1 (server) and branch2 (client), all have commits forwards
+<ul>
+<li><code>git rebase --onto master server client</code> merge client branch into mainline but hold off server, taking client branch, figure out the patches since it diverged from server branch !! and replay them in client as if it was based directly off master instead</li>
+<li>now can fast-forward master by <code>git checkout master; git merge client</code></li>
+<li><code>git rebase &lt;basebranch&gt; &lt;topicbranch&gt;</code> pull in server branch <code>git rebase master server</code> without having to check it out - replaying server patches on top of master</li>
+<li>again, fast-forward base master <code>git checkout master;  git merge server</code></li>
+<li>remove client and server <code>git branch -d client</code> and server</li>
+</ul>
+</li>
+<li>PERILS - <strong>do not rebase commits outside your repo and people may have based work on them</strong></li>
+<li></li>
+</ul>
+<h2 id="branching-1">Branching</h2>
+<p><code>git checkout -b new_feature</code></p>
+<ul>
+<li>Note <code>log</code> looks exactly the same when creating new branch, which starts at the location you were at</li>
+<li>Now working on the branch, edit codes -&gt; <code>git add -A &amp;&amp; git commit -m ...</code></li>
+<li>Now <code>log</code> has new SHA</li>
+<li>Switch back to master <code>git checkout master</code></li>
+<li>Is that new SHA there?</li>
+<li>Git has built-in way to compare state of branches <code>git show-branch new_feature master</code></li>
+</ul>
+<p>Example of Comparison:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># the label repr</span>
+* <span style="color:#f92672">[</span>new_feature<span style="color:#f92672">]</span> commit <span style="color:#ae81ff">4</span>
+! <span style="color:#f92672">[</span>master<span style="color:#f92672">]</span> commit <span style="color:#ae81ff">3</span>
+--
+* <span style="color:#f92672">[</span>new_feature<span style="color:#f92672">]</span> commit <span style="color:#ae81ff">4</span>
+* <span style="color:#f92672">[</span>new_feature^<span style="color:#f92672">]</span> commit <span style="color:#ae81ff">1</span>
+* <span style="color:#f92672">[</span>new_feature~2<span style="color:#f92672">]</span> added code <span style="color:#66d9ef">for</span> featur ex
++ <span style="color:#f92672">[</span>master<span style="color:#f92672">]</span> commit <span style="color:#ae81ff">3</span>
++ <span style="color:#f92672">[</span>master^<span style="color:#f92672">]</span> commit <span style="color:#ae81ff">2</span>
+*+ <span style="color:#f92672">[</span>new_feature~3<span style="color:#f92672">]</span> created .gitignore
+
+<span style="color:#75715e"># SHA repr</span>
+git show-branch --sha1-name new_feature master
+</code></pre></div><h2 id="3-ways-to-branch-in">3 Ways to Branch In</h2>
+<h3 id="merge">Merge</h3>
+<ul>
+<li>Git create a new commit combining the top SHAs of two branches if need to.</li>
+<li>If all of commits in other branch are ahead (based on) the top of the current branch, it will just do a fast-forward merge and place those new commits on this branch</li>
+<li><code>git checkout master</code> and <code>git merge new_feature</code></li>
+<li>since merge when on master, the merge of new_feature to master</li>
+<li>if changes made to master before merging, Git would have created a new commit combining both changes</li>
+<li>Git auto-merge based on common ancestors</li>
+<li>BUT if the same section of code has been mod in both branches - Git cannot figure out what to do - <strong>conflict</strong></li>
+</ul>
+<h3 id="rebasing-1">Rebasing</h3>
+<ul>
+<li>In merge, if both branches changed, a new **merge commit ** is created</li>
+<li>In rebasing, Git will take the commits from one branch and replay them, one a time, on top of the other branch</li>
+<li>Demo:</li>
+</ul>
+<h3 id="cherry-picking">Cherry-Picking</h3>
+<ul>
+<li>specify exactly which commits meant</li>
+<li>git check-pick single SHA -&gt; apply a single SHA into current branch</li>
+</ul>
+<h2 id="remote-repo">Remote Repo</h2>
+<p>clone / fetch / pull / push</p>
+<p>clone is simple -&gt; Download</p>
+<p><code>git remote show origin</code></p>
+<p><code>git fetch &lt;remote&gt;</code></p>
+<h3 id="fetch">Fetch</h3>
+<ul>
+<li>Step back at how Git manages local and remote</li>
+<li>when clone a new repo, Git doesn't just copy down a single version of the files in that project - it copies the entire repo and uses that to create a new repo on local</li>
+<li>Git does not make local branches for you except for master - BUT it does keep track of the branches on the server - Git creating a set of branches all start with <code>remotes/origin/&lt;branch_name&gt;</code></li>
+<li>Only rarely (almost never), will one check out these branches, but it's handy to know that they are there</li>
+<li>when creating a new branch and the name matches an existing branch on the server, Git will mark local branch as <code>tracking branch</code> associated with a remote</li>
+<li>All <code>git fetch</code> does is <strong>update all of the remotes/origin branches</strong> mod only the branches stored in remotes/origin and not any of local branches</li>
+</ul>
+<h3 id="pull">Pull</h3>
+<ul>
+<li>simply a combo of the above two - first fetch update all branches, then if the branch you ar eon is tracking a remote branch, then it does a git merge of the corresponding remote/origin branch to your branche</li>
+<li>For example: you were on new_feature, coworker just added some code to it on server; if <code>git pull</code>, Git will update ALL of the &lsquo;remotes/origin&rsquo; branches and then do a <code>git merge remotes/origin/new_feature</code> which will get the new commit onto the local branch HEAD</li>
+<li>LIMIT: Git won't let you even try to do <code>git pull</code> if having modified files on local - that can create too much of a mess</li>
+<li>If local and remote <strong>diverged</strong>, <code>git merge</code> portion of <code>pull</code> will create a merge commit - or rebase by <code>git pull -r</code></li>
+</ul>
+<h2 id="simple-git-workflow">Simple Git Workflow</h2>
+<ol>
+<li><code>git status</code> make sure current area is clean</li>
+<li><code>git pull</code> get latest version from remote - saving merging issues later</li>
+<li>Edit files and make changes - test and linter</li>
+<li><code>git status</code> find all files changed - make sure watch untracked files too</li>
+<li><code>git add [files]</code> add the changed files to the staging area</li>
+<li><code>git commit -m &quot;message&quot;</code> make new commit</li>
+<li><code>git push origin [branch-name]</code> push changes up remote</li>
+</ol>
+<h2 id="pro-git">Pro Git</h2>
+<p><a href="https://realpython.com/advanced-git-for-pythonistas/">https://realpython.com/advanced-git-for-pythonistas/</a></p>
+</div>
+
+        
+        <div class="section bottom-menu">
+<hr />
+<p>
+
+
+    
+
+    
+        
+            <a href="/code">
+                code
+            </a>
+        
+    
+    
+        
+            &#183; 
+            <a href="https://tiny.cc/oceannotebook">
+                notebook
+            </a>
+        
+            &#183; 
+            <a href="https://github.com/Oceanbao/KEN">
+                KEN
+            </a>
+        
+            &#183; 
+            <a href="/prose">
+                prose
+            </a>
+        
+            &#183; 
+            <a href="/gallery">
+                gallery
+            </a>
+        
+            &#183; 
+            <a href="/qui">
+                qui et quoi?
+            </a>
+        
+    
+    &#183; 
+    <a href="https://oceanbao.github.io/">
+        main
+    </a>
+
+</p></div>
+        
+
+        <div class="section footer">Ocean Ode
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script></div>
+    </div>
+</body>
+
+</html>

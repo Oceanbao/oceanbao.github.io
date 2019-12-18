@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<meta name="description" content="Ocean on GitHub.">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:domain" content="https://oceanbao.github.io/">
+
+<meta name="twitter:image" content="https://oceanbao.github.io/tn.png">
+<meta name="twitter:title" property="og:title" itemprop="title name" content="Ocean Ode">
+<meta name="twitter:description" property="og:description" itemprop="description" content="Ocean on GitHub.">
+<meta name="og:type" content="website">
+<meta name="og:url" content="https://oceanbao.github.io/">
+<meta name="og:image" itemprop="image primaryImageOfPage" content="https://oceanbao.github.io/tn.png">
+
+<link rel="shortcut icon" href="https://oceanbao.github.io/oceanicon.jpg" id="favicon">
+<link rel="stylesheet" href="https://oceanbao.github.io/css/style.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+
+    
+
+    
+    
+    
+    <title>
+        
+        CONTAINER
+        
+    </title>
+</head>
+
+<body>
+
+    <div class="wrap">
+        <div class="section" id="title">CONTAINER</div>
+        <aside>
+            <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#dockerfile-has-2-build-stages">Dockerfile has 2 build stages</a></li>
+        <li><a href="#helloc">hello.c</a></li>
+        <li><a href="#makefile">Makefile</a></li>
+        <li><a href="#dockerignore">.dockerignore</a></li>
+        <li><a href="#dockerfile">Dockerfile</a></li>
+        <li><a href="#build-and-run">Build and Run</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#checking-event">Checking event</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </aside>
+        <div class="section" id="content"><h1 id="100kb-image-from-scratch">100KB Image from SCRATCH</h1>
+<h3 id="dockerfile-has-2-build-stages">Dockerfile has 2 build stages</h3>
+<ol>
+<li><strong>Builder</strong> - containing all build dependencies including source, libs, tools, etc</li>
+<li><strong>Final Image</strong> - containing <strong>binary</strong> and <strong>run-time</strong> dependencies (config files, certificates, and dynmacically linked libs)</li>
+</ol>
+<h3 id="helloc"><code>hello.c</code></h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>) {
+  puts(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Hello World</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+}
+</code></pre></div><h3 id="makefile"><code>Makefile</code></h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-makefile" data-lang="makefile"><span style="color:#a6e22e">hello</span><span style="color:#f92672">:</span> hello.c
+	gcc -o $@ $&lt; -static
+</code></pre></div><h3 id="dockerignore"><code>.dockerignore</code></h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#75715e"># preventing host binary from sneaking into build</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>hello<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h3 id="dockerfile"><code>Dockerfile</code></h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> alphine:latest as builder</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /build</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> apk update <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>		apk add gcc make libc-dev<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> . ./<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> make<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> scratch</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> --from<span style="color:#f92672">=</span>builder /build/hello .<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">CMD</span> [<span style="color:#e6db74">&#34;/hello&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h3 id="build-and-run">Build and Run</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">docker build . -t hello-scratch | tail -n <span style="color:#ae81ff">1</span>
+docker run hello-scratch
+docker image | grep hello-scratch | egrep -o <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">[</span>^ <span style="color:#f92672">]</span>+<span style="color:#e6db74">`</span>
+
+mkdir hello-scratch <span style="color:#f92672">&amp;&amp;</span> cd hello-scratch
+docker save hello-scratch | tar -x
+ls
+tar -tf 5599.../layer.tar
+</code></pre></div><h1 id="best-practice-of-dockerfile">Best Practice of Dockerfile</h1>
+<p><a href="https://dev.to/azure/improve-your-dockerfile-best-practices-5ll">5 Tips</a></p>
+<h1 id="life-and-death-of-container">Life and Death of Container</h1>
+<h3 id="checking-event">Checking event</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">t0<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>date <span style="color:#e6db74">&#34;+%Y-%m-%dT%H:%M:%S&#34;</span><span style="color:#66d9ef">)</span>
+docker run --name<span style="color:#f92672">=</span>ephemeral -t lherrera/cowsay <span style="color:#e6db74">&#39;I am ephemeral&#39;</span>
+t1<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>date <span style="color:#e6db74">&#34;+%Y-%m-%dT%H:%M:%S&#34;</span><span style="color:#66d9ef">)</span>
+docker events --since $t0 --until $t1
+
+<span style="color:#75715e"># all container data persist till &#39;docker rm&#39; thus exportable FS as tar</span>
+docker export -o ephemeral.tar ephemeral
+tar tvf ephemeral.tar
+tar xvf ephemeral.tar var/tmp/legacy
+cat var/tmp/legacy
+
+<span style="color:#75715e"># docker export won&#39;t preserve history but shrink to single layer</span>
+docker history lherrera/cowsay
+docker import ephemeral.tar lherrera/cowsay:2.0
+docker history lherrera/cowsay:2.0
+
+<span style="color:#75715e"># short-running foreground containers data can pile up hence</span>
+docker run --rm ...
+
+<span style="color:#75715e"># pause container to backup or stop slow running</span>
+docker run -d -p 80:80 --name web nginx:alpine
+docker pause web
+docker ps
+docker export -o web.tar web
+curl -v 0.0.0.0:80
+<span style="color:#75715e"># in another terminal type &#39;docker unpause web&#39;</span>
+
+<span style="color:#75715e"># OOM inside container and on container run itself WHY?</span>
+docker run -it -m 4m ubuntu:14.04 bash
+root@cffc126297e2:/# python3 -c <span style="color:#e6db74">&#39;open(&#34;/dev/zero&#34;).read(5*1024*1024)&#39;</span>
+&gt;&gt;&gt; killed
+
+docker run  -m 4m ubuntu:14.04 python3 -c <span style="color:#e6db74">&#39;open(&#34;/dev/zero&#34;).read(5*1024*1024)&#39;</span>
+docker ps -a
+<span style="color:#75715e"># Exited (137)</span>
+
+<span style="color:#75715e"># Docker 1.12 added health check</span>
+docker run --name<span style="color:#f92672">=</span>web -d <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --health-cmd<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;stat /etc/nginx/nginx.conf || exit 1&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --health-interval<span style="color:#f92672">=</span>2s <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    nginx:alpine
+docker ps
+<span style="color:#75715e"># (health: starting)</span>
+sleep 2; docker inspect --format<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{{.State.Health.Status}}&#39;</span> web
+<span style="color:#75715e"># healthy</span>
+
+<span style="color:#75715e"># Instructing Docker Engine to relaunch container always or as main proc exits with error code; also Docker Engine will run the container after itself restart</span>
+docker-machine create --driver virtualbox sandbox
+eval <span style="color:#66d9ef">$(</span>docker-machine env sandbox<span style="color:#66d9ef">)</span>
+docker run -d -p 80:80 nginx:alpine
+docker-machine restart sandbox
+eval <span style="color:#66d9ef">$(</span>docker-machine env sandbox<span style="color:#66d9ef">)</span>
+docker ps
+<span style="color:#75715e"># no container running</span>
+docker run -d -p 80:80 --restart always nginx:alpine
+docker-machine restart sandbox
+eval <span style="color:#66d9ef">$(</span>docker-machine env sandbox<span style="color:#66d9ef">)</span>
+docker-machine ssh sandbox uptime
+<span style="color:#75715e"># now docker ps shows container still running</span>
+docker-machine rm sandbox
+
+<span style="color:#75715e"># reset with on-failure upon error exit code</span>
+docker run -d --restart<span style="color:#f92672">=</span>on-failure:5 alpine ash -c <span style="color:#e6db74">&#39;sleep 2 &amp;&amp; /bin/false&#34;
+</span><span style="color:#e6db74">docker ps
+</span><span style="color:#e6db74">docker ps
+</span><span style="color:#e6db74"># &#39;</span>Restarting <span style="color:#f92672">(</span>127<span style="color:#f92672">)</span><span style="color:#e6db74">&#39;
+</span><span style="color:#e6db74">now=$(date &#34;+%Y-%m-%dT%H:%M:%S&#34;)
+</span><span style="color:#e6db74">docker events --until $now --filter &#39;</span>container<span style="color:#f92672">=</span>boring_cray<span style="color:#e6db74">&#39; | egrep &#39;</span>die<span style="color:#e6db74">&#39;
+</span><span style="color:#e6db74"># Docker Engine increases the restart delay!! till hitting on-failure max num. of restarts
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"># Docker 1.12 enables &#39;</span>daemonless<span style="color:#e6db74">&#39; containers - stop/upgrade/restart Docker Engine WITHOUT affecting or restarting containers on the system!
+</span><span style="color:#e6db74">docker-machine create sandbox --driver virtualbox --engine-opt live-restore
+</span><span style="color:#e6db74">eval $(docker-machine env sandbox)
+</span><span style="color:#e6db74">docker run -d -p 80:80 nginx:alpine
+</span><span style="color:#e6db74">docker-machine ssh sandbox 
+</span><span style="color:#e6db74">ps -ef | grep -E &#39;</span>docker-|dockerd|nginx<span style="color:#960050;background-color:#1e0010">&#39;</span>
+pgrep dockerd <span style="color:#75715e"># 2653</span>
+sudo kill -9 <span style="color:#ae81ff">2654</span>
+docker ps <span style="color:#75715e"># Cannot connect to Docker daemon</span>
+pgrep nginx <span style="color:#75715e"># 2813 2834</span>
+exit
+curl <span style="color:#66d9ef">$(</span>docker-machine ip sandbox<span style="color:#66d9ef">)</span>:80 <span style="color:#75715e"># still works!!!</span>
+
+</code></pre></div><h1 id="k8s">K8s</h1>
+<p><strong>POD a collection of containers and volumnes</strong></p>
+<ul>
+<li>single or multiple container(s) use case</li>
+<li>Example</li>
+</ul>
+<p>YML manifest:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">apiVersion: v1
+kind: Pod
+metadata:
+	names: myapp-pod
+	labels:
+		app: myapp
+spec:
+	containers:
+
+ <span style="color:#e6db74">- </span><span style="color:#e6db74">	</span><span style="color:#e6db74">name: myapp-container</span>
+    	image: busybox
+    	command: [<span style="color:#e6db74">&#39;sh&#39;</span>, <span style="color:#e6db74">&#39;-c&#39;</span>, <span style="color:#e6db74">&#39;echo Hello Kubernetes! &amp;&amp; sleep 3600&#39;</span>]
+    	volumeMounts:
+     -	mountPath: /test-pd
+       	name: test-volume
+       volumes:
+    -	name: test-volume
+      hostPath:
+      	path: /data
+      	type: Directory
+</code></pre></div><p><strong>DEPLOYMENT describes desired state of SET of PODs and manages updates to them</strong></p>
+<ul>
+<li>Mostly define CONTROLER - mostly deployment (as opposed to a pod)</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+	name: ngnix-deployment
+	labels:
+		app: nginx
+spec:
+	replicas: <span style="color:#ae81ff">3</span>
+	selector:
+		matchLabels:
+			app: nginx
+	tempalte: 
+		metadata:
+			labels:
+				app: nginx
+		spec:
+			containers:
+
+   -	name: nginx
+     			image: nginx:<span style="color:#ae81ff">1.7</span><span style="color:#ae81ff">.9</span>
+     			ports:
+        -	containerPort: <span style="color:#ae81ff">80</span>
+</code></pre></div><p><strong>SERVICE routes traffic to SET-PODs</strong></p>
+<ul>
+<li>service-discovery smart routing</li>
+<li>various types: cluster-IP (contained cluster IP), node-port (node-specific port exposing), load-balancer (integrate with cloud provider ELB exposing to outside world)</li>
+<li>Internal routing (DNS-enabled linking PODs)
+<!-- raw HTML omitted -->.<!-- raw HTML omitted -->.cluter.local</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">kind: Service
+apiVersion: v1
+metadata:
+	name: my-service
+sepc:
+	selector:
+		app: MyApp
+	ports:
+	-	name: http
+		protocol: TCP
+		port: <span style="color:#ae81ff">80</span>
+		targetPort: <span style="color:#ae81ff">9376</span>
+	<span style="color:#e6db74">- </span><span style="color:#e6db74">	</span><span style="color:#e6db74">name: https</span>
+		portocol: TCP
+		port: <span style="color:#ae81ff">443</span>
+		targetPort: <span style="color:#ae81ff">9377</span>
+</code></pre></div><p><strong>INGRESS expose a service to outside world</strong></p>
+<ul>
+<li>apart from load-balancer, rapidly costly ELB services with rise of pod service</li>
+<li>simply describes set of hosts and paths be routed to service from outside</li>
+<li>employ &lsquo;operator pattern&rsquo; controler installed on cluster follwoing code specified</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+	annotations:
+		kubernetes.io/ingress.class: ngnix
+		kubernetes.io/ingress.provider: nginx
+		kubernetes.io/tlk-acme: <span style="color:#e6db74">&#34;true&#34;</span>
+		ngnix.ingress.kubernetes.io/proxy-body-size: 512m
+		ngnix.ingress.kubernetes.io/proxy-connect-timeout: <span style="color:#e6db74">&#34;15&#34;</span>
+		ngnix.ingress.kubernetes.io/proxy-read-timeout: <span style="color:#e6db74">&#34;600&#34;</span>
+	name: gitlab-unicorn
+	namespace: gitlab
+spec:
+	rules:
+	-	host: gitlab.moonswitch.io
+		http:
+			paths:
+			-	backend:
+					serviecName: gitlab-unicorn
+					servicePort: <span style="color:#ae81ff">8181</span>
+				path: /
+	tls:
+	-	hosts:
+		-	gitlab.moonswith.io
+		secretName: gitlab-gitlab-tls
+</code></pre></div><p><strong>JOB runs pod until completion</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">apiVersion: batch/v1
+kind: Job
+metadata:
+	name: api
+sepc:
+	template:
+		spec:
+			container:
+			-	name: pi
+				image: perl
+				command: [<span style="color:#e6db74">&#34;perl&#34;</span>, <span style="color:#e6db74">&#34;...&#34;</span>]
+			restartPolicy: Never
+	backoffLimit: <span style="color:#ae81ff">4</span>
+</code></pre></div><p><strong>HORIZONTAL POD AUTOSCALER out a deployment based observed CPU utilisation or other metrics</strong></p>
+<ul>
+<li>
+<p>e.g. App aggrete cross-pod CPU 80%-90% -&gt; busy -&gt; scale up replicas, opposite also</p>
+<p>kubectl autoscale deployment php-apache &ndash;cpu-percent=50 &ndash;min=1 &ndash;max=10</p>
+</li>
+<li>
+<p>KEY in cluster-autoscaler in production</p>
+<ul>
+<li>scale in node / resources!</li>
+<li>elasticity of modern cloud - dynamic scaling based on defined metrics</li>
+</ul>
+</li>
+</ul>
+</div>
+
+        
+        <div class="section bottom-menu">
+<hr />
+<p>
+
+
+    
+
+    
+        
+            <a href="/code">
+                code
+            </a>
+        
+    
+    
+        
+            &#183; 
+            <a href="https://tiny.cc/oceannotebook">
+                notebook
+            </a>
+        
+            &#183; 
+            <a href="https://github.com/Oceanbao/KEN">
+                KEN
+            </a>
+        
+            &#183; 
+            <a href="/prose">
+                prose
+            </a>
+        
+            &#183; 
+            <a href="/gallery">
+                gallery
+            </a>
+        
+            &#183; 
+            <a href="/qui">
+                qui et quoi?
+            </a>
+        
+    
+    &#183; 
+    <a href="https://oceanbao.github.io/">
+        main
+    </a>
+
+</p></div>
+        
+
+        <div class="section footer">Ocean Ode
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script></div>
+    </div>
+</body>
+
+</html>

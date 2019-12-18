@@ -46,40 +46,32 @@
         <div class="section" id="title">SHELL</div>
         <aside>
             <nav id="TableOfContents">
-<ul>
-<li><a href="#unix">UNIX</a>
-<ul>
-<li>
-<ul>
-<li><a href="#quick-reference">Quick Reference</a></li>
-<li><a href="#find-file-in-current-dir-with-filename-full-path-printed">Find file in current dir with filename, full path printed</a></li>
-<li><a href="#make">MAKE</a></li>
-<li><a href="#screen-multiple-windows-virtual-terminals-in-unix">SCREEN - Multiple Windows (virtual terminals) in UNIX</a></li>
-<li><a href="#12-ml-cli">12 ML CLI</a></li>
-<li><a href="#globbing">Globbing</a></li>
-<li><a href="#magic-tabbing">Magic tabbing</a></li>
-<li><a href="#ghostscript-gs-modifying-pdf">Ghostscript: gs -modifying pdf</a></li>
-<li><a href="#print-file-specially">Print file specially</a></li>
-<li><a href="#user-mgt">User MGT</a></li>
-<li><a href="#files-system-of-unix">Files System of UNIX</a></li>
-<li><a href="#scheduling-task-cron">Scheduling Task CRON</a></li>
-<li><a href="#youtube-video-downloader">YouTube/Video Downloader</a></li>
-<li><a href="#kill-proc-listening-on-port">KILL PROC LISTENING ON PORT</a></li>
-<li><a href="#networking">NETWORKING</a></li>
-<li><a href="#misc">MISC</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#using-sed-this-doesn">using sed - this doesn</a></li>
-<li><a href="#add-text-on-first-10-lines">add <text> on first 10 lines</a></li>
-<li><a href="#append-prepend-text-to-file-in-loops">Append/prepend text to file in loops</a></li>
-<li><a href="#edit-additional-text-extra-step">Edit additional text (extra step)</a></li>
-<li><a href="#define-text-in-txt">define text in .txt</a></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#quick-reference">Quick Reference</a></li>
+        <li><a href="#find-file-in-current-dir-with-filename-full-path-printed">Find file in current dir with filename, full path printed</a></li>
+        <li><a href="#make">MAKE</a></li>
+        <li><a href="#screen---multiple-windows-virtual-terminals-in-unix">SCREEN - Multiple Windows (virtual terminals) in UNIX</a></li>
+        <li><a href="#12-ml-cli">12 ML CLI</a></li>
+        <li><a href="#globbing">Globbing</a></li>
+        <li><a href="#magic-tabbing">Magic tabbing</a></li>
+        <li><a href="#ghostscript-gs--modifying-pdf">Ghostscript: gs -modifying pdf</a></li>
+        <li><a href="#print-file-specially">Print file specially</a></li>
+        <li><a href="#user-mgt">User MGT</a></li>
+        <li><a href="#files-system-of-unix">Files System of UNIX</a></li>
+        <li><a href="#scheduling-task-cron">Scheduling Task CRON</a></li>
+        <li><a href="#youtubevideo-downloader">YouTube/Video Downloader</a></li>
+        <li><a href="#kill-proc-listening-on-port">KILL PROC LISTENING ON PORT</a></li>
+        <li><a href="#networking">NETWORKING</a></li>
+        <li><a href="#misc">MISC</a></li>
+      </ul>
+    </li>
+    <li><a href="#ssltsl">SSL/TSL</a></li>
+  </ul>
 </nav>
         </aside>
-        <div class="section" id="content">
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+        <div class="section" id="content"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
 </span><span style="color:#75715e"></span><span style="color:#75715e">##############################################################################</span>
 <span style="color:#75715e"># SHORTCUTS</span>
 <span style="color:#75715e">##############################################################################</span>
@@ -229,11 +221,11 @@ echo $!                      <span style="color:#75715e"># prints process ID of 
 echo $?                      <span style="color:#75715e"># displays the exit status of the last command</span>
 export VARNAME<span style="color:#f92672">=</span>value         <span style="color:#75715e"># defines an environment variable (will be available in subprocesses)</span>
 
-array<span style="color:#f92672">[</span><span style="color:#ae81ff">0</span><span style="color:#f92672">]=</span>valA                <span style="color:#75715e"># how to define an array</span>
-array<span style="color:#f92672">[</span><span style="color:#ae81ff">1</span><span style="color:#f92672">]=</span>valB
-array<span style="color:#f92672">[</span><span style="color:#ae81ff">2</span><span style="color:#f92672">]=</span>valC
-array<span style="color:#f92672">=([</span><span style="color:#ae81ff">2</span><span style="color:#f92672">]=</span>valC <span style="color:#f92672">[</span><span style="color:#ae81ff">0</span><span style="color:#f92672">]=</span>valA <span style="color:#f92672">[</span><span style="color:#ae81ff">1</span><span style="color:#f92672">]=</span>valB<span style="color:#f92672">)</span>  <span style="color:#75715e"># another way</span>
-array<span style="color:#f92672">=(</span>valA valB valC<span style="color:#f92672">)</span>              <span style="color:#75715e"># and another</span>
+array<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span><span style="color:#f92672">=</span>valA                <span style="color:#75715e"># how to define an array</span>
+array<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span><span style="color:#f92672">=</span>valB
+array<span style="color:#f92672">[</span>2<span style="color:#f92672">]</span><span style="color:#f92672">=</span>valC
+array<span style="color:#f92672">=</span><span style="color:#f92672">(</span><span style="color:#f92672">[</span>2<span style="color:#f92672">]</span><span style="color:#f92672">=</span>valC <span style="color:#f92672">[</span>0<span style="color:#f92672">]</span><span style="color:#f92672">=</span>valA <span style="color:#f92672">[</span>1<span style="color:#f92672">]</span><span style="color:#f92672">=</span>valB<span style="color:#f92672">)</span>  <span style="color:#75715e"># another way</span>
+array<span style="color:#f92672">=</span><span style="color:#f92672">(</span>valA valB valC<span style="color:#f92672">)</span>              <span style="color:#75715e"># and another</span>
 
 <span style="color:#e6db74">${</span>array[i]<span style="color:#e6db74">}</span>                  <span style="color:#75715e"># displays array&#39;s value for this index. If no index is supplied, array element 0 is assumed</span>
 <span style="color:#e6db74">${#</span>array[i]<span style="color:#e6db74">}</span>                 <span style="color:#75715e"># to find out the length of any element in the array</span>
@@ -279,7 +271,7 @@ declare -x                   <span style="color:#75715e"># marks the variables f
 <span style="color:#75715e"># $@ is equal to &#34;$1&#34; &#34;$2&#34;... &#34;$N&#34;, where N is the number of positional parameters. $# holds the number of positional parameters.</span>
 
 
-<span style="color:#66d9ef">function</span> functname<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+<span style="color:#66d9ef">function</span> functname<span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
   shell commands
 <span style="color:#f92672">}</span>
 
@@ -341,7 +333,7 @@ file1 -ot file2           <span style="color:#75715e"># file1 is older than file
   statements<span style="color:#f92672">]</span>
 <span style="color:#66d9ef">fi</span>
 
-<span style="color:#66d9ef">for</span> x in <span style="color:#f92672">{</span><span style="color:#ae81ff">1</span>..10<span style="color:#f92672">}</span>
+<span style="color:#66d9ef">for</span> x in <span style="color:#f92672">{</span>1..10<span style="color:#f92672">}</span>
 <span style="color:#66d9ef">do</span>
   statements
 <span style="color:#66d9ef">done</span>
@@ -351,7 +343,7 @@ file1 -ot file2           <span style="color:#75715e"># file1 is older than file
   statements that can use $name
 <span style="color:#66d9ef">done</span>
 
-<span style="color:#66d9ef">for</span> <span style="color:#f92672">((</span> initialisation ; ending condition ; update <span style="color:#f92672">))</span>
+<span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#f92672">(</span> initialisation ; ending condition ; update <span style="color:#f92672">)</span><span style="color:#f92672">)</span>
 <span style="color:#66d9ef">do</span>
   statements...
 <span style="color:#66d9ef">done</span>
@@ -489,13 +481,13 @@ trap <span style="color:#e6db74">&#39;echo $varname&#39;</span> EXIT  <span styl
 
 <span style="color:#66d9ef">function</span> errtrap <span style="color:#f92672">{</span>
   es<span style="color:#f92672">=</span>$?
-  echo <span style="color:#e6db74">&#34;ERROR line </span>$1<span style="color:#e6db74">: Command exited with status </span>$es<span style="color:#e6db74">.&#34;</span>
+  echo <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">ERROR line </span>$1<span style="color:#e6db74">: Command exited with status </span>$es<span style="color:#e6db74">.</span><span style="color:#e6db74">&#34;</span>
 <span style="color:#f92672">}</span>
 
 trap <span style="color:#e6db74">&#39;errtrap $LINENO&#39;</span> ERR  <span style="color:#75715e"># is run whenever a command in the surrounding script or function exits with non-zero status</span> 
 
 <span style="color:#66d9ef">function</span> dbgtrap <span style="color:#f92672">{</span>
-  echo <span style="color:#e6db74">&#34;badvar is </span>$badvar<span style="color:#e6db74">&#34;</span>
+  echo <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">badvar is </span>$badvar<span style="color:#e6db74">&#34;</span>
 <span style="color:#f92672">}</span>
 
 trap dbgtrap DEBUG  <span style="color:#75715e"># causes the trap code to be executed before every statement in a function or script</span>
@@ -506,34 +498,30 @@ trap - DEBUG  <span style="color:#75715e"># turn off the DEBUG trap</span>
   echo <span style="color:#e6db74">&#34;A return occurred&#34;</span>
 <span style="color:#f92672">}</span>
 
-trap returntrap RETURN  <span style="color:#75715e"># is executed each time a shell function or a script executed with the . or source commands finishes executing</span></code></pre></div>
-<h1 id="unix">UNIX</h1>
-
+trap returntrap RETURN  <span style="color:#75715e"># is executed each time a shell function or a script executed with the . or source commands finishes executing</span>
+</code></pre></div><h1 id="unix">UNIX</h1>
 <h3 id="quick-reference">Quick Reference</h3>
-
 <p><strong>FILE</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rm -r <span style="color:#75715e">#delete dir</span>
 rm -f <span style="color:#75715e"># force remove file</span>
 cp -r dir1 dir2 <span style="color:#75715e"># copy 1 to 2 creating dir2 if inexist</span>
-ln -s file link <span style="color:#75715e"># create symbolic link link to file</span></code></pre></div>
-<p><strong>Process</strong></p>
+ln -s file link <span style="color:#75715e"># create symbolic link link to file</span>
+</code></pre></div><p><strong>Process</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">killall proc <span style="color:#75715e"># kill all processes named proc *</span>
 bg <span style="color:#75715e"># lists stopped or background jobs;</span> 
-fg a <span style="color:#75715e"># brings job a to foreground</span></code></pre></div>
-<p><strong>File Permissions</strong></p>
-
+fg a <span style="color:#75715e"># brings job a to foreground</span>
+</code></pre></div><p><strong>File Permissions</strong></p>
 <p><code>chmod octal file</code>  change permissions of file to octal,</p>
-
 <p><strong>SSH</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ssh user@host
 ssh -p port user@host <span style="color:#75715e"># connect to host on port port as user</span>
-ssh-copy-id user@host <span style="color:#75715e"># add key to host for user to enable a keyed or passwordless login</span></code></pre></div>
-<p><strong>Searching</strong></p>
+ssh-copy-id user@host <span style="color:#75715e"># add key to host for user to enable a keyed or passwordless login</span>
+</code></pre></div><p><strong>Searching</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">grep pattern files <span style="color:#75715e"># search for pattern in files</span>
 grep -r pattern dir <span style="color:#75715e"># search recursively for pattern in dir</span>
 command | grep pattern <span style="color:#75715e"># search for pattern in output of command</span>
-locate file <span style="color:#75715e"># find all instances of file</span></code></pre></div>
-<p><strong>Sys info</strong></p>
+locate file <span style="color:#75715e"># find all instances of file</span>
+</code></pre></div><p><strong>Sys info</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cal, uptime, 
 w <span style="color:#75715e"># who is online</span>
 finger user <span style="color:#75715e"># info about user</span>
@@ -544,15 +532,15 @@ df <span style="color:#75715e"># disk usage</span>
 du <span style="color:#75715e"># dir space suage</span>
 free <span style="color:#75715e"># mem and swap usage</span>
 whereis <span style="color:#75715e"># possible loc of app</span>
-which app <span style="color:#75715e"># which app will be run by default</span></code></pre></div>
-<p><strong>Compression</strong></p>
+which app <span style="color:#75715e"># which app will be run by default</span>
+</code></pre></div><p><strong>Compression</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">tar cf file.tar files <span style="color:#75715e"># create a tar named file.tar containing files</span>
 tar xf file.tar <span style="color:#75715e"># extract files</span>
 tar czf file.tar.gz files <span style="color:#75715e"># create a tar with Gzip comp</span>
 tar xzf file.tar.gz <span style="color:#75715e"># extract tar using Gzip</span>
 tar cjf file.tar.bz2 <span style="color:#75715e"># creat tar with Bzip2</span>
-gzip file <span style="color:#75715e"># comp file and rename to file.gz (gzip -d)</span></code></pre></div>
-<p><strong>Network</strong></p>
+gzip file <span style="color:#75715e"># comp file and rename to file.gz (gzip -d)</span>
+</code></pre></div><p><strong>Network</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">whois domain <span style="color:#75715e"># get whois info for domain</span>
 dig domain <span style="color:#75715e"># get DNS info for domain</span>
 dig -x host <span style="color:#75715e"># reverse lookup host</span>
@@ -564,11 +552,11 @@ wget --output-document<span style="color:#f92672">=</span>filename.html example.
 wget --directory-prefix<span style="color:#f92672">=</span>folder/subfolder example.com
 wget --continue example.com/big.file.iso
 wget --input list-of-file-urls.txt
-wget http://example.com/images/<span style="color:#f92672">{</span><span style="color:#ae81ff">1</span>..20<span style="color:#f92672">}</span>.jpg
+wget http://example.com/images/<span style="color:#f92672">{</span>1..20<span style="color:#f92672">}</span>.jpg
 wget --page-requisites --span-hosts --convert-links --adjust-extension http://example.com/dir/file
 
 <span style="color:#75715e"># download all MP3 files from a subdir</span>
-wget --level<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span> --recursive --no-parent --accept mp3,MP3 http://example.com/mp3/
+wget --level<span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> --recursive --no-parent --accept mp3,MP3 http://example.com/mp3/
 <span style="color:#75715e"># image</span>
 wget --no-directories --recursive --no-clobber --accept jpg,gif,png,jpeg http://example.com/images/
 <span style="color:#75715e"># pdf</span>
@@ -576,7 +564,7 @@ wget --mirror --domains<span style="color:#f92672">=</span>abc.com,files.abc.com
 <span style="color:#75715e"># Restricted content</span>
 wget --refer<span style="color:#f92672">=</span>http://google.com --user-agent<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Mozzila/5.0 Firefox/4.0.1&#34;</span> http://nytimes.com
 wget --http-user<span style="color:#f92672">=</span>labnol --http-password<span style="color:#f92672">=</span>hello123 URL/secret/file.zip
-wget ‐‐cookies<span style="color:#f92672">=</span>on ‐‐save-cookies cookies.txt ‐‐keep-session-cookies ‐‐post-data ‘user<span style="color:#f92672">=</span>labnol&amp;password<span style="color:#f92672">=</span><span style="color:#ae81ff">123</span>’ http://example.com/login.php
+wget ‐‐cookies<span style="color:#f92672">=</span>on ‐‐save-cookies cookies.txt ‐‐keep-session-cookies ‐‐post-data ‘user<span style="color:#f92672">=</span>labnol&amp;password<span style="color:#f92672">=</span>123’ http://example.com/login.php
 wget ‐‐cookies<span style="color:#f92672">=</span>on ‐‐load-cookies cookies.txt ‐‐keep-session-cookies http://example.com/paywall
 <span style="color:#75715e"># get size of file w/o dl</span>
 wget --spider --server-response URL/file.iso
@@ -591,26 +579,25 @@ wget --limit-rate<span style="color:#f92672">=</span>20k --wait<span style="colo
 curl http://www.netscape.com/
 curl ftp://ftp.funet.fi/README
 curl http://www.weirdserver.com:8000/
-curl -u username: --key ~/.ssh/id_rsa scp://example.com/~/file.txt</code></pre></div>
-<p><strong>Installation</strong></p>
+curl -u username: --key ~/.ssh/id_rsa scp://example.com/~/file.txt
+
+
+</code></pre></div><p><strong>Installation</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># install from source:</span>
 ./configure
 make
 make install
 dpkg -i pkg.deb <span style="color:#75715e"># install a pckg (Debian)</span>
-rpm -Uvh pkg.rpm</code></pre></div>
-<h3 id="find-file-in-current-dir-with-filename-full-path-printed">Find file in current dir with filename, full path printed</h3>
-
+rpm -Uvh pkg.rpm
+</code></pre></div><h3 id="find-file-in-current-dir-with-filename-full-path-printed">Find file in current dir with filename, full path printed</h3>
 <p>find &ldquo;$(pwd -P)&rdquo; -name &ldquo;.zshrc&rdquo;</p>
-
 <h3 id="make">MAKE</h3>
-
 <p><code>make</code> reads <code>Makefile</code> defining set of tasks to be executed (e.g. compile a program from source code)</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-makefile" data-lang="makefile"><span style="color:#a6e22e">say_hello</span><span style="color:#f92672">:</span> <span style="color:#75715e"># func name, aka TARGET; DEPENDENCIES follow here
 </span><span style="color:#75715e"></span>	echo <span style="color:#e6db74">&#34;Hello World&#34;</span> <span style="color:#75715e"># RECIPE using DEPENDENCIES to make TARGET</span>
 	
 <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> prerequisites
-<span style="color:#960050;background-color:#1e0010">&lt;TAB&gt;recipe</span>
+<span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#960050;background-color:#1e0010">T</span><span style="color:#960050;background-color:#1e0010">A</span><span style="color:#960050;background-color:#1e0010">B</span><span style="color:#960050;background-color:#1e0010">&gt;</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">e</span>
 
 <span style="color:#75715e"># a target might be binary file depending on prereq (source files) which can also be target depending on other deps
 </span><span style="color:#75715e"></span>
@@ -624,7 +611,7 @@ rpm -Uvh pkg.rpm</code></pre></div>
 	@echo <span style="color:#e6db74">&#34;Hello World&#34;</span>
 <span style="color:#a6e22e">generate</span><span style="color:#f92672">:</span>
 	@echo <span style="color:#e6db74">&#34;Creating empty text files...&#34;</span>
-	touch file-<span style="color:#f92672">{</span><span style="color:#ae81ff">1</span>..10<span style="color:#f92672">}</span>.txt
+	touch file-<span style="color:#f92672">{</span>1..10<span style="color:#f92672">}</span>.txt
 <span style="color:#a6e22e">clean</span><span style="color:#f92672">:</span>
 	@echo <span style="color:#e6db74">&#34;Cleaning up...&#34;</span>
 	rm *.txt
@@ -637,15 +624,15 @@ rpm -Uvh pkg.rpm</code></pre></div>
 <span style="color:#a6e22e">all</span><span style="color:#f92672">:</span>say_hello generate
 
 <span style="color:#75715e"># Good practice not to call clean in all or put it as first target. Manually as arg
-</span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">make</span> <span style="color:#960050;background-color:#1e0010">clean</span>
+</span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">m</span><span style="color:#960050;background-color:#1e0010">a</span><span style="color:#960050;background-color:#1e0010">k</span><span style="color:#960050;background-color:#1e0010">e</span> <span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">a</span><span style="color:#960050;background-color:#1e0010">n</span>
 
 <span style="color:#75715e"># ADVANCED EX
-</span><span style="color:#75715e"># Variables 
+</span><span style="color:#75715e"></span><span style="color:#75715e"># Variables 
 </span><span style="color:#75715e"></span>CC <span style="color:#f92672">:=</span> gcc <span style="color:#75715e"># recursive expanded variable</span>
 CC <span style="color:#f92672">:=</span> <span style="color:#e6db74">${</span>CC<span style="color:#e6db74">}</span>
 <span style="color:#a6e22e">hello</span><span style="color:#f92672">:</span>hello.c
 	<span style="color:#e6db74">${</span>CC<span style="color:#e6db74">}</span>hello.c -o hello <span style="color:#75715e"># recipe expands as below when passed</span> 
-<span style="color:#960050;background-color:#1e0010">gcc</span> <span style="color:#960050;background-color:#1e0010">hello.c</span> <span style="color:#960050;background-color:#1e0010">-o</span> <span style="color:#960050;background-color:#1e0010">hello</span>
+<span style="color:#960050;background-color:#1e0010">g</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">c</span> <span style="color:#960050;background-color:#1e0010">h</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#960050;background-color:#1e0010">c</span> <span style="color:#960050;background-color:#1e0010">-</span><span style="color:#960050;background-color:#1e0010">o</span> <span style="color:#960050;background-color:#1e0010">h</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">o</span>
 <span style="color:#75715e"># both ${CC} and £(CC) valid ref to call gcc
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">all</span><span style="color:#f92672">:</span>
 	@echo <span style="color:#e6db74">${</span>CC<span style="color:#e6db74">}</span>
@@ -653,8 +640,8 @@ CC <span style="color:#f92672">:=</span> <span style="color:#e6db74">${</span>CC
 <span style="color:#75715e"># Example: compile all C programs by using var, patterns, func
 </span><span style="color:#75715e"></span>
 <span style="color:#75715e"># Usage:
-</span><span style="color:#75715e"># make        # compile all binary
-</span><span style="color:#75715e"># make clean  # remove ALL binaries and objects
+</span><span style="color:#75715e"></span><span style="color:#75715e"># make        # compile all binary
+</span><span style="color:#75715e"></span><span style="color:#75715e"># make clean  # remove ALL binaries and objects
 </span><span style="color:#75715e"></span>
 .PHONY <span style="color:#f92672">=</span> all clean
 
@@ -678,77 +665,71 @@ BINS <span style="color:#f92672">:=</span> <span style="color:#66d9ef">$(</span>
 <span style="color:#a6e22e">clean</span><span style="color:#f92672">:</span>
         @echo <span style="color:#e6db74">&#34;Cleaning up...&#34;</span>
         rm -rvf *.o <span style="color:#e6db74">${</span>BINS<span style="color:#e6db74">}</span>
-</code></pre></div>
-<p>Run <code>make</code> outputting as expected</p>
-
+</code></pre></div><p>Run <code>make</code> outputting as expected</p>
 <ul>
 <li>Not necessary target to be file, name for recipe could do &lsquo;phony targets&rsquo;</li>
 </ul>
-
-<h3 id="screen-multiple-windows-virtual-terminals-in-unix">SCREEN - Multiple Windows (virtual terminals) in UNIX</h3>
-
+<h3 id="screen---multiple-windows-virtual-terminals-in-unix">SCREEN - Multiple Windows (virtual terminals) in UNIX</h3>
 <ul>
 <li>If local machine crashes / lose connection (e.g. SSH), the process or login sessions via <code>screen</code> persist - resumed with <code>screen -r</code> (may need ARG if multiple detached screens)
-
 <ul>
-<li>In some crashes may need to manually &ldquo;detach&rdquo; before &ldquo;Attach&rdquo;</li>
+<li>In some crashes may need to manually &ldquo;detach&rdquo; before &ldquo;Attach&rdquo;
+<ul>
 <li>Find out current screens : <code>screen -list</code></li>
 <li>Possible states : dead, attached, detached</li>
 <li>To detach : <code>screen -D [PID].[machine_arguments]</code></li>
 <li>Resume : <code>screen -r [PID].[machine_arguments]</code></li>
-</ul></li>
+</ul>
+</li>
+</ul>
+</li>
 <li>Cut and paste between screens using CLI + Block copy feature + multiple pages copy/paste</li>
-
-<li><p>Detach for resuming after logging out !</p>
+<li>Detach for resuming after logging out !</li>
+</ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">screen <span style="color:#75715e"># start</span>
 Ctrl-a c <span style="color:#75715e"># create new window/shell</span>
 Ctrl-a k <span style="color:#75715e"># kill current window</span>
 w <span style="color:#75715e"># list all</span>
-<span style="color:#ae81ff">0</span>-9 <span style="color:#75715e"># switch window</span>
+0-9 <span style="color:#75715e"># switch window</span>
 <span style="color:#f92672">[</span> <span style="color:#75715e"># start copy mode</span>
 <span style="color:#f92672">]</span> <span style="color:#75715e"># paste copied text</span>
 D <span style="color:#75715e"># power detach and logout</span>
-d <span style="color:#75715e"># detach but keep shell window open</span></code></pre></div></li>
-
-<li><p>Copy a block : <code>Ctrl-a [</code> to move cursor (h, j, k, l) <code>0</code> or <code>^</code> moves to start and <code>$</code> moves to end ; <code>Ctrl-b</code> scrolls cursor back one page and <code>Ctrl-f</code> forward one ; to set left and right margins of copy <code>c</code> and <code>C</code> ; spacebar starts selecting text and ends ; to abort copy mode <code>Ctrl-g</code></p></li>
-
-<li><p>Other CMD : <code>screen unixcommand</code> in a new window</p></li>
+d <span style="color:#75715e"># detach but keep shell window open</span>
+</code></pre></div><ul>
+<li>Copy a block : <code>Ctrl-a [</code> to move cursor (h, j, k, l) <code>0</code> or <code>^</code> moves to start and <code>$</code> moves to end ; <code>Ctrl-b</code> scrolls cursor back one page and <code>Ctrl-f</code> forward one ; to set left and right margins of copy <code>c</code> and <code>C</code> ; spacebar starts selecting text and ends ; to abort copy mode <code>Ctrl-g</code></li>
+<li>Other CMD : <code>screen unixcommand</code> in a new window</li>
 </ul>
-
 <h3 id="12-ml-cli">12 ML CLI</h3>
-
 <ul>
-<li><code>wget &lt;URL.ext&gt;</code>      file retriver for downloading files</li>
-<li><code>cat</code>     outputting file for preview</li>
-<li><code>wc</code>      procuding counts, word/line/byte/ etc</li>
+<li><code>wget &lt;URL.ext&gt;</code> 		file retriver for downloading files</li>
+<li><code>cat</code> 	outputting file for preview</li>
+<li><code>wc</code> 		procuding counts, word/line/byte/ etc</li>
 <li><code>head / tail</code></li>
-<li><code>cut -d ',' -f 5 iris.csv</code>    <strong>slicing</strong> out sections of line of text; <strong>fifth</strong> col using comma delimiter</li>
-<li><code>uniq</code>    unique count of pipeline |</li>
+<li><code>cut -d ',' -f 5 iris.csv</code> 	<strong>slicing</strong> out sections of line of text; <strong>fifth</strong> col using comma delimiter</li>
+<li><code>uniq</code> 	unique count of pipeline |</li>
 <li><code>awk '/setosa/ { print $0 }' iris.csv</code></li>
 <li><code>sed / history</code></li>
 </ul>
-
 <h3 id="globbing">Globbing</h3>
-
 <ol>
 <li>list all files anywhere under folder
-
 <ul>
 <li><code>ls folder/**/*.txt</code></li>
-</ul></li>
+</ul>
+</li>
 <li>print results
-
 <ul>
 <li><code>print -l folder/*/*</code></li>
-</ul></li>
+</ul>
+</li>
 <li>wildcard, in crux regex!
-
 <ul>
 <li><code>*&lt;1-10&gt;.txt</code></li>
 <li><code>[a]*.txt</code></li>
 <li><code>(ab|bc)*.txt</code></li>
 <li><code>[^cC]*.txt</code></li>
-</ul></li>
+</ul>
+</li>
 <li>qualifiers
 <code>*(/) # directories</code>
 <code>*(.) # regular files</code>
@@ -756,118 +737,107 @@ d <span style="color:#75715e"># detach but keep shell window open</span></code><
 <code>*(Lk+3) # greater than 3KB</code>
 <code>*(mh-1) # modified in last hour</code>
 <code>*(om[1,3]) # ordered most to least recently mod and show last 3</code></li>
-
-<li><p>show all not having a file</p>
-
+<li>show all not having a file</li>
+</ol>
 <pre><code>print -l folder/*/*(e:'[[ ! -e $REPLY/file ]]':)
 	e: ensued by delimited 'cmd'
 	$REPLY variable has all file name return one per time
 	[[ -e file ]] is cond.expression returns true if file exits, i.e. not true here
-</code></pre></li>
-
-<li><p>modifier: return file name
+</code></pre><ol>
+<li>modifier: return file name
 <code>*.txt(:t)</code> # tail
 <code>*.txt(:t:r)</code> # removed ext
-<code>*.txt(:e)</code> # returns ext</p></li>
-
-<li><p>storing glob as variable</p>
-
+<code>*.txt(:e)</code> # returns ext</li>
+<li>storing glob as variable
 <ul>
 <li><code>my_file=(folder/data/europe/*.txt([1]))</code></li>
 <li><code>print -l ${my_file:h}</code></li>
-</ul></li>
+</ul>
+</li>
 </ol>
-
 <h3 id="magic-tabbing">Magic tabbing</h3>
-
 <ol>
 <li>Modify .sh file as executable
-
 <ul>
 <li><code>chmod u+x file.sh</code></li>
-</ul></li>
+</ul>
+</li>
 <li>Add to PATH for simple CLI (saved in ~/bin)
-
 <ul>
 <li><code>export PATH=$PATH:~/bin</code> # add to end</li>
-</ul></li>
+</ul>
+</li>
 </ol>
-
-<h3 id="ghostscript-gs-modifying-pdf">Ghostscript: gs -modifying pdf</h3>
-
+<h3 id="ghostscript-gs--modifying-pdf">Ghostscript: gs -modifying pdf</h3>
 <ol>
 <li>combine pdf files
-
 <ul>
 <li><code>gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress -sOutputFile=merged.pdf mine1.pdf mine2.pdf</code></li>
-</ul></li>
+</ul>
+</li>
 <li>combine + super-shrink
-
 <ul>
 <li><code>gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/default -dNOPAUSE -dQUIET -dBATCH -dDetectDuplicateImages -dCompressFonts=true -r150 -sOutputFile=output.pdf input.pdf</code></li>
-</ul></li>
+</ul>
+</li>
 <li>Convert PDF to PNG
-
 <ul>
 <li><code>gs -dNOPAUSE -dBATCH -sDEVICE=png16m -sOutputFile=&quot;Pic-%d.png&quot; input.pdf</code></li>
-</ul></li>
+</ul>
+</li>
 </ol>
-
 <h3 id="print-file-specially">Print file specially</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">- pr -2t filename <span style="color:#75715e"># 2-column + trimmed</span>
 - grep <span style="color:#f92672">[</span>-v print all UN-match pattern<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-n with line num.<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-l only name of files<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-c counts<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-i caseless<span style="color:#f92672">]</span>
-- ls -l | grep -i <span style="color:#e6db74">&#34;aug&#34;</span> | sort +4n</code></pre></div>
-<ol>
+- ls -l | grep -i <span style="color:#e6db74">&#34;aug&#34;</span> | sort +4n
+</code></pre></div><ol>
 <li>print process in full
-
 <ul>
 <li><code>ps -f</code></li>
 <li><code>kill -9 'PID'</code></li>
-</ul></li>
+</ul>
+</li>
 <li>run process in backend; bring foreground
-
 <ul>
 <li><code>ls -a &amp;</code></li>
 <li><code>fg jobid # jobs for finding id</code></li>
-</ul></li>
+</ul>
+</li>
 <li>check OS of UNIX
-
 <ul>
 <li><code>uname -a</code></li>
-</ul></li>
+</ul>
+</li>
 <li>display current drive info or disk utility
-
 <ul>
 <li><code>df -h</code> # human readable for</li>
 <li><code>du -h dir</code> # dito</li>
-</ul></li>
+</ul>
+</li>
 <li>display process (omitting long command line &amp; include them)
-
 <ul>
 <li><code>ps -ef</code></li>
 <li><code>ps -auxwww</code></li>
-</ul></li>
+</ul>
+</li>
 <li>list all processes using a particular file
-
 <ul>
 <li><code>lsof | grep &quot;filename&quot;</code></li>
-</ul></li>
+</ul>
+</li>
 <li>word replacing in file
-
 <ul>
 <li><code>sed s/old/new/g filename</code></li>
-</ul></li>
+</ul>
+</li>
 <li>list only 3rd column of a tap-sep files
-
 <ul>
 <li><code>cut -f3 filename</code> # awk is another app</li>
-</ul></li>
+</ul>
+</li>
 </ol>
-
 <h3 id="user-mgt">User MGT</h3>
-
 <p><code>useradd / usermod / userdel (repace user with group)</code> # files stored in /etc/passwd &amp; /group</p>
-
 <h3 id="files-system-of-unix">Files System of UNIX</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">/bin  exec binary to all users
 /dev  device drivers
@@ -875,71 +845,50 @@ d <span style="color:#75715e"># detach but keep shell window open</span></code><
 /lib  shared library files maybe kernel-related filees
 /boot booting Files
 /proc processes marked as a file
-/var  variable-length files such as log and print</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">file filename <span style="color:#75715e"># display file type</span>
+/var  variable-length files such as log and print
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">file filename <span style="color:#75715e"># display file type</span>
 head filename
 less filename <span style="color:#75715e"># from end or beginning</span>
 more filename <span style="color:#75715e"># from beginning to back</span>
 whereis <span style="color:#75715e"># show location of files</span>
-which filename <span style="color:#75715e"># location of a file if it is in PATH</span></code></pre></div>
-<h3 id="scheduling-task-cron">Scheduling Task CRON</h3>
-
+which filename <span style="color:#75715e"># location of a file if it is in PATH</span>
+</code></pre></div><h3 id="scheduling-task-cron">Scheduling Task CRON</h3>
 <p><a href="https://kvz.io/blog/2007/07/29/schedule-tasks-on-linux-using-crontab/">article</a></p>
-
-<h3 id="youtube-video-downloader">YouTube/Video Downloader</h3>
-
+<h3 id="youtubevideo-downloader">YouTube/Video Downloader</h3>
 <p>Format:</p>
-
 <p><code>youtube-dl -F &lt;URL&gt;</code></p>
-
 <p>Choosing index</p>
-
 <p><code>youtube-dl -f 37 &lt;URL&gt;</code></p>
-
 <p>Playlist</p>
-
 <p><code>youtube-dl -cit &lt;playlist_url&gt;</code></p>
-
 <p>Audio</p>
-
 <p><code>youtube-dl -x --audio-format mp3 &lt;video_url&gt;</code></p>
-
 <p><a href="https://github.com/rg3/youtube-dl/blob/master/README.md#readme">Manual</a></p>
-
 <h3 id="kill-proc-listening-on-port">KILL PROC LISTENING ON PORT</h3>
-
 <p><code>lsof -n -i4TCP:8787 | grep LISTEN | awk '{ print $2 }' | xargs kill</code></p>
-
 <h3 id="networking">NETWORKING</h3>
-
 <p><code>ip addr</code> shows IPs, MAC, port status etc</p>
-
 <p><code>ifconfig</code> similar output but including packets and bytes count</p>
-
 <p><code>route</code> <code>-n</code>  route table</p>
-
 <p><code>netstat -n</code> active connections</p>
-
 <p><code>netstat -l -p</code> listening ports and procs</p>
-
 <p><code>tcpdump</code> CLI Wireshark</p>
-
 <h3 id="misc">MISC</h3>
-
 <p>GITUP SCRIPT (passing read arg)</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">read -p <span style="color:#e6db74">&#34;Some prompt msg...&#34;</span> msg &lt;/dev/tty
 ...
-git commit -m <span style="color:#e6db74">&#34;</span>$msg<span style="color:#e6db74">&#34;</span></code></pre></div>
-<p>XARGS - map args to cmd</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo <span style="color:#e6db74">&#34;.\n..\n../..&#34;</span> | xargs ls</code></pre></div>
-<p>UNIX MacOS open</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">xdg-open index.html</code></pre></div>
-<p>STDIN/OUT/ERR</p>
+git commit -m <span style="color:#e6db74">&#34;</span>$msg<span style="color:#e6db74">&#34;</span>
+</code></pre></div><p>XARGS - map args to cmd</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo <span style="color:#e6db74">&#34;.\n..\n../..&#34;</span> | xargs ls
+</code></pre></div><p>UNIX MacOS open</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">xdg-open index.html
+</code></pre></div><p>STDIN/OUT/ERR</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo <span style="color:#e6db74">&#34;stdout&#34;</span> &gt;&amp;<span style="color:#ae81ff">1</span>
 echo <span style="color:#e6db74">&#34;stderr&#34;</span> &gt;&amp;<span style="color:#ae81ff">2</span>
 
 <span style="color:#75715e"># pkg above into sh &#39;test&#39;</span>
 <span style="color:#75715e"># redirect stout to /dev/null</span>
-./test <span style="color:#ae81ff">1</span>&gt;/dev/null
+./test 1&gt;/dev/null
 
 <span style="color:#75715e">#Redirect all to /dev/null</span>
 ./test &amp;&gt;/dev/null
@@ -948,32 +897,36 @@ echo <span style="color:#e6db74">&#34;stderr&#34;</span> &gt;&amp;<span style="c
 ls <span style="color:#f92672">&amp;&amp;</span> echo <span style="color:#e6db74">&#34;test&#34;</span> | tee file1 file2 file3 <span style="color:#f92672">&amp;&amp;</span> ls
 
 <span style="color:#75715e"># | pipe stdout to input, &gt; &lt; takes input elsewhere</span>
-printf <span style="color:#e6db74">&#34;1\n2\n3&#34;</span> &gt; file <span style="color:#f92672">&amp;&amp;</span> sort &lt; file</code></pre></div>
-<p>TEXT EDIT</p>
+printf <span style="color:#e6db74">&#34;1\n2\n3&#34;</span> &gt; file <span style="color:#f92672">&amp;&amp;</span> sort &lt; file
+</code></pre></div><p>TEXT EDIT</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># using sed - this doesn</span>
+find .txt -exec sed -i <span style="color:#e6db74">&#39;1s/^/task goes here\n/&#39;</span> todo.txt
+<span style="color:#75715e"># add &lt;text&gt; on first 10 lines</span>
+sed -i <span style="color:#e6db74">&#39;1,10s/^/&lt;text&gt; /&#39;</span> file
+ 
+ <span style="color:#75715e"># sub</span>
+ cat &lt;<span style="color:#f92672">(</span>echo <span style="color:#e6db74">&#34;before&#34;</span><span style="color:#f92672">)</span> text.txt &gt; newfile.txt
 
-<p>```shell</p>
 
-<h1 id="using-sed-this-doesn">using sed - this doesn</h1>
 
-<p>find .txt -exec sed -i &lsquo;1s/^/task goes here\n/&rsquo; todo.txt</p>
+<span style="color:#75715e"># Append/prepend text to file in loops</span>
+<span style="color:#66d9ef">for</span> file in *.txt ; <span style="color:#66d9ef">do</span>
+  printf <span style="color:#e6db74">&#39;%s\n&#39;</span> 0a this is text . w | ed -s <span style="color:#e6db74">&#34;</span>$file<span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">done</span>
 
-<h1 id="add-text-on-first-10-lines">add <text> on first 10 lines</h1>
+<span style="color:#75715e"># Edit additional text (extra step)</span>
+<span style="color:#75715e"># define text in .txt</span>
+</code></pre></div><h2 id="ssltsl">SSL/TSL</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">openssl genrsa -out example.key <span style="color:#ae81ff">2048</span>
 
-<p>sed -i &lsquo;1,10s/^/<text> /&rsquo; file</p>
+<span style="color:#75715e"># create CSR (certified signing request) per private key</span>
+openssl req -new -key example.key -out example.csr <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>-subj <span style="color:#e6db74">&#34;/C=US/ST=TX/L=Dallas/O=Red Hat/OU=IT/CN=test.example.com&#34;</span>
 
-<p># sub
- cat &lt;(echo &ldquo;before&rdquo;) text.txt &gt; newfile.txt</p>
-
-<h1 id="append-prepend-text-to-file-in-loops">Append/prepend text to file in loops</h1>
-
-<p>for file in *.txt ; do
-  printf &lsquo;%s\n&rsquo; 0a this is text . w | ed -s &ldquo;$file&rdquo;
-done</p>
-
-<h1 id="edit-additional-text-extra-step">Edit additional text (extra step)</h1>
-
-<h1 id="define-text-in-txt">define text in .txt</h1>
-</div>
+<span style="color:#75715e"># create certificate per CSR and private key</span>
+openssl x509 -req -days <span style="color:#ae81ff">366</span> -in example.csr <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>-signkey example.key -out example.crt
+</code></pre></div></div>
 
         
         <div class="section bottom-menu">

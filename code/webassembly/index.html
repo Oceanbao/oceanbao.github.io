@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<meta name="description" content="Ocean on GitHub.">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:domain" content="https://oceanbao.github.io/">
+
+<meta name="twitter:image" content="https://oceanbao.github.io/tn.png">
+<meta name="twitter:title" property="og:title" itemprop="title name" content="Ocean Ode">
+<meta name="twitter:description" property="og:description" itemprop="description" content="Ocean on GitHub.">
+<meta name="og:type" content="website">
+<meta name="og:url" content="https://oceanbao.github.io/">
+<meta name="og:image" itemprop="image primaryImageOfPage" content="https://oceanbao.github.io/tn.png">
+
+<link rel="shortcut icon" href="https://oceanbao.github.io/oceanicon.jpg" id="favicon">
+<link rel="stylesheet" href="https://oceanbao.github.io/css/style.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+
+    
+
+    
+    
+    
+    <title>
+        
+        WebAssembly
+        
+    </title>
+</head>
+
+<body>
+
+    <div class="wrap">
+        <div class="section" id="title">WebAssembly</div>
+        <aside>
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#wasm-rust-web-app">WASM-RUST Web App</a></li>
+  </ul>
+</nav>
+        </aside>
+        <div class="section" id="content"><h1 id="what">WHAT</h1>
+<blockquote>
+<p>WASM is a binary instruction format for a stack-based virtual machine. It's designed as a portable target for compilation of high-level languages like C++, enabling deployment on the web for client and server applications. It defines an Abstract Syntax Tree (AST) which gets stored in a <strong>binary format</strong></p>
+</blockquote>
+<p>Brief:</p>
+<ul>
+<li>JS is a standard with doc of per line behaviour</li>
+<li>Browser uses a JS engine (aka Virtual Machine) to <strong>interpret</strong> and <strong>run</strong> JS code based on the official specs</li>
+<li>In short, WASM is a W3C standard defining a binary format with <strong>.wasm</strong> extension file containing machine instructions (i.e. compiled code)</li>
+<li>Any engine can run <code>.wasm</code> files if standard implemented</li>
+<li>KEY: WASM is intended to run on web browser's JS engines! All major browsers added support so can call wasm code from JS and vice-versa</li>
+</ul>
+<p>How it works:</p>
+<ol>
+<li>Dev code in C++</li>
+<li>Compile with WA support into WA <strong>byte-code</strong> files</li>
+<li>Browser JS Engine translates WASM into machine code and runs it</li>
+</ol>
+<p><img src="https://cdn-images-1.medium.com/max/1600/0*xU7akQpF9KctXbQA.png" alt="Logic Flow"></p>
+<p>DEMO - Counting</p>
+<ol>
+<li>Create a couple of C funcs</li>
+<li>Compile C code to wasm file; multiple ways for this process</li>
+<li>Web application JS can fetch wasm file and call C funcs (which is now in wasm binary format)</li>
+<li>Lastly, user click triggers JS calling the C func and uses the output to update DOM</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># file dir</span>
+node_modules
+index.c
+index.css
+index.html
+index.js
+index.wasm
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">body</span>&gt;
+    &lt;<span style="color:#f92672">h1</span>&gt;
+        Web Assembly Demo
+    &lt;/<span style="color:#f92672">h1</span>&gt;
+    &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn-doit&#34;</span>&gt;
+        Do it!
+    &lt;/<span style="color:#f92672">button</span>&gt;
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;display-area&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;display-area-doit&#34;</span>&gt;
+        &lt;<span style="color:#f92672">p</span>&gt;
+            0
+        &lt;/<span style="color:#f92672">p</span>&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+    
+    &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn-count&#34;</span>&gt;
+        Count
+    &lt;/<span style="color:#f92672">button</span>&gt;
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;display-area&#34;</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;display-area-count&#34;</span>&gt;
+        &lt;<span style="color:#f92672">p</span>&gt;
+            0
+        &lt;/<span style="color:#f92672">p</span>&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+    
+    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;index.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">body</span>&gt;
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// index.c
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">CCount</span>(<span style="color:#66d9ef">int</span> increaseValue) {
+    count <span style="color:#f92672">=</span> increaseValue <span style="color:#f92672">+</span> count;
+    <span style="color:#66d9ef">return</span> count;
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">CDoit</span>() {
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">42</span>;
+}
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;index.wasm&#39;</span>).<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">response</span> =&gt;
+                        <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">arrayBuffer</span>()
+                        ).<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">bytes</span> =&gt;
+                              <span style="color:#a6e22e">WebAssembly</span>.<span style="color:#a6e22e">instantiate</span>(<span style="color:#a6e22e">bytes</span>, <span style="color:#a6e22e">importObject</span>)
+                              ).<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">results</span> =&gt; {
+    <span style="color:#75715e">// Get access to WASM code
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">wasmExports</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">results</span>.<span style="color:#a6e22e">instance</span>.<span style="color:#a6e22e">exports</span>;
+    
+    <span style="color:#a6e22e">doItButton</span>.<span style="color:#a6e22e">onclick</span> <span style="color:#f92672">=</span> ()=&gt; {
+        <span style="color:#a6e22e">doItDisplayArea</span>.<span style="color:#a6e22e">innerText</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">wasmExports</span>.<span style="color:#a6e22e">CCount</span>();
+    }
+    
+    <span style="color:#a6e22e">counterButton</span>.<span style="color:#a6e22e">onclick</span> <span style="color:#f92672">=</span> ()=&gt; {
+        <span style="color:#a6e22e">counterDisplayArea</span>.<span style="color:#a6e22e">innerText</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">wasmExports</span>.<span style="color:#a6e22e">CDoit</span>(<span style="color:#ae81ff">1</span>);
+    }
+</code></pre></div><p><strong>WHY</strong></p>
+<ul>
+<li>HPC web apps - CPU-intensive on <strong>front end</strong></li>
+<li>Native interop with JS sharing objects two-way</li>
+<li>Use case:
+<ul>
+<li>game</li>
+<li>ML</li>
+<li>VR</li>
+<li>Speed streaming editing</li>
+<li>Image recognition and visualisation and simulation etc</li>
+</ul>
+</li>
+</ul>
+<h2 id="wasm-rust-web-app">WASM-RUST Web App</h2>
+<p><img src="https://miro.medium.com/max/875/1*jxw6m_ObbwHuRFhmYpsBbg.png" alt="Flow"></p>
+<blockquote>
+<p>Live update possible (Rust, C++) have live-reloading and hot-module-replacement auto-display changes</p>
+</blockquote>
+<p>Support means:</p>
+<ul>
+<li>Production-grade compilers and tool-chains generating WASM</li>
+<li>Active community and helper tools</li>
+<li>Less experimental libraries</li>
+</ul>
+<p><strong>Mainly due to WASM supports ONLY flat linear memoary - good for C++/Rust but other needs GC to run</strong></p>
+<p>Demo - updating click with Rust-Wasm func rather than JS</p>
+<ul>
+<li>
+<p>overkill sure, more for say hashing function or etc</p>
+</li>
+<li>
+<p>Requisites:</p>
+<ul>
+<li>NodeJS (<a href="https://nodejs.org/en/download/">https://nodejs.org/en/download/</a>)</li>
+<li>Rust toolchain (<a href="https://www.rust-lang.org/tools/install">https://www.rust-lang.org/tools/install</a>)</li>
+<li>Wasm-Pack (<a href="https://rustwasm.github.io/wasm-pack/installer/">https://rustwasm.github.io/wasm-pack/installer/</a>)</li>
+</ul>
+</li>
+</ul>
+<p>Tutorial (<a href="https://medium.com/tech-lah/webassembly-part-ii-a-wasm-with-rust-2356dbc6526e">https://medium.com/tech-lah/webassembly-part-ii-a-wasm-with-rust-2356dbc6526e</a>)</p>
+</div>
+
+        
+        <div class="section bottom-menu">
+<hr />
+<p>
+
+
+    
+
+    
+        
+            <a href="/code">
+                code
+            </a>
+        
+    
+    
+        
+            &#183; 
+            <a href="https://tiny.cc/oceannotebook">
+                notebook
+            </a>
+        
+            &#183; 
+            <a href="https://github.com/Oceanbao/KEN">
+                KEN
+            </a>
+        
+            &#183; 
+            <a href="/prose">
+                prose
+            </a>
+        
+            &#183; 
+            <a href="/gallery">
+                gallery
+            </a>
+        
+            &#183; 
+            <a href="/qui">
+                qui et quoi?
+            </a>
+        
+    
+    &#183; 
+    <a href="https://oceanbao.github.io/">
+        main
+    </a>
+
+</p></div>
+        
+
+        <div class="section footer">Ocean Ode
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script></div>
+    </div>
+</body>
+
+</html>

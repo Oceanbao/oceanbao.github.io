@@ -17,8 +17,8 @@
       <pubDate>Tue, 10 Sep 2019 15:15:52 +0800</pubDate>
       
       <guid>https://oceanbao.github.io/prose/end-of-summer/</guid>
-      <description>La fin d&amp;rsquo;été C&amp;rsquo;est peut-être quelque jours après ce que j&amp;rsquo;oubliais comment écrire les mots français, mais dépuis aujourd&amp;rsquo;huid&amp;hellip;
-à continuer&amp;hellip; oh c&amp;rsquo;est pas grave!</description>
+      <description>La fin d&#39;été C&#39;est peut-être quelque jours après ce que j&#39;oubliais comment écrire les mots français, mais dépuis aujourd&#39;huid&amp;hellip;
+à continuer&amp;hellip; oh c&#39;est pas grave!</description>
     </item>
     
     <item>
@@ -28,12 +28,13 @@
       
       <guid>https://oceanbao.github.io/prose/becoming_mle/</guid>
       <description>Becoming Machine Learning Engineer Goal Output = Service/Product as Software integrating end-to-end ecosystem.
-Summary of Skills  CS Fundamentals and Programming  Data Structure
+Summary of Skills   CS Fundamentals and Programming
+Data Structure
  Stacks queues multi-D arrays trees graphs  Algorithms
  search sort optimisation Dynamic programming  Computation and Complexity
  NP/P/NP-Complete O() approximate heuristics  Architecture
- memory cache bandwidth deadlocks distributed processing   Probability and Statistics
- Bayes Net Markov Decision Process HMM  Data Modeling and Evaluation</description>
+ memory cache bandwidth deadlocks distributed processing    Probability and Statistics
+ Bayes Net Markov Decision Process HMM    Data Modeling and Evaluation</description>
     </item>
     
     <item>
@@ -56,8 +57,8 @@ firgure or image:   title herecaption here
       
       <guid>https://oceanbao.github.io/prose/code-poetry/</guid>
       <description>Pseudo code poem.
-if (this === that): try write_new_poem() except not_a_poet as e: return  Or just one long line&amp;hellip;
-console.log(&amp;#39;Sometimes lines are waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaay toooooooooooooooooooo looooooooooooooooooooooooooooooong&amp;#39;)  An embedded gist using shortcode:
+if (this === that): try write_new_poem() except not_a_poet as e: return Or just one long line&amp;hellip;
+console.log(&amp;#39;Sometimes lines are waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaay toooooooooooooooooooo looooooooooooooooooooooooooooooong&amp;#39;) An embedded gist using shortcode:
  </description>
     </item>
     
@@ -67,9 +68,9 @@ console.log(&amp;#39;Sometimes lines are waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
       <pubDate>Thu, 01 Feb 2018 12:35:11 -0500</pubDate>
       
       <guid>https://oceanbao.github.io/prose/a-poem/</guid>
-      <description>Now pleasing sleep had seal&amp;rsquo;d each mortal eye,
-Stretch&amp;rsquo;d in the tents the Grecian leaders lie:
-The immortals slumber&amp;rsquo;d on their thrones above;
+      <description>Now pleasing sleep had seal&#39;d each mortal eye,
+Stretch&#39;d in the tents the Grecian leaders lie:
+The immortals slumber&#39;d on their thrones above;
 All, but the ever-wakeful eyes of Jove.(76)
 To honour Thetis&amp;rsquo; son he bends his care,
 And plunge the Greeks in all the woes of war:

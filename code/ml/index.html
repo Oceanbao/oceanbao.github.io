@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<meta name="description" content="Ocean on GitHub.">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:domain" content="https://oceanbao.github.io/">
+
+<meta name="twitter:image" content="https://oceanbao.github.io/tn.png">
+<meta name="twitter:title" property="og:title" itemprop="title name" content="Ocean Ode">
+<meta name="twitter:description" property="og:description" itemprop="description" content="Ocean on GitHub.">
+<meta name="og:type" content="website">
+<meta name="og:url" content="https://oceanbao.github.io/">
+<meta name="og:image" itemprop="image primaryImageOfPage" content="https://oceanbao.github.io/tn.png">
+
+<link rel="shortcut icon" href="https://oceanbao.github.io/oceanicon.jpg" id="favicon">
+<link rel="stylesheet" href="https://oceanbao.github.io/css/style.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+
+    
+
+    
+    
+    
+    <title>
+        
+        ML
+        
+    </title>
+</head>
+
+<body>
+
+    <div class="wrap">
+        <div class="section" id="title">ML</div>
+        <aside>
+            <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#class-imbalance">Class Imbalance</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </aside>
+        <div class="section" id="content"><h3 id="class-imbalance">Class Imbalance</h3>
+<p>An entry from the <em>Encyclopedia of Machine Learning</em> (<a href="https://cling.csd.uwo.ca/papers/cost_sensitive.pdf">https://cling.csd.uwo.ca/papers/cost_sensitive.pdf</a>) helpfully explains that what gets called &ldquo;the class imbalance problem&rdquo; is better understood as three separate problems:</p>
+<pre><code> (1) assuming that an accuracy metric is appropriate when it is not
+
+ (2) assuming that the test distribution matches the training 
+     distribution when it does not
+
+ (3) assuming that you have enough minority class data when you do not
+</code></pre><p>The authors explain:</p>
+<blockquote>
+<p>The class imbalanced datasets occurs in many real-world applications where the class distributions of data are highly imbalanced. Again, without loss of generality, we assume that the minority or rare class is the positive class, and the majority class is the negative class. Often the minority class is very small, such as 1%of the dataset. If we apply most traditional (cost-insensitive) classifiers on the dataset, they will likely to predict everything as negative (the majority class). This was often regarded as a problem in learning from highly imbalanced datasets.</p>
+<p>However, as pointed out by (Provost, 2000), two fundamental assumptions are often made in the traditional cost-insensitive classifiers. The first is that the goal of the classifiers is to maximize the accuracy (or minimize the error rate); the second is that the class distribution of the training and test datasets is the same. Under these two assumptions, predicting everything as negative for a highly imbalanced dataset is often the right thing to do. (Drummond and Holte, 2005) show that it is usually very difficult to outperform this simple classifier in this situation.</p>
+<p>Thus, the imbalanced class problem becomes meaningful only if one or both of the two assumptions above are not true; that is, if the cost of different types of error (false positive and false negative in the binary classification) is not the same, or if the class distribution in the test data is different from that of the training data. The first case can be dealt with effectively using methods in cost-sensitive meta-learning.</p>
+<p>In the case when the misclassification cost is not equal, it is usually more expensive to misclassify a minority (positive) example into the majority (negative) class, than a majority example into the minority class (otherwise it is more plausible to predict everything as negative). That is, FN &gt; FP. Thus, given the values of FN and FP, a variety of cost-sensitive meta-learning methods can be, and have been, used to solve the class imbalance problem (Ling and Li, 1998; Japkowicz and Stephen, 2002). If the values of FN and FP are not unknown explicitly, FN and FP can be assigned to be proportional to p(-):p(+) (Japkowicz and Stephen, 2002).</p>
+<p>In case the class distributions of training and test datasets are different (for example, if the training data is highly imbalanced but the test data is more balanced), an obvious approach is to sample the training data such that its class distribution is the same as the test data (by oversampling the minority class and/or undersampling the majority class)(Provost, 2000).</p>
+<p>Note that sometimes the number of examples of the minority class is too small for classifiers to learn adequately. This is the problem of insufficient (small) training data, different from that of the imbalanced datasets.</p>
+</blockquote>
+<p>Thus, as Murphy implies, there is nothing inherently problematic about using imbalanced classes, provided you avoid these three mistakes. Models that yield posterior probabilities make it easier to avoid error (1) than do discriminant models like SVM because they enable you to separate inference from decision-making. (See Bishop's section 1.5.4 <em>Inference and Decision</em> for further discussion of that last point.)</p>
+<p><a href="https://www.svds.com/learning-imbalanced-classes/">https://www.svds.com/learning-imbalanced-classes/</a></p>
+</div>
+
+        
+        <div class="section bottom-menu">
+<hr />
+<p>
+
+
+    
+
+    
+        
+            <a href="/code">
+                code
+            </a>
+        
+    
+    
+        
+            &#183; 
+            <a href="https://tiny.cc/oceannotebook">
+                notebook
+            </a>
+        
+            &#183; 
+            <a href="https://github.com/Oceanbao/KEN">
+                KEN
+            </a>
+        
+            &#183; 
+            <a href="/prose">
+                prose
+            </a>
+        
+            &#183; 
+            <a href="/gallery">
+                gallery
+            </a>
+        
+            &#183; 
+            <a href="/qui">
+                qui et quoi?
+            </a>
+        
+    
+    &#183; 
+    <a href="https://oceanbao.github.io/">
+        main
+    </a>
+
+</p></div>
+        
+
+        <div class="section footer">Ocean Ode
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script></div>
+    </div>
+</body>
+
+</html>

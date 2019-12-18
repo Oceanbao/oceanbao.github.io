@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<meta name="description" content="Ocean on GitHub.">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:domain" content="https://oceanbao.github.io/">
+
+<meta name="twitter:image" content="https://oceanbao.github.io/tn.png">
+<meta name="twitter:title" property="og:title" itemprop="title name" content="Ocean Ode">
+<meta name="twitter:description" property="og:description" itemprop="description" content="Ocean on GitHub.">
+<meta name="og:type" content="website">
+<meta name="og:url" content="https://oceanbao.github.io/">
+<meta name="og:image" itemprop="image primaryImageOfPage" content="https://oceanbao.github.io/tn.png">
+
+<link rel="shortcut icon" href="https://oceanbao.github.io/oceanicon.jpg" id="favicon">
+<link rel="stylesheet" href="https://oceanbao.github.io/css/style.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+
+    
+
+    
+    
+    
+    <title>
+        
+        TFP
+        
+    </title>
+</head>
+
+<body>
+
+    <div class="wrap">
+        <div class="section" id="title">TFP</div>
+        <aside>
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#bayesian-cnn-via-tfp-vs-cnn">Bayesian CNN via TFP vs CNN</a></li>
+    <li><a href="#structural-time-series-modeling-via-tfp">Structural Time Series Modeling via TFP</a></li>
+  </ul>
+</nav>
+        </aside>
+        <div class="section" id="content"><h1 id="topical-articles">Topical Articles</h1>
+<h2 id="bayesian-cnn-via-tfp-vs-cnn">Bayesian CNN via TFP vs CNN</h2>
+<p>This was introduced by <a href="https://arxiv.org/abs/1505.05424">Blundell et al (2015)</a> and then adopted by many researchers in recent years.</p>
+<ul>
+<li>Non-Bayes trains <strong>point estimate of weights</strong></li>
+<li>Bayes approximates <strong>distribution of weights</strong> commonly basing on <strong>Gaussian</strong> (mean, sd), prior and data
+<ul>
+<li>Prediction via <strong>posterior distribution of weights</strong></li>
+<li>So far, there are several existing packages in Python that implement Bayesian CNN. For example, <a href="https://arxiv.org/pdf/1806.05978.pdf">Shridhar et al 2018</a>used Pytorch (also see their <a href="https://medium.com/neuralspace">blogs</a>), <a href="https://twiecki.io/blog/2016/06/01/bayesian-deep-learning/">Thomas Wiecki 2017</a> used PyMC3, and <a href="https://arxiv.org/abs/1610.09787">Tran et al 2016</a> introduced the package Edward and then merged into TensorFlow Probability (<a href="https://arxiv.org/abs/1812.03973">Tran et al 2018</a>).</li>
+</ul>
+</li>
+</ul>
+<p><strong>DEMO: Single-node CNN as baseline</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> os
+<span style="color:#f92672">import</span> warnings
+<span style="color:#75715e"># warnings.simplefilter(action=&#34;ignore&#34;)</span>
+warnings<span style="color:#f92672">.</span>filterwarnings(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">ignore</span><span style="color:#e6db74">&#39;</span>)
+os<span style="color:#f92672">.</span>environ[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">TF_CPP_MIN_LOG_LEVEL</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">3</span><span style="color:#e6db74">&#39;</span>
+<span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#f92672">as</span> plt
+<span style="color:#f92672">from</span> matplotlib <span style="color:#f92672">import</span> figure 
+<span style="color:#f92672">from</span> matplotlib.backends <span style="color:#f92672">import</span> backend_agg
+<span style="color:#f92672">import</span> seaborn <span style="color:#f92672">as</span> sns
+<span style="color:#f92672">from</span> tensorflow.examples.tutorials.mnist <span style="color:#f92672">import</span> input_data
+<span style="color:#f92672">import</span> tensorflow <span style="color:#f92672">as</span> tf
+<span style="color:#f92672">import</span> numpy <span style="color:#f92672">as</span> np
+tf<span style="color:#f92672">.</span>logging<span style="color:#f92672">.</span>set_verbosity(tf<span style="color:#f92672">.</span>logging<span style="color:#f92672">.</span>ERROR)
+<span style="color:#75715e"># Dependency imports</span>
+<span style="color:#f92672">import</span> matplotlib
+<span style="color:#f92672">import</span> tensorflow_probability <span style="color:#f92672">as</span> tfp
+matplotlib<span style="color:#f92672">.</span>use(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Agg</span><span style="color:#e6db74">&#34;</span>)
+<span style="color:#f92672">%</span>matplotlib inline
+
+<span style="color:#75715e"># data</span>
+mnist_onehot <span style="color:#f92672">=</span> input_data<span style="color:#f92672">.</span>read_data_sets(data_dir, one_hot<span style="color:#f92672">=</span>True)
+mnist_conv <span style="color:#f92672">=</span> input_data<span style="color:#f92672">.</span>read_data_sets(data_dir,reshape<span style="color:#f92672">=</span>False ,one_hot<span style="color:#f92672">=</span>False)
+mnist_conv_onehot <span style="color:#f92672">=</span> input_data<span style="color:#f92672">.</span>read_data_sets(data_dir,reshape<span style="color:#f92672">=</span>False ,one_hot<span style="color:#f92672">=</span>True)
+<span style="color:#75715e"># display an image</span>
+img_no <span style="color:#f92672">=</span> <span style="color:#ae81ff">485</span>
+one_image <span style="color:#f92672">=</span> mnist_conv_onehot<span style="color:#f92672">.</span>train<span style="color:#f92672">.</span>images[img_no]<span style="color:#f92672">.</span>reshape(<span style="color:#ae81ff">28</span>,<span style="color:#ae81ff">28</span>)
+plt<span style="color:#f92672">.</span>imshow(one_image, cmap<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">gist_gray</span><span style="color:#e6db74">&#39;</span>)
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Image label: {}</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>format(np<span style="color:#f92672">.</span>argmax(mnist_conv_onehot<span style="color:#f92672">.</span>train<span style="color:#f92672">.</span>labels[img_no])))
+
+<span style="color:#75715e"># baseline effectively multinomial logistic reg</span>
+<span style="color:#75715e"># define placeholders</span>
+x <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>placeholder(tf<span style="color:#f92672">.</span>float32, shape<span style="color:#f92672">=</span>[None, <span style="color:#ae81ff">28</span><span style="color:#f92672">*</span><span style="color:#ae81ff">28</span>])
+y_true <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>placeholder(tf<span style="color:#f92672">.</span>float32, shape<span style="color:#f92672">=</span>[None, <span style="color:#ae81ff">10</span>])
+<span style="color:#75715e"># define variables: weights and bias</span>
+W <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>Variable(tf<span style="color:#f92672">.</span>zeros([<span style="color:#ae81ff">28</span><span style="color:#f92672">*</span><span style="color:#ae81ff">28</span>, <span style="color:#ae81ff">10</span>]))
+b <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>Variable(tf<span style="color:#f92672">.</span>zeros([<span style="color:#ae81ff">10</span>]))
+<span style="color:#75715e"># create graph operations</span>
+y <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>matmul(x,W)<span style="color:#f92672">+</span>b
+<span style="color:#75715e"># define loss function</span>
+cross_entropy <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>reduce_mean(tf<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>softmax_cross_entropy_with_logits(labels<span style="color:#f92672">=</span>y_true, logits<span style="color:#f92672">=</span>y))
+<span style="color:#75715e"># define optimizer</span>
+optimizer <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>train<span style="color:#f92672">.</span>GradientDescentOptimizer(learning_rate<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>)
+train<span style="color:#f92672">=</span>optimizer<span style="color:#f92672">.</span>minimize(cross_entropy)
+<span style="color:#75715e"># create session</span>
+epochs <span style="color:#f92672">=</span> <span style="color:#ae81ff">5000</span>
+init <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>global_variables_initializer()
+<span style="color:#66d9ef">with</span> tf<span style="color:#f92672">.</span>Session() <span style="color:#66d9ef">as</span> sess:
+    sess<span style="color:#f92672">.</span>run(init)
+    <span style="color:#66d9ef">for</span> step <span style="color:#f92672">in</span> range(epochs):
+        batch_x, batch_y <span style="color:#f92672">=</span> mnist_onehot<span style="color:#f92672">.</span>train<span style="color:#f92672">.</span>next_batch(<span style="color:#ae81ff">50</span>)
+        sess<span style="color:#f92672">.</span>run(train, feed_dict<span style="color:#f92672">=</span>{x:batch_x, y_true:batch_y})
+    
+    <span style="color:#75715e">#EVALUATION</span>
+    correct_preds <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>equal(tf<span style="color:#f92672">.</span>argmax(y,<span style="color:#ae81ff">1</span>), tf<span style="color:#f92672">.</span>argmax(y_true, <span style="color:#ae81ff">1</span>))
+    acc <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>reduce_mean(tf<span style="color:#f92672">.</span>cast(correct_preds, tf<span style="color:#f92672">.</span>float32))
+    
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Accuracy on test set: {}</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>format(
+        sess<span style="color:#f92672">.</span>run(acc, feed_dict<span style="color:#f92672">=</span>{x: mnist_onehot<span style="color:#f92672">.</span>test<span style="color:#f92672">.</span>images, y_true: mnist_onehot<span style="color:#f92672">.</span>test<span style="color:#f92672">.</span>labels})))
+    
+<span style="color:#75715e"># CNN</span>
+<span style="color:#75715e"># Conv(32), MaxPooling, Conv(64), MaxPooling, Flatten, Dense(1024), Dropout(50%), Dense(10)</span>
+x <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>placeholder(tf<span style="color:#f92672">.</span>float32,shape<span style="color:#f92672">=</span>[None,<span style="color:#ae81ff">28</span>,<span style="color:#ae81ff">28</span>,<span style="color:#ae81ff">1</span>])
+y_true <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>placeholder(tf<span style="color:#f92672">.</span>float32,shape<span style="color:#f92672">=</span>[None,<span style="color:#ae81ff">10</span>])
+hold_prob <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>placeholder(tf<span style="color:#f92672">.</span>float32)
+cnn <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>keras<span style="color:#f92672">.</span>Sequential()
+cnn<span style="color:#f92672">.</span>add(tf<span style="color:#f92672">.</span>keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>Conv2D(<span style="color:#ae81ff">32</span>, kernel_size<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, padding<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">SAME</span><span style="color:#e6db74">&#39;</span>, activation<span style="color:#f92672">=</span>tf<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>relu))
+cnn<span style="color:#f92672">.</span>add(tf<span style="color:#f92672">.</span>keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>MaxPooling2D(pool_size<span style="color:#f92672">=</span>[<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>], strides<span style="color:#f92672">=</span>[<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>], padding<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">SAME</span><span style="color:#e6db74">&#34;</span>))
+cnn<span style="color:#f92672">.</span>add(tf<span style="color:#f92672">.</span>keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>Conv2D(<span style="color:#ae81ff">64</span>, kernel_size<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, padding<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">SAME</span><span style="color:#e6db74">&#39;</span>, activation<span style="color:#f92672">=</span>tf<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>relu))
+cnn<span style="color:#f92672">.</span>add(tf<span style="color:#f92672">.</span>keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>MaxPooling2D(pool_size<span style="color:#f92672">=</span>[<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>], strides<span style="color:#f92672">=</span>[<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>], padding<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">SAME</span><span style="color:#e6db74">&#34;</span>))
+cnn<span style="color:#f92672">.</span>add(tf<span style="color:#f92672">.</span>keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>Flatten())
+cnn<span style="color:#f92672">.</span>add(tf<span style="color:#f92672">.</span>keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>Dense(<span style="color:#ae81ff">1024</span>, activation<span style="color:#f92672">=</span>tf<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>relu))
+cnn<span style="color:#f92672">.</span>add(tf<span style="color:#f92672">.</span>keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>Dropout(hold_prob))
+cnn<span style="color:#f92672">.</span>add(tf<span style="color:#f92672">.</span>keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>Dense(<span style="color:#ae81ff">10</span>))
+y_pred <span style="color:#f92672">=</span> cnn(x)
+cross_entropy <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>reduce_mean(tf<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>softmax_cross_entropy_with_logits(labels<span style="color:#f92672">=</span>y_true,logits<span style="color:#f92672">=</span>y_pred))
+optimizer <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>train<span style="color:#f92672">.</span>AdamOptimizer(learning_rate<span style="color:#f92672">=</span><span style="color:#ae81ff">0.0001</span>)
+train <span style="color:#f92672">=</span> optimizer<span style="color:#f92672">.</span>minimize(cross_entropy)
+steps <span style="color:#f92672">=</span> <span style="color:#ae81ff">5000</span>
+init <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>global_variables_initializer()
+<span style="color:#66d9ef">with</span> tf<span style="color:#f92672">.</span>Session() <span style="color:#66d9ef">as</span> sess:
+    sess<span style="color:#f92672">.</span>run(init)
+    
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(steps<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>):
+        batch_x , batch_y <span style="color:#f92672">=</span> mnist_conv_onehot<span style="color:#f92672">.</span>train<span style="color:#f92672">.</span>next_batch(<span style="color:#ae81ff">50</span>)
+        sess<span style="color:#f92672">.</span>run(train,feed_dict<span style="color:#f92672">=</span>{x:batch_x,y_true:batch_y,hold_prob:<span style="color:#ae81ff">0.5</span>})
+        
+        <span style="color:#75715e"># PRINT OUT A MESSAGE EVERY 100 STEPS</span>
+        <span style="color:#66d9ef">if</span> i<span style="color:#f92672">%</span><span style="color:#ae81ff">500</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+            matches <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>equal(tf<span style="color:#f92672">.</span>argmax(y_pred,<span style="color:#ae81ff">1</span>),tf<span style="color:#f92672">.</span>argmax(y_true,<span style="color:#ae81ff">1</span>))
+            acc <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>reduce_mean(tf<span style="color:#f92672">.</span>cast(matches,tf<span style="color:#f92672">.</span>float32))
+            <span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Step {}: accuracy={}</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>format(i, sess<span style="color:#f92672">.</span>run(acc,feed_dict<span style="color:#f92672">=</span>{x:mnist_conv_onehot<span style="color:#f92672">.</span>test<span style="color:#f92672">.</span>images,                 y_true:mnist_conv_onehot<span style="color:#f92672">.</span>test<span style="color:#f92672">.</span>labels,                                                                           hold_prob:<span style="color:#ae81ff">1.0</span>})))
+</code></pre></div><p><strong>Bayesian CNN</strong></p>
+<p><a href="https://github.com/tensorflow/probability/blob/master/tensorflow_probability/examples/bayesian_neural_network.py">TFP GitHub Code</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">images <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>placeholder(tf<span style="color:#f92672">.</span>float32,shape<span style="color:#f92672">=</span>[None,<span style="color:#ae81ff">28</span>,<span style="color:#ae81ff">28</span>,<span style="color:#ae81ff">1</span>])
+labels <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>placeholder(tf<span style="color:#f92672">.</span>float32,shape<span style="color:#f92672">=</span>[None,])
+hold_prob <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>placeholder(tf<span style="color:#f92672">.</span>float32)
+<span style="color:#75715e"># define the model</span>
+neural_net <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>keras<span style="color:#f92672">.</span>Sequential([
+      tfp<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>Convolution2DReparameterization(<span style="color:#ae81ff">32</span>, kernel_size<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>,  padding<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">SAME</span><span style="color:#e6db74">&#34;</span>, activation<span style="color:#f92672">=</span>tf<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>relu),
+      tf<span style="color:#f92672">.</span>keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>MaxPooling2D(pool_size<span style="color:#f92672">=</span>[<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>],  strides<span style="color:#f92672">=</span>[<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>],  padding<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">SAME</span><span style="color:#e6db74">&#34;</span>),
+      tfp<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>Convolution2DReparameterization(<span style="color:#ae81ff">64</span>, kernel_size<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>,  padding<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">SAME</span><span style="color:#e6db74">&#34;</span>,  activation<span style="color:#f92672">=</span>tf<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>relu),
+      tf<span style="color:#f92672">.</span>keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>MaxPooling2D(pool_size<span style="color:#f92672">=</span>[<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>], strides<span style="color:#f92672">=</span>[<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>], padding<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">SAME</span><span style="color:#e6db74">&#34;</span>),
+      tf<span style="color:#f92672">.</span>keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>Flatten(),
+      tfp<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>DenseFlipout(<span style="color:#ae81ff">1024</span>, activation<span style="color:#f92672">=</span>tf<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>relu),
+      tf<span style="color:#f92672">.</span>keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>Dropout(hold_prob),
+      tfp<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>DenseFlipout(<span style="color:#ae81ff">10</span>)])
+logits <span style="color:#f92672">=</span> neural_net(images)
+<span style="color:#75715e"># Compute the -ELBO as the loss, averaged over the batch size.</span>
+labels_distribution <span style="color:#f92672">=</span> tfp<span style="color:#f92672">.</span>distributions<span style="color:#f92672">.</span>Categorical(logits<span style="color:#f92672">=</span>logits)
+neg_log_likelihood <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>tf<span style="color:#f92672">.</span>reduce_mean(labels_distribution<span style="color:#f92672">.</span>log_prob(labels))
+kl <span style="color:#f92672">=</span> sum(neural_net<span style="color:#f92672">.</span>losses) <span style="color:#f92672">/</span> mnist_conv<span style="color:#f92672">.</span>train<span style="color:#f92672">.</span>num_examples
+elbo_loss <span style="color:#f92672">=</span> neg_log_likelihood <span style="color:#f92672">+</span> kl
+optimizer <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>train<span style="color:#f92672">.</span>AdamOptimizer(learning_rate<span style="color:#f92672">=</span>learning_rate)
+train_op <span style="color:#f92672">=</span> optimizer<span style="color:#f92672">.</span>minimize(elbo_loss)
+<span style="color:#75715e"># Build metrics for evaluation. Predictions are formed from a single forward</span>
+<span style="color:#75715e"># pass of the probabilistic layers. They are cheap but noisy predictions.</span>
+predictions <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>argmax(logits, axis<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+accuracy, accuracy_update_op <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>metrics<span style="color:#f92672">.</span>accuracy(labels<span style="color:#f92672">=</span>labels, predictions<span style="color:#f92672">=</span>predictions)
+
+learning_rate <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.001</span>   <span style="color:#75715e">#initial learning rate</span>
+max_step <span style="color:#f92672">=</span> <span style="color:#ae81ff">5000</span> <span style="color:#75715e">#number of training steps to run</span>
+batch_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span> <span style="color:#75715e">#batch size</span>
+viz_steps <span style="color:#f92672">=</span> <span style="color:#ae81ff">500</span> <span style="color:#75715e">#frequency at which save visualizations.</span>
+num_monte_carlo <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span> <span style="color:#75715e">#Network draws to compute predictive probabilities.</span>
+init_op <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>group(tf<span style="color:#f92672">.</span>global_variables_initializer(),
+                     tf<span style="color:#f92672">.</span>local_variables_initializer())
+
+<span style="color:#66d9ef">with</span> tf<span style="color:#f92672">.</span>Session() <span style="color:#66d9ef">as</span> sess:
+        sess<span style="color:#f92672">.</span>run(init_op)
+<span style="color:#75715e"># Run the training loop.</span>
+        <span style="color:#66d9ef">for</span> step <span style="color:#f92672">in</span> range(max_step<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>):
+            images_b, labels_b <span style="color:#f92672">=</span> mnist_conv<span style="color:#f92672">.</span>train<span style="color:#f92672">.</span>next_batch(
+batch_size)
+            images_h, labels_h <span style="color:#f92672">=</span> mnist_conv<span style="color:#f92672">.</span>validation<span style="color:#f92672">.</span>next_batch(
+mnist_conv<span style="color:#f92672">.</span>validation<span style="color:#f92672">.</span>num_examples)
+            
+            _ <span style="color:#f92672">=</span> sess<span style="color:#f92672">.</span>run([train_op, accuracy_update_op], feed_dict<span style="color:#f92672">=</span>{
+                   images: images_b,labels: labels_b,hold_prob:<span style="color:#ae81ff">0.5</span>})
+        <span style="color:#66d9ef">if</span> (step<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>) <span style="color:#f92672">|</span> (step <span style="color:#f92672">%</span> <span style="color:#ae81ff">500</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>):
+                loss_value, accuracy_value <span style="color:#f92672">=</span> sess<span style="color:#f92672">.</span>run([elbo_loss, accuracy], feed_dict<span style="color:#f92672">=</span>{images: images_b,
+labels: labels_b,hold_prob:<span style="color:#ae81ff">0.5</span>})
+                
+                <span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Step: {:&gt;3d} Loss: {:.3f} Accuracy: {:.3f}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(step, loss_value, accuracy_value))
+</code></pre></div><h2 id="structural-time-series-modeling-via-tfp">Structural Time Series Modeling via TFP</h2>
+<p>Intro to <code>tfp.sts</code> , a new lib for forecasting time series using <strong>structural time series models</strong>.</p>
+<p><code>sts</code> models comprise a family of proba-ts generalising:</p>
+<ol>
+<li>AR process</li>
+<li>MA</li>
+<li>Local Linear Trends</li>
+<li>Seasonality</li>
+<li>Regression and variable selection on external covariates (other TS might related to the series of interest)</li>
+</ol>
+<p>A STS model expresses an observed TS as <strong>sum of simpler components</strong>:</p>
+<p>$f(t) = f_1(t) + f_2(t) + … + f_n(t) + \varepsilon~;~\varepsilon~\thicksim~N(0, \sigma^2) $</p>
+<blockquote>
+<p>Each component governed by a particular structural basis, e.g. one encoding seasonal effect (day-week), another local linear trend, yet another linear dependence on some set of covariate TS</p>
+</blockquote>
+<blockquote>
+<p><strong>By allowing modelers to encode assumptions about the processes generating the data, structural time series can often produce reasonable forecasts from relatively little data (e.g., just a single input series with tens of points). The model’s assumptions are interpretable, and we can interpret the predictions by visualizing the decompositions of past data and future forecasts into structural components. Moreover, structural time series models use a probabilistic formulation that can naturally handle missing data and provide a principled quantification of uncertainty.</strong></p>
+</blockquote>
+<p><strong>TFP integration with built-in Bayesian inference of model parameters using VI and HMC, computing both point forecasts and predictive uncertainties, empowered by TF ecosystem on hardware</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> tensorflow_probability <span style="color:#f92672">as</span> tfp
+trend <span style="color:#f92672">=</span> tfp<span style="color:#f92672">.</span>sts<span style="color:#f92672">.</span>LocalLinearTrend(observed_time_series<span style="color:#f92672">=</span>co2_by_month)
+seasonal <span style="color:#f92672">=</span> tfp<span style="color:#f92672">.</span>sts<span style="color:#f92672">.</span>Seasonal(
+	num_seasons<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>, observed_time_series<span style="color:#f92672">=</span>co2_by_month)
+model <span style="color:#f92672">=</span> tfp<span style="color:#f92672">.</span>sts<span style="color:#f92672">.</span>Sum([trend, seasonal], observed_time_series<span style="color:#f92672">=</span>co2_by_month)
+</code></pre></div><p>The <a href="https://github.com/tensorflow/probability/tree/master/tensorflow_probability/examples/jupyter_notebooks/Structural_Time_Series_Modeling_Case_Studies_Atmospheric_CO2_and_Electricity_Demand.ipynb">full code for this example</a> is available on Github.</p>
+<p>Next we’ll consider a more complex example: forecasting electricity demand in Victoria, Australia. The top line of this plot shows an hourly record from the first six weeks of 2014 (data from [4], available at <a href="https://github.com/robjhyndman/fpp2-package):">https://github.com/robjhyndman/fpp2-package):</a></p>
+<p><img src="https://cdn-images-1.medium.com/max/1000/0*MKIeUw0BDmjLhGX_" alt="Electricity"></p>
+<ul>
+<li>external source of info: temperature, correlating with electricity demand for air conditioning, incorporated in STS model via linear regression</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">temperature_effect <span style="color:#f92672">=</span> tfp<span style="color:#f92672">.</span>sts<span style="color:#f92672">.</span>LinearRegression(
+	design_matrix<span style="color:#f92672">=</span>tf<span style="color:#f92672">.</span>reshape(temperature <span style="color:#f92672">-</span> np<span style="color:#f92672">.</span>mean(temperature),
+                          (<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>)), name<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">temperature_effect</span><span style="color:#e6db74">&#39;</span>)
+hour_of_day_effect <span style="color:#f92672">=</span> tpf<span style="color:#f92672">.</span>sts<span style="color:#f92672">.</span>Seasonal(
+	num_season<span style="color:#f92672">=</span><span style="color:#ae81ff">24</span>,
+	observed_time_series<span style="color:#f92672">=</span>demand,
+	name<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">hour_of_day_effect</span><span style="color:#e6db74">&#39;</span>)
+day_of_week_effect <span style="color:#f92672">=</span> tfp<span style="color:#f92672">.</span>sts<span style="color:#f92672">.</span>Seasonal(
+  num_seasons<span style="color:#f92672">=</span><span style="color:#ae81ff">7</span>,
+  num_steps_per_season<span style="color:#f92672">=</span><span style="color:#ae81ff">24</span>, 
+  observed_time_series<span style="color:#f92672">=</span>demand,
+  name<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">day_of_week_effect</span><span style="color:#e6db74">&#39;</span>)
+residual_level <span style="color:#f92672">=</span> tfp<span style="color:#f92672">.</span>sts<span style="color:#f92672">.</span>Autoregressive(
+  order<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>,
+  observed_time_series<span style="color:#f92672">=</span>demand, name<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">residual</span><span style="color:#e6db74">&#39;</span>)
+model <span style="color:#f92672">=</span> tfp<span style="color:#f92672">.</span>sts<span style="color:#f92672">.</span>Sum([temperature_effect,
+                     hour_of_day_effect,
+                     day_of_week_effect,
+                     residual_level],
+                    observed_time_series<span style="color:#f92672">=</span>demand)
+</code></pre></div><ul>
+<li>also included multiple seasonal effects and AR component to model any unexplained residual effects - could use simple random walk, but chose an AR for keeping bounded variance over time</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/1000/0*IlrfzF-A1tkCVGO8" alt="Results"></p>
+<blockquote>
+<p>apparently still some unmodeled sources of variation</p>
+</blockquote>
+<ul>
+<li>model reasonably captured seasonal effect and sizable external temperature effect with confident forecasts but less so on AR</li>
+<li>might further improve via spikes in temperature seemingly coinciding with spikes in AR residual - indicating additional features or data transformations might help çapture temperature effect!!</li>
+</ul>
+<p>The <a href="https://github.com/tensorflow/probability/tree/master/tensorflow_probability/examples/jupyter_notebooks/Structural_Time_Series_Modeling_Case_Studies_Atmospheric_CO2_and_Electricity_Demand.ipynb">full code for this example</a> is available on Github.</p>
+<p><strong>TFP STS Library</strong></p>
+<ul>
+<li>STS is a linear model on additive components such as:
+<ul>
+<li><a href="https://www.tensorflow.org/probability/api_docs/python/tfp/sts/Autoregressive">Autoregressive</a>, <a href="https://www.tensorflow.org/probability/api_docs/python/tfp/sts/LocalLinearTrend">LocalLinearTrend</a>, <a href="https://www.tensorflow.org/probability/api_docs/python/tfp/sts/SemiLocalLinearTrend">SemiLocalLinearTread</a>, and <a href="https://www.tensorflow.org/probability/api_docs/python/tfp/sts/LocalLevel">LocalLevel</a>. For modeling time series with a level or slope that evolves according to a random walk or other process.</li>
+<li><a href="https://www.tensorflow.org/probability/api_docs/python/tfp/sts/Seasonal">Seasonal</a>. For time series depending on seasonal factors, such as the hour of the day, the day of the week, or the month of the year.</li>
+<li><a href="https://www.tensorflow.org/probability/api_docs/python/tfp/sts/LinearRegression">LinearRegression</a>. For time series depending on additional, time-varying covariates. Regression components can also be used to encode holiday or other date-specific effects.</li>
+</ul>
+</li>
+<li>STS provides methods for fitting the resulting time series models with <a href="https://www.tensorflow.org/probability/api_docs/python/tfp/sts/build_factored_variational_loss">variational inference</a> and <a href="https://www.tensorflow.org/probability/api_docs/python/tfp/sts/fit_with_hmc">Hamiltonian Monte Carlo</a>.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex">[1] Brodersen, K. H., Gallusser, F., Koehler, J., Remy, N., &amp; Scott, S. L. (2015). Inferring causal impact using Bayesian structural time-series models. The Annals of Applied Statistics, 9(1), 247–274.
+
+[2] Choi, H., &amp; Varian, H. (2012). Predicting the present with Google Trends. Economic Record, 88, 2–9.
+
+[3] Harvey, A. C. (1989). Forecasting, structural time series models and the Kalman filter. Cambridge University Press.
+
+[4] Hyndman, R.J., &amp; Athanasopoulos, G. (2018). Forecasting: principles and practice, 2nd edition, OTexts: Melbourne, Australia. OTexts.com/fpp2. Accessed on February 23, 2019.
+</code></pre></div></div>
+
+        
+        <div class="section bottom-menu">
+<hr />
+<p>
+
+
+    
+
+    
+        
+            <a href="/code">
+                code
+            </a>
+        
+    
+    
+        
+            &#183; 
+            <a href="https://tiny.cc/oceannotebook">
+                notebook
+            </a>
+        
+            &#183; 
+            <a href="https://github.com/Oceanbao/KEN">
+                KEN
+            </a>
+        
+            &#183; 
+            <a href="/prose">
+                prose
+            </a>
+        
+            &#183; 
+            <a href="/gallery">
+                gallery
+            </a>
+        
+            &#183; 
+            <a href="/qui">
+                qui et quoi?
+            </a>
+        
+    
+    &#183; 
+    <a href="https://oceanbao.github.io/">
+        main
+    </a>
+
+</p></div>
+        
+
+        <div class="section footer">Ocean Ode
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script></div>
+    </div>
+</body>
+
+</html>

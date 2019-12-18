@@ -17,7 +17,7 @@
       <pubDate>Fri, 04 Oct 2019 17:42:33 +0800</pubDate>
       
       <guid>https://oceanbao.github.io/code/ideation/</guid>
-      <description>Steve Klabnik: WASM + Rust + Serverless Rust  Fast and Memory safe language Hard to learn but better programming Close tie with WebAssembly  WASM  Originated as asm.js - a fast subset of JS Developped into an universal binary runnable on web browser and elsewhere WASI the runtime interface for other languages (see Lin Clark&amp;rsquo;s talk)  Serverless  With Rust and WASM, any app can run anywhere  Rasa NLU Lessons  Train INTENT and MESSAGE in single NN to be language agnostic (any lang tokenizable) Out-of-data and Fallback policies to improve service Form collection required from user before Decision Feedback loop of system itself logging to improve the system (i.</description>
+      <description>Steve Klabnik: WASM + Rust + Serverless Rust  Fast and Memory safe language Hard to learn but better programming Close tie with WebAssembly  WASM  Originated as asm.js - a fast subset of JS Developped into an universal binary runnable on web browser and elsewhere WASI the runtime interface for other languages (see Lin Clark&#39;s talk)  Serverless  With Rust and WASM, any app can run anywhere  Rasa NLU Lessons  Train INTENT and MESSAGE in single NN to be language agnostic (any lang tokenizable) Out-of-data and Fallback policies to improve service Form collection required from user before Decision Feedback loop of system itself logging to improve the system (i.</description>
     </item>
     
     <item>
@@ -53,7 +53,7 @@
       <pubDate>Wed, 05 Dec 2018 15:52:43 -0500</pubDate>
       
       <guid>https://oceanbao.github.io/code/dask/</guid>
-      <description>TOC  Tom Augspurger Talks Official: Dask.distributed &amp;amp; Kubernetes Matthew Rocklin Talks Jim Crist Talks Long SciPy Tutorial DataCamp Streamz from IPython.core.interactiveshell import InteractiveShell InteractiveShell.ast_node_interactivity = &amp;#34;all&amp;#34; %config InlineBackend.figure_format = &amp;#39;retina&amp;#39; import numpy as np import pandas as pd import matplotlib.pyplot as plt  Reference Tom Augspurger Github   Tabular Data in SKL and DaskML TPOT with Dask  Examples Scaling Pains  Model Complexity VS Data  Distributed SKL - using DASK to distribute computation on cluster (Large Model - Smaller Datasets)   Single-Machine Parallelism with SKL</description>
+      <description>TOC   Tom Augspurger Talks   Official: Dask.distributed &amp;amp; Kubernetes   Matthew Rocklin Talks   Jim Crist Talks   Long SciPy Tutorial   DataCamp   Streamz   from IPython.core.interactiveshell import InteractiveShell InteractiveShell.ast_node_interactivity = &amp;#34;all&amp;#34; %config InlineBackend.figure_format = &amp;#39;retina&amp;#39; import numpy as np import pandas as pd import matplotlib.pyplot as plt Reference Tom Augspurger Github   Tabular Data in SKL and DaskML TPOT with Dask  Examples Scaling Pains  Model Complexity VS Data  Distributed SKL - using DASK to distribute computation on cluster (Large Model - Smaller Datasets)   Single-Machine Parallelism with SKL</description>
     </item>
     
     <item>
@@ -62,7 +62,7 @@
       <pubDate>Sun, 25 Nov 2018 14:56:55 -0500</pubDate>
       
       <guid>https://oceanbao.github.io/code/nlp/</guid>
-      <description>NLP - Primer  Text, unstructured particularly, is as aboundant as important to understanding! Introduction to NN Translation with GPUs Sources  Open American Natioanl Corpus British Natioanl Corpus List of Text Corpora Wikiepedia Dataset Twitter (see Text)  Topic spotting Text classification Application  chatbot translation sentiment analysis   String Primer Unicode  Remember to include U before string to ensure Unicode String  Regular Expression - strings with special syntax  allows to match patterns in other strings Regex, import re Matching pattern with string</description>
+      <description>NLP - Primer  Text, unstructured particularly, is as aboundant as important to understanding! Introduction to NN Translation with GPUs Sources  Open American Natioanl Corpus British Natioanl Corpus List of Text Corpora Wikiepedia Dataset Twitter (see Text)   Topic spotting Text classification Application  chatbot translation sentiment analysis    String Primer Unicode  Remember to include U before string to ensure Unicode String  Regular Expression - strings with special syntax  allows to match patterns in other strings Regex, import re Matching pattern with string  re.</description>
     </item>
     
     <item>
@@ -71,7 +71,7 @@
       <pubDate>Thu, 01 Nov 2018 19:31:54 -0400</pubDate>
       
       <guid>https://oceanbao.github.io/code/regex/</guid>
-      <description>REGEX Official RE Doc r&amp;#34;&amp;#34;&amp;#34;RE The special characters are: &amp;#34;.&amp;#34; Matches any character except a newline. &amp;#34;^&amp;#34; Matches the start of the string. &amp;#34;$&amp;#34; Matches the end of the string or just before the newline at the end of the string. &amp;#34;*&amp;#34; Matches 0 or more (greedy) repetitions of the preceding RE. Greedy means that it will match as many repetitions as possible. &amp;#34;+&amp;#34; Matches 1 or more (greedy) repetitions of the preceding RE.</description>
+      <description>REGEX Official RE Doc r&amp;#34;&amp;#34;&amp;#34;REThe special characters are:&amp;#34;.&amp;#34;Matches any character except a newline.&amp;#34;^&amp;#34;Matches the start of the string.&amp;#34;$&amp;#34;Matches the end of the string or just before the newline atthe end of the string.&amp;#34;*&amp;#34;Matches 0 or more (greedy) repetitions of the preceding RE.Greedy means that it will match as many repetitions as possible.&amp;#34;+&amp;#34;Matches 1 or more (greedy) repetitions of the preceding RE.&amp;#34;?&amp;#34;Matches 0 or 1 (greedy) of the preceding RE.*?,+?,?? Non-greedy versions of the previous three special characters.</description>
     </item>
     
     <item>
@@ -80,13 +80,12 @@
       <pubDate>Tue, 30 Oct 2018 17:43:17 -0400</pubDate>
       
       <guid>https://oceanbao.github.io/code/scrapy/</guid>
-      <description>Learning Scrapy Table of Contents  Basic Crawling Mobile App Spider Recipes Scrapinghub Configuration &amp;amp; Management Programming Scrapy Pipeline Recipe Official Tutorial  Basic Crawling 
-$UR^2IM$  URL Request Response Items More URLs (recurring to Request)  scrapy shell -s USER_AGENT=&amp;quot;Mozilla/5.0&amp;quot; &amp;lt;URL&amp;gt;
+      <description>Table of Contents  Basic Crawling Mobile App Spider Recipes Scrapinghub Configuration &amp;amp; Management Programming Scrapy Pipeline Recipe Official Tutorial  Basic Crawling $UR^2IM$  URL Request Response Items More URLs (recurring to Request)  scrapy shell -s USER_AGENT=&amp;quot;Mozilla/5.0&amp;quot; &amp;lt;URL&amp;gt;
 response.body[:50]
 Actual value is gained via extract() or re()
 Scrapy Project Shell is mere utility aiding testing, real codes start with Project.
 scrapy startproject properties
-This chapter focuses on items.</description>
+This chapter focuses on items.py and spiders directory.</description>
     </item>
     
     <item>
@@ -104,7 +103,172 @@ This chapter focuses on items.</description>
       <pubDate>Mon, 19 Feb 2018 12:41:46 -0500</pubDate>
       
       <guid>https://oceanbao.github.io/code/linux-and-docker/</guid>
-      <description> </description>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CONTAINER</title>
+      <link>https://oceanbao.github.io/code/container/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://oceanbao.github.io/code/container/</guid>
+      <description>100KB Image from SCRATCH Dockerfile has 2 build stages  Builder - containing all build dependencies including source, libs, tools, etc Final Image - containing binary and run-time dependencies (config files, certificates, and dynmacically linked libs)  hello.c #include &amp;lt;stdio.h&amp;gt; int main(void) { puts(&amp;#34;Hello World\n&amp;#34;); } Makefile hello: hello.c gcc -o $@ $&amp;lt; -static .dockerignore # preventing host binary from sneaking into buildhelloDockerfile FROMalphine:latest as builderWORKDIR/buildRUN apk update &amp;amp;&amp;amp; \ 	apk add gcc make libc-devCOPY .</description>
+    </item>
+    
+    <item>
+      <title>Cython</title>
+      <link>https://oceanbao.github.io/code/cython/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://oceanbao.github.io/code/cython/</guid>
+      <description>Cython Book Cython depends on CPython implementation (C/Python Interface)
+[toc]
+Chapter 1 EXAMPLE COMPARED (code)
+ WHY FASTER: function call overhead, looping, math ops, stack versus heap memory allocation.
+  Dynamic Lookup: all runtime definitions and object constructions -&amp;gt; Python interpreter checks types of object and find dunders -&amp;gt; unboxing objects to extract the underlying C types, and only THEN can the ops occur! C and Cython already compiled types, the addition compiles to one machine code instruction.</description>
+    </item>
+    
+    <item>
+      <title>DODS</title>
+      <link>https://oceanbao.github.io/code/dodata/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://oceanbao.github.io/code/dodata/</guid>
+      <description>Data Science Raw
+Data Sciencen_array.dtype.name
+n_array.ravel - flatten
+pd.Series(np.random.rand(5))
+d[&#39;some&#39;].isnull().value_counts() then dropna()
+df2.fillna(df2.mean())
+!!! String Regex in Pandas !!!
+df[&#39;text&#39;][0:5].str.extract(&#39;(\w+)\s(\w+)&#39;) (other ops with .str. like .upper(), .len(), .replace(&#39;DISTRICT$&#39;, &#39;DIST&#39;))
+df[&amp;#39;NO. OBESE&amp;#39;].groupby(d[&amp;#39;GRADE LEVEL&amp;#39;]).aggregate([sum, mean, std]) Inference
+&amp;gt;&amp;gt;&amp;gt; from scipy.stats import binom &amp;gt;&amp;gt;&amp;gt; import matplotlib.pyplot as plt &amp;gt;&amp;gt;&amp;gt; fig, ax = plt.subplots(1, 1) &amp;gt;&amp;gt;&amp;gt; x = [0, 1, 2, 3, 4, 5, 6] &amp;gt;&amp;gt;&amp;gt; n, p = 6, 0.5 &amp;gt;&amp;gt;&amp;gt; rv = binom(n, p) &amp;gt;&amp;gt;&amp;gt; ax.</description>
+    </item>
+    
+    <item>
+      <title>G Dev Guide</title>
+      <link>https://oceanbao.github.io/code/techdevguide/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://oceanbao.github.io/code/techdevguide/</guid>
+      <description>Notes on Tech Dev Guide @ Google Foundations of Programming Advanced Programming Machine Learning Cloud Computing </description>
+    </item>
+    
+    <item>
+      <title>GIT</title>
+      <link>https://oceanbao.github.io/code/git/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://oceanbao.github.io/code/git/</guid>
+      <description>ONLY PUT SOURCE FILES INTO VERSION CONTROL, NEVER GENERATED FILES
+ source is any file authoured generated file that which computer created  git init projectName cd projectName # credential git config --global user.name &amp;#34;User&amp;#34; git config --global user.email &amp;#34;user@user.com&amp;#34; # staging git add . # write to history git commit -m &amp;#34;message&amp;#34; # branches [-c:copy, -m:move, -d:delete] git branch -c my-branch # checkout to branch git checkout my-branch # merge with current branch git merge my-branch # remote git remote add vue https://github.</description>
+    </item>
+    
+    <item>
+      <title>Kubeflow</title>
+      <link>https://oceanbao.github.io/code/kubeflow/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://oceanbao.github.io/code/kubeflow/</guid>
+      <description>Kubeflow on GCP End to End Official Doc
+install gcloud, kubectl, docker
+Example Project - MNIST DEPLOYMENT wget https://github.com/kubeflow/examples/archive/master.zip
+Set ENV
+// available project ids can be listed with the following command: // gcloud projects list PROJECT_ID=&amp;lt;YOUR_CHOSEN_PROJECT_ID&amp;gt; gcloud config set project $PROJECT_ID ZONE=us-central1-a DEPLOYMENT_NAME=mnist-deployment cd ./mnist WORKING_DIR=$(pwd) # install kustomize from GitHub # Enable GKE API GUI Set Up Kubeflow Cluster
+deploy.kubeflow.cloud
+Check GCP Deployment
+https://console.cloud.google.com/dm
+Set up Kubectl
+gcloud container clusters get-credentials \  $DEPLOYMENT_NAME --zone $ZONE --project $PROJECT_ID kubectl config set-context $(kubectl config current-context) --namespace=kubeflow kubectl get all Training</description>
+    </item>
+    
+    <item>
+      <title>LinuxHacker</title>
+      <link>https://oceanbao.github.io/code/linuxhacker/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://oceanbao.github.io/code/linuxhacker/</guid>
+      <description>[toc]
+Text Wrangling cat /etc/snort/snort.conf nl /etc/snort.conf # example tail -n+507 /etc/snort/snort.conf | head -n 6 sed s/mysql/MySQL/g /etc/snort/snort.conf &amp;gt; snort2.conf Network curl https://ipinfo.io/ip ifconfig iwconfig ifconfig eth0 192.168.181.115 ifconfig etho0 192.168.181.115 netmask 255.255.0.0 broadcast 192.168.1.255 ifconfig etho down ifconfig etho hw ether 00:11:22:33:44:55 ifconfig etho up dhclient etho dig hackers-arise.com ns dig hackers-arise.com mx vim /etc/resolv.conf vim /etc/hosts ss # new netstat https://www.tecmint.com/ss-command-examples-in-linux/ ip addr show ip route show mtr baidu.</description>
+    </item>
+    
+    <item>
+      <title>ML</title>
+      <link>https://oceanbao.github.io/code/ml/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://oceanbao.github.io/code/ml/</guid>
+      <description>Class Imbalance An entry from the Encyclopedia of Machine Learning (https://cling.csd.uwo.ca/papers/cost_sensitive.pdf) helpfully explains that what gets called &amp;ldquo;the class imbalance problem&amp;rdquo; is better understood as three separate problems:
+ (1) assuming that an accuracy metric is appropriate when it is not (2) assuming that the test distribution matches the training distribution when it does not (3) assuming that you have enough minority class data when you do not The authors explain:</description>
+    </item>
+    
+    <item>
+      <title>PyGuide</title>
+      <link>https://oceanbao.github.io/code/pyguide/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://oceanbao.github.io/code/pyguide/</guid>
+      <description>PyGuide Topics on best practices of Python programming: testing, code quality, project organisation, packaging, etc.
+ Vim + Python https://realpython.com/vim-and-python-a-match-made-in-heaven/ best tip vim http://rayninfo.co.uk/vimtips.html?LMCL=UE5rO4 Git Branching JS https://learngitbranching.js.org/  [toc]
+Setup Project pipenv install black --dev pipenv run black pipenv install flake8 --dev [flake8] ignore = E203, E266, E501, W503 max-line-length = 88 max-complexity = 18 select = B,C,E,F,W,T4 pipenv run flake8 [mypy] files=best_practices,test # dir ignore_missing_imports=true [tool:pytest] testpaths=test # .</description>
+    </item>
+    
+    <item>
+      <title>STATS</title>
+      <link>https://oceanbao.github.io/code/intro_statistical_learning/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://oceanbao.github.io/code/intro_statistical_learning/</guid>
+      <description>INTRO   Statistical Learning (aka Machine Learning) becoming distinct subset of Statistical Science focusing on prediction and inference
+  Inception from Least Square by Gauss et al, followed by Fisher&#39;s Logistic Regression and Generalised Linear Model in 1960s through 1980s
+  Reducible Error vs Irreducible Error
+$$E(Y - \hat{Y})^2 = E[f(X) + \varepsilon - \hat{f}(X)]^2 = [f(X) - \hat{f}(X)]^2 + Var(\varepsilon)$$
+ $$\hat{f}$$ can be improved by model and data $$Var(\varepsilon)$$ as variance of all else irreducible, unknown in practice    Parametric method simplifies estimation of arbitrary p-dimensional $$f$$ forms to estimating set of p + 1 coefficients</description>
+    </item>
+    
+    <item>
+      <title>TFP</title>
+      <link>https://oceanbao.github.io/code/tfp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://oceanbao.github.io/code/tfp/</guid>
+      <description>Topical Articles Bayesian CNN via TFP vs CNN This was introduced by Blundell et al (2015) and then adopted by many researchers in recent years.
+ Non-Bayes trains point estimate of weights Bayes approximates distribution of weights commonly basing on Gaussian (mean, sd), prior and data  Prediction via posterior distribution of weights So far, there are several existing packages in Python that implement Bayesian CNN. For example, Shridhar et al 2018used Pytorch (also see their blogs), Thomas Wiecki 2017 used PyMC3, and Tran et al 2016 introduced the package Edward and then merged into TensorFlow Probability (Tran et al 2018).</description>
+    </item>
+    
+    <item>
+      <title>VIM</title>
+      <link>https://oceanbao.github.io/code/vim/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://oceanbao.github.io/code/vim/</guid>
+      <description>[toc]
+Modes  Normal - Esc Insert - i, a, c Visual - v, V, Ctrl-v Command - :, /  Operators  c - change d - delete y - yank into registery ~ - swap case gu - make lower gU - make uppper ! - filter to external program &amp;lt; - shift left = - indent  Text Objects  aw - a word iw - inner word ap - a paragraph at - a tag it - inner block  Motions  % - go to 1st matching paren/bracket [count]+ - down to 1st non-blank char of line [count]$ - to end of line [count]f/F{char} - to next of {char} [count]h/j/k/l [count]]m - go to onset of next method [count]w/W - go ot word/WORD to the right [count]b/B - go to word/WORD to the left [count]e/E - go to end of word/WORD right [count][ops][text obj / motions] 6+ - go down to 6x line gUaW - cap a WORD 3ce - 3x change to word end 4$ - 4x go to end of line d]m - delete to start of next method  TRICK</description>
+    </item>
+    
+    <item>
+      <title>WebAssembly</title>
+      <link>https://oceanbao.github.io/code/webassembly/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://oceanbao.github.io/code/webassembly/</guid>
+      <description>WHAT  WASM is a binary instruction format for a stack-based virtual machine. It&#39;s designed as a portable target for compilation of high-level languages like C++, enabling deployment on the web for client and server applications. It defines an Abstract Syntax Tree (AST) which gets stored in a binary format
+ Brief:
+ JS is a standard with doc of per line behaviour Browser uses a JS engine (aka Virtual Machine) to interpret and run JS code based on the official specs In short, WASM is a W3C standard defining a binary format with .</description>
+    </item>
+    
+    <item>
+      <title>ZeroMQ</title>
+      <link>https://oceanbao.github.io/code/zeromq/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://oceanbao.github.io/code/zeromq/</guid>
+      <description>Demo: Python-Flask-ZMQ-Docker Stack 2-Way-2-Procs Communication Microservices ZeroMQ supplies basis for developing scalable distribution systed on top of socket. It is secure - ellipic curve cryptography (V4) and out-of-box communication patterns.
+ZeroMQ Messaging
+http://blog.pythonisito.com/2012/08/distributed-systems-with-zeromq.html
+Starting with simple PUB-SUB and Flask inside docker.
+ 1 &amp;amp; 3: Flask server running on port-5000 with endpoint. URL caters to GET req, and all req of the format ?Params= has response where upper case letters will be converted to lower case before returned 2: Response message also sent to ZMQ Publisher running in the same container 4 &amp;amp; 5: ZMQ Subscriber keeps listening and saves message from ZMQ Server to a file called subscriber.</description>
     </item>
     
   </channel>

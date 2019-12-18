@@ -18,8 +18,8 @@
       
       <guid>https://oceanbao.github.io/prose/code-poetry/</guid>
       <description>Pseudo code poem.
-if (this === that): try write_new_poem() except not_a_poet as e: return  Or just one long line&amp;hellip;
-console.log(&amp;#39;Sometimes lines are waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaay toooooooooooooooooooo looooooooooooooooooooooooooooooong&amp;#39;)  An embedded gist using shortcode:
+if (this === that): try write_new_poem() except not_a_poet as e: return Or just one long line&amp;hellip;
+console.log(&amp;#39;Sometimes lines are waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaay toooooooooooooooooooo looooooooooooooooooooooooooooooong&amp;#39;) An embedded gist using shortcode:
  </description>
     </item>
     
@@ -29,9 +29,9 @@ console.log(&amp;#39;Sometimes lines are waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
       <pubDate>Thu, 01 Feb 2018 12:35:11 -0500</pubDate>
       
       <guid>https://oceanbao.github.io/prose/a-poem/</guid>
-      <description>Now pleasing sleep had seal&amp;rsquo;d each mortal eye,
-Stretch&amp;rsquo;d in the tents the Grecian leaders lie:
-The immortals slumber&amp;rsquo;d on their thrones above;
+      <description>Now pleasing sleep had seal&#39;d each mortal eye,
+Stretch&#39;d in the tents the Grecian leaders lie:
+The immortals slumber&#39;d on their thrones above;
 All, but the ever-wakeful eyes of Jove.(76)
 To honour Thetis&amp;rsquo; son he bends his care,
 And plunge the Greeks in all the woes of war:

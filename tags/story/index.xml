@@ -17,8 +17,8 @@
       <pubDate>Tue, 10 Sep 2019 15:15:52 +0800</pubDate>
       
       <guid>https://oceanbao.github.io/prose/end-of-summer/</guid>
-      <description>La fin d&amp;rsquo;été C&amp;rsquo;est peut-être quelque jours après ce que j&amp;rsquo;oubliais comment écrire les mots français, mais dépuis aujourd&amp;rsquo;huid&amp;hellip;
-à continuer&amp;hellip; oh c&amp;rsquo;est pas grave!</description>
+      <description>La fin d&#39;été C&#39;est peut-être quelque jours après ce que j&#39;oubliais comment écrire les mots français, mais dépuis aujourd&#39;huid&amp;hellip;
+à continuer&amp;hellip; oh c&#39;est pas grave!</description>
     </item>
     
     <item>
@@ -28,12 +28,13 @@
       
       <guid>https://oceanbao.github.io/prose/becoming_mle/</guid>
       <description>Becoming Machine Learning Engineer Goal Output = Service/Product as Software integrating end-to-end ecosystem.
-Summary of Skills  CS Fundamentals and Programming  Data Structure
+Summary of Skills   CS Fundamentals and Programming
+Data Structure
  Stacks queues multi-D arrays trees graphs  Algorithms
  search sort optimisation Dynamic programming  Computation and Complexity
  NP/P/NP-Complete O() approximate heuristics  Architecture
- memory cache bandwidth deadlocks distributed processing   Probability and Statistics
- Bayes Net Markov Decision Process HMM  Data Modeling and Evaluation</description>
+ memory cache bandwidth deadlocks distributed processing    Probability and Statistics
+ Bayes Net Markov Decision Process HMM    Data Modeling and Evaluation</description>
     </item>
     
   </channel>

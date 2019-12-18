@@ -142,7 +142,63 @@
   </url>
   
   <url>
+    <loc>https://oceanbao.github.io/code/container/</loc>
+  </url>
+  
+  <url>
+    <loc>https://oceanbao.github.io/code/cython/</loc>
+  </url>
+  
+  <url>
+    <loc>https://oceanbao.github.io/code/dodata/</loc>
+  </url>
+  
+  <url>
+    <loc>https://oceanbao.github.io/code/techdevguide/</loc>
+  </url>
+  
+  <url>
+    <loc>https://oceanbao.github.io/code/git/</loc>
+  </url>
+  
+  <url>
+    <loc>https://oceanbao.github.io/code/kubeflow/</loc>
+  </url>
+  
+  <url>
+    <loc>https://oceanbao.github.io/code/linuxhacker/</loc>
+  </url>
+  
+  <url>
+    <loc>https://oceanbao.github.io/code/ml/</loc>
+  </url>
+  
+  <url>
     <loc>https://oceanbao.github.io/gallery/</loc>
+  </url>
+  
+  <url>
+    <loc>https://oceanbao.github.io/code/pyguide/</loc>
+  </url>
+  
+  <url>
+    <loc>https://oceanbao.github.io/code/intro_statistical_learning/</loc>
+  </url>
+  
+  <url>
+    <loc>https://oceanbao.github.io/code/tfp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://oceanbao.github.io/code/vim/</loc>
+  </url>
+  
+  <url>
+    <loc>https://oceanbao.github.io/code/webassembly/</loc>
+  </url>
+  
+  <url>
+    <loc>https://oceanbao.github.io/code/zeromq/</loc>
   </url>
   
 </urlset>

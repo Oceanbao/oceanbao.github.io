@@ -1,0 +1,1769 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<meta name="description" content="Ocean on GitHub.">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:domain" content="https://oceanbao.github.io/">
+
+<meta name="twitter:image" content="https://oceanbao.github.io/tn.png">
+<meta name="twitter:title" property="og:title" itemprop="title name" content="Ocean Ode">
+<meta name="twitter:description" property="og:description" itemprop="description" content="Ocean on GitHub.">
+<meta name="og:type" content="website">
+<meta name="og:url" content="https://oceanbao.github.io/">
+<meta name="og:image" itemprop="image primaryImageOfPage" content="https://oceanbao.github.io/tn.png">
+
+<link rel="shortcut icon" href="https://oceanbao.github.io/oceanicon.jpg" id="favicon">
+<link rel="stylesheet" href="https://oceanbao.github.io/css/style.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+
+    
+
+    
+    
+    
+    <title>
+        
+        PyGuide
+        
+    </title>
+</head>
+
+<body>
+
+    <div class="wrap">
+        <div class="section" id="title">PyGuide</div>
+        <aside>
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#how-to-structure-simple-test">How to Structure Simple Test</a></li>
+    <li><a href="#differences-testing-flask-using-unittest">Differences Testing Flask: Using unittest</a></li>
+    <li><a href="#advanced-input-instance-of-class-or-context">Advanced Input: instance of class or context</a></li>
+    <li><a href="#isolating-behaviour-and-state-or-side-effects">Isolating Behaviour and State or Side Effects</a></li>
+    <li><a href="#integration-test">Integration Test</a></li>
+    <li><a href="#automation-cicd---run-tests-compile-and-publish-and-deploy">Automation: CI/CD - run tests, compile and publish and deploy</a></li>
+    <li><a href="#tips">Tips</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#mocks">MOCKs</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#connect-to-server-ci---circleci">Connect to Server CI - CircleCI</a></li>
+    <li><a href="#advanced-topics">Advanced Topics</a></li>
+    <li><a href="#other-ci-services">Other CI Services</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#f-strings">f-strings</a></li>
+    <li><a href="#pathlib">pathlib</a></li>
+    <li><a href="#click">click</a></li>
+    <li><a href="#example---crawl-bitcoin-data-asyncio-attrs-streamz-websocks">Example - crawl bitcoin data [asyncio, attrs, streamz, websocks]</a>
+      <ul>
+        <li><a href="#streamz">streamz</a></li>
+        <li><a href="#attr-better-named-tuples">attr (better named tuples)</a></li>
+        <li><a href="#numismatic">numismatic</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#google-style">Google Style</a>
+      <ul>
+        <li><a href="#exceptions">Exceptions</a></li>
+        <li><a href="#global-variables">Global Variables</a></li>
+        <li><a href="#nestedlocalinner-classes-and-functions">Nested/Local/Inner Classes and Functions</a></li>
+        <li><a href="#comprehensions--generator-expressions">Comprehensions & Generator Expressions</a></li>
+        <li><a href="#default-iterators-and-operators">Default Iterators and Operators</a></li>
+        <li><a href="#properties">Properties</a></li>
+        <li><a href="#conditional-">Conditional !!!</a></li>
+        <li><a href="#decorators">Decorators</a></li>
+        <li><a href="#threading">Threading</a></li>
+        <li><a href="#power-features">Power Features</a></li>
+      </ul>
+    </li>
+    <li><a href="#numpy-style-docstrings">Numpy Style Docstrings</a></li>
+    <li><a href="#type-hinting-mypy">Type Hinting (mypy)</a></li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#pipenv---python-new-packaging-tool">PIPENV - Python new packaging tool</a></li>
+        <li><a href="#pipenv-intro">Pipenv Intro</a></li>
+        <li><a href="#package-distribution-with-pipenv">Package Distribution with Pipenv</a></li>
+      </ul>
+    </li>
+    <li><a href="#flask-project-repo">Flask Project Repo</a></li>
+  </ul>
+</nav>
+        </aside>
+        <div class="section" id="content"><h1 id="pyguide">PyGuide</h1>
+<p>Topics on best practices of Python programming: testing, code quality, project organisation, packaging, etc.</p>
+<ul>
+<li>Vim + Python <a href="https://realpython.com/vim-and-python-a-match-made-in-heaven/">https://realpython.com/vim-and-python-a-match-made-in-heaven/</a></li>
+<li>best tip vim <a href="http://rayninfo.co.uk/vimtips.html?LMCL=UE5rO4">http://rayninfo.co.uk/vimtips.html?LMCL=UE5rO4</a></li>
+<li>Git Branching JS <a href="https://learngitbranching.js.org/">https://learngitbranching.js.org/</a></li>
+</ul>
+<p>[toc]</p>
+<h1 id="setup-project">Setup Project</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">pipenv install black --dev
+pipenv run black
+pipenv install flake8 --dev
+
+<span style="color:#f92672">[</span>flake8<span style="color:#f92672">]</span>
+ignore <span style="color:#f92672">=</span> E203, E266, E501, W503
+max-line-length <span style="color:#f92672">=</span> <span style="color:#ae81ff">88</span>
+max-complexity <span style="color:#f92672">=</span> <span style="color:#ae81ff">18</span>
+<span style="color:#66d9ef">select</span> <span style="color:#f92672">=</span> B,C,E,F,W,T4
+
+pipenv run flake8
+
+<span style="color:#f92672">[</span>mypy<span style="color:#f92672">]</span>
+files<span style="color:#f92672">=</span>best_practices,test <span style="color:#75715e"># dir</span>
+ignore_missing_imports<span style="color:#f92672">=</span>true
+
+<span style="color:#f92672">[</span>tool:pytest<span style="color:#f92672">]</span>
+testpaths<span style="color:#f92672">=</span>test
+
+<span style="color:#75715e"># .coveragerc</span>
+<span style="color:#f92672">[</span>run<span style="color:#f92672">]</span>
+source <span style="color:#f92672">=</span> best_practices
+
+<span style="color:#f92672">[</span>report<span style="color:#f92672">]</span>
+exclude_lines <span style="color:#f92672">=</span>
+    <span style="color:#75715e"># Have to re-enable the standard pragma</span>
+    pragma: no cover
+
+    <span style="color:#75715e"># Don&#39;t complain about missing debug-only code:</span>
+    def __repr__
+    <span style="color:#66d9ef">if</span> self<span style="color:#ae81ff">\.</span>debug
+
+    <span style="color:#75715e"># Don&#39;t complain if tests don&#39;t hit defensive assertion code:</span>
+    raise AssertionError
+    raise NotImplementedError
+
+    <span style="color:#75715e"># Don&#39;t complain if non-runnable code isn&#39;t run:</span>
+    <span style="color:#66d9ef">if</span> 0:
+    <span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">=</span><span style="color:#f92672">=</span> .__main__.:
+
+pipenv run pytest --cov --cov-fail-under<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>
+
+
+<span style="color:#75715e"># project cookiecutter</span>
+cookiecutter gh:...
+git init
+pipenv install -dev
+
+</code></pre></div><h1 id="pytest">PyTest</h1>
+<blockquote>
+<p>Sinlge-script app: benefit using below is that no need to turn project folder into package and able to specify file name</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">target <span style="color:#f92672">=</span> __import__(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">my_sum.py</span><span style="color:#e6db74">&#34;</span>)
+sum <span style="color:#f92672">=</span> target<span style="color:#f92672">.</span>sum
+</code></pre></div><h2 id="how-to-structure-simple-test"><strong>How to Structure Simple Test</strong></h2>
+<ol>
+<li>What to test?</li>
+<li>Unit test or integration test?</li>
+</ol>
+<p>Then:</p>
+<ol>
+<li>Create inputs</li>
+<li>Run code capturing output</li>
+<li>Compare with expected</li>
+</ol>
+<p>Example sum(): many behaviours could be checked:</p>
+<ul>
+<li>can it sum a list of int?</li>
+<li>can it sum a tuple or set?</li>
+<li>can it sum a list of float/</li>
+<li>Check with bad input, e.g. a single int or string</li>
+<li>check negative value</li>
+</ul>
+<h2 id="differences-testing-flask-using-unittest"><strong>Differences Testing Flask: Using <code>unittest</code></strong></h2>
+<blockquote>
+<p>Flask requires that the app be imported and then set in test mode. Init test client and use test client to make requests to any routes in app</p>
+<p>All of test client init is done in the <code>setup</code> method of test case</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># my_app is name of app</span>
+
+<span style="color:#f92672">import</span> my_app
+<span style="color:#f92672">import</span> unittest
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyTestCase</span>(unittest<span style="color:#f92672">.</span>TestCase):
+    
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">setUp</span>(self):
+        my_app<span style="color:#f92672">.</span>app<span style="color:#f92672">.</span>testing <span style="color:#f92672">=</span> True
+        self<span style="color:#f92672">.</span>app <span style="color:#f92672">=</span> my_app<span style="color:#f92672">.</span>app<span style="color:#f92672">.</span>test_client()
+        
+	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_home</span>(self):
+        result <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>app<span style="color:#f92672">.</span>get(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">/</span><span style="color:#e6db74">&#39;</span>)
+        <span style="color:#75715e"># Make assertions...</span>
+
+<span style="color:#75715e"># run with `python -m unittest discover`</span>
+</code></pre></div><h2 id="advanced-input-instance-of-class-or-context"><strong>Advanced Input: instance of class or context</strong></h2>
+<p><strong>Input is FIXTURE: create and reuse</strong></p>
+<ul>
+<li>
+<p>Varied input but same result - <strong>parameterisation</strong></p>
+</li>
+<li>
+<p>Catching errors</p>
+</li>
+</ul>
+<h2 id="isolating-behaviour-and-state-or-side-effects"><strong>Isolating Behaviour and State</strong> or <strong>Side Effects</strong></h2>
+<ul>
+<li>Refactoring code to follow Single Responsibility Principle !!</li>
+<li>Mocking out any method or function calls to remove side effects</li>
+<li>Using integration testing instead of unit testing for this piece of app</li>
+</ul>
+<h2 id="integration-test"><strong>Integration Test</strong></h2>
+<ul>
+<li>calling HTTP REST API</li>
+<li>calling Python API</li>
+<li>calling web service</li>
+<li>running a CLI</li>
+</ul>
+<p>Most can follow Unit Test <strong>Input, Run, Assert</strong> pattern with <strong>DIFF</strong> that this is checking more components AT ONCE and hence having more side effects, requiring more fixtures, like DB, network socket, config file.</p>
+<blockquote>
+<p>Run once before deployment rather than per commit !!</p>
+</blockquote>
+<p><strong>Repo Structure</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">project/
+|
+|---my_app/
+|	|---__init__.py
+|---tests/
+	|---unit/
+		|---__init__.py
+		|---test_sum.py
+    |---integration/
+    	|
+    	|---fixtures/
+    		|---test_basic.json
+    		|---test_complex.json
+    	|
+    	|---__init__.py
+    	|---test_integration.py
+</code></pre></div><h2 id="automation-cicd---run-tests-compile-and-publish-and-deploy"><strong>Automation: CI/CD - run tests, compile and publish and deploy</strong></h2>
+<ul>
+<li>
+<p>Travis CI one of many CI</p>
+</li>
+<li>
+<p>Travis CI is free for open-source projects on GitHub and GitLab</p>
+<ul>
+<li>
+<p>config <code>.travis.yml</code></p>
+</li>
+<li>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">language: python
+python:
+    - <span style="color:#e6db74">&#34;2.7&#34;</span>
+    - <span style="color:#e6db74">&#34;3.7&#34;</span>
+install:
+    - pip install -r requirements.txt
+script:
+    - python -m unittest discover
+</code></pre></div><ul>
+<li>Test against 2.7 and 3.7</li>
+<li>Install all pkgs in file</li>
+<li>run test</li>
+</ul>
+</li>
+<li>
+<p>Once committed and pushed this file, Travis CI will run these commands every time pushing to remote Git repo and available metrics online</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="tips"><strong>Tips</strong></h2>
+<ul>
+<li>
+<p>Linters - Tox and Travis CI have config for a test cmd</p>
+<ul>
+<li>can provide many cmds in pipeline such as linter - commenting on code</li>
+</ul>
+</li>
+<li>
+<p>Passive Linting <strong>flake8</strong></p>
+<ul>
+<li>PEP 8 specs - <code>flake8 test.py</code></li>
+</ul>
+</li>
+<li>
+<p>Aggressive Linting <strong>black</strong></p>
+</li>
+<li>
+<p>Keeping test code clean</p>
+<ul>
+<li>test fixtures and funcs are a great way to produce good code
+<ul>
+<li><code>flake8 --max-line-length=120 tests/</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Testing for Speed Degradation Between Changes</p>
+<ul>
+<li>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test</span>():
+    <span style="color:#75715e"># ... your code</span>
+        
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">__main__</span><span style="color:#e6db74">&#39;</span>:
+    <span style="color:#f92672">import</span> timeit
+    <span style="color:#66d9ef">print</span>(timeit<span style="color:#f92672">.</span>timeit(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">test()</span><span style="color:#e6db74">&#34;</span>, setup<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">from __main__ import test</span><span style="color:#e6db74">&#34;</span>, number<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>))
+</code></pre></div></li>
+<li>
+<p>Or <strong>pytest</strong> using <strong>pytest-benchmark</strong> plugin</p>
+</li>
+<li>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_my_function</span>(benchmark):
+    result <span style="color:#f92672">=</span> benchmark(test)
+</code></pre></div></li>
+</ul>
+</li>
+<li>
+<p>Security</p>
+<ul>
+<li><code>pip install bandit</code></li>
+<li><code>bandit -r my_sum</code></li>
+</ul>
+</li>
+</ul>
+<h1 id="test-driven-dev-with-pytest">Test-Driven Dev with PyTest</h1>
+<p>TODO</p>
+<h2 id="mocks"><strong>MOCKs</strong></h2>
+<p>Adding outside func call to app:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">initial_transform</span>(data):
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Flatten nested dicts</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+    <span style="color:#66d9ef">for</span> item <span style="color:#f92672">in</span> list(data):
+        <span style="color:#66d9ef">if</span> type(data[item]) <span style="color:#f92672">is</span> dict:
+            <span style="color:#66d9ef">for</span> key <span style="color:#f92672">in</span> data[item]:
+                data[key] <span style="color:#f92672">=</span> data[item][key]
+			data<span style="color:#f92672">.</span>pop(item)
+	
+    outside_module<span style="color:#f92672">.</span>do_sth()
+    <span style="color:#66d9ef">return</span> data
+</code></pre></div><ul>
+<li>
+<p>do not want to make LIVE call (API) to externals so instead do MOCKING</p>
+</li>
+<li>
+<p>Setting up mocks in fixtures since it's a part of test setup and can keep all setup code in one</p>
+</li>
+<li>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#a6e22e">@pytest.fixture</span>(params<span style="color:#f92672">=</span>[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">nodict</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">dict</span><span style="color:#e6db74">&#39;</span>])
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generate_initial_transform_parameters</span>(request, mocker):
+    [<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>]
+    mocker<span style="color:#f92672">.</span>patch<span style="color:#f92672">.</span>object(outside_module, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">do_sth</span><span style="color:#e6db74">&#39;</span>)
+    mocker<span style="color:#f92672">.</span>do_sth<span style="color:#f92672">.</span>return_value(<span style="color:#ae81ff">1</span>)
+    [<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>]
+</code></pre></div></li>
+<li>
+<p>Now each <code>initial_transform</code> call then <code>do_sth</code> call will be intercepted and return 1</p>
+</li>
+<li>
+<p>control fixture params to determine what mock returns - important for code branch determined by the result of outside call</p>
+</li>
+<li>
+<p>neat trick is <code>side_effect</code> allowing mocking various returns for successive calls to the same func:</p>
+</li>
+<li>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">initial_transform</span>(data):
+    <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+      
+    outside_module<span style="color:#f92672">.</span>do_sth()
+    outside_module<span style="color:#f92672">.</span>do_sth()
+    <span style="color:#66d9ef">return</span> data
+</code></pre></div></li>
+<li>
+<p>then set up mock so:</p>
+</li>
+<li>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#a6e22e">@pytest.ficture</span>(<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+  mocker<span style="color:#f92672">.</span>patch<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+    mocker<span style="color:#f92672">.</span>do_sth<span style="color:#f92672">.</span>side_effect([<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>])
+    <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+</code></pre></div></li>
+<li>
+<p>Advanced: <a href="https://realpython.com/testing-third-party-apis-with-mock-servers/">Mock Server to test 3P APIs</a></p>
+</li>
+</ul>
+<h1 id="cicd">CI/CD</h1>
+<p>Multi-coder coordination management.</p>
+<p><strong>CI</strong> is practice of frequently building and testing each change done to code automatically and as early as possible.</p>
+<blockquote>
+<p>Martin Fowler: CI is a software dev practice where members of a team integrate their work frequently, usually each person integrates at least daily - leading to multiple integrations per day. Each is verified by an automated build (and test) to detect integration errors asap.</p>
+</blockquote>
+<p>Skipping Git repo, code, Unit Tests,</p>
+<p><strong>Unit Test</strong></p>
+<ul>
+<li><code>flake8</code> for styling and errors</li>
+<li><code>pytest</code> for unit testing</li>
+<li><strong>Code Coverage</strong> is % &ldquo;covered&rdquo; by tests <code>pytest-cov</code> extension</li>
+<li><code>pip install flake8 pytest pytest-cov</code></li>
+<li><code>pip freeze &gt; requirements.txt</code></li>
+<li><code>flake8 --statistics</code></li>
+<li><code>pytest -v --cov</code></li>
+</ul>
+<p>Done and push to master <code>git add ..., git commit ... git push</code></p>
+<h2 id="connect-to-server-ci---circleci">Connect to Server CI - CircleCI</h2>
+<ul>
+<li>
+<p>require config <code>.circleci</code> folder within repo</p>
+</li>
+<li>
+<p><code>.yml</code> file uses data serialization lang, YAML,</p>
+<ul>
+<li>
+<p>key-value, list, scalar</p>
+</li>
+<li>
+<p>indent for structure, colons split key-value, dashes creating list</p>
+</li>
+<li>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#75715e"># Python CircleCI 2.0 configuration file</span>
+<span style="color:#75715e"># simple exmple of:</span>
+<span style="color:#75715e"># 1. checking out the repo</span>
+<span style="color:#75715e"># 2. Installing the deps in venv</span>
+<span style="color:#75715e"># 3. Running linter and tests while inside the venv</span>
+    
+version: <span style="color:#ae81ff">2</span>
+jobs: <span style="color:#75715e"># Jobs represent a single execution of the build and are defined by a collection of steps. If you have only one job, it must be called build.</span>
+    build: <span style="color:#75715e"># As mentioned before, build is the name of your job. You can have multiple jobs, in which case they need to have unique names.</span>
+        docker: <span style="color:#75715e"># The steps of a job occur in an environment called an executor. The common executor in CircleCI is a Docker container. It is a cloud-hosted execution environment but other options exist, like a macOS environment.</span>
+            - image: circleci/python:<span style="color:#ae81ff">3.7</span>
+        <span style="color:#75715e"># Your repository has to be checked out somewhere on the build server. The working directory represents the file path where the repository will be stored.</span>
+        working_directory: ~/repo
+    		
+        steps:
+            <span style="color:#75715e"># Step 1: obtian repo from GitHub</span>
+            - checkout <span style="color:#75715e"># The first step the server needs to do is check the source code out to the working directory. This is performed by a special step called checkout.</span>
+            <span style="color:#75715e"># Step 2: create venv and env setup</span>
+            - run:
+                name: install dependencies
+                command: <span style="color:#e6db74">|
+</span><span style="color:#e6db74">                   </span><span style="color:#e6db74"> </span><span style="color:#e6db74">python 3 -m venv venv</span>
+                    . venv/bin/activate
+                    pip install -r requirements.txt
+            <span style="color:#75715e"># Step 3: run linter and tests</span>
+            - run:
+                name: run tests
+                command: <span style="color:#e6db74">|
+</span><span style="color:#e6db74">                   </span><span style="color:#e6db74"> </span><span style="color:#e6db74">. venv/bin/activate</span>
+                    flake8 --exclude=venv* --statistics
+                    pytest -v --cov=calculator
+</code></pre></div></li>
+<li>
+<p>log in site and Add Projects -&gt; Set Up Project &gt; Python -&gt; skip config.yml -&gt; Start builiding</p>
+</li>
+<li>
+<p>Now each <strong>push to master branch</strong> a job will be triggered - Jobs in sidebar for log</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Add new feature and failing test first is <strong>TDD</strong> - <strong>writing test first and add code</strong></p>
+</li>
+<li>
+<p>Notification of failure</p>
+<ul>
+<li>email for each failed build</li>
+<li>failure notification Slack</li>
+<li>on a dashboard</li>
+</ul>
+</li>
+</ul>
+<h2 id="advanced-topics">Advanced Topics</h2>
+<ul>
+<li>Git Workflow
+<ul>
+<li>e.g. branching strategies <strong>peer review</strong> to ask for peer review before merging to master</li>
+</ul>
+</li>
+<li>Dependency Management and VENV
+<ul>
+<li>e.g. <strong>Pipenv</strong></li>
+</ul>
+</li>
+<li>Testing
+<ul>
+<li>see elsewhere here</li>
+</ul>
+</li>
+<li>Packaging
+<ul>
+<li>elsewhere</li>
+</ul>
+</li>
+<li>CI
+<ul>
+<li>common for final step to leave <strong>deployable artifact</strong> representing a finished, packaged unit of work ready to deploy</li>
+</ul>
+</li>
+<li>CD
+<ul>
+<li>ext of CI, deployment to production to minimise lead time from code to end usage</li>
+</ul>
+</li>
+</ul>
+<h2 id="other-ci-services">Other CI Services</h2>
+<ul>
+<li>remote and self-hosted</li>
+<li><strong>Jenkins</strong> self-hosted</li>
+<li><strong>Travis CI, CodeShip, Semaphore, etc</strong></li>
+<li></li>
+</ul>
+<h1 id="off-scripting-tips">OFF: Scripting Tips</h1>
+<p># Highlight Tools</p>
+<ul>
+<li>f-strings</li>
+<li>pathlib</li>
+<li>click</li>
+<li>asyncio</li>
+<li>attrs</li>
+<li>streamz</li>
+</ul>
+<h2 id="f-strings">f-strings</h2>
+<ul>
+<li>easy accessing ENV variables via f&rsquo;&rsquo;</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> subprocess <span style="color:#f92672">import</span> call
+call(f<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">curl -s -X GET http://{URL}/v2/{IMAGE}/tags/list</span><span style="color:#e6db74">&#39;</span>)
+</code></pre></div><h2 id="pathlib">pathlib</h2>
+<p>Without pathlib</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> glob
+<span style="color:#f92672">import</span> os
+<span style="color:#f92672">import</span> shutil
+
+<span style="color:#66d9ef">for</span> file_name <span style="color:#f92672">in</span> glob<span style="color:#f92672">.</span>glob(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">*.txt</span><span style="color:#e6db74">&#39;</span>):
+    new_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">archive</span><span style="color:#e6db74">&#39;</span>, file_name)
+    shutil<span style="color:#f92672">.</span>move(file_name, new_path)
+</code></pre></div><p>Examples</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt;&gt;&gt; import pathlib
+&gt;&gt;&gt; pathlib.Path.cwd<span style="color:#f92672">(</span><span style="color:#f92672">)</span>
+PosixPath<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;/home/gahjelle/realpython/&#39;</span><span style="color:#f92672">)</span>
+
+&gt;&gt;&gt; pathlib.Path<span style="color:#f92672">(</span>r<span style="color:#e6db74">&#39;C:\Users\gahjelle\realpython\file.txt&#39;</span><span style="color:#f92672">)</span>
+WindowsPath<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;C:/Users/gahjelle/realpython/file.txt&#39;</span><span style="color:#f92672">)</span>
+
+&gt;&gt;&gt; pathlib.Path.home<span style="color:#f92672">(</span><span style="color:#f92672">)</span> / <span style="color:#e6db74">&#39;python&#39;</span> / <span style="color:#e6db74">&#39;scripts&#39;</span> / <span style="color:#e6db74">&#39;test.py&#39;</span>
+PosixPath<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;/home/gahjelle/python/scripts/test.py&#39;</span><span style="color:#f92672">)</span>
+
+&gt;&gt;&gt; pathlib.Path.home<span style="color:#f92672">(</span><span style="color:#f92672">)</span>.joinpath<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;python&#39;</span>, <span style="color:#e6db74">&#39;scripts&#39;</span>, <span style="color:#e6db74">&#39;test.py&#39;</span><span style="color:#f92672">)</span>
+PosixPath<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;/home/gahjelle/python/scripts/test.py&#39;</span><span style="color:#f92672">)</span>
+
+<span style="color:#75715e"># CREATE FILE</span>
+
+path <span style="color:#f92672">=</span> pathlib.Path.cwd<span style="color:#f92672">(</span><span style="color:#f92672">)</span> / <span style="color:#e6db74">&#39;test.md&#39;</span>
+with open<span style="color:#f92672">(</span>path, mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;r&#39;</span><span style="color:#f92672">)</span> as fid:
+    headers <span style="color:#f92672">=</span> <span style="color:#f92672">[</span>line.strip<span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#66d9ef">for</span> line in fid <span style="color:#66d9ef">if</span> line.startswith<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;#&#39;</span><span style="color:#f92672">)</span><span style="color:#f92672">]</span>
+print<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;\n&#39;</span>.join<span style="color:#f92672">(</span>headers<span style="color:#f92672">)</span><span style="color:#f92672">)</span>
+
+<span style="color:#75715e"># READ</span>
+&gt;&gt;&gt; pathlib.Path<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;test.md&#39;</span><span style="color:#f92672">)</span>.read_text<span style="color:#f92672">(</span><span style="color:#f92672">)</span>
+&lt;the contents of the test.md-file&gt;
+
+<span style="color:#75715e"># COMPONENTS</span>
+&gt;&gt;&gt; path
+PosixPath<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;/home/gahjelle/realpython/test.md&#39;</span><span style="color:#f92672">)</span>
+&gt;&gt;&gt; path.name
+<span style="color:#e6db74">&#39;test.md&#39;</span>
+&gt;&gt;&gt; path.stem
+<span style="color:#e6db74">&#39;test&#39;</span>
+&gt;&gt;&gt; path.suffix
+<span style="color:#e6db74">&#39;.md&#39;</span>
+&gt;&gt;&gt; path.parent
+PosixPath<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;/home/gahjelle/realpython&#39;</span><span style="color:#f92672">)</span>
+&gt;&gt;&gt; path.parent.parent
+PosixPath<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;/home/gahjelle&#39;</span><span style="color:#f92672">)</span>
+&gt;&gt;&gt; path.anchor
+<span style="color:#e6db74">&#39;/&#39;</span>
+
+&gt;&gt;&gt; path.parent.parent / <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;new&#39;</span> + path.suffix<span style="color:#f92672">)</span>
+PosixPath<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;/home/gahjelle/new.md&#39;</span><span style="color:#f92672">)</span>
+
+&gt;&gt;&gt; path
+PosixPath<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;/home/gahjelle/realpython/test001.txt&#39;</span><span style="color:#f92672">)</span>
+&gt;&gt;&gt; path.with_suffix<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;.py&#39;</span><span style="color:#f92672">)</span>
+PosixPath<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;/home/gahjelle/realpython/test001.py&#39;</span><span style="color:#f92672">)</span>
+&gt;&gt;&gt; path.replace<span style="color:#f92672">(</span>path.with_suffix<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;.py&#39;</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span>
+
+
+&gt;&gt;&gt; import collections
+&gt;&gt;&gt; collections.Counter<span style="color:#f92672">(</span>p.suffix <span style="color:#66d9ef">for</span> p in pathlib.Path.cwd<span style="color:#f92672">(</span><span style="color:#f92672">)</span>.iterdir<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span>
+Counter<span style="color:#f92672">(</span><span style="color:#f92672">{</span><span style="color:#e6db74">&#39;.md&#39;</span>: 2, <span style="color:#e6db74">&#39;.txt&#39;</span>: 4, <span style="color:#e6db74">&#39;.pdf&#39;</span>: 2, <span style="color:#e6db74">&#39;.py&#39;</span>: 1<span style="color:#f92672">}</span><span style="color:#f92672">)</span>
+
+
+
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> pathlib <span style="color:#f92672">import</span> Path
+p <span style="color:#f92672">=</span> Path(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">.</span><span style="color:#e6db74">&#39;</span>)
+p
+
+str(p)
+str(p<span style="color:#f92672">.</span>absolute())
+
+p <span style="color:#f92672">=</span> p<span style="color:#f92672">.</span>absolute()
+p<span style="color:#f92672">.</span>as_posix()
+
+p<span style="color:#f92672">.</span>as_uri()
+
+p<span style="color:#f92672">.</span>parent
+
+p<span style="color:#f92672">.</span>relative_to(p<span style="color:#f92672">.</span>parent)
+
+<span style="color:#75715e"># example 2</span>
+q <span style="color:#f92672">=</span> p <span style="color:#f92672">/</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">newdir</span><span style="color:#e6db74">&#39;</span>
+q
+
+p<span style="color:#f92672">.</span>exists()
+
+q<span style="color:#f92672">.</span>exists()
+
+p<span style="color:#f92672">.</span>is_dir()
+
+p<span style="color:#f92672">.</span>is_file()
+
+<span style="color:#75715e"># subdirectory</span>
+[x <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> p<span style="color:#f92672">.</span>iterdir() <span style="color:#66d9ef">if</span> x<span style="color:#f92672">.</span>is_dir()]
+
+<span style="color:#75715e"># files</span>
+[x <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> p<span style="color:#f92672">.</span>iterdir() <span style="color:#66d9ef">if</span> x<span style="color:#f92672">.</span>is_file()]
+
+<span style="color:#75715e"># find recursively</span>
+list(p<span style="color:#f92672">.</span>rglob(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">*</span><span style="color:#e6db74">&#39;</span>))
+
+<span style="color:#75715e"># directory</span>
+q<span style="color:#f92672">.</span>exists()
+
+q<span style="color:#f92672">.</span>mkdir()
+	
+q<span style="color:#f92672">.</span>exists()
+
+<span style="color:#75715e"># files</span>
+fp <span style="color:#f92672">=</span> n <span style="color:#f92672">/</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">newfile.txt</span><span style="color:#e6db74">&#39;</span>
+fp
+
+<span style="color:#66d9ef">with</span> fp<span style="color:#f92672">.</span>open(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">wt</span><span style="color:#e6db74">&#39;</span>) <span style="color:#66d9ef">as</span> f:
+    f<span style="color:#f92672">.</span>write(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">The quick brown fox jumped over the lazy dog.</span><span style="color:#e6db74">&#39;</span>)
+
+fp<span style="color:#f92672">.</span>exists() <span style="color:#f92672">and</span> fp<span style="color:#f92672">.</span>is_file()
+
+fp<span style="color:#f92672">.</span>read_text()
+
+<span style="color:#75715e"># removal</span>
+fp<span style="color:#f92672">.</span>unlink()
+
+fp<span style="color:#f92672">.</span>exists()
+
+q<span style="color:#f92672">.</span>rmdir()
+
+q<span style="color:#f92672">.</span>exists()
+</code></pre></div><h2 id="click">click</h2>
+<ul>
+<li>auto &ndash;help docs</li>
+<li>params validation</li>
+<li>arbitrary nesting of cmds</li>
+<li>support lazy loading of subcmds at RT</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> click
+
+<span style="color:#a6e22e">@click.command</span>()
+<span style="color:#a6e22e">@click.option</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">--count</span><span style="color:#e6db74">&#39;</span>, default<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, help<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Number of greetings</span><span style="color:#e6db74">&#39;</span>)
+<span style="color:#a6e22e">@click.option</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">--name</span><span style="color:#e6db74">&#39;</span>, prompt<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Your name</span><span style="color:#e6db74">&#39;</span>, help<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">The person to greet</span><span style="color:#e6db74">&#39;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">hello</span>(count, name):
+  <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Simple app greeting NAME for a total of COUNT times</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+  <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> range(count):
+    click<span style="color:#f92672">.</span>echo(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Hello {name}!</span><span style="color:#e6db74">&#39;</span>)
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">__main__</span><span style="color:#e6db74">&#39;</span>:
+  hello()
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python app.py --help
+
+python examples/greet.py
+
+python examples/greet.py --name <span style="color:#e6db74">&#39;PyconZA 2017&#39;</span> --count <span style="color:#ae81ff">3</span>
+</code></pre></div><p><strong>setuptool integration</strong>
+check docs
+or google numismatic setup github</p>
+<h2 id="example---crawl-bitcoin-data-asyncio-attrs-streamz-websocks">Example - crawl bitcoin data [asyncio, attrs, streamz, websocks]</h2>
+<h3 id="streamz">streamz</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> streamz <span style="color:#f92672">import</span> Stream source <span style="color:#f92672">=</span> Stream()
+source<span style="color:#f92672">.</span>emit(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">hello</span><span style="color:#e6db74">&#39;</span>) source<span style="color:#f92672">.</span>emit(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">world</span><span style="color:#e6db74">&#39;</span>)
+
+
+printer <span style="color:#f92672">=</span> source<span style="color:#f92672">.</span>map(<span style="color:#66d9ef">print</span>) <span style="color:#66d9ef">for</span> event <span style="color:#f92672">in</span> [<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">hello</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">world</span><span style="color:#e6db74">&#39;</span>]: source<span style="color:#f92672">.</span>emit(event) 
+L <span style="color:#f92672">=</span> [] 
+collector <span style="color:#f92672">=</span> source<span style="color:#f92672">.</span>map(L<span style="color:#f92672">.</span>append) j <span style="color:#66d9ef">for</span> event <span style="color:#f92672">in</span> [<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">hello</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">world</span><span style="color:#e6db74">&#39;</span>]: source<span style="color:#f92672">.</span>emit(event)
+</code></pre></div><h3 id="attr-better-named-tuples">attr (better named tuples)</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#a6e22e">@attr.s</span>(slots<span style="color:#f92672">=</span>True)
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Heartbeat</span>:
+    exchange <span style="color:#f92672">=</span> attr<span style="color:#f92672">.</span>ib()
+    symbol <span style="color:#f92672">=</span> attr<span style="color:#f92672">.</span>ib()
+    timestamp <span style="color:#f92672">=</span> attr<span style="color:#f92672">.</span>ib(default<span style="color:#f92672">=</span>attr<span style="color:#f92672">.</span>Factory(time<span style="color:#f92672">.</span>time))
+</code></pre></div><p>used as</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> numismatic.events <span style="color:#f92672">import</span> Heartbeat
+Heartbeat(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">bitfinex</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">BTCUSD</span><span style="color:#e6db74">&#39;</span>)
+
+<span style="color:#f92672">import</span> attr
+attr<span style="color:#f92672">.</span>asdict(Heartbeat(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">bitfinex</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">BTCUSD</span><span style="color:#e6db74">&#39;</span>))
+</code></pre></div><h3 id="numismatic">numismatic</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># set up stream</span>
+
+<span style="color:#f92672">from</span> streamz <span style="color:#f92672">import</span> Stream
+source <span style="color:#f92672">=</span> Stream()
+printer <span style="color:#f92672">=</span> source<span style="color:#f92672">.</span>map(<span style="color:#66d9ef">print</span>)
+L <span style="color:#f92672">=</span> []
+collector <span style="color:#f92672">=</span> source<span style="color:#f92672">.</span>map(L<span style="color:#f92672">.</span>append)
+
+<span style="color:#75715e"># prep connection</span>
+<span style="color:#f92672">from</span> numismatic.exchanges <span style="color:#f92672">import</span> BitfinexExchange
+bfx <span style="color:#f92672">=</span> BitfinexExchange(source)
+subscription <span style="color:#f92672">=</span> bfx<span style="color:#f92672">.</span>listen(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">BTCUSD</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">trades</span><span style="color:#e6db74">&#39;</span>)
+
+<span style="color:#75715e"># run event loop</span>
+<span style="color:#f92672">import</span> asyncio
+loop <span style="color:#f92672">=</span> asyncio<span style="color:#f92672">.</span>get_event_loop()
+future <span style="color:#f92672">=</span> asyncio<span style="color:#f92672">.</span>wait([subscription], timeout<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)
+loop<span style="color:#f92672">.</span>run_until_complete(future)
+</code></pre></div><p>try:
+git clone <a href="https://github.com/snth/numismatic.git">https://github.com/snth/numismatic.git</a>
+cd numismatic
+pip install -e .</p>
+<p><strong>run sans args for help</strong>
+coin</p>
+<p><strong>streamz as test tool before deploying KAFKA, FLINK</strong></p>
+<h1 id="style-and-quality">Style and Quality</h1>
+<h2 id="google-style">Google Style</h2>
+<h3 id="exceptions">Exceptions</h3>
+<ul>
+<li>
+<p>pros: control flow of normal ops code not cluttered by error-handling code</p>
+</li>
+<li>
+<p>cons - may cause confusing miss errors</p>
+</li>
+<li>
+<p>decision - must conditions</p>
+<ul>
+<li>
+<p>Raise exceptions like: <code>raise MyError('Error message') or raise MyError()</code></p>
+</li>
+<li>
+<p>make use of built-in classes</p>
+</li>
+<li>
+<p>do not use <code>assert</code> for validating argument values of a public API - assert is used to ensure <strong>internal correctness</strong>, not to enfore correct usage nor to indicate that some unexected event occurred - use raise</p>
+</li>
+<li>
+<p>Example</p>
+<ul>
+<li>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># YES</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">connect</span>(self, min):
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Connects to next available port.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">          </span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Args:</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">      min: </span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Returns:</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">      new mim</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Raises:</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">      ConnectionError: If no available port is found.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+    <span style="color:#66d9ef">if</span> min <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1024</span>:
+        <span style="color:#75715e"># Note this raising of ValueError is not documented</span>
+        <span style="color:#75715e"># because it is not appropriate to guarantee this specific behvaiour</span>
+        <span style="color:#75715e"># reaction to API miuse.</span>
+        <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">ValueError</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Min port must be at least 1024, not {:d}.</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>format(mim))
+  port <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> port:
+        <span style="color:#66d9ef">raise</span> ConnectionError(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Could not connect to service on {:d} or higher</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>)
+  <span style="color:#66d9ef">assert</span> port <span style="color:#f92672">&gt;</span><span style="color:#f92672">=</span> min, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Unexpected port {:d} when min was {:d}</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>format(port, min)
+    <span style="color:#66d9ef">return</span> port
+      
+<span style="color:#75715e"># NO</span>
+<span style="color:#66d9ef">def</span> <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>:
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    No mention of Raises!</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+    <span style="color:#75715e"># no implementation of raise ConnectionError</span>
+    <span style="color:#66d9ef">assert</span> min <span style="color:#f92672">&gt;</span><span style="color:#f92672">=</span> <span style="color:#ae81ff">1024</span>, <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+    port <span style="color:#f92672">=</span> <span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+    <span style="color:#66d9ef">assert</span> port <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> None
+    <span style="color:#66d9ef">return</span> port
+</code></pre></div></li>
+<li>
+<p>Lib/pkg may define their own exceptions, when doing so they must inherit from an exception class should end  with erro (foo.FooError)</p>
+</li>
+<li>
+<p>never use catch-all <code>except</code> or catch <code>Exception, StandardError</code> unless you are</p>
+<ul>
+<li>re-raising the exception or</li>
+<li>creating an isolation point in program where exceptions are not propagated but recorded suppresed instead, such as protecting a thread from crashing by guarding its outermost block</li>
+<li>python very tolerant in this and <code>except</code> will really catch everything inclu misspelled names, <code>sys.exti()</code> calls, Ctrl-C, unittest and all kinds</li>
+</ul>
+</li>
+<li>
+<p>Min the amount of code in <code>try/except</code> block, large the try, the more likely that an exception will be raised unexpectedly - hiding real error</p>
+</li>
+<li>
+<p>use <code>finally</code> to exec code whether or not an exception is raised in <code>try</code>, often useful for cleanip, i.e. closing file</p>
+</li>
+<li>
+<p>when capturing an exception, use <code>as</code> rather than comma</p>
+<ul>
+<li>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">try</span>:
+    <span style="color:#66d9ef">raise</span> Error()
+<span style="color:#66d9ef">except</span> Error <span style="color:#66d9ef">as</span> error:
+    <span style="color:#66d9ef">pass</span>
+</code></pre></div></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="global-variables">Global Variables</h3>
+<ul>
+<li>avoid</li>
+<li>see Naming</li>
+</ul>
+<h3 id="nestedlocalinner-classes-and-functions">Nested/Local/Inner Classes and Functions</h3>
+<ul>
+<li>fine when used to close over a local variable, inner classes are fine</li>
+<li>pros - allow objects limited scope, very ADT-y, commonly used for decorators</li>
+<li>cons - cannot be pickled !! cannot be directly tested !!legibility cost</li>
+<li>verdict - avoid except when closing a local value, DO NOT nest a func just to hide it from users of a module !! _predix is prefer so that it can still be accessed by tests</li>
+</ul>
+<h3 id="comprehensions--generator-expressions">Comprehensions &amp; Generator Expressions</h3>
+<ul>
+<li>concise, efficient container/iterator creation over <code>map, filter, lambda</code></li>
+<li>pros - simple can be clear than dict, list, set creation, generators very efficient for avoiding list entirely</li>
+<li>cons - complicated ones hard to read</li>
+<li>verdict - each portion must fit one-line <code>for</code> clause, filter expre, multiple for not permitted</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># YES</span>
+result <span style="color:#f92672">=</span> [mapping_expr <span style="color:#66d9ef">for</span> value <span style="color:#f92672">in</span> iterable <span style="color:#66d9ef">if</span> filter_expr]
+result <span style="color:#f92672">=</span> [{<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">key</span><span style="color:#e6db74">&#39;</span>: value} <span style="color:#66d9ef">for</span> value <span style="color:#f92672">in</span> iterable
+	<span style="color:#66d9ef">if</span> a_long_filter_expression(value)]
+result <span style="color:#f92672">=</span> [complicated_transform(x)
+	<span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> iterable <span style="color:#66d9ef">if</span> predicate(x)]
+descriptive_name <span style="color:#f92672">=</span> [
+	transform({<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">key</span><span style="color:#e6db74">&#39;</span>: key, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">value</span><span style="color:#e6db74">&#39;</span>: value}, color<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">black</span><span style="color:#e6db74">&#39;</span>)
+	<span style="color:#66d9ef">for</span> key, value <span style="color:#f92672">in</span> generate_iterable(some_input)
+	<span style="color:#66d9ef">if</span> complicated_condition_is_met(key, value)
+]
+result <span style="color:#f92672">=</span> []
+<span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">10</span>):
+	<span style="color:#66d9ef">for</span> y <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">5</span>):
+		<span style="color:#66d9ef">if</span> x <span style="color:#f92672">*</span> y <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">10</span>:
+			result<span style="color:#f92672">.</span>append((x, y))
+<span style="color:#66d9ef">return</span> {x: complicated_transform(x)
+	<span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> long_generator_function(parameter)
+	<span style="color:#66d9ef">if</span> x <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> None}
+squares_generator <span style="color:#f92672">=</span> (x<span style="color:#f92672">*</span><span style="color:#f92672">*</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">10</span>))
+unique_names <span style="color:#f92672">=</span> {user<span style="color:#f92672">.</span>name <span style="color:#66d9ef">for</span> user <span style="color:#f92672">in</span> users <span style="color:#66d9ef">if</span> user <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> None}
+eat(jelly_bean <span style="color:#66d9ef">for</span> jelly_bean <span style="color:#f92672">in</span> jelly_beans
+	<span style="color:#66d9ef">if</span> jelly_bean<span style="color:#f92672">.</span>color <span style="color:#f92672">==</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">black</span><span style="color:#e6db74">&#39;</span>)
+
+<span style="color:#75715e"># NO</span>
+result <span style="color:#f92672">=</span> [complicated_transform(
+	x, some_argument<span style="color:#f92672">=</span>x<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+	<span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> iterable <span style="color:#66d9ef">if</span> predicate(x)]
+result <span style="color:#f92672">=</span> [(x, y) <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">10</span>) <span style="color:#66d9ef">for</span> y <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">5</span>) <span style="color:#66d9ef">if</span> x <span style="color:#f92672">*</span> y <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">10</span>]
+<span style="color:#66d9ef">return</span> ((x, y, z)
+	<span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> xrange(<span style="color:#ae81ff">5</span>)
+	<span style="color:#66d9ef">for</span> y <span style="color:#f92672">in</span> xrange(<span style="color:#ae81ff">5</span>)
+	<span style="color:#66d9ef">if</span> x <span style="color:#f92672">!=</span> y
+	<span style="color:#66d9ef">for</span> z <span style="color:#f92672">in</span> xrange(<span style="color:#ae81ff">5</span>)
+        <span style="color:#66d9ef">if</span> y <span style="color:#f92672">!=</span> z)
+
+</code></pre></div><h3 id="default-iterators-and-operators">Default Iterators and Operators</h3>
+<ul>
+<li>pros - simple and efficient, expressive, generic</li>
+<li>cons - cannot tell type</li>
+<li>verdict - use default for types support them, list, dict, files, prefer</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Yes</span>
+<span style="color:#66d9ef">for</span> key <span style="color:#f92672">in</span> adict: <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<span style="color:#66d9ef">if</span> key <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> adict: <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<span style="color:#66d9ef">for</span> line <span style="color:#f92672">in</span> afile: <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<span style="color:#66d9ef">for</span> k, v <span style="color:#f92672">in</span> adict<span style="color:#f92672">.</span>items(): <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<span style="color:#75715e"># No</span>
+<span style="color:#66d9ef">for</span> key <span style="color:#f92672">in</span> adict<span style="color:#f92672">.</span>keys(): <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> adict<span style="color:#f92672">.</span>has_key(key):<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<span style="color:#66d9ef">for</span> line <span style="color:#f92672">in</span> afile<span style="color:#f92672">.</span>readlines(): <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<span style="color:#66d9ef">for</span> k, v <span style="color:#f92672">in</span> dict<span style="color:#f92672">.</span>iteritems(): <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+</code></pre></div><h3 id="properties">Properties</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Yes</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Square</span>(object):
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">A square with two properties: a writable area and a read-only perimeter.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    To use:</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    &gt;&gt;&gt; sq = Square(3)</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    &gt;&gt;&gt; sq.area</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    9</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    &gt;&gt;&gt; sq.perimeter</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    12</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    &gt;&gt;&gt; sq.area = 16</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    &gt;&gt;&gt; sq.side</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    4</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    &gt;&gt;&gt; sq.perimeter</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    16</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+    <span style="color:#66d9ef">def</span> __init__(self, side):
+    	self<span style="color:#f92672">.</span>side <span style="color:#f92672">=</span> side
+    <span style="color:#a6e22e">@property</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">area</span>(self):
+    	<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Area of the square.</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+    	<span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>_get_area()
+    <span style="color:#a6e22e">@area.setter</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">area</span>(self, area):
+    	<span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>_set_area(area)
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_get_area</span>(self):
+    	<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Indirect accessor to calculate the </span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">area</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74"> property.</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>side <span style="color:#f92672">*</span><span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_set_area</span>(self, area):
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Indirect setter to set the </span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">area</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74"> property.</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+   		self<span style="color:#f92672">.</span>side <span style="color:#f92672">=</span> math<span style="color:#f92672">.</span>sqrt(area)
+    <span style="color:#a6e22e">@property</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">perimeter</span>(self):
+    	<span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>side <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span>
+</code></pre></div><h3 id="conditional-">Conditional !!!</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Yes</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> users:
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74"> no users</span><span style="color:#e6db74">&#39;</span>)
+<span style="color:#66d9ef">if</span> foo <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+    self<span style="color:#f92672">.</span>handle_zero()
+<span style="color:#66d9ef">if</span> i <span style="color:#f92672">%</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+    self<span style="color:#f92672">.</span>handle_multiple_of_ten()
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f</span>(x<span style="color:#f92672">=</span>None):
+    <span style="color:#66d9ef">if</span> x <span style="color:#f92672">is</span> None:
+        x <span style="color:#f92672">=</span> []
+
+<span style="color:#75715e"># No</span>
+<span style="color:#66d9ef">if</span> len(users) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+    <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<span style="color:#66d9ef">if</span> foo <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> None <span style="color:#f92672">and</span> <span style="color:#f92672">not</span> foo:
+    <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> i <span style="color:#f92672">%</span> <span style="color:#ae81ff">0</span>:
+    <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f</span>(x<span style="color:#f92672">=</span>None):
+    x <span style="color:#f92672">=</span> x <span style="color:#f92672">or</span> []
+</code></pre></div><h3 id="decorators">Decorators</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">C</span>:
+    <span style="color:#a6e22e">@my_decorator</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">method</span>(self):
+        <span style="color:#75715e"># method body</span>
+        
+<span style="color:#75715e"># equivalent to</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">C</span>:
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">method</span>(self):
+        <span style="color:#75715e"># body</span>
+	method <span style="color:#f92672">=</span> my_decorator(method)
+</code></pre></div><ul>
+<li>use judiciouly - follow same import and naming as functions !!!</li>
+<li>write test for decorators</li>
+<li>avoid external dependencies in decorator itself (don't rely on files, sockets, db connections, etc)</li>
+<li>never use @staticmethod unless forced to in order to integrate with API defined in an existing lib, write a module level function instead !!!</li>
+<li>@classmethod only when writing a named constructor or class-specific routine that modidies necessary global state such as process-wide cache</li>
+</ul>
+<h3 id="threading">Threading</h3>
+<ul>
+<li>do not rely on atomicity of built-in types</li>
+<li>use Queue's Queue data type as preferred way to in-proc communication. else, use threading module and its locking primitives</li>
+</ul>
+<h3 id="power-features">Power Features</h3>
+<ul>
+<li>avoid !</li>
+<li>metaclass, access to bytecode, on-the-fly compilation, dynamic inheritance, object reparenting, import hacks, reflection (getattr()), modificaiton of system internals etc</li>
+<li>-very tempting, harder to read, digest, debug</li>
+<li></li>
+</ul>
+<h2 id="numpy-style-docstrings">Numpy Style Docstrings</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># -*- coding: utf-8 -*-</span>
+<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Example NumPy style docstrings.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">This module demonstrates documentation as specified by the `NumPy</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">Documentation HOWTO`_. Docstrings may extend over multiple lines. Sections</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">are created with a section header followed by an underline of equal length.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">Example</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">-------</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">Examples can be given using either the ``Example`` or ``Examples``</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">sections. Sections support any reStructuredText formatting, including</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">literal blocks::</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    $ python example_numpy.py</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">Section breaks are created with two blank lines. Section breaks are also</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">implicitly created anytime a new section starts. Section bodies *may* be</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">indented:</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">Notes</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">-----</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    This is an example of an indented section. It</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">s like any other section,</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    but the body is indented to help it stand out from surrounding text.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">If a section is indented, then a section break is created by</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">resuming unindented text.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">Attributes</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">----------</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">module_level_variable1 : int</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Module level variables may be documented in either the ``Attributes``</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    section of the module docstring, or in an inline docstring immediately</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    following the variable.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Either form is acceptable, but the two should not be mixed. Choose</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    one convention to document module level variables and be consistent</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    with it.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">.. _NumPy Documentation HOWTO:</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">   https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+
+module_level_variable1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">12345</span>
+
+module_level_variable2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">98765</span>
+<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">int: Module level variable documented inline.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">The docstring may span multiple lines. The type may optionally be specified</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">on the first line, separated by a colon.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">function_with_types_in_docstring</span>(param1, param2):
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Example function with types documented in the docstring.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    `PEP 484`_ type annotations are supported. If attribute, parameter, and</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    return types are annotated according to `PEP 484`_, they do not need to be</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    included in the docstring:</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Parameters</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    ----------</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    param1 : int</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        The first parameter.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    param2 : str</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        The second parameter.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Returns</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    -------</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    bool</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        True if successful, False otherwise.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    .. _PEP 484:</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        https://www.python.org/dev/peps/pep-0484/</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">function_with_pep484_type_annotations</span>(param1: int, param2: str) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> bool:
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Example function with PEP 484 type annotations.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    The return type must be duplicated in the docstring to comply</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    with the NumPy docstring style.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Parameters</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    ----------</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    param1</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        The first parameter.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    param2</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        The second parameter.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Returns</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    -------</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    bool</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        True if successful, False otherwise.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">module_level_function</span>(param1, param2<span style="color:#f92672">=</span>None, <span style="color:#f92672">*</span>args, <span style="color:#f92672">*</span><span style="color:#f92672">*</span>kwargs):
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">This is an example of a module level function.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Function parameters should be documented in the ``Parameters`` section.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    The name of each parameter is required. The type and description of each</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    parameter is optional, but should be included if not obvious.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    If </span><span style="color:#e6db74">\</span><span style="color:#e6db74">*args or </span><span style="color:#e6db74">\</span><span style="color:#e6db74">*</span><span style="color:#e6db74">\</span><span style="color:#e6db74">*kwargs are accepted,</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    they should be listed as ``*args`` and ``**kwargs``.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    The format for a parameter is::</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        name : type</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">            description</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">            The description may span multiple lines. Following lines</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">            should be indented to match the first line of the description.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">            The </span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">: type</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74"> is optional.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">            Multiple paragraphs are supported in parameter</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">            descriptions.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Parameters</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    ----------</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    param1 : int</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        The first parameter.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    param2 : :obj:`str`, optional</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        The second parameter.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    *args</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Variable length argument list.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    **kwargs</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Arbitrary keyword arguments.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Returns</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    -------</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    bool</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        True if successful, False otherwise.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        The return type is not optional. The ``Returns`` section may span</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        multiple lines and paragraphs. Following lines should be indented to</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        match the first line of the description.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        The ``Returns`` section supports any reStructuredText formatting,</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        including literal blocks::</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">            {</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">                </span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">param1</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">: param1,</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">                </span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">param2</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">: param2</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">            }</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Raises</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    ------</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    AttributeError</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        The ``Raises`` section is a list of all exceptions</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        that are relevant to the interface.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    ValueError</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        If `param2` is equal to `param1`.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+    <span style="color:#66d9ef">if</span> param1 <span style="color:#f92672">==</span> param2:
+        <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">ValueError</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">param1 may not be equal to param2</span><span style="color:#e6db74">&#39;</span>)
+    <span style="color:#66d9ef">return</span> True
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">example_generator</span>(n):
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Generators have a ``Yields`` section instead of a ``Returns`` section.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Parameters</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    ----------</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    n : int</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        The upper limit of the range to generate, from 0 to `n` - 1.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Yields</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    ------</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    int</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        The next number in the range of 0 to `n` - 1.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Examples</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    --------</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Examples should be written in doctest format, and should illustrate how</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    to use the function.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    &gt;&gt;&gt; print([i for i in example_generator(4)])</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    [0, 1, 2, 3]</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n):
+        <span style="color:#66d9ef">yield</span> i
+
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ExampleError</span>(<span style="color:#a6e22e">Exception</span>):
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Exceptions are documented in the same way as classes.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    The __init__ method may be documented in either the class level</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    docstring, or as a docstring on the __init__ method itself.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Either form is acceptable, but the two should not be mixed. Choose one</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    convention to document the __init__ method and be consistent with it.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Note</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    ----</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Do not include the `self` parameter in the ``Parameters`` section.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Parameters</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    ----------</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    msg : str</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Human readable string describing the exception.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    code : :obj:`int`, optional</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Numeric error code.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Attributes</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    ----------</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    msg : str</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Human readable string describing the exception.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    code : int</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Numeric error code.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+
+    <span style="color:#66d9ef">def</span> __init__(self, msg, code):
+        self<span style="color:#f92672">.</span>msg <span style="color:#f92672">=</span> msg
+        self<span style="color:#f92672">.</span>code <span style="color:#f92672">=</span> code
+
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ExampleClass</span>(object):
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">The summary line for a class docstring should fit on one line.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    If the class has public attributes, they may be documented here</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    in an ``Attributes`` section and follow the same formatting as a</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    function</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">s ``Args`` section. Alternatively, attributes may be documented</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    inline with the attribute</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">s declaration (see __init__ method below).</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Properties created with the ``@property`` decorator should be documented</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    in the property</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">s getter method.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Attributes</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    ----------</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    attr1 : str</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Description of `attr1`.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    attr2 : :obj:`int`, optional</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Description of `attr2`.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+
+    <span style="color:#66d9ef">def</span> __init__(self, param1, param2, param3):
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Example of docstring on the __init__ method.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        The __init__ method may be documented in either the class level</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        docstring, or as a docstring on the __init__ method itself.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Either form is acceptable, but the two should not be mixed. Choose one</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        convention to document the __init__ method and be consistent with it.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Note</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        ----</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Do not include the `self` parameter in the ``Parameters`` section.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Parameters</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        ----------</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        param1 : str</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">            Description of `param1`.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        param2 : :obj:`list` of :obj:`str`</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">            Description of `param2`. Multiple</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">            lines are supported.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        param3 : :obj:`int`, optional</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">            Description of `param3`.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+        self<span style="color:#f92672">.</span>attr1 <span style="color:#f92672">=</span> param1
+        self<span style="color:#f92672">.</span>attr2 <span style="color:#f92672">=</span> param2
+        self<span style="color:#f92672">.</span>attr3 <span style="color:#f92672">=</span> param3  <span style="color:#75715e">#: Doc comment *inline* with attribute</span>
+
+        <span style="color:#75715e">#: list of str: Doc comment *before* attribute, with type specified</span>
+        self<span style="color:#f92672">.</span>attr4 <span style="color:#f92672">=</span> [<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">attr4</span><span style="color:#e6db74">&#34;</span>]
+
+        self<span style="color:#f92672">.</span>attr5 <span style="color:#f92672">=</span> None
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">str: Docstring *after* attribute, with type specified.</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+
+    <span style="color:#a6e22e">@property</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">readonly_property</span>(self):
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">str: Properties should be documented in their getter method.</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">readonly_property</span><span style="color:#e6db74">&#34;</span>
+
+    <span style="color:#a6e22e">@property</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">readwrite_property</span>(self):
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">:obj:`list` of :obj:`str`: Properties with both a getter and setter</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        should only be documented in their getter method.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        If the setter method contains notable behavior, it should be</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        mentioned here.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+        <span style="color:#66d9ef">return</span> [<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">readwrite_property</span><span style="color:#e6db74">&#34;</span>]
+
+    <span style="color:#a6e22e">@readwrite_property.setter</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">readwrite_property</span>(self, value):
+        value
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">example_method</span>(self, param1, param2):
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Class methods are similar to regular functions.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Note</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        ----</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Do not include the `self` parameter in the ``Parameters`` section.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Parameters</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        ----------</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        param1</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">            The first parameter.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        param2</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">            The second parameter.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Returns</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        -------</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        bool</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">            True if successful, False otherwise.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+        <span style="color:#66d9ef">return</span> True
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__special__</span>(self):
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">By default special members with docstrings are not included.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Special members are any methods or attributes that start with and</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        end with a double underscore. Any special member with a docstring</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        will be included in the output, if</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        ``napoleon_include_special_with_doc`` is set to True.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        This behavior can be enabled by changing the following setting in</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Sphinx</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">s conf.py::</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">            napoleon_include_special_with_doc = True</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+        <span style="color:#66d9ef">pass</span>
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__special_without_docstring__</span>(self):
+        <span style="color:#66d9ef">pass</span>
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_private</span>(self):
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">By default private members are not included.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Private members are any methods or attributes that start with an</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        underscore and are *not* special. By default they are not included</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        in the output.</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        This behavior can be changed such that private members *are* included</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        by changing the following setting in Sphinx</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">s conf.py::</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">            napoleon_include_private_with_doc = True</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+        <span style="color:#66d9ef">pass</span>
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_private_without_docstring</span>(self):
+        <span style="color:#66d9ef">pass</span>
+</code></pre></div><h2 id="type-hinting-mypy">Type Hinting (mypy)</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># inline types</span>
+<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> name: str <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Guido</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> pi: float <span style="color:#f92672">=</span> <span style="color:#ae81ff">3.142</span>
+<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> centered: bool <span style="color:#f92672">=</span> False
+<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> names: list <span style="color:#f92672">=</span> [<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Guido</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Jukka</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Ivan</span><span style="color:#e6db74">&#34;</span>]
+<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> version: tuple <span style="color:#f92672">=</span> (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">1</span>)
+<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> options: dict <span style="color:#f92672">=</span> {<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">centered</span><span style="color:#e6db74">&#34;</span>: False, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">capitalize</span><span style="color:#e6db74">&#34;</span>: True}
+
+<span style="color:#75715e"># should use special types - composite types</span>
+<span style="color:#f92672">from</span> typing <span style="color:#f92672">import</span> Dict, List, Tuple
+names: List[str] <span style="color:#f92672">=</span> [<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">...</span><span style="color:#e6db74">&#34;</span>]
+version: Tuple[int, int, int] <span style="color:#f92672">=</span> (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">1</span>)
+options: Dict[str, bool] <span style="color:#f92672">=</span> <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+
+<span style="color:#75715e"># more composite types: Counter, Deque, FrozenSet, NamedTuple, Set</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">create_deck</span>(shuffle: bool <span style="color:#f92672">=</span> False) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> List[Tuple[str, str]]:
+    <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+   
+<span style="color:#75715e"># if care not the content of sequence, use typing.Sequence</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">square</span>(elems: Sequence[float]) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> List[float]:
+    <span style="color:#66d9ef">return</span> [x<span style="color:#f92672">*</span><span style="color:#f92672">*</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> elems]
+
+<span style="color:#75715e"># aliasing (save repeating certain types)</span>
+Card <span style="color:#f92672">=</span> Tuple[str, str]
+Deck <span style="color:#f92672">=</span> List[Card]
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">deal_hands</span>(deck: Deck) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> Tuple[Deck, Deck, Deck, Deck]:
+     <span style="color:#66d9ef">return</span> (deck[<span style="color:#ae81ff">0</span>::<span style="color:#ae81ff">4</span>], <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>)
+    
+<span style="color:#75715e"># TypeVar - special var taking on any type, conditioned</span>
+Choosable <span style="color:#f92672">=</span> TypeVar(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Chooseable</span><span style="color:#e6db74">&#34;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">choose</span>(items: Sequence[Choosable]) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> Choosable: 
+    <span style="color:#66d9ef">return</span> random<span style="color:#f92672">.</span>choice(items)
+reveal_type(choose([<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Python</span><span style="color:#e6db74">&#34;</span>], <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">7</span>)) <span style="color:#75715e"># does its best to accommodate</span>
+<span style="color:#75715e"># now with constrain</span>
+Choosable <span style="color:#f92672">=</span> TypeVar(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Choosable</span><span style="color:#e6db74">&#34;</span>, str, float)
+
+<span style="color:#75715e"># protocol specifies one ore more methods that must be implemented</span>
+<span style="color:#75715e"># e.g. all cls defining .__len__() fulfull the typing.Size protocol</span>
+<span style="color:#75715e"># therefore annotate len() as :</span>
+<span style="color:#f92672">from</span> typing <span style="color:#f92672">import</span> Sized
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">len</span>(obj: Sized) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> int:
+    <span style="color:#66d9ef">return</span> obj<span style="color:#f92672">.</span>__len__()
+<span style="color:#75715e"># other protocols defined include Container, Iterable, Awaitable, ContextManager</span>
+<span style="color:#75715e"># custom protocol</span>
+<span style="color:#f92672">from</span> typing_extensions <span style="color:#f92672">import</span> Protocol
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Sized</span>(Protocol):
+    <span style="color:#66d9ef">def</span> __len__(self) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> int: <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">len</span>(obj: Sized) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> int:
+    <span style="color:#66d9ef">return</span> obj<span style="color:#f92672">.</span>__len__()
+
+<span style="color:#75715e"># Optional for None/other argument case</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">player_order</span>(
+	names: Sequence[str], start: Optional[str] <span style="color:#f92672">=</span> None
+) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> Sequence[str]:
+    <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<span style="color:#75715e"># hence a var either has the type specified or is None </span>
+<span style="color:#75715e"># equivalent: Union[None, str]</span>
+<span style="color:#75715e"># NOTE: when using Optional or Union, must take care of correct type!</span>
+<span style="color:#75715e"># by testing var is type !! else causes static type errors and runtime errors!!</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">player_order</span>(
+	<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span> <span style="color:#f92672">=</span> None
+) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> Sequence[str]:
+    start_idx <span style="color:#f92672">=</span> names<span style="color:#f92672">.</span>index(start)
+    <span style="color:#66d9ef">return</span> names[start_idx:] <span style="color:#f92672">+</span> names[:start_idx]
+<span style="color:#75715e"># mypy code.py &gt;&gt;&gt; Arg 1 to &#34;index&#34; of &#34;list&#34; has incompatible type</span>
+<span style="color:#75715e"># &#34;Optional[str]&#34;; expected &#34;str&#34;</span>
+<span style="color:#75715e"># start: str = None is ok and often default hanlded! </span>
+
+<span style="color:#75715e"># Class types has special cases such as internal returns</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Deck</span>:
+    <span style="color:#a6e22e">@classmethod</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">create</span>(cls, shuffle: bool <span style="color:#f92672">=</span> False) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Deck</span><span style="color:#e6db74">&#34;</span>:
+        cards <span style="color:#f92672">=</span> <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+        <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+        <span style="color:#66d9ef">return</span> cls(cards)
+<span style="color:#75715e"># with __future__ import annotations, can use Deck instead of &#34;Deck&#34; </span>
+<span style="color:#75715e"># EVEN BEFORE Deck is defined !!! `def create(...) -&gt; Deck:`</span>
+
+<span style="color:#75715e"># Returning self or cls</span>
+<span style="color:#75715e"># typically not annotate self/cls</span>
+<span style="color:#75715e"># ONE case might be needed! Superclass inheritance returning cls/self</span>
+<span style="color:#f92672">from</span> datetime <span style="color:#f92672">import</span> date
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Animal</span>:
+    <span style="color:#66d9ef">def</span> __init__(self, name: str, birthday: date) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> None:
+        self<span style="color:#f92672">.</span>name <span style="color:#f92672">=</span> name
+        self<span style="color:#f92672">.</span>birthday <span style="color:#f92672">=</span> birthday
+        
+	<span style="color:#a6e22e">@classmethod</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">newborn</span>(cls, name: str) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Animal</span><span style="color:#e6db74">&#34;</span>:
+        <span style="color:#66d9ef">return</span> cls(name, date<span style="color:#f92672">.</span>today())
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">twin</span>(self, name: str) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Animal</span><span style="color:#e6db74">&#34;</span>:
+        cls <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>__class__
+        <span style="color:#66d9ef">return</span> cls(name, self<span style="color:#f92672">.</span>birthday)
+    
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Dog</span>(Animal):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">bark</span>(self) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> None:
+        <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{self.name} says woof!</span><span style="color:#e6db74">&#34;</span>)
+fido <span style="color:#f92672">=</span> Dog<span style="color:#f92672">.</span>newborn(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Fido</span><span style="color:#e6db74">&#34;</span>)
+pluto <span style="color:#f92672">=</span> fido<span style="color:#f92672">.</span>twin(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Pluto</span><span style="color:#e6db74">&#34;</span>)
+fido<span style="color:#f92672">.</span>bark()
+pluto<span style="color:#f92672">.</span>bark()
+<span style="color:#75715e"># mypy dogs.py &gt;&gt;&gt; error: &#34;Animal&#34; has no attribute &#34;bark&#34; x2</span>
+<span style="color:#75715e"># ISSUE is that even though inherited Dog.newborn() and Dog.twin() methods will</span>
+<span style="color:#75715e"># return a Dog the annotation says taht they return an Animal</span>
+<span style="color:#75715e"># Hence be careful to ensure annotation is correct!!!</span>
+<span style="color:#75715e"># return type should match type of self/cls by tracking</span>
+<span style="color:#f92672">from</span> typing <span style="color:#f92672">import</span> Type, TypeVar
+TAnimal <span style="color:#f92672">=</span> TypeVar(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">TAnimal</span><span style="color:#e6db74">&#34;</span>, bound<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Animal</span><span style="color:#e6db74">&#34;</span>)
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Animal</span>:
+    <span style="color:#66d9ef">def</span> __init__(<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> None:
+        <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+    <span style="color:#a6e22e">@classmethod</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">newborn</span>(cls: Type[TAnimal], name: str) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> TAnimal:
+        <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">twin</span>(self: TAnimal, name: str) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> TAnimal:
+        <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<span style="color:#75715e"># TAnimal (TypeVar) used to denote return values might be inheritances of subcls of Animal</span>
+<span style="color:#75715e"># Animal is an upper bound for TAnimal, meaning only be Animal or one of its subcls</span>
+<span style="color:#75715e"># typing.Type[] is the typing equivalent of type() - noting that cls method expects a class</span>
+<span style="color:#75715e"># and returns an instance of that cls</span>
+
+<span style="color:#75715e"># Funcs and Methods</span>
+<span style="color:#f92672">from</span> typing <span style="color:#f92672">import</span> Callable
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">do_twice</span>(func: Callable[[str], str], arg: str) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> str:
+    <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+    
+    
+<span style="color:#75715e"># EXAMPLE</span>
+<span style="color:#f92672">from</span> typing <span style="color:#f92672">import</span> Tuple, Iterable, Dict, List, DefaultDict
+<span style="color:#f92672">from</span> collections <span style="color:#f92672">import</span> defaultdict
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">create_tree</span>(tuples: Iterable[Tuple[int, int]]) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> DefaultDict[int, List[int]]:
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Return a tree given tuples of (child, father)</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    The tree structure is as follows:</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        tree = {node_1: [node_2, node_3], </span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">                node_2: [node_4, node_5, node_6],</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">                node_6: [node_7, node_8]}</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+    tree <span style="color:#f92672">=</span> defaultdict(list) 
+    <span style="color:#66d9ef">for</span> child, father <span style="color:#f92672">in</span> tuples:
+        <span style="color:#66d9ef">if</span> father:
+            tree[father]<span style="color:#f92672">.</span>append(child)
+    <span style="color:#66d9ef">return</span> tree
+
+<span style="color:#66d9ef">print</span>(create_tree([(<span style="color:#ae81ff">2.0</span>,<span style="color:#ae81ff">1.0</span>), (<span style="color:#ae81ff">3.0</span>,<span style="color:#ae81ff">1.0</span>), (<span style="color:#ae81ff">4.0</span>,<span style="color:#ae81ff">3.0</span>), (<span style="color:#ae81ff">1.0</span>,<span style="color:#ae81ff">6.0</span>)]))
+<span style="color:#75715e"># will print</span>
+<span style="color:#75715e"># defaultdict( &#39;list&#39;=&#34;&#34;&gt;, {1.0: [2.0, 3.0], 3.0: [4.0], 6.0: [1.0]}</span>
+
+<span style="color:#75715e"># error: tree = defaltdict(list)</span>
+<span style="color:#75715e"># Mypy cannot infer tree is indeed of type intended</span>
+tree: DefaultDict[int, List[int]] <span style="color:#f92672">=</span> defaultdict(list) <span style="color:#75715e"># inline new var definition</span>
+
+</code></pre></div><ul>
+<li><a href="https://kite.com/blog/python/type-hinting/">https://kite.com/blog/python/type-hinting/</a></li>
+<li><a href="https://mypy.readthedocs.io/en/latest/cheat_sheet_py3.html">https://mypy.readthedocs.io/en/latest/cheat_sheet_py3.html</a></li>
+</ul>
+<h1 id="package">Package</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">- README.rst
+- LICENSE
+- setup.py	<span style="color:#75715e"># pkg and dist management</span>
+- requirements.txt 	<span style="color:#75715e"># optional inside setup.py</span>
+- sample	<span style="color:#75715e"># main app</span>
+	- __init__.py
+	- core.py
+	- helpers.py
+- docs
+	- conf.py
+	- index.rst
+- tests
+	- test_basic.py
+	- test_advanced.py
+</code></pre></div><p><strong>Makefile</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-makefile" data-lang="makefile"><span style="color:#a6e22e">init</span><span style="color:#f92672">:</span>
+<span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">p</span> <span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">a</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">l</span> <span style="color:#960050;background-color:#1e0010">-</span><span style="color:#960050;background-color:#1e0010">r</span> <span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">q</span><span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">m</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">x</span><span style="color:#960050;background-color:#1e0010">t</span>
+
+<span style="color:#a6e22e">test</span><span style="color:#f92672">:</span>
+<span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">y</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">t</span> <span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">s</span>
+</code></pre></div><h3 id="pipenv---python-new-packaging-tool">PIPENV - Python new packaging tool</h3>
+<ul>
+<li>solving issues with pip, virtualenv, and good old requirements.txt</li>
+<li>streamline process</li>
+</ul>
+<p><strong>Dependency MGT with requirements.txt</strong></p>
+<ul>
+<li>no version control</li>
+<li>okey, there's <code>flaks==0.12.1</code></li>
+<li>BUT keep in mind that flask itself has depens as well (which pip installs automatically) BUT flask doesn't specify exact versions for its depens</li>
+<li>So when flask's depens updated, the above flask version installed BUT also the latest, buggy version of its depens</li>
+<li>issue: <strong>BUILD IS NOT DETERMINISTIC</strong>
+<ul>
+<li>typical solution <code>pip freeze</code></li>
+<li>BUT it leads to a whole new set of problems!!</li>
+<li>now exact versions of all pkgs specified, you are responsible for keeping them up to date!! even they're sub-depens of flask  - what if there's a security hole discovered in Werkzeug==0.14.1 that the keeper at once patched in new .2? YOU NEED to update that version to .2 to avoid any security issues</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>QUESTION: <strong>HOW TO ALLOW FOR DETEMINSTIC BUILDS FOR PYTHON PROJECT WITHOUT GAINING THE RESPONSIBILITY OF UPDATING VERSIONS OF SUB-DEPENS?</strong></p>
+</blockquote>
+<p><strong>Environment Control by virutalenv or venv in P3</strong></p>
+<ul>
+<li>depens solution -&gt; ranging versions <code>package_c&gt;=1.0,&lt;=2.0</code></li>
+<li>BUT still keeping updated with changes remains!!</li>
+</ul>
+<h3 id="pipenv-intro">Pipenv Intro</h3>
+<ul>
+<li>
+<p><code>pip install pipenv</code></p>
+</li>
+<li>
+<p>two new files <code>Pipfile</code> replacing requirements.txt and <code>Pipfile.lock</code> enabling deterministic builds</p>
+</li>
+<li>
+<p>e.g. First spawn a shell in a venv to isoluate the dev of this app</p>
+<ul>
+<li><code>pipenv shell [--python 3.6]</code> creating new venv in default loc</li>
+<li><code>pipenv install flask==0.12.1</code>
+<ul>
+<li><code>Adding flask==0.12.1 to Pipfile's [packages]... Pipfile.lock not found, creating...</code></li>
+<li><code>pipenv install -e git+https://github.com/requests/requests.git#egg=requests</code></li>
+<li>also unit tests for not production but dev</li>
+<li><code>pipenv install pytest --dev</code>
+<ul>
+<li><code>--dev</code> put the depen in a special [dev-packages] loc in Pipfil which only get installed if &ndash;dev</li>
+</ul>
+</li>
+<li>now ready to push to PROD, lock env <code>pipenv lock</code>
+<ul>
+<li>create/update Pipefile.lock which never needed to be edited manually</li>
+</ul>
+</li>
+<li>Now in PROD env with code and lock <code>pipenv install --ignore-pipfile</code>
+<ul>
+<li>lock file enables D-build by taking a snapshot of all versions of pkgs in an env</li>
+</ul>
+</li>
+<li>now another dev wants to make changes, he would get the code and pipfile and <code>pipenv install --dev</code> getting the pytest etc.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>In conflict versions of core depens <code>Warning: Your dependencies could not be resolved. ...</code></p>
+<ul>
+<li>show depen graph <code>pipenv graph</code>  -&gt; tree structure or reverse <code>--reverse</code> showing sub-depens with the parent that requires it</li>
+</ul>
+</li>
+<li>
+<p>Pipfile - TOML file</p>
+<ul>
+<li>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[[<span style="color:#a6e22e">source</span>]]
+<span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;https://pypi.python.org/simple&#34;</span>
+<span style="color:#a6e22e">verify_ssl</span> = <span style="color:#66d9ef">true</span>
+<span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;pypi&#34;</span>
+    
+[<span style="color:#a6e22e">dev</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">packages</span>]
+<span style="color:#a6e22e">pytest</span> = <span style="color:#e6db74">&#34;*&#34;</span>
+    
+[<span style="color:#a6e22e">packages</span>]
+<span style="color:#a6e22e">flask</span> = <span style="color:#e6db74">&#34;==0.12.1&#34;</span>
+<span style="color:#a6e22e">numpy</span> = <span style="color:#e6db74">&#34;*&#34;</span>
+<span style="color:#a6e22e">requests</span> = <span style="color:#960050;background-color:#1e0010">{</span><span style="color:#a6e22e">git</span> = <span style="color:#e6db74">&#34;https://github.com/requests/requests.git&#34;</span>, <span style="color:#a6e22e">editable</span> = <span style="color:#66d9ef">true</span><span style="color:#960050;background-color:#1e0010">}</span>
+    
+[<span style="color:#a6e22e">requires</span>]
+<span style="color:#a6e22e">python_version</span> = <span style="color:#e6db74">&#34;3.6&#34;</span>
+</code></pre></div></li>
+<li>
+<p>Ideally should not have any sub-depen in Pipfile and ONLY include pkg imported and used - pipenv will auto-install sub-sub-depens</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Pipfile.lock</p>
+<ul>
+<li>JSON with hashes</li>
+<li>even sub-depens like werkzeug that aren't in Pipfile appear in lock, with hashes used to ensure you're retrieving the same pkg as did in dev</li>
+</ul>
+</li>
+<li>
+<p>Extra Feature</p>
+<ul>
+<li>open 3PPkg in defualt editor <code>pipenv open flask</code></li>
+<li>run a cmd in venv without shell <code>pipenv run &lt;cmd&gt;</code></li>
+<li>check security PEP508 <code>pipenv check</code></li>
+<li>utterly wipe all <code>pipenv uninstall --all</code></li>
+<li>where venv is <code>pipenv --venv</code></li>
+<li>where project home is <code>pipenv --where</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="package-distribution-with-pipenv">Package Distribution with Pipenv</h3>
+<ul>
+<li>First, <code>setup.py</code> is necessary when using <code>setuptools</code> as build/dist system - de facto but changing</li>
+<li>For <code>setup.py</code> way
+<ul>
+<li><code>install_requires</code> keyword should include whatever the package &ldquo;minimally needs to run right&rdquo;</li>
+<li>Pipfile</li>
+<li>Represents the concrete requirements for package</li>
+<li>Pull the MRD from <code>setup.py</code> by installing your package using pipenv:
+<ul>
+<li><code>pipenv install -e .</code></li>
+<li>resulting in a line in Pipfile <code>e18339a8 = {path = &quot;.&quot;, editable = true}</code></li>
+</ul>
+</li>
+<li>Pipfile.lock</li>
+<li>Details for a reproducible env generated from pipenv lock</li>
+</ul>
+</li>
+</ul>
+<h2 id="flask-project-repo">Flask Project Repo</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">flaskr/
+│
+├── flaskr/
+│   ├── ___init__.py
+│   ├── db.py
+│   ├── schema.sql
+│   ├── auth.py
+│   ├── blog.py
+│   ├── templates/
+│   │   ├── base.html
+│   │   ├── auth/
+│   │   │   ├── login.html
+│   │   │   └── register.html
+│   │   │
+│   │   └── blog/
+│   │       ├── create.html
+│   │       ├── index.html
+│   │       └── update.html
+│   │ 
+│   └── static/
+│       └── style.css
+│
+├── tests/
+│   ├── conftest.py
+│   ├── data.sql
+│   ├── test_factory.py
+│   ├── test_db.py
+│   ├── test_auth.py
+│   └── test_blog.py
+│
+├── venv/
+│
+├── .gitignore
+├── setup.py
+└── MANIFEST.in
+</code></pre></div></div>
+
+        
+        <div class="section bottom-menu">
+<hr />
+<p>
+
+
+    
+
+    
+        
+            <a href="/code">
+                code
+            </a>
+        
+    
+    
+        
+            &#183; 
+            <a href="https://tiny.cc/oceannotebook">
+                notebook
+            </a>
+        
+            &#183; 
+            <a href="https://github.com/Oceanbao/KEN">
+                KEN
+            </a>
+        
+            &#183; 
+            <a href="/prose">
+                prose
+            </a>
+        
+            &#183; 
+            <a href="/gallery">
+                gallery
+            </a>
+        
+            &#183; 
+            <a href="/qui">
+                qui et quoi?
+            </a>
+        
+    
+    &#183; 
+    <a href="https://oceanbao.github.io/">
+        main
+    </a>
+
+</p></div>
+        
+
+        <div class="section footer">Ocean Ode
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script></div>
+    </div>
+</body>
+
+</html>

@@ -35,7 +35,7 @@
     
     <title>
         
-        Ideation
+        STATS
         
     </title>
 </head>
@@ -43,61 +43,33 @@
 <body>
 
     <div class="wrap">
-        <div class="section" id="title">Ideation</div>
+        <div class="section" id="title">STATS</div>
         <aside>
-            <nav id="TableOfContents">
-  <ul>
-    <li><a href="#rust">Rust</a></li>
-    <li><a href="#wasm">WASM</a></li>
-    <li><a href="#serverless">Serverless</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#mark-neumann-scispacy-and-non-ml-extension">Mark Neumann: SciSpacy and Non-ML Extension</a>
-      <ul>
-        <li><a href="#build-domain-model">Build Domain Model</a></li>
-      </ul>
-    </li>
-    <li><a href="#quartz-language-model">Quartz Language Model</a></li>
-  </ul>
-</nav>
+            <nav id="TableOfContents"></nav>
         </aside>
-        <div class="section" id="content"><h1 id="steve-klabnik-wasm--rust--serverless">Steve Klabnik: WASM + Rust + Serverless</h1>
-<h2 id="rust">Rust</h2>
+        <div class="section" id="content"><h1 id="intro">INTRO</h1>
 <ul>
-<li>Fast and Memory safe language</li>
-<li>Hard to learn but better programming</li>
-<li>Close tie with WebAssembly</li>
-</ul>
-<h2 id="wasm">WASM</h2>
+<li>
+<p>Statistical Learning (aka Machine Learning) becoming distinct subset of Statistical Science focusing on <strong>prediction and inference</strong></p>
+</li>
+<li>
+<p>Inception from <strong>Least Square</strong> by Gauss et al, followed by <strong>Fisher's Logistic Regression</strong> and <strong>Generalised Linear Model</strong> in 1960s through 1980s</p>
+</li>
+<li>
+<p><strong>Reducible Error</strong> vs <strong>Irreducible Error</strong></p>
+<p>$$E(Y - \hat{Y})^2 = E[f(X) + \varepsilon - \hat{f}(X)]^2 = [f(X) - \hat{f}(X)]^2 + Var(\varepsilon)$$</p>
 <ul>
-<li>Originated as asm.js - a fast subset of JS</li>
-<li>Developped into an universal binary runnable on web browser and elsewhere</li>
-<li>WASI the runtime interface for other languages (see Lin Clark's talk)</li>
+<li>$$\hat{f}$$ can be improved by model and data</li>
+<li>$$Var(\varepsilon)$$ as variance of <strong>all else</strong> irreducible, unknown in practice</li>
 </ul>
-<h2 id="serverless">Serverless</h2>
-<ul>
-<li>With Rust and WASM, any app can run anywhere</li>
+</li>
+<li>
+<p><strong>Parametric</strong> method simplifies estimation of <em>arbitrary p-dimensional</em> $$f$$ forms to estimating set of <strong>p + 1 coefficients</strong></p>
+</li>
+<li>
+<p><strong>LASSO</strong> is more interpretable that <strong>OLS</strong> for only a small subset of predictors - <strong>nonzero coefficient estimates</strong> are related to response variable</p>
+</li>
 </ul>
-<h1 id="rasa-nlu-lessons">Rasa NLU Lessons</h1>
-<ol>
-<li>Train INTENT and MESSAGE in single NN to be language agnostic (any lang tokenizable)</li>
-<li>Out-of-data and Fallback policies to improve service</li>
-<li>Form collection required from user before Decision</li>
-<li>Feedback loop of system itself logging to improve the system (i.e. logging user-bot conversation to extract more labels)</li>
-</ol>
-<h1 id="spacy-conference-talks">spaCy Conference Talks</h1>
-<h2 id="mark-neumann-scispacy-and-non-ml-extension">Mark Neumann: SciSpacy and Non-ML Extension</h2>
-<h3 id="build-domain-model">Build Domain Model</h3>
-<ol>
-<li>Entities</li>
-<li>POS + Dependencies</li>
-<li>Vector</li>
-<li>Mixing in generic text to have both worlds</li>
-</ol>
-<p><a href="https://docs.google.com/presentation/d/1CEc3pTMLX-XV1zgirydhURZdcNlgB2l4TXQv6mxLhy8/edit#slide=id.g5afab164be_0_116">spaCy IRL slide</a></p>
-<h2 id="quartz-language-model">Quartz Language Model</h2>
-<p><a href="https://speakerdeck.com/ddqz/a-natural-language-pipeline?slide=27">link to slide</a></p>
 </div>
 
         
