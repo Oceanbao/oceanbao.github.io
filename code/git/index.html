@@ -132,7 +132,7 @@ If you want to creat ea new branch to retain commits you create, you may <span s
 	
 HEAD is now at 956b99b... added myname module
 </code></pre></div><ul>
-<li>HEAD is Git's name for whatever SHA you happen to be looking at at any time, NOT what is on your filesystem or what is in your staging area - it means what Git thinks you have checked out.</li>
+<li>HEAD is Git&rsquo;s name for whatever SHA you happen to be looking at at any time, NOT what is on your filesystem or what is in your staging area - it means what Git thinks you have checked out.</li>
 <li>For example: when looking at (HEAD at) old SHA, HEAD is behind <strong>master</strong> SHA
 <ul>
 <li>to get back (1) checkout SHA_of_master</li>
@@ -146,7 +146,7 @@ HEAD is now at 956b99b... added myname module
 <p><code>git diff --staged</code></p>
 <p><code>git rm</code></p>
 <p><code>git rm --cached</code> - keep file in working tree but remove it from staging</p>
-<p><code>git rm log/\*.log</code> - <code>\*</code> due to Git does own filename expansion in addition to shell's filename expansion, removing all <code>.log</code> extension in <code>log/</code> dir</p>
+<p><code>git rm log/\*.log</code> - <code>\*</code> due to Git does own filename expansion in addition to shell&rsquo;s filename expansion, removing all <code>.log</code> extension in <code>log/</code> dir</p>
 <p><code>git mv old_name new_name</code> - combines <code>mv old new; git rm old; git add new;</code></p>
 <h2 id="log">Log</h2>
 <p><code>git log</code></p>
@@ -230,7 +230,7 @@ HEAD is now at 956b99b... added myname module
 <p><code>git checkout master</code> - now merge hotfix back into master to deploy PROD</p>
 </li>
 <li>
-<p><code>git merge hotfix</code> - &ldquo;fast-forward&rdquo; since hotfix merged in was directly ahead of previous, Git simply moves the pointer forward - in other words, merging one commit with a commit that can be reached by following the first commit's history, Git simplifies things by moving the pointer forward as there is NO divergent work to merge together</p>
+<p><code>git merge hotfix</code> - &ldquo;fast-forward&rdquo; since hotfix merged in was directly ahead of previous, Git simply moves the pointer forward - in other words, merging one commit with a commit that can be reached by following the first commit&rsquo;s history, Git simplifies things by moving the pointer forward as there is NO divergent work to merge together</p>
 </li>
 <li>
 <p>first delete hotfix branch, as no longer need it - the master points at the SAME place</p>
@@ -269,7 +269,7 @@ HEAD is now at 956b99b... added myname module
 <p>CONFLICT (modified the same file on divergent branches)</p>
 <ul>
 <li>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#960050;background-color:#1e0010">&lt;</span>&lt; <span style="color:#f92672">HEAD:</span> <span style="color:#a6e22e">index</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">html</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#960050;background-color:#1e0010">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>&lt; <span style="color:#f92672">HEAD:</span> <span style="color:#a6e22e">index</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">html</span>
 <span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;footer&#34;</span>&gt;text&lt;/<span style="color:#f92672">div</span>&gt;
 ========
 &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;footer&#34;</span>&gt;
@@ -278,7 +278,7 @@ HEAD is now at 956b99b... added myname module
 &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; issue53:index.html
 </code></pre></div></li>
 <li>
-<p>version HEAD (master branch as it's checked out when running merge) is top part, everything above =======, while issue53 branch is below.</p>
+<p>version HEAD (master branch as it&rsquo;s checked out when running merge) is top part, everything above =======, while issue53 branch is below.</p>
 </li>
 <li>
 <p>can use <code>git mergetool</code></p>
@@ -376,9 +376,9 @@ git show-branch --sha1-name new_feature master
 <h3 id="fetch">Fetch</h3>
 <ul>
 <li>Step back at how Git manages local and remote</li>
-<li>when clone a new repo, Git doesn't just copy down a single version of the files in that project - it copies the entire repo and uses that to create a new repo on local</li>
+<li>when clone a new repo, Git doesn&rsquo;t just copy down a single version of the files in that project - it copies the entire repo and uses that to create a new repo on local</li>
 <li>Git does not make local branches for you except for master - BUT it does keep track of the branches on the server - Git creating a set of branches all start with <code>remotes/origin/&lt;branch_name&gt;</code></li>
-<li>Only rarely (almost never), will one check out these branches, but it's handy to know that they are there</li>
+<li>Only rarely (almost never), will one check out these branches, but it&rsquo;s handy to know that they are there</li>
 <li>when creating a new branch and the name matches an existing branch on the server, Git will mark local branch as <code>tracking branch</code> associated with a remote</li>
 <li>All <code>git fetch</code> does is <strong>update all of the remotes/origin branches</strong> mod only the branches stored in remotes/origin and not any of local branches</li>
 </ul>
@@ -386,7 +386,7 @@ git show-branch --sha1-name new_feature master
 <ul>
 <li>simply a combo of the above two - first fetch update all branches, then if the branch you ar eon is tracking a remote branch, then it does a git merge of the corresponding remote/origin branch to your branche</li>
 <li>For example: you were on new_feature, coworker just added some code to it on server; if <code>git pull</code>, Git will update ALL of the &lsquo;remotes/origin&rsquo; branches and then do a <code>git merge remotes/origin/new_feature</code> which will get the new commit onto the local branch HEAD</li>
-<li>LIMIT: Git won't let you even try to do <code>git pull</code> if having modified files on local - that can create too much of a mess</li>
+<li>LIMIT: Git won&rsquo;t let you even try to do <code>git pull</code> if having modified files on local - that can create too much of a mess</li>
 <li>If local and remote <strong>diverged</strong>, <code>git merge</code> portion of <code>pull</code> will create a merge commit - or rebase by <code>git pull -r</code></li>
 </ul>
 <h2 id="simple-git-workflow">Simple Git Workflow</h2>

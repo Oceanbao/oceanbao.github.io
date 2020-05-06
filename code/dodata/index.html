@@ -56,39 +56,39 @@
 <p><code>df2.fillna(df2.mean())</code></p>
 <p>!!! String Regex in Pandas !!!</p>
 <p><code>df['text'][0:5].str.extract('(\w+)\s(\w+)')</code> (other ops with <code>.str.</code> like <code>.upper()</code>, <code>.len()</code>, <code>.replace('DISTRICT$', 'DIST')</code>)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">NO. OBESE</span><span style="color:#e6db74">&#39;</span>]<span style="color:#f92672">.</span>groupby(d[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">GRADE LEVEL</span><span style="color:#e6db74">&#39;</span>])<span style="color:#f92672">.</span>aggregate([sum, mean, std])
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df[<span style="color:#e6db74">&#39;NO. OBESE&#39;</span>]<span style="color:#f92672">.</span>groupby(d[<span style="color:#e6db74">&#39;GRADE LEVEL&#39;</span>])<span style="color:#f92672">.</span>aggregate([sum, mean, std])
 </code></pre></div><p><strong>Inference</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">from</span> scipy.stats <span style="color:#f92672">import</span> binom
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#f92672">as</span> plt
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> fig, ax <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> x <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>]
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> n, p <span style="color:#f92672">=</span> <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">0.5</span>
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> rv <span style="color:#f92672">=</span> binom(n, p)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> ax<span style="color:#f92672">.</span>vlines(x, <span style="color:#ae81ff">0</span>, rv<span style="color:#f92672">.</span>pmf(x), colors<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">k</span><span style="color:#e6db74">&#39;</span>, linestyles<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">-</span><span style="color:#e6db74">&#39;</span>, lw<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>,
-          label<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Probablity</span><span style="color:#e6db74">&#39;</span>)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> ax<span style="color:#f92672">.</span>legend(loc<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">best</span><span style="color:#e6db74">&#39;</span>, frameon<span style="color:#f92672">=</span>False)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> plt<span style="color:#f92672">.</span>show()
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">from</span> scipy.stats <span style="color:#f92672">import</span> binom
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#f92672">as</span> plt
+<span style="color:#f92672">&gt;&gt;&gt;</span> fig, ax <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> x <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> n, p <span style="color:#f92672">=</span> <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">0.5</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> rv <span style="color:#f92672">=</span> binom(n, p)
+<span style="color:#f92672">&gt;&gt;&gt;</span> ax<span style="color:#f92672">.</span>vlines(x, <span style="color:#ae81ff">0</span>, rv<span style="color:#f92672">.</span>pmf(x), colors<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;k&#39;</span>, linestyles<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;-&#39;</span>, lw<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>,
+          label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Probablity&#39;</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> ax<span style="color:#f92672">.</span>legend(loc<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;best&#39;</span>, frameon<span style="color:#f92672">=</span>False)
+<span style="color:#f92672">&gt;&gt;&gt;</span> plt<span style="color:#f92672">.</span>show()
 
 
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">from</span> scipy.stats <span style="color:#f92672">import</span> poisson
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> rv <span style="color:#f92672">=</span> poisson(<span style="color:#ae81ff">20</span>)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> rv<span style="color:#f92672">.</span>pmf(<span style="color:#ae81ff">23</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">from</span> scipy.stats <span style="color:#f92672">import</span> poisson
+<span style="color:#f92672">&gt;&gt;&gt;</span> rv <span style="color:#f92672">=</span> poisson(<span style="color:#ae81ff">20</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> rv<span style="color:#f92672">.</span>pmf(<span style="color:#ae81ff">23</span>)
 <span style="color:#ae81ff">0.066881473662401172</span>
 <span style="color:#75715e"># With the Poisson function, we define the mean value, which is 20 cars. The rv.pmf function gives the probability, which is around 6%, that 23 cars will pass the bridge.</span>
 
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">from</span> scipy <span style="color:#f92672">import</span> stats
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> stats<span style="color:#f92672">.</span>bernoulli<span style="color:#f92672">.</span>rvs(<span style="color:#ae81ff">0.7</span>, size<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">from</span> scipy <span style="color:#f92672">import</span> stats
+<span style="color:#f92672">&gt;&gt;&gt;</span> stats<span style="color:#f92672">.</span>bernoulli<span style="color:#f92672">.</span>rvs(<span style="color:#ae81ff">0.7</span>, size<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>)
 
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> classscore <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>normal(<span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">60</span>)<span style="color:#f92672">.</span>round()
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> plt<span style="color:#f92672">.</span>hist(classscore, <span style="color:#ae81ff">30</span>, normed<span style="color:#f92672">=</span>True) <span style="color:#75715e">#Number of breaks is 30</span>
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> stats<span style="color:#f92672">.</span>zscore(classscore)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> prob <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> stats<span style="color:#f92672">.</span>norm<span style="color:#f92672">.</span>cdf(<span style="color:#ae81ff">1.334</span>)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> prob
+<span style="color:#f92672">&gt;&gt;&gt;</span> classscore <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>normal(<span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">60</span>)<span style="color:#f92672">.</span>round()
+<span style="color:#f92672">&gt;&gt;&gt;</span> plt<span style="color:#f92672">.</span>hist(classscore, <span style="color:#ae81ff">30</span>, normed<span style="color:#f92672">=</span>True) <span style="color:#75715e">#Number of breaks is 30</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> stats<span style="color:#f92672">.</span>zscore(classscore)
+<span style="color:#f92672">&gt;&gt;&gt;</span> prob <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> stats<span style="color:#f92672">.</span>norm<span style="color:#f92672">.</span>cdf(<span style="color:#ae81ff">1.334</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> prob
 <span style="color:#ae81ff">0.091101928265359899</span>
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> stats<span style="color:#f92672">.</span>norm<span style="color:#f92672">.</span>ppf(<span style="color:#ae81ff">0.80</span>) <span style="color:#75715e"># get the z-score at which the top 20% score marks</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> stats<span style="color:#f92672">.</span>norm<span style="color:#f92672">.</span>ppf(<span style="color:#ae81ff">0.80</span>) <span style="color:#75715e"># get the z-score at which the top 20% score marks</span>
 
 <span style="color:#75715e"># The z-score for the preceding output that determines whether the top 20% marks are at 0.84 is as follows:</span>
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> (<span style="color:#ae81ff">0.84</span> <span style="color:#f92672">*</span> classscore<span style="color:#f92672">.</span>std()) <span style="color:#f92672">+</span> classscore<span style="color:#f92672">.</span>mean()
+<span style="color:#f92672">&gt;&gt;&gt;</span> (<span style="color:#ae81ff">0.84</span> <span style="color:#f92672">*</span> classscore<span style="color:#f92672">.</span>std()) <span style="color:#f92672">+</span> classscore<span style="color:#f92672">.</span>mean()
 <span style="color:#ae81ff">55.942594176524267</span>
 
 <span style="color:#75715e"># We multiply the z-score with the standard deviation and then add the result with the mean of the distribution. This helps in converting the z-score to a value in the distribution. The 55.83 marks means that students who have marks more than this are in the top 20% of the distribution.</span>
@@ -98,24 +98,24 @@
 <span style="color:#75715e"># Let&#39;s understand this concept with an example where the null hypothesis is that it is common for students to score 68 marks in mathematics.</span>
 <span style="color:#75715e"># Let&#39;s define the significance level at 5%. If the p-value is less than 5%, then the null hypothesis is rejected and it is not common to score 68 marks in mathematics.</span>
 <span style="color:#75715e"># Let&#39;s get the z-score of 68 marks:</span>
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> zscore <span style="color:#f92672">=</span> ( <span style="color:#ae81ff">68</span> <span style="color:#f92672">-</span> classscore<span style="color:#f92672">.</span>mean() ) <span style="color:#f92672">/</span> classscore<span style="color:#f92672">.</span>std()
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> zscore
+<span style="color:#f92672">&gt;&gt;&gt;</span> zscore <span style="color:#f92672">=</span> ( <span style="color:#ae81ff">68</span> <span style="color:#f92672">-</span> classscore<span style="color:#f92672">.</span>mean() ) <span style="color:#f92672">/</span> classscore<span style="color:#f92672">.</span>std()
+<span style="color:#f92672">&gt;&gt;&gt;</span> zscore
   <span style="color:#ae81ff">2.283</span>
 
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> prob <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> stats<span style="color:#f92672">.</span>norm<span style="color:#f92672">.</span>cdf(zscore)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> prob
+<span style="color:#f92672">&gt;&gt;&gt;</span> prob <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> stats<span style="color:#f92672">.</span>norm<span style="color:#f92672">.</span>cdf(zscore)
+<span style="color:#f92672">&gt;&gt;&gt;</span> prob
 <span style="color:#ae81ff">0.032835182628040638</span>
 <span style="color:#75715e"># So, you can see that the p-value is at 3.2%, which is lower than the significance level. This means that the null hypothesis can be rejected, and it can be said that it&#39;s not common to get 68 marks in mathematics.</span>
 
 <span style="color:#75715e"># Type-1 Error == False Positive (falsely rejecting Null Hypothesis)</span>
 <span style="color:#75715e"># Type-2 Error == False Negative (falsely accepting NULL)</span>
 
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> stats<span style="color:#f92672">.</span>pearsonr(mpg,hp)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> stats<span style="color:#f92672">.</span>spearmanr(mpg,hp)
+<span style="color:#f92672">&gt;&gt;&gt;</span> stats<span style="color:#f92672">.</span>pearsonr(mpg,hp)
+<span style="color:#f92672">&gt;&gt;&gt;</span> stats<span style="color:#f92672">.</span>spearmanr(mpg,hp)
 <span style="color:#75715e"># We can clearly see that the Pearson correlation has been drastically affected due to the outliers, which are from a correlation of 0.89 to 0.47.</span>
 <span style="color:#75715e"># The Spearman correlation did not get affected much as it is based on the order rather than the actual value in the data.</span>
 
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> stats<span style="color:#f92672">.</span>ttest_ind(class1_score,class2_score)
+<span style="color:#f92672">&gt;&gt;&gt;</span> stats<span style="color:#f92672">.</span>ttest_ind(class1_score,class2_score)
 </code></pre></div><p><strong>Chi^2</strong></p>
 <p>$X^2 = [(n-1)*s^2] / \sigma^2$</p>
 <p>If repeat-sample and define chi-square statistics, PDF obtained:</p>
@@ -150,10 +150,10 @@ stats<span style="color:#f92672">.</span>chi2_contingency(men_women) <span style
 <h1 id="fluent-python">Fluent Python</h1>
 <p><strong>DATA MODEL</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> collections
-Card <span style="color:#f92672">=</span> collections<span style="color:#f92672">.</span>namedtuple(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Card</span><span style="color:#e6db74">&#39;</span>, [<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">rank</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">suit</span><span style="color:#e6db74">&#39;</span>])
+Card <span style="color:#f92672">=</span> collections<span style="color:#f92672">.</span>namedtuple(<span style="color:#e6db74">&#39;Card&#39;</span>, [<span style="color:#e6db74">&#39;rank&#39;</span>, <span style="color:#e6db74">&#39;suit&#39;</span>])
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FrenchDeck</span>:
-    ranks <span style="color:#f92672">=</span> [str(n) <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">11</span>)] <span style="color:#f92672">+</span> list(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">JQKA</span><span style="color:#e6db74">&#39;</span>)
-    suits <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">spades diamonds clubs hearts</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>split()
+    ranks <span style="color:#f92672">=</span> [str(n) <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">11</span>)] <span style="color:#f92672">+</span> list(<span style="color:#e6db74">&#39;JQKA&#39;</span>)
+    suits <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;spades diamonds clubs hearts&#39;</span><span style="color:#f92672">.</span>split()
     <span style="color:#66d9ef">def</span> __init__(self):
 	    self<span style="color:#f92672">.</span>_cards <span style="color:#f92672">=</span> [Card(rank, suit) <span style="color:#66d9ef">for</span> suit <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>suits
                        <span style="color:#66d9ef">for</span> rank <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>ranks]
@@ -162,7 +162,7 @@ Card <span style="color:#f92672">=</span> collections<span style="color:#f92672"
     <span style="color:#66d9ef">def</span> __getitem__(self, position):
 		<span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>_cards[position]
     
-beer_card <span style="color:#f92672">=</span> Card(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">7</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">diamonds</span><span style="color:#e6db74">&#39;</span>) <span style="color:#75715e"># Card(rank=&#39;7&#39;, suit=&#39;..&#39;)</span>
+beer_card <span style="color:#f92672">=</span> Card(<span style="color:#e6db74">&#39;7&#39;</span>, <span style="color:#e6db74">&#39;diamonds&#39;</span>) <span style="color:#75715e"># Card(rank=&#39;7&#39;, suit=&#39;..&#39;)</span>
 </code></pre></div><ul>
 <li>
 <p>Point is FrenchDeck, it responds to len() and accessing [] because of dunders !</p>
@@ -187,7 +187,7 @@ beer_card <span style="color:#f92672">=</span> Card(<span style="color:#e6db74">
 <span style="color:#75715e"># auto sorting due to dunders delegation</span>
 </code></pre></div></li>
 <li>
-<p>dunders or special methods are meant to be called by interpreter NOT coder: no <code>my_object.__len__()</code> but <code>len(my_object)</code> and if it's instance of user defined class, the Python calls the <code>__len__</code> instance method coded</p>
+<p>dunders or special methods are meant to be called by interpreter NOT coder: no <code>my_object.__len__()</code> but <code>len(my_object)</code> and if it&rsquo;s instance of user defined class, the Python calls the <code>__len__</code> instance method coded</p>
 </li>
 <li>
 <p>But for built-in types <code>list</code> etc, interpreter shortcut CPython uses <code>PyVarObjet C</code> struct in MEM faster than calling method</p>
@@ -207,14 +207,14 @@ beer_card <span style="color:#f92672">=</span> Card(<span style="color:#e6db74">
         self<span style="color:#f92672">.</span>x <span style="color:#f92672">=</span> x
         self<span style="color:#f92672">.</span>y <span style="color:#f92672">=</span> y
   <span style="color:#66d9ef">def</span> __repr__(self):
-        <span style="color:#66d9ef">return</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Vector...</span><span style="color:#e6db74">&#39;</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;Vector...&#39;</span>
     <span style="color:#66d9ef">def</span> __abs__(self):
         <span style="color:#66d9ef">return</span> hypot(self<span style="color:#f92672">.</span>x, self<span style="color:#f92672">.</span>y)
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__bool__</span>(self):
         <span style="color:#66d9ef">return</span> bool(abs(self))
     <span style="color:#66d9ef">def</span> __add__(self, other):
         x <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>x <span style="color:#f92672">+</span> other<span style="color:#f92672">.</span>x
-        <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+        <span style="color:#f92672">...</span>
         <span style="color:#66d9ef">return</span> Vector(x, y)
     <span style="color:#66d9ef">def</span> __mul__(self, scalar):
         <span style="color:#66d9ef">return</span> Vector(self<span style="color:#f92672">.</span>x <span style="color:#f92672">*</span> scalar, self<span style="color:#f92672">.</span>y <span style="color:#f92672">*</span> scalar)
@@ -237,48 +237,48 @@ beer_card <span style="color:#f92672">=</span> Card(<span style="color:#e6db74">
 <li>without creating memory <code>for i in ((c, s) for c in colors for s in sizes): ...</code></li>
 </ul>
 <p><strong>tuple is nameless records due to indexing</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> lax_coordinates <span style="color:#f92672">=</span> (<span style="color:#ae81ff">33.9425</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">118.408056</span>)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> city, year, pop, chg, area <span style="color:#f92672">=</span> (<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Tokyo</span><span style="color:#e6db74">&#39;</span>, <span style="color:#ae81ff">2003</span>, <span style="color:#ae81ff">32450</span>, <span style="color:#ae81ff">0.66</span>, <span style="color:#ae81ff">8014</span>)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> traveler_ids <span style="color:#f92672">=</span> [(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">USA</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">31195855</span><span style="color:#e6db74">&#39;</span>), (<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">BRA</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">CE342567</span><span style="color:#e6db74">&#39;</span>),
-<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
-(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">ESP</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">XDA205856</span><span style="color:#e6db74">&#39;</span>)]
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">for</span> passport <span style="color:#f92672">in</span> sorted(traveler_ids):
-<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
-<span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">/</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> passport)
-<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> lax_coordinates <span style="color:#f92672">=</span> (<span style="color:#ae81ff">33.9425</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">118.408056</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> city, year, pop, chg, area <span style="color:#f92672">=</span> (<span style="color:#e6db74">&#39;Tokyo&#39;</span>, <span style="color:#ae81ff">2003</span>, <span style="color:#ae81ff">32450</span>, <span style="color:#ae81ff">0.66</span>, <span style="color:#ae81ff">8014</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> traveler_ids <span style="color:#f92672">=</span> [(<span style="color:#e6db74">&#39;USA&#39;</span>, <span style="color:#e6db74">&#39;31195855&#39;</span>), (<span style="color:#e6db74">&#39;BRA&#39;</span>, <span style="color:#e6db74">&#39;CE342567&#39;</span>),
+<span style="color:#f92672">...</span>
+(<span style="color:#e6db74">&#39;ESP&#39;</span>, <span style="color:#e6db74">&#39;XDA205856&#39;</span>)]
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">for</span> passport <span style="color:#f92672">in</span> sorted(traveler_ids):
+<span style="color:#f92672">...</span>
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">/</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> passport)
+<span style="color:#f92672">...</span>
 BRA<span style="color:#f92672">/</span>CE342567
 ESP<span style="color:#f92672">/</span>XDA205856
 USA<span style="color:#f92672">/</span><span style="color:#ae81ff">31195855</span>
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">for</span> country, _ <span style="color:#f92672">in</span> traveler_ids:
-<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">for</span> country, _ <span style="color:#f92672">in</span> traveler_ids:
+<span style="color:#f92672">...</span>
 <span style="color:#66d9ef">print</span>(country)
-<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<span style="color:#f92672">...</span>
 USA
 BRA
 ESP
 
 <span style="color:#75715e"># namedTuple</span>
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">from</span> collections <span style="color:#f92672">import</span> namedtuple
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> City <span style="color:#f92672">=</span> namedtuple(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">City</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">name country population coordinates</span><span style="color:#e6db74">&#39;</span>)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> tokyo <span style="color:#f92672">=</span> City(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Tokyo</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">JP</span><span style="color:#e6db74">&#39;</span>, <span style="color:#ae81ff">36.933</span>, (<span style="color:#ae81ff">35.689722</span>, <span style="color:#ae81ff">139.691667</span>))
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> tokyo
-City(name<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Tokyo</span><span style="color:#e6db74">&#39;</span>, country<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">JP</span><span style="color:#e6db74">&#39;</span>, population<span style="color:#f92672">=</span><span style="color:#ae81ff">36.933</span>, coordinates<span style="color:#f92672">=</span>(<span style="color:#ae81ff">35.689722</span>, <span style="color:#ae81ff">139.691667</span>))
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> tokyo<span style="color:#f92672">.</span>population
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">from</span> collections <span style="color:#f92672">import</span> namedtuple
+<span style="color:#f92672">&gt;&gt;&gt;</span> City <span style="color:#f92672">=</span> namedtuple(<span style="color:#e6db74">&#39;City&#39;</span>, <span style="color:#e6db74">&#39;name country population coordinates&#39;</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> tokyo <span style="color:#f92672">=</span> City(<span style="color:#e6db74">&#39;Tokyo&#39;</span>, <span style="color:#e6db74">&#39;JP&#39;</span>, <span style="color:#ae81ff">36.933</span>, (<span style="color:#ae81ff">35.689722</span>, <span style="color:#ae81ff">139.691667</span>))
+<span style="color:#f92672">&gt;&gt;&gt;</span> tokyo
+City(name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Tokyo&#39;</span>, country<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;JP&#39;</span>, population<span style="color:#f92672">=</span><span style="color:#ae81ff">36.933</span>, coordinates<span style="color:#f92672">=</span>(<span style="color:#ae81ff">35.689722</span>, <span style="color:#ae81ff">139.691667</span>))
+<span style="color:#f92672">&gt;&gt;&gt;</span> tokyo<span style="color:#f92672">.</span>population
 <span style="color:#ae81ff">36.933</span>
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> tokyo<span style="color:#f92672">.</span>coordinates
+<span style="color:#f92672">&gt;&gt;&gt;</span> tokyo<span style="color:#f92672">.</span>coordinates
 (<span style="color:#ae81ff">35.689722</span>, <span style="color:#ae81ff">139.691667</span>)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> tok
+<span style="color:#f92672">&gt;&gt;&gt;</span> tok
 
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> City<span style="color:#f92672">.</span>_fields
-(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">name</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">country</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">population</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">coordinates</span><span style="color:#e6db74">&#39;</span>)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> LatLong <span style="color:#f92672">=</span> namedtuple(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">LatLong</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">lat long</span><span style="color:#e6db74">&#39;</span>)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> delhi_data <span style="color:#f92672">=</span> (<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Delhi NCR</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">IN</span><span style="color:#e6db74">&#39;</span>, <span style="color:#ae81ff">21.935</span>, LatLong(<span style="color:#ae81ff">28.613889</span>, <span style="color:#ae81ff">77.208889</span>))
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> delhi <span style="color:#f92672">=</span> City<span style="color:#f92672">.</span>_make(delhi_data)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> delhi<span style="color:#f92672">.</span>_asdict()
-OrderedDict([(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">name</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Delhi NCR</span><span style="color:#e6db74">&#39;</span>), (<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">country</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">IN</span><span style="color:#e6db74">&#39;</span>), (<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">population</span><span style="color:#e6db74">&#39;</span>,
-<span style="color:#ae81ff">21.935</span>), (<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">coordinates</span><span style="color:#e6db74">&#39;</span>, LatLong(lat<span style="color:#f92672">=</span><span style="color:#ae81ff">28.613889</span>, long<span style="color:#f92672">=</span><span style="color:#ae81ff">77.208889</span>))])
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">for</span> key, value <span style="color:#f92672">in</span> delhi<span style="color:#f92672">.</span>_asdict()<span style="color:#f92672">.</span>items():
-<span style="color:#66d9ef">print</span>(key <span style="color:#f92672">+</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">:</span><span style="color:#e6db74">&#39;</span>, value)
+<span style="color:#f92672">&gt;&gt;&gt;</span> City<span style="color:#f92672">.</span>_fields
+(<span style="color:#e6db74">&#39;name&#39;</span>, <span style="color:#e6db74">&#39;country&#39;</span>, <span style="color:#e6db74">&#39;population&#39;</span>, <span style="color:#e6db74">&#39;coordinates&#39;</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> LatLong <span style="color:#f92672">=</span> namedtuple(<span style="color:#e6db74">&#39;LatLong&#39;</span>, <span style="color:#e6db74">&#39;lat long&#39;</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> delhi_data <span style="color:#f92672">=</span> (<span style="color:#e6db74">&#39;Delhi NCR&#39;</span>, <span style="color:#e6db74">&#39;IN&#39;</span>, <span style="color:#ae81ff">21.935</span>, LatLong(<span style="color:#ae81ff">28.613889</span>, <span style="color:#ae81ff">77.208889</span>))
+<span style="color:#f92672">&gt;&gt;&gt;</span> delhi <span style="color:#f92672">=</span> City<span style="color:#f92672">.</span>_make(delhi_data)
+<span style="color:#f92672">&gt;&gt;&gt;</span> delhi<span style="color:#f92672">.</span>_asdict()
+OrderedDict([(<span style="color:#e6db74">&#39;name&#39;</span>, <span style="color:#e6db74">&#39;Delhi NCR&#39;</span>), (<span style="color:#e6db74">&#39;country&#39;</span>, <span style="color:#e6db74">&#39;IN&#39;</span>), (<span style="color:#e6db74">&#39;population&#39;</span>,
+<span style="color:#ae81ff">21.935</span>), (<span style="color:#e6db74">&#39;coordinates&#39;</span>, LatLong(lat<span style="color:#f92672">=</span><span style="color:#ae81ff">28.613889</span>, long<span style="color:#f92672">=</span><span style="color:#ae81ff">77.208889</span>))])
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">for</span> key, value <span style="color:#f92672">in</span> delhi<span style="color:#f92672">.</span>_asdict()<span style="color:#f92672">.</span>items():
+<span style="color:#66d9ef">print</span>(key <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;:&#39;</span>, value)
 </code></pre></div><ol>
 <li><code>_fields</code> is a tuple with field names of the class</li>
 <li><code>_make()</code> inits named tuple from an iterable; <code>City(*delhi_data)</code> would do the same</li>
@@ -289,32 +289,32 @@ OrderedDict([(<span style="color:#e6db74"></span><span style="color:#e6db74">&#3
 <span style="color:#f92672">import</span> sys
 HAYSTACK <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">21</span>, <span style="color:#ae81ff">23</span>, <span style="color:#ae81ff">23</span>, <span style="color:#ae81ff">26</span>, <span style="color:#ae81ff">29</span>, <span style="color:#ae81ff">30</span>]
 NEEDLES <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">22</span>, <span style="color:#ae81ff">23</span>, <span style="color:#ae81ff">29</span>, <span style="color:#ae81ff">30</span>, <span style="color:#ae81ff">31</span>]
-ROW_FMT <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">{0:2d} @ {1:2d}</span>
-{<span style="color:#ae81ff">2</span>}{<span style="color:#ae81ff">0</span>:<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">2</span>d}<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span>
+ROW_FMT <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;{0:2d} @ {1:2d}</span>
+{<span style="color:#ae81ff">2</span>}{<span style="color:#ae81ff">0</span>:<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">2</span>d}<span style="color:#e6db74">&#39;</span>
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">demo</span>(bisect_fn):
 <span style="color:#66d9ef">for</span> needle <span style="color:#f92672">in</span> reversed(NEEDLES):
 position <span style="color:#f92672">=</span> bisect_fn(HAYSTACK, needle)
-offset <span style="color:#f92672">=</span> position <span style="color:#f92672">*</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74"> |</span><span style="color:#e6db74">&#39;</span>
+offset <span style="color:#f92672">=</span> position <span style="color:#f92672">*</span> <span style="color:#e6db74">&#39; |&#39;</span>
 <span style="color:#66d9ef">print</span>(ROW_FMT<span style="color:#f92672">.</span>format(needle, position, offset))
-<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">__main__</span><span style="color:#e6db74">&#39;</span>:
-<span style="color:#66d9ef">if</span> sys<span style="color:#f92672">.</span>argv[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">left</span><span style="color:#e6db74">&#39;</span>:
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+<span style="color:#66d9ef">if</span> sys<span style="color:#f92672">.</span>argv[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;left&#39;</span>:
     bisect_fn <span style="color:#f92672">=</span> bisect<span style="color:#f92672">.</span>bisect_left
 <span style="color:#66d9ef">else</span>:
 	bisect_fn <span style="color:#f92672">=</span> bisect<span style="color:#f92672">.</span>bisect
-<span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">DEMO:</span><span style="color:#e6db74">&#39;</span>, bisect_fn<span style="color:#f92672">.</span>__name__)
-<span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">haystack -&gt;</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74"> </span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>join(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">%2d</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> n <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> HAYSTACK))
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;DEMO:&#39;</span>, bisect_fn<span style="color:#f92672">.</span>__name__)
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;haystack -&gt;&#39;</span>, <span style="color:#e6db74">&#39; &#39;</span><span style="color:#f92672">.</span>join(<span style="color:#e6db74">&#39;</span><span style="color:#e6db74">%2d</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> n <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> HAYSTACK))
 demo(bisect_fn)
 
 
 <span style="color:#75715e"># An interesting application of bisect is to perform table lookups by numeric values, for example to convert test scores to letter grades, as in Example 2-18. Example 2-18. Given a test score, grade returns the corresponding letter grade.</span>
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">grade</span>(score, breakpoints<span style="color:#f92672">=</span>[<span style="color:#ae81ff">60</span>, <span style="color:#ae81ff">70</span>, <span style="color:#ae81ff">80</span>, <span style="color:#ae81ff">90</span>], grades<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">FDCBA</span><span style="color:#e6db74">&#39;</span>):
-<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">grade</span>(score, breakpoints<span style="color:#f92672">=</span>[<span style="color:#ae81ff">60</span>, <span style="color:#ae81ff">70</span>, <span style="color:#ae81ff">80</span>, <span style="color:#ae81ff">90</span>], grades<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;FDCBA&#39;</span>):
+<span style="color:#f92672">...</span>
 i <span style="color:#f92672">=</span> bisect<span style="color:#f92672">.</span>bisect(breakpoints, score)
-<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<span style="color:#f92672">...</span>
 <span style="color:#66d9ef">return</span> grades[i]
-<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> [grade(score) <span style="color:#66d9ef">for</span> score <span style="color:#f92672">in</span> [<span style="color:#ae81ff">33</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">77</span>, <span style="color:#ae81ff">70</span>, <span style="color:#ae81ff">89</span>, <span style="color:#ae81ff">90</span>, <span style="color:#ae81ff">100</span>]]
-[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">F</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">A</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">C</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">C</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">B</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">A</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">A</span><span style="color:#e6db74">&#39;</span>]
+<span style="color:#f92672">...</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> [grade(score) <span style="color:#66d9ef">for</span> score <span style="color:#f92672">in</span> [<span style="color:#ae81ff">33</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">77</span>, <span style="color:#ae81ff">70</span>, <span style="color:#ae81ff">89</span>, <span style="color:#ae81ff">90</span>, <span style="color:#ae81ff">100</span>]]
+[<span style="color:#e6db74">&#39;F&#39;</span>, <span style="color:#e6db74">&#39;A&#39;</span>, <span style="color:#e6db74">&#39;C&#39;</span>, <span style="color:#e6db74">&#39;C&#39;</span>, <span style="color:#e6db74">&#39;B&#39;</span>, <span style="color:#e6db74">&#39;A&#39;</span>, <span style="color:#e6db74">&#39;A&#39;</span>]
 
 <span style="color:#75715e"># keeping sorted </span>
 random<span style="color:#f92672">.</span>seed(<span style="color:#ae81ff">1729</span>)
@@ -322,58 +322,58 @@ my_list <span style="color:#f92672">=</span> []
 <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(SIZE):
     new_item <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>randrange(SIZE<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>)
     bisect<span style="color:#f92672">.</span>insort(my_list, new_item)
-    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">%2d</span><span style="color:#e6db74"> -&gt;</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> new_item, my_list)
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;</span><span style="color:#e6db74">%2d</span><span style="color:#e6db74"> -&gt;&#39;</span> <span style="color:#f92672">%</span> new_item, my_list)
 </code></pre></div><p><strong>memoryview - generalised NumPy without the maths</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> numbers <span style="color:#f92672">=</span> array<span style="color:#f92672">.</span>array(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">h</span><span style="color:#e6db74">&#39;</span>, [<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>])
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> memv <span style="color:#f92672">=</span> memoryview(numbers)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> len(memv)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> numbers <span style="color:#f92672">=</span> array<span style="color:#f92672">.</span>array(<span style="color:#e6db74">&#39;h&#39;</span>, [<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>])
+<span style="color:#f92672">&gt;&gt;&gt;</span> memv <span style="color:#f92672">=</span> memoryview(numbers)
+<span style="color:#f92672">&gt;&gt;&gt;</span> len(memv)
 <span style="color:#ae81ff">5</span>
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> memv[<span style="color:#ae81ff">0</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> memv[<span style="color:#ae81ff">0</span>]
 <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> memv_oct <span style="color:#f92672">=</span> memv<span style="color:#f92672">.</span>cast(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">B</span><span style="color:#e6db74">&#39;</span>)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> memv_oct<span style="color:#f92672">.</span>tolist()
+<span style="color:#f92672">&gt;&gt;&gt;</span> memv_oct <span style="color:#f92672">=</span> memv<span style="color:#f92672">.</span>cast(<span style="color:#e6db74">&#39;B&#39;</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> memv_oct<span style="color:#f92672">.</span>tolist()
 [<span style="color:#ae81ff">254</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span>]
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> memv_oct[<span style="color:#ae81ff">5</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> numbers
-array(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">h</span><span style="color:#e6db74">&#39;</span>, [<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1024</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>])
+<span style="color:#f92672">&gt;&gt;&gt;</span> memv_oct[<span style="color:#ae81ff">5</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> numbers
+array(<span style="color:#e6db74">&#39;h&#39;</span>, [<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1024</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>])
 </code></pre></div><p>NumPy detour</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">import</span> numpy
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> floats <span style="color:#f92672">=</span> numpy<span style="color:#f92672">.</span>loadtxt(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">floats-10M-lines.txt</span><span style="color:#e6db74">&#39;</span>)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> floats[<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>:]
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> numpy
+<span style="color:#f92672">&gt;&gt;&gt;</span> floats <span style="color:#f92672">=</span> numpy<span style="color:#f92672">.</span>loadtxt(<span style="color:#e6db74">&#39;floats-10M-lines.txt&#39;</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> floats[<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>:]
 array([ <span style="color:#ae81ff">3016362.69195522</span>,
 <span style="color:#ae81ff">535281.10514262</span>, <span style="color:#ae81ff">4566560.44373946</span>])
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> floats <span style="color:#f92672">*</span><span style="color:#f92672">=</span> <span style="color:#f92672">.</span><span style="color:#ae81ff">5</span>
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> floats[<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>:]
+<span style="color:#f92672">&gt;&gt;&gt;</span> floats <span style="color:#f92672">*=</span> <span style="color:#f92672">.</span><span style="color:#ae81ff">5</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> floats[<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>:]
 array([ <span style="color:#ae81ff">1508181.34597761</span>,
 <span style="color:#ae81ff">267640.55257131</span>, <span style="color:#ae81ff">2283280.22186973</span>])
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">from</span> time <span style="color:#f92672">import</span> perf_counter <span style="color:#66d9ef">as</span> pc
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> t0 <span style="color:#f92672">=</span> pc(); floats <span style="color:#f92672">/</span><span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>; pc() <span style="color:#f92672">-</span> t0
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">from</span> time <span style="color:#f92672">import</span> perf_counter <span style="color:#66d9ef">as</span> pc
+<span style="color:#f92672">&gt;&gt;&gt;</span> t0 <span style="color:#f92672">=</span> pc(); floats <span style="color:#f92672">/=</span> <span style="color:#ae81ff">3</span>; pc() <span style="color:#f92672">-</span> t0
 <span style="color:#ae81ff">0.03690556302899495</span>
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> numpy<span style="color:#f92672">.</span>save(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">floats-10M</span><span style="color:#e6db74">&#39;</span>, floats)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> floats2 <span style="color:#f92672">=</span> numpy<span style="color:#f92672">.</span>load(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">floats-10M.npy</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">r+</span><span style="color:#e6db74">&#39;</span>)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> floats2 <span style="color:#f92672">*</span><span style="color:#f92672">=</span> <span style="color:#ae81ff">6</span>
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> floats2[<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>:]
+<span style="color:#f92672">&gt;&gt;&gt;</span> numpy<span style="color:#f92672">.</span>save(<span style="color:#e6db74">&#39;floats-10M&#39;</span>, floats)
+<span style="color:#f92672">&gt;&gt;&gt;</span> floats2 <span style="color:#f92672">=</span> numpy<span style="color:#f92672">.</span>load(<span style="color:#e6db74">&#39;floats-10M.npy&#39;</span>, <span style="color:#e6db74">&#39;r+&#39;</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> floats2 <span style="color:#f92672">*=</span> <span style="color:#ae81ff">6</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> floats2[<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>:]
 memmap([ <span style="color:#ae81ff">3016362.69195522</span>,
 <span style="color:#ae81ff">535281.10514262</span>, <span style="color:#ae81ff">4566560.44373946</span>])
 </code></pre></div><p><strong>deque</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">from</span> collections <span style="color:#f92672">import</span> deque
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> dq <span style="color:#f92672">=</span> deque(range(<span style="color:#ae81ff">10</span>), maxlen<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> dq
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">from</span> collections <span style="color:#f92672">import</span> deque
+<span style="color:#f92672">&gt;&gt;&gt;</span> dq <span style="color:#f92672">=</span> deque(range(<span style="color:#ae81ff">10</span>), maxlen<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> dq
 deque([<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>], maxlen<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> dq<span style="color:#f92672">.</span>rotate(<span style="color:#ae81ff">3</span>)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> dq
+<span style="color:#f92672">&gt;&gt;&gt;</span> dq<span style="color:#f92672">.</span>rotate(<span style="color:#ae81ff">3</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> dq
 deque([<span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>], maxlen<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> dq<span style="color:#f92672">.</span>rotate(<span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> dq
+<span style="color:#f92672">&gt;&gt;&gt;</span> dq<span style="color:#f92672">.</span>rotate(<span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> dq
 deque([<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">0</span>], maxlen<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> dq<span style="color:#f92672">.</span>appendleft(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> dq
+<span style="color:#f92672">&gt;&gt;&gt;</span> dq<span style="color:#f92672">.</span>appendleft(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> dq
 deque([<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>], maxlen<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> dq<span style="color:#f92672">.</span>extend([<span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">22</span>, <span style="color:#ae81ff">33</span>])
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> dq
+<span style="color:#f92672">&gt;&gt;&gt;</span> dq<span style="color:#f92672">.</span>extend([<span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">22</span>, <span style="color:#ae81ff">33</span>])
+<span style="color:#f92672">&gt;&gt;&gt;</span> dq
 deque([<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">22</span>, <span style="color:#ae81ff">33</span>], maxlen<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> dq<span style="color:#f92672">.</span>extendleft([<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">30</span>, <span style="color:#ae81ff">40</span>])
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> dq
+<span style="color:#f92672">&gt;&gt;&gt;</span> dq<span style="color:#f92672">.</span>extendleft([<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">30</span>, <span style="color:#ae81ff">40</span>])
+<span style="color:#f92672">&gt;&gt;&gt;</span> dq
 deque([<span style="color:#ae81ff">40</span>, <span style="color:#ae81ff">30</span>, <span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>], maxlen<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)
 </code></pre></div><blockquote>
 <p>Besides deque , other Python Standard Library packages implement queues.
@@ -513,28 +513,28 @@ special<span style="color:#f92672">.</span>erfinv()
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">M<span style="color:#f92672">.</span>shape <span style="color:#f92672">=</span> (<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>)
 a<span style="color:#f92672">.</span>shape <span style="color:#f92672">=</span> (<span style="color:#ae81ff">3</span>,) <span style="color:#75715e"># a vector</span>
 <span style="color:#75715e"># rule-1 sees a has fewer dim so padded on left with ones</span>
-M<span style="color:#f92672">.</span>shape <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)
-a<span style="color:#f92672">.</span>shape <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>)
+M<span style="color:#f92672">.</span>shape <span style="color:#f92672">-&gt;</span> (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)
+a<span style="color:#f92672">.</span>shape <span style="color:#f92672">-&gt;</span> (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>)
 <span style="color:#75715e"># rule-2 see axis-0 disagrees, so streched this dim to match</span>
-M<span style="color:#f92672">.</span>shape <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)
-a<span style="color:#f92672">.</span>shape <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)
+M<span style="color:#f92672">.</span>shape <span style="color:#f92672">-&gt;</span> (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)
+a<span style="color:#f92672">.</span>shape <span style="color:#f92672">-&gt;</span> (<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)
   
 <span style="color:#75715e"># example 2</span>
 a<span style="color:#f92672">.</span>shape <span style="color:#f92672">=</span> (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>)
 b<span style="color:#f92672">.</span>shape <span style="color:#f92672">=</span> (<span style="color:#ae81ff">3</span>,)
 <span style="color:#75715e"># rule-1 to pad shape of b with ones</span>
-b<span style="color:#f92672">.</span>shape <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>)
+b<span style="color:#f92672">.</span>shape <span style="color:#f92672">-&gt;</span> (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>)
 <span style="color:#75715e"># rule-2 upgrade each of ones to match size of other array</span>
-a<span style="color:#f92672">.</span>shape <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>)
-b<span style="color:#f92672">.</span>shape <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>)
+a<span style="color:#f92672">.</span>shape <span style="color:#f92672">-&gt;</span> (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>)
+b<span style="color:#f92672">.</span>shape <span style="color:#f92672">-&gt;</span> (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>)
   
 <span style="color:#75715e"># example 3</span>
 M<span style="color:#f92672">.</span>shape <span style="color:#f92672">=</span> (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>)
 a<span style="color:#f92672">.</span>shape <span style="color:#f92672">=</span> (<span style="color:#ae81ff">3</span>,)
 <span style="color:#75715e"># rule-1 padding a with ones</span>
-a<span style="color:#f92672">.</span>shape <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>)
+a<span style="color:#f92672">.</span>shape <span style="color:#f92672">-&gt;</span> (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>)
 <span style="color:#75715e"># rule-2 to stretch axis-0 of a to match that of M</span>
-a<span style="color:#f92672">.</span>shape <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>)
+a<span style="color:#f92672">.</span>shape <span style="color:#f92672">-&gt;</span> (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>)
 <span style="color:#75715e"># rule-3 raise error for none of axis-0 mismatch in final shape</span>
   
 <span style="color:#75715e"># Potential Confusion: a and M compatible via padding a&#39;s shape </span>
@@ -591,7 +591,7 @@ indices <span style="color:#f92672">=</span> np<span style="color:#f92672">.</sp
 selection <span style="color:#f92672">=</span> X[indices]
 <span style="color:#75715e"># plotting circling effet</span>
 plt<span style="color:#f92672">.</span>scatter(selection[: <span style="color:#ae81ff">0</span>,], selection[:, <span style="color:#ae81ff">1</span>],
-            facecolor<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">none</span><span style="color:#e6db74">&#39;</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">200</span>);
+            facecolor<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;none&#39;</span>, s<span style="color:#f92672">=</span><span style="color:#ae81ff">200</span>);
 </code></pre></div><ul>
 <li>
 <p><code>np.add.at(x, i, 1)</code> in-place adding and also <code>reduceat()</code> for repeated indexing ops rather than otherwise repeated assignment !!</p>
@@ -620,7 +620,7 @@ np<span style="color:#f92672">.</span>add<span style="color:#f92672">.</span>at(
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">X <span style="color:#f92672">=</span> rand<span style="color:#f92672">.</span>rand(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">2</span>)
 dist_sq <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sum((X[:, np<span style="color:#f92672">.</span>newaxis, :]
-                 <span style="color:#f92672">-</span> X[np<span style="color:#f92672">.</span>newaxis, :, :]) <span style="color:#f92672">*</span><span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>, axis<span style="color:#f92672">=</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+                 <span style="color:#f92672">-</span> X[np<span style="color:#f92672">.</span>newaxis, :, :]) <span style="color:#f92672">**</span> <span style="color:#ae81ff">2</span>, axis<span style="color:#f92672">=-</span><span style="color:#ae81ff">1</span>)
 <span style="color:#75715e"># broadcasting in detail</span>
 <span style="color:#75715e"># for each pair of points, compute diff in corrdinates</span>
 <span style="color:#75715e"># shape of diff = (10, 10, 2)</span>
@@ -637,7 +637,7 @@ plt<span style="color:#f92672">.</span>scatter(X[:, <span style="color:#ae81ff">
 <span style="color:#75715e"># draw lines from each point to its 2NN</span>
 <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(X<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">0</span>]):
     <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> nearest_partition[i, :K<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]:
-        plt<span style="color:#f92672">.</span>plot(<span style="color:#f92672">*</span>zip(X[j], X[i]), color<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">black</span><span style="color:#e6db74">&#39;</span>)
+        plt<span style="color:#f92672">.</span>plot(<span style="color:#f92672">*</span>zip(X[j], X[i]), color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;black&#39;</span>)
 </code></pre></div><ul>
 <li>scaling KNN by <strong>tree-based and approx</strong> algo such as <strong>KD-Tree</strong></li>
 </ul>
@@ -657,12 +657,12 @@ plt<span style="color:#f92672">.</span>scatter(X[:, <span style="color:#ae81ff">
 <li>for writing Python API to legacy C library that manipulates structured data, use below construct, as numpy dtype accessed directly by C programs</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">tp <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>dtype([
-    (<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">id</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">i8</span><span style="color:#e6db74">&#39;</span>),
-    (<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">mat</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">f8</span><span style="color:#e6db74">&#39;</span>, (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>))
+    (<span style="color:#e6db74">&#39;id&#39;</span>, <span style="color:#e6db74">&#39;i8&#39;</span>),
+    (<span style="color:#e6db74">&#39;mat&#39;</span>, <span style="color:#e6db74">&#39;f8&#39;</span>, (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>))
 ])
 X <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros(<span style="color:#ae81ff">1</span>, dtype<span style="color:#f92672">=</span>tp)
 X[<span style="color:#ae81ff">0</span>] <span style="color:#75715e"># (0, [[0.0, 0.0, 0.0], ...])</span>
-X[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">mat</span><span style="color:#e6db74">&#39;</span>][<span style="color:#ae81ff">0</span>] <span style="color:#75715e"># the matrix form</span>
+X[<span style="color:#e6db74">&#39;mat&#39;</span>][<span style="color:#ae81ff">0</span>] <span style="color:#75715e"># the matrix form</span>
 </code></pre></div><ul>
 <li>dot-access enabler <code>np.recarray</code>
 <ul>
@@ -709,33 +709,33 @@ df<span style="color:#f92672">.</span>stack() <span style="color:#75715e"># form
 
 <span style="color:#75715e"># from dataframe index</span>
 index<span style="color:#f92672">=</span>[
-    [<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">2010</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">2010</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">2011</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">2011</span><span style="color:#e6db74">&#39;</span>], 
-    [<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">US</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Canada</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">US</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Canada</span><span style="color:#e6db74">&#39;</span>]
+    [<span style="color:#e6db74">&#39;2010&#39;</span>, <span style="color:#e6db74">&#39;2010&#39;</span>, <span style="color:#e6db74">&#39;2011&#39;</span>, <span style="color:#e6db74">&#39;2011&#39;</span>], 
+    [<span style="color:#e6db74">&#39;US&#39;</span>, <span style="color:#e6db74">&#39;Canada&#39;</span>, <span style="color:#e6db74">&#39;US&#39;</span>, <span style="color:#e6db74">&#39;Canada&#39;</span>]
 ]
 
 <span style="color:#75715e"># Explicit</span>
 pd<span style="color:#f92672">.</span>MultiIndex<span style="color:#f92672">.</span>from_array([
-    [<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">a</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">a</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span>],
+    [<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;b&#39;</span>, <span style="color:#e6db74">&#39;b&#39;</span>],
     [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>]
 ])
 pd<span style="color:#f92672">.</span>MultiIndex<span style="color:#f92672">.</span>from_tuples([
-    (<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">a</span><span style="color:#e6db74">&#39;</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">a</span><span style="color:#e6db74">&#39;</span>, <span style="color:#ae81ff">2</span>), <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+    (<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#ae81ff">2</span>), <span style="color:#f92672">...</span>
 ])
 pd<span style="color:#f92672">.</span>MultiIndex<span style="color:#f92672">.</span>from_product([
-    [<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">a</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span>], [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>]
+    [<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;b&#39;</span>], [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>]
 ])
-pd<span style="color:#f92672">.</span>MultiIndex(levels<span style="color:#f92672">=</span>[[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">a</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span>], [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>]], 
+pd<span style="color:#f92672">.</span>MultiIndex(levels<span style="color:#f92672">=</span>[[<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;b&#39;</span>], [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>]], 
              labels<span style="color:#f92672">=</span>[[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>], [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>]])
 
 <span style="color:#75715e"># naming</span>
-df<span style="color:#f92672">.</span>index<span style="color:#f92672">.</span>names <span style="color:#f92672">=</span> [<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">state</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">year</span><span style="color:#e6db74">&#39;</span>]
+df<span style="color:#f92672">.</span>index<span style="color:#f92672">.</span>names <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;state&#39;</span>, <span style="color:#e6db74">&#39;year&#39;</span>]
 <span style="color:#75715e"># column-wise</span>
-columns<span style="color:#f92672">=</span>pd<span style="color:#f92672">.</span>MultiIndex<span style="color:#f92672">.</span>from_product(<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>, names<span style="color:#f92672">=</span>[<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>])
+columns<span style="color:#f92672">=</span>pd<span style="color:#f92672">.</span>MultiIndex<span style="color:#f92672">.</span>from_product(<span style="color:#f92672">...</span>, names<span style="color:#f92672">=</span>[<span style="color:#f92672">...</span>])
 
 <span style="color:#75715e"># most accessing and slicing work intuitively</span>
 <span style="color:#75715e"># get around slicing WITHIN index tuples</span>
 idx <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>IndexSlice
-df<span style="color:#f92672">.</span>loc[idx[:, <span style="color:#ae81ff">1</span>], idx[:, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">HR</span><span style="color:#e6db74">&#39;</span>]]
+df<span style="color:#f92672">.</span>loc[idx[:, <span style="color:#ae81ff">1</span>], idx[:, <span style="color:#e6db74">&#39;HR&#39;</span>]]
 
 df<span style="color:#f92672">.</span>unstack(level<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
 df<span style="color:#f92672">.</span>unstack(level<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
@@ -743,12 +743,12 @@ df<span style="color:#f92672">.</span>unstack(level<span style="color:#f92672">=
 df<span style="color:#f92672">.</span>unstack()<span style="color:#f92672">.</span>stack()
 
 <span style="color:#75715e"># reset multi-index </span>
-df<span style="color:#f92672">.</span>reset_index(name<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">population</span><span style="color:#e6db74">&#39;</span>)
+df<span style="color:#f92672">.</span>reset_index(name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;population&#39;</span>)
 <span style="color:#75715e"># returning multi-index</span>
-df<span style="color:#f92672">.</span>set_index([<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">state</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">year</span><span style="color:#e6db74">&#39;</span>])
+df<span style="color:#f92672">.</span>set_index([<span style="color:#e6db74">&#39;state&#39;</span>, <span style="color:#e6db74">&#39;year&#39;</span>])
 
 <span style="color:#75715e"># aggregation (GroupBy effective)</span>
-df<span style="color:#f92672">.</span>mean(level<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">year</span><span style="color:#e6db74">&#39;</span>, axis<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+df<span style="color:#f92672">.</span>mean(level<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;year&#39;</span>, axis<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
 </code></pre></div><p>CONCAT</p>
 <ul>
 <li>options
@@ -795,10 +795,10 @@ df<span style="color:#f92672">.</span>mean(level<span style="color:#f92672">=</s
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># example</span>
 merged<span style="color:#f92672">.</span>isnull()<span style="color:#f92672">.</span>any() <span style="color:#75715e"># see which column has NaN</span>
-merged[merged[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">population</span><span style="color:#e6db74">&#39;</span>]<span style="color:#f92672">.</span>isnull()]<span style="color:#f92672">.</span>head() <span style="color:#75715e"># scout them out</span>
-merge<span style="color:#f92672">.</span>loc[merge[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">state</span><span style="color:#e6db74">&#39;</span>]<span style="color:#f92672">.</span>isnull(), <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">state/region</span><span style="color:#e6db74">&#39;</span>]<span style="color:#f92672">.</span>unique() 
+merged[merged[<span style="color:#e6db74">&#39;population&#39;</span>]<span style="color:#f92672">.</span>isnull()]<span style="color:#f92672">.</span>head() <span style="color:#75715e"># scout them out</span>
+merge<span style="color:#f92672">.</span>loc[merge[<span style="color:#e6db74">&#39;state&#39;</span>]<span style="color:#f92672">.</span>isnull(), <span style="color:#e6db74">&#39;state/region&#39;</span>]<span style="color:#f92672">.</span>unique() 
 <span style="color:#75715e"># see which &#39;state/region&#39; also missing</span>
-final<span style="color:#f92672">.</span>query(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">year == 2010 &amp; ages == </span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">total</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">&#34;</span>)
+final<span style="color:#f92672">.</span>query(<span style="color:#e6db74">&#34;year == 2010 &amp; ages == &#39;total&#39;&#34;</span>)
 </code></pre></div><p>GROUPBY: Split, Apply, Combine</p>
 <ul>
 <li>Groupby object can be operated by virtually any np-pd aggregation functions</li>
@@ -817,8 +817,8 @@ final<span style="color:#f92672">.</span>query(<span style="color:#e6db74"></spa
 <li><code>filter()</code> to drop based on group properties</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">filter_sd</span>(x):
-    <span style="color:#66d9ef">return</span> x[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">col2</span><span style="color:#e6db74">&#39;</span>]<span style="color:#f92672">.</span>std() <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">4</span>
-df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">key</span><span style="color:#e6db74">&#39;</span>)<span style="color:#f92672">.</span>filter(filter_sd)
+    <span style="color:#66d9ef">return</span> x[<span style="color:#e6db74">&#39;col2&#39;</span>]<span style="color:#f92672">.</span>std() <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">4</span>
+df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74">&#39;key&#39;</span>)<span style="color:#f92672">.</span>filter(filter_sd)
 </code></pre></div><ul>
 <li>
 <p><code>transform()</code> can return some transformed version of full data to recombine, with same shape as input, e.g. normalisation</p>
@@ -844,9 +844,9 @@ df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74"></span
 <li>multi-index groupby - to better present 2D groupby</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># pure groupby</span>
-df<span style="color:#f92672">.</span>groupby([<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">sex</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">class</span><span style="color:#e6db74">&#39;</span>])[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">survived</span><span style="color:#e6db74">&#39;</span>]<span style="color:#f92672">.</span>agg(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">mean</span><span style="color:#e6db74">&#39;</span>)<span style="color:#f92672">.</span>unstack()
+df<span style="color:#f92672">.</span>groupby([<span style="color:#e6db74">&#39;sex&#39;</span>, <span style="color:#e6db74">&#39;class&#39;</span>])[<span style="color:#e6db74">&#39;survived&#39;</span>]<span style="color:#f92672">.</span>agg(<span style="color:#e6db74">&#39;mean&#39;</span>)<span style="color:#f92672">.</span>unstack()
 <span style="color:#75715e"># pivot table</span>
-df<span style="color:#f92672">.</span>pivot_table(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">survived</span><span style="color:#e6db74">&#39;</span>, index<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">sex</span><span style="color:#e6db74">&#39;</span>, columns<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">class</span><span style="color:#e6db74">&#39;</span>)
+df<span style="color:#f92672">.</span>pivot_table(<span style="color:#e6db74">&#39;survived&#39;</span>, index<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;sex&#39;</span>, columns<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;class&#39;</span>)
 </code></pre></div><ul>
 <li>multi-level pivot table
 <ul>
@@ -859,28 +859,28 @@ df<span style="color:#f92672">.</span>pivot_table(<span style="color:#e6db74"></
 </li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># example of birth in decades comparison</span>
-births[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">decade</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> (births[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">year</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">/</span><span style="color:#f92672">/</span> <span style="color:#ae81ff">10</span>)
-births<span style="color:#f92672">.</span>pivot_table(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">births</span><span style="color:#e6db74">&#39;</span>, index<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">decade</span><span style="color:#e6db74">&#39;</span>, columns<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">gender</span><span style="color:#e6db74">&#39;</span>, aggfunc<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">sum</span><span style="color:#e6db74">&#39;</span>)
+births[<span style="color:#e6db74">&#39;decade&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> (births[<span style="color:#e6db74">&#39;year&#39;</span>] <span style="color:#f92672">//</span> <span style="color:#ae81ff">10</span>)
+births<span style="color:#f92672">.</span>pivot_table(<span style="color:#e6db74">&#39;births&#39;</span>, index<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;decade&#39;</span>, columns<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;gender&#39;</span>, aggfunc<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;sum&#39;</span>)
 </code></pre></div><p>EXTRA EXPLORATION</p>
 <ul>
 <li>robust outliers cutting <strong>sigma-clipping</strong></li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">quartiles <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>percentile(births[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">births</span><span style="color:#e6db74">&#39;</span>] [<span style="color:#ae81ff">25</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">75</span>])
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">quartiles <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>percentile(births[<span style="color:#e6db74">&#39;births&#39;</span>] [<span style="color:#ae81ff">25</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">75</span>])
 mu <span style="color:#f92672">=</span> quartiles[<span style="color:#ae81ff">1</span>]
 sig <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.74</span> <span style="color:#f92672">*</span> (quartiles[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">-</span> quartiles[<span style="color:#ae81ff">0</span>])
 
-births <span style="color:#f92672">=</span> births<span style="color:#f92672">.</span>query(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">(births &gt; @mu - 5 * @sig) &amp; (births &lt; @mu + 5 * @sig)</span><span style="color:#e6db74">&#39;</span>)
+births <span style="color:#f92672">=</span> births<span style="color:#f92672">.</span>query(<span style="color:#e6db74">&#39;(births &gt; @mu - 5 * @sig) &amp; (births &lt; @mu + 5 * @sig)&#39;</span>)
 
 <span style="color:#75715e"># set &#39;day&#39; to int from string</span>
 <span style="color:#75715e"># then combine timestamps to create Date index</span>
 births<span style="color:#f92672">.</span>index <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>to_datetime(<span style="color:#ae81ff">10000</span> <span style="color:#f92672">*</span> births<span style="color:#f92672">.</span>year <span style="color:#f92672">+</span>
                              <span style="color:#ae81ff">100</span> <span style="color:#f92672">*</span> births<span style="color:#f92672">.</span>month <span style="color:#f92672">+</span> 
-                             births<span style="color:#f92672">.</span>day, format<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">%</span><span style="color:#e6db74">Y</span><span style="color:#e6db74">%</span><span style="color:#e6db74">m</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#39;</span>)
-births[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">dayofweek</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">=</span> births<span style="color:#f92672">.</span>index<span style="color:#f92672">.</span>dayofweek
-births<span style="color:#f92672">.</span>pivot_table(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">births</span><span style="color:#e6db74">&#39;</span>, index<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">dayofweek</span><span style="color:#e6db74">&#39;</span>,
-                  columns<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">decade</span><span style="color:#e6db74">&#39;</span>, aggfunc<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">mean</span><span style="color:#e6db74">&#39;</span>)<span style="color:#f92672">.</span>plot()
+                             births<span style="color:#f92672">.</span>day, format<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;%Y%m</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#39;</span>)
+births[<span style="color:#e6db74">&#39;dayofweek&#39;</span>] <span style="color:#f92672">=</span> births<span style="color:#f92672">.</span>index<span style="color:#f92672">.</span>dayofweek
+births<span style="color:#f92672">.</span>pivot_table(<span style="color:#e6db74">&#39;births&#39;</span>, index<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;dayofweek&#39;</span>,
+                  columns<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;decade&#39;</span>, aggfunc<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;mean&#39;</span>)<span style="color:#f92672">.</span>plot()
 <span style="color:#75715e"># another view by day of year</span>
-births<span style="color:#f92672">.</span>pivot_table(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">births</span><span style="color:#e6db74">&#39;</span>, 
+births<span style="color:#f92672">.</span>pivot_table(<span style="color:#e6db74">&#39;births&#39;</span>, 
                   [births<span style="color:#f92672">.</span>index<span style="color:#f92672">.</span>month, births<span style="color:#f92672">.</span>index<span style="color:#f92672">.</span>day])
 new_births<span style="color:#f92672">.</span>index <span style="color:#f92672">=</span> [pd<span style="color:#f92672">.</span>datetime(<span style="color:#ae81ff">2012</span>, month, day)
                    <span style="color:#66d9ef">for</span> (month, day) <span style="color:#f92672">in</span> births_by_date<span style="color:#f92672">.</span>index]
@@ -913,25 +913,25 @@ new_births<span style="color:#f92672">.</span>index <span style="color:#f92672">
 <p>MESSY DATA</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># recipe database to parse !curl -O URL then gunzip</span>
 <span style="color:#75715e"># ValueError Trailing data -&gt; </span>
-<span style="color:#66d9ef">with</span> open(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">some.json</span><span style="color:#e6db74">&#39;</span>) <span style="color:#66d9ef">as</span> f:
+<span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#39;some.json&#39;</span>) <span style="color:#66d9ef">as</span> f:
     line <span style="color:#f92672">=</span> f<span style="color:#f92672">.</span>readline()
 pd<span style="color:#f92672">.</span>read_jsn(line)<span style="color:#f92672">.</span>shape <span style="color:#75715e"># 2, 12</span>
 <span style="color:#75715e"># concat string</span>
 <span style="color:#75715e"># read into array</span>
-<span style="color:#66d9ef">with</span> <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span> f:
+<span style="color:#66d9ef">with</span> <span style="color:#f92672">...</span> f:
     data <span style="color:#f92672">=</span> (line<span style="color:#f92672">.</span>strip() <span style="color:#66d9ef">for</span> line <span style="color:#f92672">in</span> f)
-    data_json <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">[{0}]</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">,</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>join(data))
+    data_json <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;[{0}]&#34;</span><span style="color:#f92672">.</span>format(<span style="color:#e6db74">&#39;,&#39;</span><span style="color:#f92672">.</span>join(data))
 recipes <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_json(data_json) <span style="color:#75715e"># shape 123994324, 18</span>
 
 <span style="color:#75715e"># textcol.str.len().describe() reveals summary</span>
 <span style="color:#75715e"># how many breakfast recipes</span>
-recipes<span style="color:#f92672">.</span>description<span style="color:#f92672">.</span>str<span style="color:#f92672">.</span>contains(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">[Bb]reakfast</span><span style="color:#e6db74">&#39;</span>)<span style="color:#f92672">.</span>sum()
+recipes<span style="color:#f92672">.</span>description<span style="color:#f92672">.</span>str<span style="color:#f92672">.</span>contains(<span style="color:#e6db74">&#39;[Bb]reakfast&#39;</span>)<span style="color:#f92672">.</span>sum()
 <span style="color:#75715e"># suggest based on ingredient</span>
 spice_df <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>DataFrame(dict((spice,
                              recipes<span style="color:#f92672">.</span>ingredients<span style="color:#f92672">.</span>str<span style="color:#f92672">.</span>contains(
                              spice, re<span style="color:#f92672">.</span>IGNORECASE))
                             <span style="color:#66d9ef">for</span> spice <span style="color:#f92672">in</span> spice_list))
-selection <span style="color:#f92672">=</span> spice_df<span style="color:#f92672">.</span>query(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">parsley &amp; paprika &amp; tarragon</span><span style="color:#e6db74">&#39;</span>)
+selection <span style="color:#f92672">=</span> spice_df<span style="color:#f92672">.</span>query(<span style="color:#e6db74">&#39;parsley &amp; paprika &amp; tarragon&#39;</span>)
 <span style="color:#75715e"># finding them</span>
 recipes<span style="color:#f92672">.</span>name[selection<span style="color:#f92672">.</span>index] <span style="color:#75715e"># wow</span>
 </code></pre></div><blockquote>
@@ -945,10 +945,10 @@ recipes<span style="color:#f92672">.</span>name[selection<span style="color:#f92
 <span style="color:#f92672">from</span> datetime <span style="color:#f92672">import</span> datetime
 datetime(year<span style="color:#f92672">=</span><span style="color:#ae81ff">2015</span>, month<span style="color:#f92672">=</span><span style="color:#ae81ff">7</span>, day<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>)
 <span style="color:#f92672">from</span> dateutil <span style="color:#f92672">import</span> parser
-date <span style="color:#f92672">=</span> parser<span style="color:#f92672">.</span>parse(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">4th of July, 2015</span><span style="color:#e6db74">&#34;</span>)
+date <span style="color:#f92672">=</span> parser<span style="color:#f92672">.</span>parse(<span style="color:#e6db74">&#34;4th of July, 2015&#34;</span>)
 <span style="color:#75715e"># same object</span>
 <span style="color:#75715e"># ops on them </span>
-date<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">%</span><span style="color:#e6db74">A</span><span style="color:#e6db74">&#39;</span>) <span style="color:#75715e"># standard string format codes </span>
+date<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#39;%A&#39;</span>) <span style="color:#75715e"># standard string format codes </span>
 <span style="color:#75715e"># COOL LIB pytz helps with time-zoning</span>
 </code></pre></div><ul>
 <li>
@@ -1022,32 +1022,32 @@ date<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74"></s
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># one-year center rolling mean and st</span>
 rolling <span style="color:#f92672">=</span> goog<span style="color:#f92672">.</span>rolling(<span style="color:#ae81ff">365</span>, center<span style="color:#f92672">=</span>True)
-data <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>DataFrame({<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">input</span><span style="color:#e6db74">&#39;</span>: goog, 
-                    <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">one-year mean</span><span style="color:#e6db74">&#39;</span>: rolling<span style="color:#f92672">.</span>mean(),
-                    <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">one-year sd</span><span style="color:#e6db74">&#39;</span>: rolling<span style="color:#f92672">.</span>std()})
+data <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>DataFrame({<span style="color:#e6db74">&#39;input&#39;</span>: goog, 
+                    <span style="color:#e6db74">&#39;one-year mean&#39;</span>: rolling<span style="color:#f92672">.</span>mean(),
+                    <span style="color:#e6db74">&#39;one-year sd&#39;</span>: rolling<span style="color:#f92672">.</span>std()})
       
 <span style="color:#75715e"># example merging</span>
-data<span style="color:#f92672">.</span>columns <span style="color:#f92672">=</span> [<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">west</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">east</span><span style="color:#e6db74">&#39;</span>]
-data[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">total</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">=</span> data<span style="color:#f92672">.</span>eval(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">west + east</span><span style="color:#e6db74">&#39;</span>)
+data<span style="color:#f92672">.</span>columns <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;west&#39;</span>, <span style="color:#e6db74">&#39;east&#39;</span>]
+data[<span style="color:#e6db74">&#39;total&#39;</span>] <span style="color:#f92672">=</span> data<span style="color:#f92672">.</span>eval(<span style="color:#e6db74">&#39;west + east&#39;</span>)
 <span style="color:#75715e"># plotting coarser grid</span>
-weekly <span style="color:#f92672">=</span> data<span style="color:#f92672">.</span>resample(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">W</span><span style="color:#e6db74">&#39;</span>)<span style="color:#f92672">.</span>sum()
-weekly<span style="color:#f92672">.</span>plot(style<span style="color:#f92672">=</span>[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">:</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">--</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">-</span><span style="color:#e6db74">&#39;</span>])
+weekly <span style="color:#f92672">=</span> data<span style="color:#f92672">.</span>resample(<span style="color:#e6db74">&#39;W&#39;</span>)<span style="color:#f92672">.</span>sum()
+weekly<span style="color:#f92672">.</span>plot(style<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;:&#39;</span>, <span style="color:#e6db74">&#39;--&#39;</span>, <span style="color:#e6db74">&#39;-&#39;</span>])
 <span style="color:#75715e"># or rolling mean 30 days </span>
-daily<span style="color:#f92672">.</span>rolling(<span style="color:#ae81ff">30</span>, center<span style="color:#f92672">=</span>True)<span style="color:#f92672">.</span>sum()<span style="color:#f92672">.</span>plot(<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>)
+daily<span style="color:#f92672">.</span>rolling(<span style="color:#ae81ff">30</span>, center<span style="color:#f92672">=</span>True)<span style="color:#f92672">.</span>sum()<span style="color:#f92672">.</span>plot(<span style="color:#f92672">...</span>)
 <span style="color:#75715e"># smoothing by Gaussian window (50days width of 10)</span>
 daily<span style="color:#f92672">.</span>rolling(<span style="color:#ae81ff">50</span>, center<span style="color:#f92672">=</span>True,
-             win_type<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">gaussian</span><span style="color:#e6db74">&#39;</span>)<span style="color:#f92672">.</span>sum(std<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)<span style="color:#f92672">.</span>plot(<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>)
+             win_type<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;gaussian&#39;</span>)<span style="color:#f92672">.</span>sum(std<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)<span style="color:#f92672">.</span>plot(<span style="color:#f92672">...</span>)
       
 <span style="color:#75715e"># digging in</span>
 <span style="color:#75715e"># avg traffic as func of time of day</span>
 by_time <span style="color:#f92672">=</span> date<span style="color:#f92672">.</span>groupby(date<span style="color:#f92672">.</span>index<span style="color:#f92672">.</span>time)<span style="color:#f92672">.</span>mean()
 hourly_ticks <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">60</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">60</span> <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">6</span>)
-by_time<span style="color:#f92672">.</span>plot(xticks<span style="color:#f92672">=</span>hourly_ticks, style<span style="color:#f92672">=</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>)
+by_time<span style="color:#f92672">.</span>plot(xticks<span style="color:#f92672">=</span>hourly_ticks, style<span style="color:#f92672">=...</span>)
 <span style="color:#75715e"># out an strongly bimodal distribution peaking at 8am 5pm</span>
 <span style="color:#75715e"># as func of day of week</span>
 by_weekday <span style="color:#f92672">=</span> data<span style="color:#f92672">.</span>groupby(data<span style="color:#f92672">.</span>index<span style="color:#f92672">.</span>dayofweek)<span style="color:#f92672">.</span>mean()
 <span style="color:#75715e"># compound groupby on hourly trend </span>
-weekend <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>where(data<span style="color:#f92672">.</span>index<span style="color:#f92672">.</span>weekday <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">5</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Weekday</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Weekend</span><span style="color:#e6db74">&#39;</span>)
+weekend <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>where(data<span style="color:#f92672">.</span>index<span style="color:#f92672">.</span>weekday <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">5</span>, <span style="color:#e6db74">&#39;Weekday&#39;</span>, <span style="color:#e6db74">&#39;Weekend&#39;</span>)
 by_time <span style="color:#f92672">=</span> data<span style="color:#f92672">.</span>groupby([weekend, data<span style="color:#f92672">.</span>index<span style="color:#f92672">.</span>time])<span style="color:#f92672">.</span>mean()
       
 </code></pre></div></li>
@@ -1067,20 +1067,20 @@ rng <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>r
 df1, df2, df3, df4 <span style="color:#f92672">=</span> (pd<span style="color:#f92672">.</span>DataFrame(rng<span style="color:#f92672">.</span>rand(nrows, ncols)
                                   <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">4</span>)))
 <span style="color:#f92672">%</span>timeit df1 <span style="color:#f92672">+</span> df2 <span style="color:#f92672">+</span> df3 <span style="color:#f92672">+</span> df4
-<span style="color:#f92672">%</span>timeit pd<span style="color:#f92672">.</span>eval(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">df1 + df2 + df3 + df4</span><span style="color:#e6db74">&#39;</span>)
+<span style="color:#f92672">%</span>timeit pd<span style="color:#f92672">.</span>eval(<span style="color:#e6db74">&#39;df1 + df2 + df3 + df4&#39;</span>)
 <span style="color:#75715e"># 50% faster and much less memory</span>
 
 <span style="color:#75715e"># supported ops</span>
 <span style="color:#75715e">#arithmetic</span>
-(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">-df1 * df2 / (df3 + df4) - df5</span><span style="color:#e6db74">&#39;</span>)
+(<span style="color:#e6db74">&#39;-df1 * df2 / (df3 + df4) - df5&#39;</span>)
 <span style="color:#75715e">#boolean</span>
-(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">df1 &lt; df2 &lt;= df3 != df4</span><span style="color:#e6db74">&#39;</span>)
+(<span style="color:#e6db74">&#39;df1 &lt; df2 &lt;= df3 != df4&#39;</span>)
 <span style="color:#75715e">#bitwise &amp; | syntax on logical</span>
 <span style="color:#75715e"># and or</span>
 
 <span style="color:#75715e"># atti and indices</span>
 result1 <span style="color:#f92672">=</span> df2<span style="color:#f92672">.</span>T[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span> df3<span style="color:#f92672">.</span>iloc[<span style="color:#ae81ff">1</span>]
-reslut2 <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>eval(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">df2.T[0] + df3.iloc[1]</span><span style="color:#e6db74">&#39;</span>)
+reslut2 <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>eval(<span style="color:#e6db74">&#39;df2.T[0] + df3.iloc[1]&#39;</span>)
 np<span style="color:#f92672">.</span>allclose(result1, result2) <span style="color:#75715e"># True</span>
 
 <span style="color:#75715e"># further complex func NOT in eval but in Numexpr library !!!</span>
@@ -1088,15 +1088,15 @@ np<span style="color:#f92672">.</span>allclose(result1, result2) <span style="co
 <span style="color:#75715e"># supports dataframe ops</span>
 <span style="color:#75715e"># accessing directly the column names</span>
 <span style="color:#75715e"># assignment possible</span>
-df<span style="color:#f92672">.</span>eval(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">D = (A + B) / C</span><span style="color:#e6db74">&#39;</span>, inplace<span style="color:#f92672">=</span>True)
+df<span style="color:#f92672">.</span>eval(<span style="color:#e6db74">&#39;D = (A + B) / C&#39;</span>, inplace<span style="color:#f92672">=</span>True)
 <span style="color:#75715e"># local python variables </span>
-df<span style="color:#f92672">.</span>eval(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">A + @column_mean</span><span style="color:#e6db74">&#39;</span>)
+df<span style="color:#f92672">.</span>eval(<span style="color:#e6db74">&#39;A + @column_mean&#39;</span>)
 
 
 <span style="color:#75715e"># query (eval cannot expr df[(df.A)]))</span>
-df<span style="color:#f92672">.</span>query(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">A &lt; 0.5 and B &lt; 0.5</span><span style="color:#e6db74">&#39;</span>)
+df<span style="color:#f92672">.</span>query(<span style="color:#e6db74">&#39;A &lt; 0.5 and B &lt; 0.5&#39;</span>)
 <span style="color:#75715e"># faster masking</span>
-df<span style="color:#f92672">.</span>query(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">A &lt; @Cmean and B &lt; @Cmean</span><span style="color:#e6db74">&#39;</span>)
+df<span style="color:#f92672">.</span>query(<span style="color:#e6db74">&#39;A &lt; @Cmean and B &lt; @Cmean&#39;</span>)
 </code></pre></div><ul>
 <li>Performance and when? check size <code>df.values.nbytes</code>
 <ul>
@@ -1128,21 +1128,21 @@ df<span style="color:#f92672">.</span>query(<span style="color:#e6db74"></span><
 </li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">rng <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>RandomState(<span style="color:#ae81ff">0</span>)
-<span style="color:#66d9ef">for</span> marker <span style="color:#f92672">in</span> [<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">o</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">.</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">,</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">x</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">+</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">v</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">^</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">&lt;</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">&gt;</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">s</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">d</span><span style="color:#e6db74">&#39;</span>]:
+<span style="color:#66d9ef">for</span> marker <span style="color:#f92672">in</span> [<span style="color:#e6db74">&#39;o&#39;</span>, <span style="color:#e6db74">&#39;.&#39;</span>, <span style="color:#e6db74">&#39;,&#39;</span>, <span style="color:#e6db74">&#39;x&#39;</span>, <span style="color:#e6db74">&#39;+&#39;</span>, <span style="color:#e6db74">&#39;v&#39;</span>, <span style="color:#e6db74">&#39;^&#39;</span>, <span style="color:#e6db74">&#39;&lt;&#39;</span>, <span style="color:#e6db74">&#39;&gt;&#39;</span>, <span style="color:#e6db74">&#39;s&#39;</span>, <span style="color:#e6db74">&#39;d&#39;</span>]:
     plt<span style="color:#f92672">.</span>plot(rng<span style="color:#f92672">.</span>rand(<span style="color:#ae81ff">5</span>), rng<span style="color:#f92672">.</span>rand(<span style="color:#ae81ff">5</span>), marker,
-             label<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">marker=</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">{0}</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(marker))
+             label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;marker=&#39;{0}&#39;&#34;</span><span style="color:#f92672">.</span>format(marker))
 plt<span style="color:#f92672">.</span>legend(numpoints<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
 plt<span style="color:#f92672">.</span>xlim(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1.8</span>);
 
-plt<span style="color:#f92672">.</span>plot(x, y, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">-p</span><span style="color:#e6db74">&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">gray</span><span style="color:#e6db74">&#39;</span>,
+plt<span style="color:#f92672">.</span>plot(x, y, <span style="color:#e6db74">&#39;-p&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;gray&#39;</span>,
          markersize<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>,
-         markerfacecolor<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">white</span><span style="color:#e6db74">&#39;</span>,
-         markeredgecolor<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">gray</span><span style="color:#e6db74">&#39;</span>,
+         markerfacecolor<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;white&#39;</span>,
+         markeredgecolor<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;gray&#39;</span>,
          markeredgewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
 
 <span style="color:#75715e"># ERRORs</span>
-plt<span style="color:#f92672">.</span>errorbar(x, y, yerr<span style="color:#f92672">=</span>dy, fmt<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">o</span><span style="color:#e6db74">&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">black</span><span style="color:#e6db74">&#39;</span>,
-             ecolor<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">lightgray</span><span style="color:#e6db74">&#39;</span>, elinewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, capsize<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>);
+plt<span style="color:#f92672">.</span>errorbar(x, y, yerr<span style="color:#f92672">=</span>dy, fmt<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;o&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;black&#39;</span>,
+             ecolor<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;lightgray&#39;</span>, elinewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, capsize<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>);
 
 <span style="color:#75715e"># visual GP</span>
 <span style="color:#f92672">from</span> sklearn.gaussian_process <span style="color:#f92672">import</span> GaussianProcess
@@ -1153,7 +1153,7 @@ xdata <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span
 ydata <span style="color:#f92672">=</span> model(xdata)
 
 <span style="color:#75715e"># Compute the Gaussian process fit</span>
-gp <span style="color:#f92672">=</span> GaussianProcess(corr<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">cubic</span><span style="color:#e6db74">&#39;</span>, theta0<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-2</span>, thetaL<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-4</span>, thetaU<span style="color:#f92672">=</span><span style="color:#ae81ff">1E-1</span>,
+gp <span style="color:#f92672">=</span> GaussianProcess(corr<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;cubic&#39;</span>, theta0<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-2</span>, thetaL<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-4</span>, thetaU<span style="color:#f92672">=</span><span style="color:#ae81ff">1E-1</span>,
                      random_start<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>)
 gp<span style="color:#f92672">.</span>fit(xdata[:, np<span style="color:#f92672">.</span>newaxis], ydata)
 
@@ -1162,11 +1162,11 @@ yfit, MSE <span style="color:#f92672">=</span> gp<span style="color:#f92672">.</
 dyfit <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>sqrt(MSE)  <span style="color:#75715e"># 2*sigma ~ 95% confidence region</span>
 
 <span style="color:#75715e"># Visualize the result</span>
-plt<span style="color:#f92672">.</span>plot(xdata, ydata, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">or</span><span style="color:#e6db74">&#39;</span>)
-plt<span style="color:#f92672">.</span>plot(xfit, yfit, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">-</span><span style="color:#e6db74">&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">gray</span><span style="color:#e6db74">&#39;</span>)
+plt<span style="color:#f92672">.</span>plot(xdata, ydata, <span style="color:#e6db74">&#39;or&#39;</span>)
+plt<span style="color:#f92672">.</span>plot(xfit, yfit, <span style="color:#e6db74">&#39;-&#39;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;gray&#39;</span>)
 
 plt<span style="color:#f92672">.</span>fill_between(xfit, yfit <span style="color:#f92672">-</span> dyfit, yfit <span style="color:#f92672">+</span> dyfit,
-                 color<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">gray</span><span style="color:#e6db74">&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.2</span>)
+                 color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;gray&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.2</span>)
 plt<span style="color:#f92672">.</span>xlim(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>);
 </code></pre></div><p><strong>SKL</strong></p>
 <ul>
@@ -1182,17 +1182,17 @@ fig<span style="color:#f92672">.</span>subplots_adjust(left<span style="color:#f
                                          X, y, cv<span style="color:#f92672">=</span><span style="color:#ae81ff">7</span>,
                                          train_sizes<span style="color:#f92672">=</span>np<span style="color:#f92672">.</span>linspace(<span style="color:#ae81ff">0.3</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">25</span>))
 
-    ax[i]<span style="color:#f92672">.</span>plot(N, np<span style="color:#f92672">.</span>mean(train_lc, <span style="color:#ae81ff">1</span>), color<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">blue</span><span style="color:#e6db74">&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">training score</span><span style="color:#e6db74">&#39;</span>)
-    ax[i]<span style="color:#f92672">.</span>plot(N, np<span style="color:#f92672">.</span>mean(val_lc, <span style="color:#ae81ff">1</span>), color<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">red</span><span style="color:#e6db74">&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">validation score</span><span style="color:#e6db74">&#39;</span>)
+    ax[i]<span style="color:#f92672">.</span>plot(N, np<span style="color:#f92672">.</span>mean(train_lc, <span style="color:#ae81ff">1</span>), color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;blue&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;training score&#39;</span>)
+    ax[i]<span style="color:#f92672">.</span>plot(N, np<span style="color:#f92672">.</span>mean(val_lc, <span style="color:#ae81ff">1</span>), color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;validation score&#39;</span>)
     ax[i]<span style="color:#f92672">.</span>hlines(np<span style="color:#f92672">.</span>mean([train_lc[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>], val_lc[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]]), N[<span style="color:#ae81ff">0</span>], N[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>],
-                 color<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">gray</span><span style="color:#e6db74">&#39;</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">dashed</span><span style="color:#e6db74">&#39;</span>)
+                 color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;gray&#39;</span>, linestyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;dashed&#39;</span>)
 
     ax[i]<span style="color:#f92672">.</span>set_ylim(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>)
     ax[i]<span style="color:#f92672">.</span>set_xlim(N[<span style="color:#ae81ff">0</span>], N[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])
-    ax[i]<span style="color:#f92672">.</span>set_xlabel(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">training size</span><span style="color:#e6db74">&#39;</span>)
-    ax[i]<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">score</span><span style="color:#e6db74">&#39;</span>)
-    ax[i]<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">degree = {0}</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>format(degree), size<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
-    ax[i]<span style="color:#f92672">.</span>legend(loc<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">best</span><span style="color:#e6db74">&#39;</span>)
+    ax[i]<span style="color:#f92672">.</span>set_xlabel(<span style="color:#e6db74">&#39;training size&#39;</span>)
+    ax[i]<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74">&#39;score&#39;</span>)
+    ax[i]<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#39;degree = {0}&#39;</span><span style="color:#f92672">.</span>format(degree), size<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
+    ax[i]<span style="color:#f92672">.</span>legend(loc<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;best&#39;</span>)
 </code></pre></div><blockquote>
 <p>visual depiction of how model responds to N, especially when learning curve has converged, adding more N will not improve; only to use more complex model</p>
 </blockquote>
@@ -1239,7 +1239,7 @@ fig<span style="color:#f92672">.</span>subplots_adjust(left<span style="color:#f
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> sklearn.base <span style="color:#f92672">import</span> BaseEstimator, TransformerMixin
   
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">GaussianFeatures</span>(BaseEstimator, TransformerMixin):
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Uniformly spaced Gaussian features for one-dimensional input</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+    <span style="color:#e6db74">&#34;&#34;&#34;Uniformly spaced Gaussian features for one-dimensional input&#34;&#34;&#34;</span>
       
     <span style="color:#66d9ef">def</span> __init__(self, N, width_factor<span style="color:#f92672">=</span><span style="color:#ae81ff">2.0</span>):
         self<span style="color:#f92672">.</span>N <span style="color:#f92672">=</span> N
@@ -1248,7 +1248,7 @@ fig<span style="color:#f92672">.</span>subplots_adjust(left<span style="color:#f
     <span style="color:#a6e22e">@staticmethod</span>
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_gauss_basis</span>(x, y, width, axis<span style="color:#f92672">=</span>None):
         arg <span style="color:#f92672">=</span> (x <span style="color:#f92672">-</span> y) <span style="color:#f92672">/</span> width
-        <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span><span style="color:#ae81ff">0.5</span> <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>sum(arg <span style="color:#f92672">*</span><span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>, axis))
+        <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>exp(<span style="color:#f92672">-</span><span style="color:#ae81ff">0.5</span> <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>sum(arg <span style="color:#f92672">**</span> <span style="color:#ae81ff">2</span>, axis))
           
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fit</span>(self, X, y<span style="color:#f92672">=</span>None):
         <span style="color:#75715e"># create N centers spread along the data range</span>
@@ -1276,15 +1276,15 @@ plt<span style="color:#f92672">.</span>xlim(<span style="color:#ae81ff">0</span>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># !curl -o FremontBridge.csv https://data.seattle.gov/api/views/65db-xm6k/rows.csv?accessType=DOWNLOAD</span>
 
 <span style="color:#f92672">import</span> pandas <span style="color:#f92672">as</span> pd
-counts <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">FremontBridge.csv</span><span style="color:#e6db74">&#39;</span>, index_col<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Date</span><span style="color:#e6db74">&#39;</span>, parse_dates<span style="color:#f92672">=</span>True)
-weather <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">data/BicycleWeather.csv</span><span style="color:#e6db74">&#39;</span>, index_col<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">DATE</span><span style="color:#e6db74">&#39;</span>, parse_dates<span style="color:#f92672">=</span>True)
+counts <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(<span style="color:#e6db74">&#39;FremontBridge.csv&#39;</span>, index_col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Date&#39;</span>, parse_dates<span style="color:#f92672">=</span>True)
+weather <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(<span style="color:#e6db74">&#39;data/BicycleWeather.csv&#39;</span>, index_col<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;DATE&#39;</span>, parse_dates<span style="color:#f92672">=</span>True)
 
-daily <span style="color:#f92672">=</span> counts<span style="color:#f92672">.</span>resample(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">d</span><span style="color:#e6db74">&#39;</span>)<span style="color:#f92672">.</span>sum()
-daily[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Total</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">=</span> daily<span style="color:#f92672">.</span>sum(axis<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
-daily <span style="color:#f92672">=</span> daily[[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Total</span><span style="color:#e6db74">&#39;</span>]] <span style="color:#75715e"># remove other columns</span>
+daily <span style="color:#f92672">=</span> counts<span style="color:#f92672">.</span>resample(<span style="color:#e6db74">&#39;d&#39;</span>)<span style="color:#f92672">.</span>sum()
+daily[<span style="color:#e6db74">&#39;Total&#39;</span>] <span style="color:#f92672">=</span> daily<span style="color:#f92672">.</span>sum(axis<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+daily <span style="color:#f92672">=</span> daily[[<span style="color:#e6db74">&#39;Total&#39;</span>]] <span style="color:#75715e"># remove other columns</span>
 
 <span style="color:#75715e"># account for binary col indicating day of week</span>
-days <span style="color:#f92672">=</span> [<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Mon</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Tue</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Wed</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Thu</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Fri</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Sat</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Sun</span><span style="color:#e6db74">&#39;</span>]
+days <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;Mon&#39;</span>, <span style="color:#e6db74">&#39;Tue&#39;</span>, <span style="color:#e6db74">&#39;Wed&#39;</span>, <span style="color:#e6db74">&#39;Thu&#39;</span>, <span style="color:#e6db74">&#39;Fri&#39;</span>, <span style="color:#e6db74">&#39;Sat&#39;</span>, <span style="color:#e6db74">&#39;Sun&#39;</span>]
 <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">7</span>):
     daily[days[i]] <span style="color:#f92672">=</span> (daily<span style="color:#f92672">.</span>index<span style="color:#f92672">.</span>dayofweek <span style="color:#f92672">==</span> i)<span style="color:#f92672">.</span>astype(float)
     
@@ -1292,52 +1292,52 @@ days <span style="color:#f92672">=</span> [<span style="color:#e6db74"></span><s
 
 <span style="color:#f92672">from</span> pandas.tseries.holiday <span style="color:#f92672">import</span> USFederalHolidayCalendar
 cal <span style="color:#f92672">=</span> USFederalHolidayCalendar()
-holidays <span style="color:#f92672">=</span> cal<span style="color:#f92672">.</span>holidays(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">2012</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">2016</span><span style="color:#e6db74">&#39;</span>)
-daily <span style="color:#f92672">=</span> daily<span style="color:#f92672">.</span>join(pd<span style="color:#f92672">.</span>Series(<span style="color:#ae81ff">1</span>, index<span style="color:#f92672">=</span>holidays, name<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">holiday</span><span style="color:#e6db74">&#39;</span>))
-daily[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">holiday</span><span style="color:#e6db74">&#39;</span>]<span style="color:#f92672">.</span>fillna(<span style="color:#ae81ff">0</span>, inplace<span style="color:#f92672">=</span>True)
+holidays <span style="color:#f92672">=</span> cal<span style="color:#f92672">.</span>holidays(<span style="color:#e6db74">&#39;2012&#39;</span>, <span style="color:#e6db74">&#39;2016&#39;</span>)
+daily <span style="color:#f92672">=</span> daily<span style="color:#f92672">.</span>join(pd<span style="color:#f92672">.</span>Series(<span style="color:#ae81ff">1</span>, index<span style="color:#f92672">=</span>holidays, name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;holiday&#39;</span>))
+daily[<span style="color:#e6db74">&#39;holiday&#39;</span>]<span style="color:#f92672">.</span>fillna(<span style="color:#ae81ff">0</span>, inplace<span style="color:#f92672">=</span>True)
 
 
 
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">hours_of_daylight</span>(date, axis<span style="color:#f92672">=</span><span style="color:#ae81ff">23.44</span>, latitude<span style="color:#f92672">=</span><span style="color:#ae81ff">47.61</span>):
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Compute the hours of daylight for the given date</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+    <span style="color:#e6db74">&#34;&#34;&#34;Compute the hours of daylight for the given date&#34;&#34;&#34;</span>
     days <span style="color:#f92672">=</span> (date <span style="color:#f92672">-</span> pd<span style="color:#f92672">.</span>datetime(<span style="color:#ae81ff">2000</span>, <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">21</span>))<span style="color:#f92672">.</span>days
     m <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1.</span> <span style="color:#f92672">-</span> np<span style="color:#f92672">.</span>tan(np<span style="color:#f92672">.</span>radians(latitude))
          <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>tan(np<span style="color:#f92672">.</span>radians(axis) <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>cos(days <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>pi <span style="color:#f92672">/</span> <span style="color:#ae81ff">365.25</span>)))
     <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">24.</span> <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>degrees(np<span style="color:#f92672">.</span>arccos(<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> np<span style="color:#f92672">.</span>clip(m, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>))) <span style="color:#f92672">/</span> <span style="color:#ae81ff">180.</span>
 
-daily[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">daylight_hrs</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">=</span> list(map(hours_of_daylight, daily<span style="color:#f92672">.</span>index))
-daily[[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">daylight_hrs</span><span style="color:#e6db74">&#39;</span>]]<span style="color:#f92672">.</span>plot()
+daily[<span style="color:#e6db74">&#39;daylight_hrs&#39;</span>] <span style="color:#f92672">=</span> list(map(hours_of_daylight, daily<span style="color:#f92672">.</span>index))
+daily[[<span style="color:#e6db74">&#39;daylight_hrs&#39;</span>]]<span style="color:#f92672">.</span>plot()
 plt<span style="color:#f92672">.</span>ylim(<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">17</span>)
 
 
 
 <span style="color:#75715e"># temperatures are in 1/10 deg C; convert to C</span>
-weather[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">TMIN</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">/</span><span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
-weather[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">TMAX</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">/</span><span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
-weather[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Temp (C)</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span> <span style="color:#f92672">*</span> (weather[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">TMIN</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">+</span> weather[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">TMAX</span><span style="color:#e6db74">&#39;</span>])
+weather[<span style="color:#e6db74">&#39;TMIN&#39;</span>] <span style="color:#f92672">/=</span> <span style="color:#ae81ff">10</span>
+weather[<span style="color:#e6db74">&#39;TMAX&#39;</span>] <span style="color:#f92672">/=</span> <span style="color:#ae81ff">10</span>
+weather[<span style="color:#e6db74">&#39;Temp (C)&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span> <span style="color:#f92672">*</span> (weather[<span style="color:#e6db74">&#39;TMIN&#39;</span>] <span style="color:#f92672">+</span> weather[<span style="color:#e6db74">&#39;TMAX&#39;</span>])
 
 <span style="color:#75715e"># precip is in 1/10 mm; convert to inches</span>
-weather[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">PRCP</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">/</span><span style="color:#f92672">=</span> <span style="color:#ae81ff">254</span>
-weather[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">dry day</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">=</span> (weather[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">PRCP</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)<span style="color:#f92672">.</span>astype(int)
+weather[<span style="color:#e6db74">&#39;PRCP&#39;</span>] <span style="color:#f92672">/=</span> <span style="color:#ae81ff">254</span>
+weather[<span style="color:#e6db74">&#39;dry day&#39;</span>] <span style="color:#f92672">=</span> (weather[<span style="color:#e6db74">&#39;PRCP&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)<span style="color:#f92672">.</span>astype(int)
 
-daily <span style="color:#f92672">=</span> daily<span style="color:#f92672">.</span>join(weather[[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">PRCP</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Temp (C)</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">dry day</span><span style="color:#e6db74">&#39;</span>]])
+daily <span style="color:#f92672">=</span> daily<span style="color:#f92672">.</span>join(weather[[<span style="color:#e6db74">&#39;PRCP&#39;</span>, <span style="color:#e6db74">&#39;Temp (C)&#39;</span>, <span style="color:#e6db74">&#39;dry day&#39;</span>]])
 
-daily[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">annual</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">=</span> (daily<span style="color:#f92672">.</span>index <span style="color:#f92672">-</span> daily<span style="color:#f92672">.</span>index[<span style="color:#ae81ff">0</span>])<span style="color:#f92672">.</span>days <span style="color:#f92672">/</span> <span style="color:#ae81ff">365.</span>
+daily[<span style="color:#e6db74">&#39;annual&#39;</span>] <span style="color:#f92672">=</span> (daily<span style="color:#f92672">.</span>index <span style="color:#f92672">-</span> daily<span style="color:#f92672">.</span>index[<span style="color:#ae81ff">0</span>])<span style="color:#f92672">.</span>days <span style="color:#f92672">/</span> <span style="color:#ae81ff">365.</span>
 
 <span style="color:#75715e"># fit and sans intercept because daily flags essentailly opearte as their own day-specific intercepts:</span>
 <span style="color:#75715e"># Drop any rows with null values</span>
-daily<span style="color:#f92672">.</span>dropna(axis<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, how<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">any</span><span style="color:#e6db74">&#39;</span>, inplace<span style="color:#f92672">=</span>True)
+daily<span style="color:#f92672">.</span>dropna(axis<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, how<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;any&#39;</span>, inplace<span style="color:#f92672">=</span>True)
 
-column_names <span style="color:#f92672">=</span> [<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Mon</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Tue</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Wed</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Thu</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Fri</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Sat</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Sun</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">holiday</span><span style="color:#e6db74">&#39;</span>,
-                <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">daylight_hrs</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">PRCP</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">dry day</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Temp (C)</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">annual</span><span style="color:#e6db74">&#39;</span>]
+column_names <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;Mon&#39;</span>, <span style="color:#e6db74">&#39;Tue&#39;</span>, <span style="color:#e6db74">&#39;Wed&#39;</span>, <span style="color:#e6db74">&#39;Thu&#39;</span>, <span style="color:#e6db74">&#39;Fri&#39;</span>, <span style="color:#e6db74">&#39;Sat&#39;</span>, <span style="color:#e6db74">&#39;Sun&#39;</span>, <span style="color:#e6db74">&#39;holiday&#39;</span>,
+                <span style="color:#e6db74">&#39;daylight_hrs&#39;</span>, <span style="color:#e6db74">&#39;PRCP&#39;</span>, <span style="color:#e6db74">&#39;dry day&#39;</span>, <span style="color:#e6db74">&#39;Temp (C)&#39;</span>, <span style="color:#e6db74">&#39;annual&#39;</span>]
 X <span style="color:#f92672">=</span> daily[column_names]
-y <span style="color:#f92672">=</span> daily[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Total</span><span style="color:#e6db74">&#39;</span>]
+y <span style="color:#f92672">=</span> daily[<span style="color:#e6db74">&#39;Total&#39;</span>]
 
 model <span style="color:#f92672">=</span> LinearRegression(fit_intercept<span style="color:#f92672">=</span>False)
 model<span style="color:#f92672">.</span>fit(X, y)
-daily[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">predicted</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">=</span> model<span style="color:#f92672">.</span>predict(X)
+daily[<span style="color:#e6db74">&#39;predicted&#39;</span>] <span style="color:#f92672">=</span> model<span style="color:#f92672">.</span>predict(X)
 
-daily[[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Total</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">predicted</span><span style="color:#e6db74">&#39;</span>]]<span style="color:#f92672">.</span>plot(alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>);
+daily[[<span style="color:#e6db74">&#39;Total&#39;</span>, <span style="color:#e6db74">&#39;predicted&#39;</span>]]<span style="color:#f92672">.</span>plot(alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>);
 
 <span style="color:#75715e"># evident that missing some key features esp during summer time</span>
 <span style="color:#75715e"># either features incomplete or nonlinearity unaccounted</span>
@@ -1353,8 +1353,8 @@ err <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>s
               <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1000</span>)], <span style="color:#ae81ff">0</span>)
 
 <span style="color:#75715e"># check again with errors estimated</span>
-<span style="color:#66d9ef">print</span>(pd<span style="color:#f92672">.</span>DataFrame({<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">effect</span><span style="color:#e6db74">&#39;</span>: params<span style="color:#f92672">.</span>round(<span style="color:#ae81ff">0</span>),
-                    <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">error</span><span style="color:#e6db74">&#39;</span>: err<span style="color:#f92672">.</span>round(<span style="color:#ae81ff">0</span>)}))
+<span style="color:#66d9ef">print</span>(pd<span style="color:#f92672">.</span>DataFrame({<span style="color:#e6db74">&#39;effect&#39;</span>: params<span style="color:#f92672">.</span>round(<span style="color:#ae81ff">0</span>),
+                    <span style="color:#e6db74">&#39;error&#39;</span>: err<span style="color:#f92672">.</span>round(<span style="color:#ae81ff">0</span>)}))
 </code></pre></div><ul>
 <li>missing nonlinearity in many variables; also discarding finer-grained info such as diff rany morning and afternoon or ignored links between days - all potential effects to explore</li>
 </ul>

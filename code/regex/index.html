@@ -58,11 +58,11 @@
     <li><a href="#more-white-space">More White-Space</a></li>
     <li><a href="#more-quantifiers">More Quantifiers</a></li>
     <li><a href="#character-classes">Character Classes</a></li>
-    <li><a href="#anchorshttpswwwrexeggcomregex-anchorshtml-and-boundarieshttpswwwrexeggcomregex-boundarieshtml">Anchors and Boundaries</a></li>
+    <li><a href="#anchorshttpswwwrexeggcomregex-anchorshtml-and-boundarieshttpswwwrexeggcomregex-boundarieshtml"><a href="https://www.rexegg.com/regex-anchors.html">Anchors</a> and <a href="https://www.rexegg.com/regex-boundaries.html">Boundaries</a></a></li>
     <li><a href="#posix-classes">POSIX Classes</a></li>
-    <li><a href="#inline-modifiershttpswwwrexeggcomregex-modifiershtml">Inline Modifiers</a></li>
-    <li><a href="#lookaroundshttpswwwrexeggcomregex-lookaroundshtml">Lookarounds</a></li>
-    <li><a href="#character-class-operationshttpswwwrexeggcomregex-class-operationshtml">Character Class Operations</a></li>
+    <li><a href="#inline-modifiershttpswwwrexeggcomregex-modifiershtml"><a href="https://www.rexegg.com/regex-modifiers.html">Inline Modifiers</a></a></li>
+    <li><a href="#lookaroundshttpswwwrexeggcomregex-lookaroundshtml"><a href="https://www.rexegg.com/regex-lookarounds.html">Lookarounds</a></a></li>
+    <li><a href="#character-class-operationshttpswwwrexeggcomregex-class-operationshtml"><a href="https://www.rexegg.com/regex-class-operations.html">Character Class Operations</a></a></li>
     <li><a href="#other-syntax">Other Syntax</a>
       <ul>
         <li><a href="#curly-quotes">Curly Quotes</a></li>
@@ -73,94 +73,94 @@
         </aside>
         <div class="section" id="content"><h1 id="regex">REGEX</h1>
 <h2 id="official-re-doc">Official RE Doc</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">RE</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">The special characters are:</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">.</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">      Matches any character except a newline.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">^</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">      Matches the start of the string.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">      Matches the end of the string or just before the newline at</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">             the end of the string.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">*</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">      Matches 0 or more (greedy) repetitions of the preceding RE.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">             Greedy means that it will match as many repetitions as possible.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">+</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">      Matches 1 or more (greedy) repetitions of the preceding RE.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">?</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">      Matches 0 or 1 (greedy) of the preceding RE.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    *?,+?,?? Non-greedy versions of the previous three special characters.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    {m,n}    Matches from m to n repetitions of the preceding RE.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    {m,n}?   Non-greedy version of the above.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">\</span><span style="color:#e6db74">\</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">     Either escapes special characters or signals a special sequence.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    []       Indicates a set of characters.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">             A </span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">^</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74"> as the first character indicates a complementing set.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">|</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">      A|B, creates an RE that will match either A or B.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    (...)    Matches the RE inside the parentheses.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">             The contents can be retrieved or matched later in the string.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    (?aiLmsux) Set the A, I, L, M, S, U, or X flag for the RE (see below).</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    (?:...)  Non-grouping version of regular parentheses.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    (?P&lt;name&gt;...) The substring matched by the group is accessible by name.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    (?P=name)     Matches the text matched earlier by the group named name.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    (?#...)  A comment; ignored.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    (?=...)  Matches if ... matches next, but doesn</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">t consume the string.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    (?!...)  Matches if ... doesn</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">t match next.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    (?&lt;=...) Matches if preceded by ... (must be fixed length).</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    (?&lt;!...) Matches if not preceded by ... (must be fixed length).</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    (?(id/name)yes|no) Matches yes pattern if the group with id/name matched,</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">                       the (optional) no pattern otherwise.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">The special sequences consist of </span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">\</span><span style="color:#e6db74">\</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74"> and a character from the list</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">below.  If the ordinary character is not on the list, then the</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">resulting RE will match the second character.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">\</span><span style="color:#e6db74">number  Matches the contents of the group of the same number.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">\</span><span style="color:#e6db74">A       Matches only at the start of the string.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">\</span><span style="color:#e6db74">Z       Matches only at the end of the string.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">\</span><span style="color:#e6db74">b       Matches the empty string, but only at the start or end of a word.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">\</span><span style="color:#e6db74">B       Matches the empty string, but not at the start or end of a word.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">\</span><span style="color:#e6db74">d       Matches any decimal digit; equivalent to the set [0-9] in</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">             bytes patterns or string patterns with the ASCII flag.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">             In string patterns without the ASCII flag, it will match the whole</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">             range of Unicode digits.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">\</span><span style="color:#e6db74">D       Matches any non-digit character; equivalent to [^</span><span style="color:#e6db74">\</span><span style="color:#e6db74">d].</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">\</span><span style="color:#e6db74">s       Matches any whitespace character; equivalent to [ </span><span style="color:#e6db74">\</span><span style="color:#e6db74">t</span><span style="color:#e6db74">\</span><span style="color:#e6db74">n</span><span style="color:#e6db74">\</span><span style="color:#e6db74">r</span><span style="color:#e6db74">\</span><span style="color:#e6db74">f</span><span style="color:#e6db74">\</span><span style="color:#e6db74">v] in</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">             bytes patterns or string patterns with the ASCII flag.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">             In string patterns without the ASCII flag, it will match the whole</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">             range of Unicode whitespace characters.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">\</span><span style="color:#e6db74">S       Matches any non-whitespace character; equivalent to [^</span><span style="color:#e6db74">\</span><span style="color:#e6db74">s].</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">\</span><span style="color:#e6db74">w       Matches any alphanumeric character; equivalent to [a-zA-Z0-9_]</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">             in bytes patterns or string patterns with the ASCII flag.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">             In string patterns without the ASCII flag, it will match the</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">             range of Unicode alphanumeric characters (letters plus digits</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">             plus underscore).</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">             With LOCALE, it will match the set [0-9_] plus characters defined</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">             as letters for the current locale.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">\</span><span style="color:#e6db74">W       Matches the complement of </span><span style="color:#e6db74">\</span><span style="color:#e6db74">w.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">\</span><span style="color:#e6db74">\</span><span style="color:#e6db74">       Matches a literal backslash.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">This module exports the following functions:</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    match     Match a regular expression pattern to the beginning of a string.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    fullmatch Match a regular expression pattern to all of a string.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    search    Search a string for the presence of a pattern.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    sub       Substitute occurrences of a pattern found in a string.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    subn      Same as sub, but also return the number of substitutions made.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    split     Split a string by the occurrences of a pattern.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    findall   Find all occurrences of a pattern in a string.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    finditer  Return an iterator yielding a Match object for each match.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    compile   Compile a pattern into a Pattern object.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    purge     Clear the regular expression cache.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    escape    Backslash all non-alphanumerics in a string.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">Some of the functions in this module takes flags as optional parameters:</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    A  ASCII       For string patterns, make </span><span style="color:#e6db74">\</span><span style="color:#e6db74">w, </span><span style="color:#e6db74">\</span><span style="color:#e6db74">W, </span><span style="color:#e6db74">\</span><span style="color:#e6db74">b, </span><span style="color:#e6db74">\</span><span style="color:#e6db74">B, </span><span style="color:#e6db74">\</span><span style="color:#e6db74">d, </span><span style="color:#e6db74">\</span><span style="color:#e6db74">D</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">                   match the corresponding ASCII character categories</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">                   (rather than the whole Unicode categories, which is the</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">                   default).</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">                   For bytes patterns, this flag is the only available</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">                   behaviour and needn</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">t be specified.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    I  IGNORECASE  Perform case-insensitive matching.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    L  LOCALE      Make </span><span style="color:#e6db74">\</span><span style="color:#e6db74">w, </span><span style="color:#e6db74">\</span><span style="color:#e6db74">W, </span><span style="color:#e6db74">\</span><span style="color:#e6db74">b, </span><span style="color:#e6db74">\</span><span style="color:#e6db74">B, dependent on the current locale.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    M  MULTILINE   </span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">^</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74"> matches the beginning of lines (after a newline)</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">                   as well as the string.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">                   </span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74"> matches the end of lines (before a newline) as well</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">                   as the end of the string.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    S  DOTALL      </span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">.</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74"> matches any character at all, including the newline.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    X  VERBOSE     Ignore whitespace and comments for nicer looking RE</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">s.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    U  UNICODE     For compatibility only. Ignored for string patterns (it</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">                   is the default), and forbidden for bytes patterns.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">This module also defines an exception </span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">error</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;&#34;&#34;RE
+</span><span style="color:#e6db74">The special characters are:
+</span><span style="color:#e6db74">    &#34;.&#34;      Matches any character except a newline.
+</span><span style="color:#e6db74">    &#34;^&#34;      Matches the start of the string.
+</span><span style="color:#e6db74">    &#34;$&#34;      Matches the end of the string or just before the newline at
+</span><span style="color:#e6db74">             the end of the string.
+</span><span style="color:#e6db74">    &#34;*&#34;      Matches 0 or more (greedy) repetitions of the preceding RE.
+</span><span style="color:#e6db74">             Greedy means that it will match as many repetitions as possible.
+</span><span style="color:#e6db74">    &#34;+&#34;      Matches 1 or more (greedy) repetitions of the preceding RE.
+</span><span style="color:#e6db74">    &#34;?&#34;      Matches 0 or 1 (greedy) of the preceding RE.
+</span><span style="color:#e6db74">    *?,+?,?? Non-greedy versions of the previous three special characters.
+</span><span style="color:#e6db74">    {m,n}    Matches from m to n repetitions of the preceding RE.
+</span><span style="color:#e6db74">    {m,n}?   Non-greedy version of the above.
+</span><span style="color:#e6db74">    &#34;\\&#34;     Either escapes special characters or signals a special sequence.
+</span><span style="color:#e6db74">    []       Indicates a set of characters.
+</span><span style="color:#e6db74">             A &#34;^&#34; as the first character indicates a complementing set.
+</span><span style="color:#e6db74">    &#34;|&#34;      A|B, creates an RE that will match either A or B.
+</span><span style="color:#e6db74">    (...)    Matches the RE inside the parentheses.
+</span><span style="color:#e6db74">             The contents can be retrieved or matched later in the string.
+</span><span style="color:#e6db74">    (?aiLmsux) Set the A, I, L, M, S, U, or X flag for the RE (see below).
+</span><span style="color:#e6db74">    (?:...)  Non-grouping version of regular parentheses.
+</span><span style="color:#e6db74">    (?P&lt;name&gt;...) The substring matched by the group is accessible by name.
+</span><span style="color:#e6db74">    (?P=name)     Matches the text matched earlier by the group named name.
+</span><span style="color:#e6db74">    (?#...)  A comment; ignored.
+</span><span style="color:#e6db74">    (?=...)  Matches if ... matches next, but doesn&#39;t consume the string.
+</span><span style="color:#e6db74">    (?!...)  Matches if ... doesn&#39;t match next.
+</span><span style="color:#e6db74">    (?&lt;=...) Matches if preceded by ... (must be fixed length).
+</span><span style="color:#e6db74">    (?&lt;!...) Matches if not preceded by ... (must be fixed length).
+</span><span style="color:#e6db74">    (?(id/name)yes|no) Matches yes pattern if the group with id/name matched,
+</span><span style="color:#e6db74">                       the (optional) no pattern otherwise.
+</span><span style="color:#e6db74">The special sequences consist of &#34;\\&#34; and a character from the list
+</span><span style="color:#e6db74">below.  If the ordinary character is not on the list, then the
+</span><span style="color:#e6db74">resulting RE will match the second character.
+</span><span style="color:#e6db74">    \number  Matches the contents of the group of the same number.
+</span><span style="color:#e6db74">    \A       Matches only at the start of the string.
+</span><span style="color:#e6db74">    \Z       Matches only at the end of the string.
+</span><span style="color:#e6db74">    \b       Matches the empty string, but only at the start or end of a word.
+</span><span style="color:#e6db74">    \B       Matches the empty string, but not at the start or end of a word.
+</span><span style="color:#e6db74">    \d       Matches any decimal digit; equivalent to the set [0-9] in
+</span><span style="color:#e6db74">             bytes patterns or string patterns with the ASCII flag.
+</span><span style="color:#e6db74">             In string patterns without the ASCII flag, it will match the whole
+</span><span style="color:#e6db74">             range of Unicode digits.
+</span><span style="color:#e6db74">    \D       Matches any non-digit character; equivalent to [^\d].
+</span><span style="color:#e6db74">    \s       Matches any whitespace character; equivalent to [ \t\n\r\f\v] in
+</span><span style="color:#e6db74">             bytes patterns or string patterns with the ASCII flag.
+</span><span style="color:#e6db74">             In string patterns without the ASCII flag, it will match the whole
+</span><span style="color:#e6db74">             range of Unicode whitespace characters.
+</span><span style="color:#e6db74">    \S       Matches any non-whitespace character; equivalent to [^\s].
+</span><span style="color:#e6db74">    \w       Matches any alphanumeric character; equivalent to [a-zA-Z0-9_]
+</span><span style="color:#e6db74">             in bytes patterns or string patterns with the ASCII flag.
+</span><span style="color:#e6db74">             In string patterns without the ASCII flag, it will match the
+</span><span style="color:#e6db74">             range of Unicode alphanumeric characters (letters plus digits
+</span><span style="color:#e6db74">             plus underscore).
+</span><span style="color:#e6db74">             With LOCALE, it will match the set [0-9_] plus characters defined
+</span><span style="color:#e6db74">             as letters for the current locale.
+</span><span style="color:#e6db74">    \W       Matches the complement of \w.
+</span><span style="color:#e6db74">    \\       Matches a literal backslash.
+</span><span style="color:#e6db74">This module exports the following functions:
+</span><span style="color:#e6db74">    match     Match a regular expression pattern to the beginning of a string.
+</span><span style="color:#e6db74">    fullmatch Match a regular expression pattern to all of a string.
+</span><span style="color:#e6db74">    search    Search a string for the presence of a pattern.
+</span><span style="color:#e6db74">    sub       Substitute occurrences of a pattern found in a string.
+</span><span style="color:#e6db74">    subn      Same as sub, but also return the number of substitutions made.
+</span><span style="color:#e6db74">    split     Split a string by the occurrences of a pattern.
+</span><span style="color:#e6db74">    findall   Find all occurrences of a pattern in a string.
+</span><span style="color:#e6db74">    finditer  Return an iterator yielding a Match object for each match.
+</span><span style="color:#e6db74">    compile   Compile a pattern into a Pattern object.
+</span><span style="color:#e6db74">    purge     Clear the regular expression cache.
+</span><span style="color:#e6db74">    escape    Backslash all non-alphanumerics in a string.
+</span><span style="color:#e6db74">Some of the functions in this module takes flags as optional parameters:
+</span><span style="color:#e6db74">    A  ASCII       For string patterns, make \w, \W, \b, \B, \d, \D
+</span><span style="color:#e6db74">                   match the corresponding ASCII character categories
+</span><span style="color:#e6db74">                   (rather than the whole Unicode categories, which is the
+</span><span style="color:#e6db74">                   default).
+</span><span style="color:#e6db74">                   For bytes patterns, this flag is the only available
+</span><span style="color:#e6db74">                   behaviour and needn&#39;t be specified.
+</span><span style="color:#e6db74">    I  IGNORECASE  Perform case-insensitive matching.
+</span><span style="color:#e6db74">    L  LOCALE      Make \w, \W, \b, \B, dependent on the current locale.
+</span><span style="color:#e6db74">    M  MULTILINE   &#34;^&#34; matches the beginning of lines (after a newline)
+</span><span style="color:#e6db74">                   as well as the string.
+</span><span style="color:#e6db74">                   &#34;$&#34; matches the end of lines (before a newline) as well
+</span><span style="color:#e6db74">                   as the end of the string.
+</span><span style="color:#e6db74">    S  DOTALL      &#34;.&#34; matches any character at all, including the newline.
+</span><span style="color:#e6db74">    X  VERBOSE     Ignore whitespace and comments for nicer looking RE&#39;s.
+</span><span style="color:#e6db74">    U  UNICODE     For compatibility only. Ignored for string patterns (it
+</span><span style="color:#e6db74">                   is the default), and forbidden for bytes patterns.
+</span><span style="color:#e6db74">This module also defines an exception &#39;error&#39;.
+</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
 </code></pre></div><h1 id="regexone-and-medium">RegexOne and Medium</h1>
 <hr>
 <!-- raw HTML omitted -->
@@ -224,19 +224,19 @@
 </tr>
 <tr>
 <td>\D</td>
-<td>One character that is not a <em>digit</em> as defined by your engine's <em>\d</em></td>
+<td>One character that is not a <em>digit</em> as defined by your engine&rsquo;s <em>\d</em></td>
 <td>\D\D\D</td>
 <td>ABC</td>
 </tr>
 <tr>
 <td>\W</td>
-<td>One character that is not a <em>word character</em> as defined by your engine's <em>\w</em></td>
+<td>One character that is not a <em>word character</em> as defined by your engine&rsquo;s <em>\w</em></td>
 <td>\W\W\W\W\W</td>
 <td>*-+=)</td>
 </tr>
 <tr>
 <td>\S</td>
-<td>One character that is not a <em>whitespace character</em> as defined by your engine's <em>\s</em></td>
+<td>One character that is not a <em>whitespace character</em> as defined by your engine&rsquo;s <em>\s</em></td>
 <td>\S\S\S\S</td>
 <td>Yoyo</td>
 </tr>
@@ -568,7 +568,7 @@
 <td>[\d\D]</td>
 <td>One character that is a digit or a non-digit</td>
 <td>[\d\D]+</td>
-<td>Any characters, inc- luding new lines, which the regular dot doesn't match</td>
+<td>Any characters, inc- luding new lines, which the regular dot doesn&rsquo;t match</td>
 </tr>
 <tr>
 <td>[\x41]</td>
@@ -853,7 +853,7 @@
 <tbody>
 <tr>
 <td>\K</td>
-<td><a href="https://www.rexegg.com/regex-best-trick.html#bsk">Keep Out</a> Perl, PCRE (C, PHP, R…), Python's alternate <a href="https://pypi.python.org/pypi/regex"><em>regex</em></a>engine, Ruby 2+: drop everything that was matched so far from the overall match to be returned</td>
+<td><a href="https://www.rexegg.com/regex-best-trick.html#bsk">Keep Out</a> Perl, PCRE (C, PHP, R…), Python&rsquo;s alternate <a href="https://pypi.python.org/pypi/regex"><em>regex</em></a>engine, Ruby 2+: drop everything that was matched so far from the overall match to be returned</td>
 <td>prefix\K\d+</td>
 <td>12</td>
 </tr>
@@ -866,29 +866,29 @@
 </tbody>
 </table>
 <h3 id="curly-quotes">Curly Quotes</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">”</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>encode()
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#e6db74">&#39;”&#39;</span><span style="color:#f92672">.</span>encode()
 
-<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\xe2</span><span style="color:#ae81ff">\x80</span><span style="color:#ae81ff">\x9d</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>decode()
+<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\xe2\x80\x9d</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>decode()
 
-<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">“</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>encode()
+<span style="color:#e6db74">&#39;“&#39;</span><span style="color:#f92672">.</span>encode()
 
-<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\xe2</span><span style="color:#ae81ff">\x80</span><span style="color:#ae81ff">\x9c</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>decode()
+<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\xe2\x80\x9c</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>decode()
 
-<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">‘</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>encode()
+<span style="color:#e6db74">&#39;‘&#39;</span><span style="color:#f92672">.</span>encode()
 
-<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\xe2</span><span style="color:#ae81ff">\x80</span><span style="color:#ae81ff">\x98</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>decode()
+<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\xe2\x80\x98</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>decode()
 
-<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">’</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>encode()
+<span style="color:#e6db74">&#39;’&#39;</span><span style="color:#f92672">.</span>encode()
 
-<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\xe2</span><span style="color:#ae81ff">\x80</span><span style="color:#ae81ff">\x99</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>decode()
+<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\xe2\x80\x99</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>decode()
 
-<span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Say (?:[</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">“”])(.*)(?:[</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">“”])</span><span style="color:#e6db74">&#39;</span>
+<span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;Say (?:[&#34;“”])(.*)(?:[&#34;“”])&#39;</span>
 <span style="color:#75715e"># (?:[&#34;“”])    &lt;-- Start non-capturing group, and match one of the three possible quote typesnot return it</span>
 <span style="color:#75715e"># (.*)         &lt;-- Start a capture group, match anything and return it</span>
 <span style="color:#75715e"># (?:[&#34;“”])    &lt;-- Stop matching the string until another quote is found</span>
 
 <span style="color:#f92672">from</span> unidecode <span style="color:#f92672">import</span> unidecode
-line <span style="color:#f92672">=</span> unidecode(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">’</span><span style="color:#e6db74">&#39;</span>)
+line <span style="color:#f92672">=</span> unidecode(<span style="color:#e6db74">&#39;’&#39;</span>)
 </code></pre></div></div>
 
         

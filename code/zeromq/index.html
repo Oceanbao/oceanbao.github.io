@@ -66,32 +66,32 @@
 </ul>
 <p><strong>Server</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> ubuntu:14.04</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> apt-get update <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>		apt-get install -y --force-yes python python-dev python-setuptools software-properties-common gcc python-pip <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>		apt-get clean all <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>		pip install pyzmq Flask<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ADD</span> zmqserver.py /tmp/zmqserver.py<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Flask Port</span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">EXPOSE</span><span style="color:#e6db74"> 5000</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Zmq Sub Server</span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">EXPOSE</span><span style="color:#e6db74"> 4444</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">CMD</span> [<span style="color:#e6db74">&#34;python&#34;</span>,<span style="color:#e6db74">&#34;/tmp/zmqserver.py&#34;</span>]<span style="color:#960050;background-color:#1e0010">
 </span></code></pre></div><p><strong>zmqserver.py</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># server.py</span>
 <span style="color:#f92672">import</span> time
 <span style="color:#f92672">import</span> zmq
 
-HOST <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">127.0.0.1</span><span style="color:#e6db74">&#39;</span>
-PORT <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">4444</span><span style="color:#e6db74">&#39;</span>
+HOST <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;127.0.0.1&#39;</span>
+PORT <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;4444&#39;</span>
 
 _context <span style="color:#f92672">=</span> zmq<span style="color:#f92672">.</span>Context()
 _publisher <span style="color:#f92672">=</span> _context<span style="color:#f92672">.</span>socket(zmq<span style="color:#f92672">.</span>PUB)
-url <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">tcp://{}:{}</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>format(HOST, PORT)
+url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;tcp://{}:{}&#39;</span><span style="color:#f92672">.</span>format(HOST, PORT)
 
 
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">publish_message</span>(message):
@@ -100,11 +100,11 @@ url <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><spa
   <span style="color:#66d9ef">try</span>:
     _publisher<span style="color:#f92672">.</span>bind(url)
     time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">1</span>)
-    <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Sending message: {message, _publisher}</span><span style="color:#e6db74">&#39;</span>)
+    <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;Sending message: {message, _publisher}&#39;</span>)
     _publisher<span style="color:#f92672">.</span>send(message)
 
   <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
-    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">error {}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(e))
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;error {}&#34;</span><span style="color:#f92672">.</span>format(e))
 
   <span style="color:#66d9ef">finally</span>:
     <span style="color:#75715e"># To unbind publisher to keep receiving published messages</span>
@@ -117,17 +117,17 @@ url <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><spa
 app <span style="color:#f92672">=</span> Flask(__name__)
 
 <span style="color:#75715e"># Endpoint for printing and publishing </span>
-<span style="color:#a6e22e">@app.route</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">/downcase/</span><span style="color:#e6db74">&#34;</span>, methods<span style="color:#f92672">=</span>[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">GET</span><span style="color:#e6db74">&#39;</span>])
+<span style="color:#a6e22e">@app.route</span>(<span style="color:#e6db74">&#34;/downcase/&#34;</span>, methods<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;GET&#39;</span>])
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">lowerString</span>():
 
-  _strn <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args<span style="color:#f92672">.</span>get(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">param</span><span style="color:#e6db74">&#39;</span>)
-  response <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">lower case of {} is {}</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>format(_strn, _strn<span style="color:#f92672">.</span>lower())
+  _strn <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;param&#39;</span>)
+  response <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;lower case of {} is {}&#39;</span><span style="color:#f92672">.</span>format(_strn, _strn<span style="color:#f92672">.</span>lower())
   publish_message(response)
   <span style="color:#66d9ef">return</span> response
 
-<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">__main__</span><span style="color:#e6db74">&#39;</span>:
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
   <span style="color:#75715e"># default port running at 5000</span>
-  app<span style="color:#f92672">.</span>run(host<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">0.0.0.0</span><span style="color:#e6db74">&#39;</span>, debug<span style="color:#f92672">=</span>False)
+  app<span style="color:#f92672">.</span>run(host<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;0.0.0.0&#39;</span>, debug<span style="color:#f92672">=</span>False)
 </code></pre></div><p><strong>Build Publisher and Run</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo docker build -t zmq-pub .
 docker run --name pub-server -p 5000:5000 -p 4444:4444 -t zmq-pub
@@ -139,36 +139,36 @@ docker run --name pub-server -p 5000:5000 -p 4444:4444 -t zmq-pub
 <span style="color:#f92672">import</span> logging
 <span style="color:#f92672">import</span> os
 
-HOST <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">127.0.0.1</span><span style="color:#e6db74">&#39;</span>
-PORT <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">4444</span><span style="color:#e6db74">&#39;</span>
+HOST <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;127.0.0.1&#39;</span>
+PORT <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;4444&#39;</span>
 
-logging<span style="color:#f92672">.</span>basicConfig(filename<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">subscriber.log</span><span style="color:#e6db74">&#39;</span>, level<span style="color:#f92672">=</span>logging<span style="color:#f92672">.</span>INFO)
+logging<span style="color:#f92672">.</span>basicConfig(filename<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;subscriber.log&#39;</span>, level<span style="color:#f92672">=</span>logging<span style="color:#f92672">.</span>INFO)
 
 
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ZClient</span>(object):
 
     <span style="color:#66d9ef">def</span> __init__(self, host<span style="color:#f92672">=</span>HOST, port<span style="color:#f92672">=</span>PORT):
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Initialize Worker</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+    <span style="color:#e6db74">&#34;&#34;&#34;Initialize Worker&#34;&#34;&#34;</span>
     self<span style="color:#f92672">.</span>host <span style="color:#f92672">=</span> host
     self<span style="color:#f92672">.</span>port <span style="color:#f92672">=</span> port
     self<span style="color:#f92672">.</span>_context <span style="color:#f92672">=</span> zmq<span style="color:#f92672">.</span>Context()
     self<span style="color:#f92672">.</span>_subscriber <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_context<span style="color:#f92672">.</span>socket(zmq<span style="color:#f92672">.</span>SUB)
-    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Client Initiated</span><span style="color:#e6db74">&#34;</span>)
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Client Initiated&#34;</span>)
 
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">receive_message</span>(self):
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Start receiving messages</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+    <span style="color:#e6db74">&#34;&#34;&#34;Start receiving messages&#34;&#34;&#34;</span>
     <span style="color:#75715e"># “tcp://192.168.10.10:5555″</span>
-    self<span style="color:#f92672">.</span>_subscriber<span style="color:#f92672">.</span>connect(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">tcp://{}:{}</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>format(self<span style="color:#f92672">.</span>host, self<span style="color:#f92672">.</span>port))
-    self<span style="color:#f92672">.</span>_subscriber<span style="color:#f92672">.</span>setsockopt(zmq<span style="color:#f92672">.</span>SUBSCRIBE, <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span>)
+    self<span style="color:#f92672">.</span>_subscriber<span style="color:#f92672">.</span>connect(<span style="color:#e6db74">&#39;tcp://{}:{}&#39;</span><span style="color:#f92672">.</span>format(self<span style="color:#f92672">.</span>host, self<span style="color:#f92672">.</span>port))
+    self<span style="color:#f92672">.</span>_subscriber<span style="color:#f92672">.</span>setsockopt(zmq<span style="color:#f92672">.</span>SUBSCRIBE, <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;&#34;</span>)
 
     <span style="color:#66d9ef">while</span> True:
-        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">listening on tcp://{}:{}</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>format(self<span style="color:#f92672">.</span>host, self<span style="color:#f92672">.</span>port))
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;listening on tcp://{}:{}&#39;</span><span style="color:#f92672">.</span>format(self<span style="color:#f92672">.</span>host, self<span style="color:#f92672">.</span>port))
         message <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_subscriber<span style="color:#f92672">.</span>recv()
         <span style="color:#66d9ef">print</span>(message)
         logging<span style="color:#f92672">.</span>info(
-            <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">{}   - {}</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>format(message, time<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%</span><span style="color:#e6db74">Y-</span><span style="color:#e6db74">%</span><span style="color:#e6db74">m-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> </span><span style="color:#e6db74">%</span><span style="color:#e6db74">H:</span><span style="color:#e6db74">%</span><span style="color:#e6db74">M</span><span style="color:#e6db74">&#34;</span>)))
+            <span style="color:#e6db74">&#39;{}   - {}&#39;</span><span style="color:#f92672">.</span>format(message, time<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#34;%Y-%m-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> %H:%M&#34;</span>)))
 
-<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">__main__</span><span style="color:#e6db74">&#39;</span>:
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
     zs <span style="color:#f92672">=</span> ZClient()
     zs<span style="color:#f92672">.</span>receive_message()
 </code></pre></div><p><strong>Run Client</strong></p>
@@ -187,16 +187,16 @@ logging<span style="color:#f92672">.</span>basicConfig(filename<span style="colo
 <span style="color:#f92672">import</span> time
 <span style="color:#f92672">from</span> random <span style="color:#f92672">import</span> randint, random
 
-__author__ <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Felipe Cruz &lt;felipecruz@loogica.net&gt;</span><span style="color:#e6db74">&#34;</span>
-__license__ <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">MIT/X11</span><span style="color:#e6db74">&#34;</span>
+__author__ <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Felipe Cruz &lt;felipecruz@loogica.net&gt;&#34;</span>
+__license__ <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;MIT/X11&#34;</span>
 
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">tprint</span>(msg):
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">like print, but won</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">t get newlines confused with multiple threads</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
-    sys<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>write(msg <span style="color:#f92672">+</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
+    <span style="color:#e6db74">&#34;&#34;&#34;like print, but won&#39;t get newlines confused with multiple threads&#34;&#34;&#34;</span>
+    sys<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>write(msg <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
     sys<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>flush()
 
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ClientTask</span>(threading<span style="color:#f92672">.</span>Thread):
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">ClientTask</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+    <span style="color:#e6db74">&#34;&#34;&#34;ClientTask&#34;&#34;&#34;</span>
     <span style="color:#66d9ef">def</span> __init__(self, id):
         self<span style="color:#f92672">.</span>id <span style="color:#f92672">=</span> id
         threading<span style="color:#f92672">.</span>Thread<span style="color:#f92672">.</span>__init__ (self)
@@ -204,38 +204,38 @@ __license__ <span style="color:#f92672">=</span> <span style="color:#e6db74"></s
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">run</span>(self):
         context <span style="color:#f92672">=</span> zmq<span style="color:#f92672">.</span>Context()
         socket <span style="color:#f92672">=</span> context<span style="color:#f92672">.</span>socket(zmq<span style="color:#f92672">.</span>DEALER)
-        identity <span style="color:#f92672">=</span> <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">worker-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> self<span style="color:#f92672">.</span>id
-        socket<span style="color:#f92672">.</span>identity <span style="color:#f92672">=</span> identity<span style="color:#f92672">.</span>encode(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">ascii</span><span style="color:#e6db74">&#39;</span>)
-        socket<span style="color:#f92672">.</span>connect(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">tcp://localhost:5570</span><span style="color:#e6db74">&#39;</span>)
-        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Client </span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> started</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> (identity))
+        identity <span style="color:#f92672">=</span> <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;worker-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> self<span style="color:#f92672">.</span>id
+        socket<span style="color:#f92672">.</span>identity <span style="color:#f92672">=</span> identity<span style="color:#f92672">.</span>encode(<span style="color:#e6db74">&#39;ascii&#39;</span>)
+        socket<span style="color:#f92672">.</span>connect(<span style="color:#e6db74">&#39;tcp://localhost:5570&#39;</span>)
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;Client </span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> started&#39;</span> <span style="color:#f92672">%</span> (identity))
         poll <span style="color:#f92672">=</span> zmq<span style="color:#f92672">.</span>Poller()
         poll<span style="color:#f92672">.</span>register(socket, zmq<span style="color:#f92672">.</span>POLLIN)
         reqs <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
         <span style="color:#66d9ef">while</span> True:
             reqs <span style="color:#f92672">=</span> reqs <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
-            <span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Req #</span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> sent..</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> (reqs))
-            socket<span style="color:#f92672">.</span>send_string(<span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">request #</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> (reqs))
+            <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;Req #</span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> sent..&#39;</span> <span style="color:#f92672">%</span> (reqs))
+            socket<span style="color:#f92672">.</span>send_string(<span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;request #</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> (reqs))
             <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">5</span>):
                 sockets <span style="color:#f92672">=</span> dict(poll<span style="color:#f92672">.</span>poll(<span style="color:#ae81ff">1000</span>))
                 <span style="color:#66d9ef">if</span> socket <span style="color:#f92672">in</span> sockets:
                     msg <span style="color:#f92672">=</span> socket<span style="color:#f92672">.</span>recv()
-                    tprint(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Client </span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> received: </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> (identity, msg))
+                    tprint(<span style="color:#e6db74">&#39;Client </span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> received: </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> (identity, msg))
 
         socket<span style="color:#f92672">.</span>close()
         context<span style="color:#f92672">.</span>term()
 
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ServerTask</span>(threading<span style="color:#f92672">.</span>Thread):
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">ServerTask</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+    <span style="color:#e6db74">&#34;&#34;&#34;ServerTask&#34;&#34;&#34;</span>
     <span style="color:#66d9ef">def</span> __init__(self):
         threading<span style="color:#f92672">.</span>Thread<span style="color:#f92672">.</span>__init__ (self)
 
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">run</span>(self):
         context <span style="color:#f92672">=</span> zmq<span style="color:#f92672">.</span>Context()
         frontend <span style="color:#f92672">=</span> context<span style="color:#f92672">.</span>socket(zmq<span style="color:#f92672">.</span>ROUTER)
-        frontend<span style="color:#f92672">.</span>bind(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">tcp://*:5570</span><span style="color:#e6db74">&#39;</span>)
+        frontend<span style="color:#f92672">.</span>bind(<span style="color:#e6db74">&#39;tcp://*:5570&#39;</span>)
 
         backend <span style="color:#f92672">=</span> context<span style="color:#f92672">.</span>socket(zmq<span style="color:#f92672">.</span>DEALER)
-        backend<span style="color:#f92672">.</span>bind(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">inproc://backend</span><span style="color:#e6db74">&#39;</span>)
+        backend<span style="color:#f92672">.</span>bind(<span style="color:#e6db74">&#39;inproc://backend&#39;</span>)
 
         workers <span style="color:#f92672">=</span> []
         <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">5</span>):
@@ -250,18 +250,18 @@ __license__ <span style="color:#f92672">=</span> <span style="color:#e6db74"></s
         context<span style="color:#f92672">.</span>term()
 
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ServerWorker</span>(threading<span style="color:#f92672">.</span>Thread):
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">ServerWorker</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+    <span style="color:#e6db74">&#34;&#34;&#34;ServerWorker&#34;&#34;&#34;</span>
     <span style="color:#66d9ef">def</span> __init__(self, context):
         threading<span style="color:#f92672">.</span>Thread<span style="color:#f92672">.</span>__init__ (self)
         self<span style="color:#f92672">.</span>context <span style="color:#f92672">=</span> context
 
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">run</span>(self):
         worker <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>context<span style="color:#f92672">.</span>socket(zmq<span style="color:#f92672">.</span>DEALER)
-        worker<span style="color:#f92672">.</span>connect(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">inproc://backend</span><span style="color:#e6db74">&#39;</span>)
-        tprint(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Worker started</span><span style="color:#e6db74">&#39;</span>)
+        worker<span style="color:#f92672">.</span>connect(<span style="color:#e6db74">&#39;inproc://backend&#39;</span>)
+        tprint(<span style="color:#e6db74">&#39;Worker started&#39;</span>)
         <span style="color:#66d9ef">while</span> True:
             ident, msg <span style="color:#f92672">=</span> worker<span style="color:#f92672">.</span>recv_multipart()
-            tprint(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Worker received </span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> from </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> (msg, ident))
+            tprint(<span style="color:#e6db74">&#39;Worker received </span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> from </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> (msg, ident))
             replies <span style="color:#f92672">=</span> randint(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">4</span>)
             <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(replies):
                 time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">1.</span> <span style="color:#f92672">/</span> (randint(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">10</span>)))
@@ -270,7 +270,7 @@ __license__ <span style="color:#f92672">=</span> <span style="color:#e6db74"></s
         worker<span style="color:#f92672">.</span>close()
 
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">main function</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+    <span style="color:#e6db74">&#34;&#34;&#34;main function&#34;&#34;&#34;</span>
     server <span style="color:#f92672">=</span> ServerTask()
     server<span style="color:#f92672">.</span>start()
     <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">3</span>):
@@ -279,7 +279,7 @@ __license__ <span style="color:#f92672">=</span> <span style="color:#e6db74"></s
 
     server<span style="color:#f92672">.</span>join()
 
-<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">__main__</span><span style="color:#e6db74">&#34;</span>:
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
     main()
 </code></pre></div><p><strong><code>python async_zmq.py</code></strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Worker started

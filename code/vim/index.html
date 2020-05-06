@@ -55,10 +55,10 @@
   <ul>
     <li><a href="#always-be-scrolling">Always be Scrolling</a></li>
     <li><a href="#basic-editing">Basic Editing</a></li>
-    <li><a href="#-search">/ Search</a></li>
+    <li><a href="#-search"><code>/</code> Search</a></li>
     <li><a href="#bookmarks">Bookmarks</a></li>
-    <li><a href="#ctrl--and-ctrl-t---pm">Ctrl-] and Ctrl-t - PM</a></li>
-    <li><a href="#ctrl-o-and-ctrl-i---cycle-through-jumps-and-g-g-cycle-thru-changes">Ctrl-O and Ctrl-I - cycle through :jumps and g;, g cycle thru :changes</a>
+    <li><a href="#ctrl--and-ctrl-t---pm"><code>Ctrl-] and Ctrl-t</code> - PM</a></li>
+    <li><a href="#ctrl-o-and-ctrl-i---cycle-through-jumps-and-g-g-cycle-thru-changes"><code>Ctrl-O and Ctrl-I</code> - cycle through <code>:jumps</code> and <code>g;, g</code> cycle thru <code>:changes</code></a>
       <ul>
         <li><a href="#demo-1">DEMO</a></li>
       </ul>
@@ -68,7 +68,7 @@
   <ul>
     <li><a href="#advanced-editing-and-motion">Advanced Editing and Motion</a></li>
     <li><a href="#plugin">Plugin</a></li>
-    <li><a href="#add-some-plugins-between-these-2-lines-usernamerepo-format">add some plugins between these 2 lines / format</a></li>
+    <li><a href="#add-some-plugins-between-these-2-lines-usernamerepo-format">add some plugins between these 2 lines <!-- raw HTML omitted -->/<!-- raw HTML omitted --> format</a></li>
     <li><a href="#text">Text</a></li>
     <li><a href="#build-test-execute">Build, Test, Execute</a></li>
   </ul>
@@ -322,9 +322,9 @@ colorscheme murphy
 <li>
 <p>set file fir:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#66d9ef">if</span> !isdirectory<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;HOME/.vim/undodir&#34;</span><span style="color:#f92672">)</span>
-    call mkdir<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/.vom/undodir</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74">&#34;p&#34;</span><span style="color:#f92672">)</span>
+    call mkdir<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/.vom/undodir&#34;</span>, <span style="color:#e6db74">&#34;p&#34;</span><span style="color:#f92672">)</span>
 endif
-set undofir<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/.vim/undodir</span><span style="color:#e6db74">&#34;</span>
+set undofir<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/.vim/undodir&#34;</span>
 </code></pre></div></li>
 </ul>
 </li>
@@ -414,7 +414,7 @@ set undofir<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;
 <li>move windows <code>Ctrl + w [+ hjkl]</code></li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># binding for ease split in vimrc</span>
-<span style="color:#e6db74">&#34;</span><span style="color:#e6db74"> Fast split navigation with Ctrl + hjkl
+<span style="color:#e6db74">&#34; Fast split navigation with Ctrl + hjkl
 </span><span style="color:#e6db74">noremap &lt;c-h&gt; &lt;c-w&gt;&lt;c-h&gt;
 </span><span style="color:#e6db74">noremap &lt;c-j&gt; &lt;c-w&gt;&lt;c-j&gt;
 </span><span style="color:#e6db74">noremap &lt;c-k&gt; &lt;c-w&gt;&lt;c-k&gt;
@@ -445,7 +445,7 @@ set undofir<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;
 <p><code>Ctrl w r</code> moves all windows within the row / column to the right or downwards <code>R</code> for reverse</p>
 </li>
 <li>
-<p><code>Ctrl w x</code> exchanges contents of a window with the next one (or previous one if it's considered a last window)</p>
+<p><code>Ctrl w x</code> exchanges contents of a window with the next one (or previous one if it&rsquo;s considered a last window)</p>
 </li>
 <li>
 <p><code>Ctrl w =</code> equalise h-w of all windows!!!</p>
@@ -515,7 +515,7 @@ set undofir<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;
 <li>bookmarking while cursor over: <code>:Bookmark</code> then <code>B</code> to display</li>
 <li>always display bookmars <code>let NERDTreeShowBookmarks = 1</code></li>
 <li>toggle <code>:NERDTreeToggle</code> or startup enabled <code>autocmd VimEnter * NERDTree</code></li>
-<li>close it when it's last open window:
+<li>close it when it&rsquo;s last open window:
 <ul>
 <li><code>autocmd bufenter * if (winnr(&quot;$&quot;) == 1 &amp;&amp; exists (&quot;b:NERDTree&quot;) &amp;&amp; \ b:NERDTree.isTabTree()) | q | endif</code></li>
 </ul>
@@ -624,7 +624,7 @@ set undofir<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;
 <ul>
 <li><code>*</code> register the main clipboard</li>
 <li><code>+</code> register Linux only used for <code>Ctrl c / v</code> style</li>
-<li><code>&quot;*p</code> to paste from primary clipboard or <code>&quot;+yy</code> to yank a line into Linux's clipboard</li>
+<li><code>&quot;*p</code> to paste from primary clipboard or <code>&quot;+yy</code> to yank a line into Linux&rsquo;s clipboard</li>
 <li>setting default
 <ul>
 <li><code>set clipboard=unnamed &quot; copy into system (*) register</code></li>
@@ -654,7 +654,7 @@ set undofir<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#66d9ef">if</span> empty <span style="color:#f92672">(</span>glob <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;~/.vim/autoload/plug.vim&#39;</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#66d9ef">if</span> empty <span style="color:#f92672">(</span>glob <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;~/.vim/autoload/plug.vim&#39;</span><span style="color:#f92672">))</span>
 	silent !curl -fLo ...
 	autocmd VimEnter * PlugInstall --sync | source $MYVIMRX
 endif
@@ -752,11 +752,11 @@ git mergetool
 <li>pos-3 branch-tmp in conflict</li>
 <li>pos-4 MERGE shows conflict markers as <code>&lt;&lt;&lt;&lt; ... &gt;&gt;&gt;&gt;</code></li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">&lt;&lt;&lt;</span><span style="color:#f92672">&lt;&lt;&lt;</span> <span style="color:#f92672">[</span>LOCAL commit/branch<span style="color:#f92672">]</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">&lt;&lt;&lt;&lt;&lt;&lt;</span> <span style="color:#f92672">[</span>LOCAL commit/branch<span style="color:#f92672">]</span>
 <span style="color:#f92672">[</span>LOCAL change<span style="color:#f92672">]</span>
-<span style="color:#f92672">||</span><span style="color:#f92672">||</span><span style="color:#f92672">||</span>| merged common ancestors
+<span style="color:#f92672">||||||</span>| merged common ancestors
 <span style="color:#f92672">[</span>BASE - closest common ancestor<span style="color:#f92672">]</span>
-<span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span>
+<span style="color:#f92672">=======</span>
 <span style="color:#f92672">[</span>REMOTE change<span style="color:#f92672">]</span>
 &gt;&gt;&gt;&gt;&gt;&gt;&gt; <span style="color:#f92672">[</span>REMOTE commint/branch<span style="color:#f92672">]</span>
 </code></pre></div><blockquote>

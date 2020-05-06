@@ -221,11 +221,11 @@ echo $!                      <span style="color:#75715e"># prints process ID of 
 echo $?                      <span style="color:#75715e"># displays the exit status of the last command</span>
 export VARNAME<span style="color:#f92672">=</span>value         <span style="color:#75715e"># defines an environment variable (will be available in subprocesses)</span>
 
-array<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span><span style="color:#f92672">=</span>valA                <span style="color:#75715e"># how to define an array</span>
-array<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span><span style="color:#f92672">=</span>valB
-array<span style="color:#f92672">[</span>2<span style="color:#f92672">]</span><span style="color:#f92672">=</span>valC
-array<span style="color:#f92672">=</span><span style="color:#f92672">(</span><span style="color:#f92672">[</span>2<span style="color:#f92672">]</span><span style="color:#f92672">=</span>valC <span style="color:#f92672">[</span>0<span style="color:#f92672">]</span><span style="color:#f92672">=</span>valA <span style="color:#f92672">[</span>1<span style="color:#f92672">]</span><span style="color:#f92672">=</span>valB<span style="color:#f92672">)</span>  <span style="color:#75715e"># another way</span>
-array<span style="color:#f92672">=</span><span style="color:#f92672">(</span>valA valB valC<span style="color:#f92672">)</span>              <span style="color:#75715e"># and another</span>
+array<span style="color:#f92672">[</span>0<span style="color:#f92672">]=</span>valA                <span style="color:#75715e"># how to define an array</span>
+array<span style="color:#f92672">[</span>1<span style="color:#f92672">]=</span>valB
+array<span style="color:#f92672">[</span>2<span style="color:#f92672">]=</span>valC
+array<span style="color:#f92672">=([</span>2<span style="color:#f92672">]=</span>valC <span style="color:#f92672">[</span>0<span style="color:#f92672">]=</span>valA <span style="color:#f92672">[</span>1<span style="color:#f92672">]=</span>valB<span style="color:#f92672">)</span>  <span style="color:#75715e"># another way</span>
+array<span style="color:#f92672">=(</span>valA valB valC<span style="color:#f92672">)</span>              <span style="color:#75715e"># and another</span>
 
 <span style="color:#e6db74">${</span>array[i]<span style="color:#e6db74">}</span>                  <span style="color:#75715e"># displays array&#39;s value for this index. If no index is supplied, array element 0 is assumed</span>
 <span style="color:#e6db74">${#</span>array[i]<span style="color:#e6db74">}</span>                 <span style="color:#75715e"># to find out the length of any element in the array</span>
@@ -271,7 +271,7 @@ declare -x                   <span style="color:#75715e"># marks the variables f
 <span style="color:#75715e"># $@ is equal to &#34;$1&#34; &#34;$2&#34;... &#34;$N&#34;, where N is the number of positional parameters. $# holds the number of positional parameters.</span>
 
 
-<span style="color:#66d9ef">function</span> functname<span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+<span style="color:#66d9ef">function</span> functname<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
   shell commands
 <span style="color:#f92672">}</span>
 
@@ -343,7 +343,7 @@ file1 -ot file2           <span style="color:#75715e"># file1 is older than file
   statements that can use $name
 <span style="color:#66d9ef">done</span>
 
-<span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#f92672">(</span> initialisation ; ending condition ; update <span style="color:#f92672">)</span><span style="color:#f92672">)</span>
+<span style="color:#66d9ef">for</span> <span style="color:#f92672">((</span> initialisation ; ending condition ; update <span style="color:#f92672">))</span>
 <span style="color:#66d9ef">do</span>
   statements...
 <span style="color:#66d9ef">done</span>
@@ -481,13 +481,13 @@ trap <span style="color:#e6db74">&#39;echo $varname&#39;</span> EXIT  <span styl
 
 <span style="color:#66d9ef">function</span> errtrap <span style="color:#f92672">{</span>
   es<span style="color:#f92672">=</span>$?
-  echo <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">ERROR line </span>$1<span style="color:#e6db74">: Command exited with status </span>$es<span style="color:#e6db74">.</span><span style="color:#e6db74">&#34;</span>
+  echo <span style="color:#e6db74">&#34;ERROR line </span>$1<span style="color:#e6db74">: Command exited with status </span>$es<span style="color:#e6db74">.&#34;</span>
 <span style="color:#f92672">}</span>
 
 trap <span style="color:#e6db74">&#39;errtrap $LINENO&#39;</span> ERR  <span style="color:#75715e"># is run whenever a command in the surrounding script or function exits with non-zero status</span> 
 
 <span style="color:#66d9ef">function</span> dbgtrap <span style="color:#f92672">{</span>
-  echo <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">badvar is </span>$badvar<span style="color:#e6db74">&#34;</span>
+  echo <span style="color:#e6db74">&#34;badvar is </span>$badvar<span style="color:#e6db74">&#34;</span>
 <span style="color:#f92672">}</span>
 
 trap dbgtrap DEBUG  <span style="color:#75715e"># causes the trap code to be executed before every statement in a function or script</span>
@@ -556,7 +556,7 @@ wget http://example.com/images/<span style="color:#f92672">{</span>1..20<span st
 wget --page-requisites --span-hosts --convert-links --adjust-extension http://example.com/dir/file
 
 <span style="color:#75715e"># download all MP3 files from a subdir</span>
-wget --level<span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> --recursive --no-parent --accept mp3,MP3 http://example.com/mp3/
+wget --level<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span> --recursive --no-parent --accept mp3,MP3 http://example.com/mp3/
 <span style="color:#75715e"># image</span>
 wget --no-directories --recursive --no-clobber --accept jpg,gif,png,jpeg http://example.com/images/
 <span style="color:#75715e"># pdf</span>
@@ -597,7 +597,7 @@ rpm -Uvh pkg.rpm
 </span><span style="color:#75715e"></span>	echo <span style="color:#e6db74">&#34;Hello World&#34;</span> <span style="color:#75715e"># RECIPE using DEPENDENCIES to make TARGET</span>
 	
 <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> prerequisites
-<span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#960050;background-color:#1e0010">T</span><span style="color:#960050;background-color:#1e0010">A</span><span style="color:#960050;background-color:#1e0010">B</span><span style="color:#960050;background-color:#1e0010">&gt;</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">e</span>
+<span style="color:#960050;background-color:#1e0010">&lt;TAB&gt;recipe</span>
 
 <span style="color:#75715e"># a target might be binary file depending on prereq (source files) which can also be target depending on other deps
 </span><span style="color:#75715e"></span>
@@ -624,15 +624,15 @@ rpm -Uvh pkg.rpm
 <span style="color:#a6e22e">all</span><span style="color:#f92672">:</span>say_hello generate
 
 <span style="color:#75715e"># Good practice not to call clean in all or put it as first target. Manually as arg
-</span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">m</span><span style="color:#960050;background-color:#1e0010">a</span><span style="color:#960050;background-color:#1e0010">k</span><span style="color:#960050;background-color:#1e0010">e</span> <span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">a</span><span style="color:#960050;background-color:#1e0010">n</span>
+</span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">make</span> <span style="color:#960050;background-color:#1e0010">clean</span>
 
 <span style="color:#75715e"># ADVANCED EX
-</span><span style="color:#75715e"></span><span style="color:#75715e"># Variables 
+</span><span style="color:#75715e"># Variables 
 </span><span style="color:#75715e"></span>CC <span style="color:#f92672">:=</span> gcc <span style="color:#75715e"># recursive expanded variable</span>
 CC <span style="color:#f92672">:=</span> <span style="color:#e6db74">${</span>CC<span style="color:#e6db74">}</span>
 <span style="color:#a6e22e">hello</span><span style="color:#f92672">:</span>hello.c
 	<span style="color:#e6db74">${</span>CC<span style="color:#e6db74">}</span>hello.c -o hello <span style="color:#75715e"># recipe expands as below when passed</span> 
-<span style="color:#960050;background-color:#1e0010">g</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">c</span> <span style="color:#960050;background-color:#1e0010">h</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#960050;background-color:#1e0010">c</span> <span style="color:#960050;background-color:#1e0010">-</span><span style="color:#960050;background-color:#1e0010">o</span> <span style="color:#960050;background-color:#1e0010">h</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">o</span>
+<span style="color:#960050;background-color:#1e0010">gcc</span> <span style="color:#960050;background-color:#1e0010">hello.c</span> <span style="color:#960050;background-color:#1e0010">-o</span> <span style="color:#960050;background-color:#1e0010">hello</span>
 <span style="color:#75715e"># both ${CC} and £(CC) valid ref to call gcc
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">all</span><span style="color:#f92672">:</span>
 	@echo <span style="color:#e6db74">${</span>CC<span style="color:#e6db74">}</span>
@@ -640,8 +640,8 @@ CC <span style="color:#f92672">:=</span> <span style="color:#e6db74">${</span>CC
 <span style="color:#75715e"># Example: compile all C programs by using var, patterns, func
 </span><span style="color:#75715e"></span>
 <span style="color:#75715e"># Usage:
-</span><span style="color:#75715e"></span><span style="color:#75715e"># make        # compile all binary
-</span><span style="color:#75715e"></span><span style="color:#75715e"># make clean  # remove ALL binaries and objects
+</span><span style="color:#75715e"># make        # compile all binary
+</span><span style="color:#75715e"># make clean  # remove ALL binaries and objects
 </span><span style="color:#75715e"></span>
 .PHONY <span style="color:#f92672">=</span> all clean
 

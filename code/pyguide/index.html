@@ -47,17 +47,17 @@
         <aside>
             <nav id="TableOfContents">
   <ul>
-    <li><a href="#how-to-structure-simple-test">How to Structure Simple Test</a></li>
-    <li><a href="#differences-testing-flask-using-unittest">Differences Testing Flask: Using unittest</a></li>
-    <li><a href="#advanced-input-instance-of-class-or-context">Advanced Input: instance of class or context</a></li>
-    <li><a href="#isolating-behaviour-and-state-or-side-effects">Isolating Behaviour and State or Side Effects</a></li>
-    <li><a href="#integration-test">Integration Test</a></li>
-    <li><a href="#automation-cicd---run-tests-compile-and-publish-and-deploy">Automation: CI/CD - run tests, compile and publish and deploy</a></li>
-    <li><a href="#tips">Tips</a></li>
+    <li><a href="#how-to-structure-simple-test"><strong>How to Structure Simple Test</strong></a></li>
+    <li><a href="#differences-testing-flask-using-unittest"><strong>Differences Testing Flask: Using <code>unittest</code></strong></a></li>
+    <li><a href="#advanced-input-instance-of-class-or-context"><strong>Advanced Input: instance of class or context</strong></a></li>
+    <li><a href="#isolating-behaviour-and-state-or-side-effects"><strong>Isolating Behaviour and State</strong> or <strong>Side Effects</strong></a></li>
+    <li><a href="#integration-test"><strong>Integration Test</strong></a></li>
+    <li><a href="#automation-cicd---run-tests-compile-and-publish-and-deploy"><strong>Automation: CI/CD - run tests, compile and publish and deploy</strong></a></li>
+    <li><a href="#tips"><strong>Tips</strong></a></li>
   </ul>
 
   <ul>
-    <li><a href="#mocks">MOCKs</a></li>
+    <li><a href="#mocks"><strong>MOCKs</strong></a></li>
   </ul>
 
   <ul>
@@ -85,7 +85,7 @@
         <li><a href="#exceptions">Exceptions</a></li>
         <li><a href="#global-variables">Global Variables</a></li>
         <li><a href="#nestedlocalinner-classes-and-functions">Nested/Local/Inner Classes and Functions</a></li>
-        <li><a href="#comprehensions--generator-expressions">Comprehensions & Generator Expressions</a></li>
+        <li><a href="#comprehensions--generator-expressions">Comprehensions &amp; Generator Expressions</a></li>
         <li><a href="#default-iterators-and-operators">Default Iterators and Operators</a></li>
         <li><a href="#properties">Properties</a></li>
         <li><a href="#conditional-">Conditional !!!</a></li>
@@ -157,7 +157,7 @@ exclude_lines <span style="color:#f92672">=</span>
 
     <span style="color:#75715e"># Don&#39;t complain if non-runnable code isn&#39;t run:</span>
     <span style="color:#66d9ef">if</span> 0:
-    <span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">=</span><span style="color:#f92672">=</span> .__main__.:
+    <span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> .__main__.:
 
 pipenv run pytest --cov --cov-fail-under<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>
 
@@ -171,7 +171,7 @@ pipenv install -dev
 <blockquote>
 <p>Sinlge-script app: benefit using below is that no need to turn project folder into package and able to specify file name</p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">target <span style="color:#f92672">=</span> __import__(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">my_sum.py</span><span style="color:#e6db74">&#34;</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">target <span style="color:#f92672">=</span> __import__(<span style="color:#e6db74">&#34;my_sum.py&#34;</span>)
 sum <span style="color:#f92672">=</span> target<span style="color:#f92672">.</span>sum
 </code></pre></div><h2 id="how-to-structure-simple-test"><strong>How to Structure Simple Test</strong></h2>
 <ol>
@@ -209,7 +209,7 @@ sum <span style="color:#f92672">=</span> target<span style="color:#f92672">.</sp
         self<span style="color:#f92672">.</span>app <span style="color:#f92672">=</span> my_app<span style="color:#f92672">.</span>app<span style="color:#f92672">.</span>test_client()
         
 	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_home</span>(self):
-        result <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>app<span style="color:#f92672">.</span>get(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">/</span><span style="color:#e6db74">&#39;</span>)
+        result <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>app<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;/&#39;</span>)
         <span style="color:#75715e"># Make assertions...</span>
 
 <span style="color:#75715e"># run with `python -m unittest discover`</span>
@@ -269,13 +269,13 @@ sum <span style="color:#f92672">=</span> target<span style="color:#f92672">.</sp
 <p>config <code>.travis.yml</code></p>
 </li>
 <li>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">language: python
-python:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">language</span>: python
+<span style="color:#66d9ef">python</span>:
     - <span style="color:#e6db74">&#34;2.7&#34;</span>
     - <span style="color:#e6db74">&#34;3.7&#34;</span>
-install:
+<span style="color:#66d9ef">install</span>:
     - pip install -r requirements.txt
-script:
+<span style="color:#66d9ef">script</span>:
     - python -m unittest discover
 </code></pre></div><ul>
 <li>Test against 2.7 and 3.7</li>
@@ -323,9 +323,9 @@ script:
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test</span>():
     <span style="color:#75715e"># ... your code</span>
         
-<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">__main__</span><span style="color:#e6db74">&#39;</span>:
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
     <span style="color:#f92672">import</span> timeit
-    <span style="color:#66d9ef">print</span>(timeit<span style="color:#f92672">.</span>timeit(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">test()</span><span style="color:#e6db74">&#34;</span>, setup<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">from __main__ import test</span><span style="color:#e6db74">&#34;</span>, number<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>))
+    <span style="color:#66d9ef">print</span>(timeit<span style="color:#f92672">.</span>timeit(<span style="color:#e6db74">&#34;test()&#34;</span>, setup<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;from __main__ import test&#34;</span>, number<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>))
 </code></pre></div></li>
 <li>
 <p>Or <strong>pytest</strong> using <strong>pytest-benchmark</strong> plugin</p>
@@ -349,9 +349,9 @@ script:
 <h2 id="mocks"><strong>MOCKs</strong></h2>
 <p>Adding outside func call to app:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">initial_transform</span>(data):
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Flatten nested dicts</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+    <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    Flatten nested dicts
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
     <span style="color:#66d9ef">for</span> item <span style="color:#f92672">in</span> list(data):
         <span style="color:#66d9ef">if</span> type(data[item]) <span style="color:#f92672">is</span> dict:
             <span style="color:#66d9ef">for</span> key <span style="color:#f92672">in</span> data[item]:
@@ -365,15 +365,15 @@ script:
 <p>do not want to make LIVE call (API) to externals so instead do MOCKING</p>
 </li>
 <li>
-<p>Setting up mocks in fixtures since it's a part of test setup and can keep all setup code in one</p>
+<p>Setting up mocks in fixtures since it&rsquo;s a part of test setup and can keep all setup code in one</p>
 </li>
 <li>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#a6e22e">@pytest.fixture</span>(params<span style="color:#f92672">=</span>[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">nodict</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">dict</span><span style="color:#e6db74">&#39;</span>])
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#a6e22e">@pytest.fixture</span>(params<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;nodict&#39;</span>, <span style="color:#e6db74">&#39;dict&#39;</span>])
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generate_initial_transform_parameters</span>(request, mocker):
-    [<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>]
-    mocker<span style="color:#f92672">.</span>patch<span style="color:#f92672">.</span>object(outside_module, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">do_sth</span><span style="color:#e6db74">&#39;</span>)
+    [<span style="color:#f92672">...</span>]
+    mocker<span style="color:#f92672">.</span>patch<span style="color:#f92672">.</span>object(outside_module, <span style="color:#e6db74">&#39;do_sth&#39;</span>)
     mocker<span style="color:#f92672">.</span>do_sth<span style="color:#f92672">.</span>return_value(<span style="color:#ae81ff">1</span>)
-    [<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>]
+    [<span style="color:#f92672">...</span>]
 </code></pre></div></li>
 <li>
 <p>Now each <code>initial_transform</code> call then <code>do_sth</code> call will be intercepted and return 1</p>
@@ -386,7 +386,7 @@ script:
 </li>
 <li>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">initial_transform</span>(data):
-    <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+    <span style="color:#f92672">....</span>
       
     outside_module<span style="color:#f92672">.</span>do_sth()
     outside_module<span style="color:#f92672">.</span>do_sth()
@@ -396,11 +396,11 @@ script:
 <p>then set up mock so:</p>
 </li>
 <li>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#a6e22e">@pytest.ficture</span>(<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>)
-<span style="color:#66d9ef">def</span> <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
-  mocker<span style="color:#f92672">.</span>patch<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#a6e22e">@pytest.ficture</span>(<span style="color:#f92672">...</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#f92672">...</span>
+  mocker<span style="color:#f92672">.</span>patch<span style="color:#f92672">....</span>
     mocker<span style="color:#f92672">.</span>do_sth<span style="color:#f92672">.</span>side_effect([<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>])
-    <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+    <span style="color:#f92672">...</span>
 </code></pre></div></li>
 <li>
 <p>Advanced: <a href="https://realpython.com/testing-third-party-apis-with-mock-servers/">Mock Server to test 3P APIs</a></p>
@@ -445,29 +445,29 @@ script:
 <span style="color:#75715e"># 2. Installing the deps in venv</span>
 <span style="color:#75715e"># 3. Running linter and tests while inside the venv</span>
     
-version: <span style="color:#ae81ff">2</span>
-jobs: <span style="color:#75715e"># Jobs represent a single execution of the build and are defined by a collection of steps. If you have only one job, it must be called build.</span>
-    build: <span style="color:#75715e"># As mentioned before, build is the name of your job. You can have multiple jobs, in which case they need to have unique names.</span>
-        docker: <span style="color:#75715e"># The steps of a job occur in an environment called an executor. The common executor in CircleCI is a Docker container. It is a cloud-hosted execution environment but other options exist, like a macOS environment.</span>
-            - image: circleci/python:<span style="color:#ae81ff">3.7</span>
+<span style="color:#66d9ef">version</span>: <span style="color:#ae81ff">2</span>
+<span style="color:#66d9ef">jobs</span>: <span style="color:#75715e"># Jobs represent a single execution of the build and are defined by a collection of steps. If you have only one job, it must be called build.</span>
+    <span style="color:#66d9ef">build</span>: <span style="color:#75715e"># As mentioned before, build is the name of your job. You can have multiple jobs, in which case they need to have unique names.</span>
+        <span style="color:#66d9ef">docker</span>: <span style="color:#75715e"># The steps of a job occur in an environment called an executor. The common executor in CircleCI is a Docker container. It is a cloud-hosted execution environment but other options exist, like a macOS environment.</span>
+            - <span style="color:#66d9ef">image</span>: circleci/python:<span style="color:#ae81ff">3.7</span>
         <span style="color:#75715e"># Your repository has to be checked out somewhere on the build server. The working directory represents the file path where the repository will be stored.</span>
-        working_directory: ~/repo
+        <span style="color:#66d9ef">working_directory</span>: ~/repo
     		
-        steps:
+        <span style="color:#66d9ef">steps</span>:
             <span style="color:#75715e"># Step 1: obtian repo from GitHub</span>
             - checkout <span style="color:#75715e"># The first step the server needs to do is check the source code out to the working directory. This is performed by a special step called checkout.</span>
             <span style="color:#75715e"># Step 2: create venv and env setup</span>
-            - run:
-                name: install dependencies
-                command: <span style="color:#e6db74">|
-</span><span style="color:#e6db74">                   </span><span style="color:#e6db74"> </span><span style="color:#e6db74">python 3 -m venv venv</span>
+            - <span style="color:#66d9ef">run</span>:
+                <span style="color:#66d9ef">name</span>: install dependencies
+                <span style="color:#66d9ef">command</span>: <span style="color:#e6db74">|
+</span><span style="color:#e6db74">                    python 3 -m venv venv</span>
                     . venv/bin/activate
                     pip install -r requirements.txt
             <span style="color:#75715e"># Step 3: run linter and tests</span>
-            - run:
-                name: run tests
-                command: <span style="color:#e6db74">|
-</span><span style="color:#e6db74">                   </span><span style="color:#e6db74"> </span><span style="color:#e6db74">. venv/bin/activate</span>
+            - <span style="color:#66d9ef">run</span>:
+                <span style="color:#66d9ef">name</span>: run tests
+                <span style="color:#66d9ef">command</span>: <span style="color:#e6db74">|
+</span><span style="color:#e6db74">                    . venv/bin/activate</span>
                     flake8 --exclude=venv* --statistics
                     pytest -v --cov=calculator
 </code></pre></div></li>
@@ -546,39 +546,39 @@ jobs: <span style="color:#75715e"># Jobs represent a single execution of the bui
 <li>easy accessing ENV variables via f&rsquo;&rsquo;</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> subprocess <span style="color:#f92672">import</span> call
-call(f<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">curl -s -X GET http://{URL}/v2/{IMAGE}/tags/list</span><span style="color:#e6db74">&#39;</span>)
+call(f<span style="color:#e6db74">&#39;curl -s -X GET http://{URL}/v2/{IMAGE}/tags/list&#39;</span>)
 </code></pre></div><h2 id="pathlib">pathlib</h2>
 <p>Without pathlib</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> glob
 <span style="color:#f92672">import</span> os
 <span style="color:#f92672">import</span> shutil
 
-<span style="color:#66d9ef">for</span> file_name <span style="color:#f92672">in</span> glob<span style="color:#f92672">.</span>glob(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">*.txt</span><span style="color:#e6db74">&#39;</span>):
-    new_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">archive</span><span style="color:#e6db74">&#39;</span>, file_name)
+<span style="color:#66d9ef">for</span> file_name <span style="color:#f92672">in</span> glob<span style="color:#f92672">.</span>glob(<span style="color:#e6db74">&#39;*.txt&#39;</span>):
+    new_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(<span style="color:#e6db74">&#39;archive&#39;</span>, file_name)
     shutil<span style="color:#f92672">.</span>move(file_name, new_path)
 </code></pre></div><p>Examples</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt;&gt;&gt; import pathlib
-&gt;&gt;&gt; pathlib.Path.cwd<span style="color:#f92672">(</span><span style="color:#f92672">)</span>
+&gt;&gt;&gt; pathlib.Path.cwd<span style="color:#f92672">()</span>
 PosixPath<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;/home/gahjelle/realpython/&#39;</span><span style="color:#f92672">)</span>
 
 &gt;&gt;&gt; pathlib.Path<span style="color:#f92672">(</span>r<span style="color:#e6db74">&#39;C:\Users\gahjelle\realpython\file.txt&#39;</span><span style="color:#f92672">)</span>
 WindowsPath<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;C:/Users/gahjelle/realpython/file.txt&#39;</span><span style="color:#f92672">)</span>
 
-&gt;&gt;&gt; pathlib.Path.home<span style="color:#f92672">(</span><span style="color:#f92672">)</span> / <span style="color:#e6db74">&#39;python&#39;</span> / <span style="color:#e6db74">&#39;scripts&#39;</span> / <span style="color:#e6db74">&#39;test.py&#39;</span>
+&gt;&gt;&gt; pathlib.Path.home<span style="color:#f92672">()</span> / <span style="color:#e6db74">&#39;python&#39;</span> / <span style="color:#e6db74">&#39;scripts&#39;</span> / <span style="color:#e6db74">&#39;test.py&#39;</span>
 PosixPath<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;/home/gahjelle/python/scripts/test.py&#39;</span><span style="color:#f92672">)</span>
 
-&gt;&gt;&gt; pathlib.Path.home<span style="color:#f92672">(</span><span style="color:#f92672">)</span>.joinpath<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;python&#39;</span>, <span style="color:#e6db74">&#39;scripts&#39;</span>, <span style="color:#e6db74">&#39;test.py&#39;</span><span style="color:#f92672">)</span>
+&gt;&gt;&gt; pathlib.Path.home<span style="color:#f92672">()</span>.joinpath<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;python&#39;</span>, <span style="color:#e6db74">&#39;scripts&#39;</span>, <span style="color:#e6db74">&#39;test.py&#39;</span><span style="color:#f92672">)</span>
 PosixPath<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;/home/gahjelle/python/scripts/test.py&#39;</span><span style="color:#f92672">)</span>
 
 <span style="color:#75715e"># CREATE FILE</span>
 
-path <span style="color:#f92672">=</span> pathlib.Path.cwd<span style="color:#f92672">(</span><span style="color:#f92672">)</span> / <span style="color:#e6db74">&#39;test.md&#39;</span>
+path <span style="color:#f92672">=</span> pathlib.Path.cwd<span style="color:#f92672">()</span> / <span style="color:#e6db74">&#39;test.md&#39;</span>
 with open<span style="color:#f92672">(</span>path, mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;r&#39;</span><span style="color:#f92672">)</span> as fid:
-    headers <span style="color:#f92672">=</span> <span style="color:#f92672">[</span>line.strip<span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#66d9ef">for</span> line in fid <span style="color:#66d9ef">if</span> line.startswith<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;#&#39;</span><span style="color:#f92672">)</span><span style="color:#f92672">]</span>
-print<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;\n&#39;</span>.join<span style="color:#f92672">(</span>headers<span style="color:#f92672">)</span><span style="color:#f92672">)</span>
+    headers <span style="color:#f92672">=</span> <span style="color:#f92672">[</span>line.strip<span style="color:#f92672">()</span> <span style="color:#66d9ef">for</span> line in fid <span style="color:#66d9ef">if</span> line.startswith<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;#&#39;</span><span style="color:#f92672">)]</span>
+print<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;\n&#39;</span>.join<span style="color:#f92672">(</span>headers<span style="color:#f92672">))</span>
 
 <span style="color:#75715e"># READ</span>
-&gt;&gt;&gt; pathlib.Path<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;test.md&#39;</span><span style="color:#f92672">)</span>.read_text<span style="color:#f92672">(</span><span style="color:#f92672">)</span>
+&gt;&gt;&gt; pathlib.Path<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;test.md&#39;</span><span style="color:#f92672">)</span>.read_text<span style="color:#f92672">()</span>
 &lt;the contents of the test.md-file&gt;
 
 <span style="color:#75715e"># COMPONENTS</span>
@@ -604,17 +604,17 @@ PosixPath<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;/h
 PosixPath<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;/home/gahjelle/realpython/test001.txt&#39;</span><span style="color:#f92672">)</span>
 &gt;&gt;&gt; path.with_suffix<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;.py&#39;</span><span style="color:#f92672">)</span>
 PosixPath<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;/home/gahjelle/realpython/test001.py&#39;</span><span style="color:#f92672">)</span>
-&gt;&gt;&gt; path.replace<span style="color:#f92672">(</span>path.with_suffix<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;.py&#39;</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span>
+&gt;&gt;&gt; path.replace<span style="color:#f92672">(</span>path.with_suffix<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;.py&#39;</span><span style="color:#f92672">))</span>
 
 
 &gt;&gt;&gt; import collections
-&gt;&gt;&gt; collections.Counter<span style="color:#f92672">(</span>p.suffix <span style="color:#66d9ef">for</span> p in pathlib.Path.cwd<span style="color:#f92672">(</span><span style="color:#f92672">)</span>.iterdir<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span>
-Counter<span style="color:#f92672">(</span><span style="color:#f92672">{</span><span style="color:#e6db74">&#39;.md&#39;</span>: 2, <span style="color:#e6db74">&#39;.txt&#39;</span>: 4, <span style="color:#e6db74">&#39;.pdf&#39;</span>: 2, <span style="color:#e6db74">&#39;.py&#39;</span>: 1<span style="color:#f92672">}</span><span style="color:#f92672">)</span>
+&gt;&gt;&gt; collections.Counter<span style="color:#f92672">(</span>p.suffix <span style="color:#66d9ef">for</span> p in pathlib.Path.cwd<span style="color:#f92672">()</span>.iterdir<span style="color:#f92672">())</span>
+Counter<span style="color:#f92672">({</span><span style="color:#e6db74">&#39;.md&#39;</span>: 2, <span style="color:#e6db74">&#39;.txt&#39;</span>: 4, <span style="color:#e6db74">&#39;.pdf&#39;</span>: 2, <span style="color:#e6db74">&#39;.py&#39;</span>: 1<span style="color:#f92672">})</span>
 
 
 
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> pathlib <span style="color:#f92672">import</span> Path
-p <span style="color:#f92672">=</span> Path(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">.</span><span style="color:#e6db74">&#39;</span>)
+p <span style="color:#f92672">=</span> Path(<span style="color:#e6db74">&#39;.&#39;</span>)
 p
 
 str(p)
@@ -630,7 +630,7 @@ p<span style="color:#f92672">.</span>parent
 p<span style="color:#f92672">.</span>relative_to(p<span style="color:#f92672">.</span>parent)
 
 <span style="color:#75715e"># example 2</span>
-q <span style="color:#f92672">=</span> p <span style="color:#f92672">/</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">newdir</span><span style="color:#e6db74">&#39;</span>
+q <span style="color:#f92672">=</span> p <span style="color:#f92672">/</span> <span style="color:#e6db74">&#39;newdir&#39;</span>
 q
 
 p<span style="color:#f92672">.</span>exists()
@@ -648,7 +648,7 @@ p<span style="color:#f92672">.</span>is_file()
 [x <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> p<span style="color:#f92672">.</span>iterdir() <span style="color:#66d9ef">if</span> x<span style="color:#f92672">.</span>is_file()]
 
 <span style="color:#75715e"># find recursively</span>
-list(p<span style="color:#f92672">.</span>rglob(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">*</span><span style="color:#e6db74">&#39;</span>))
+list(p<span style="color:#f92672">.</span>rglob(<span style="color:#e6db74">&#39;*&#39;</span>))
 
 <span style="color:#75715e"># directory</span>
 q<span style="color:#f92672">.</span>exists()
@@ -658,11 +658,11 @@ q<span style="color:#f92672">.</span>mkdir()
 q<span style="color:#f92672">.</span>exists()
 
 <span style="color:#75715e"># files</span>
-fp <span style="color:#f92672">=</span> n <span style="color:#f92672">/</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">newfile.txt</span><span style="color:#e6db74">&#39;</span>
+fp <span style="color:#f92672">=</span> n <span style="color:#f92672">/</span> <span style="color:#e6db74">&#39;newfile.txt&#39;</span>
 fp
 
-<span style="color:#66d9ef">with</span> fp<span style="color:#f92672">.</span>open(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">wt</span><span style="color:#e6db74">&#39;</span>) <span style="color:#66d9ef">as</span> f:
-    f<span style="color:#f92672">.</span>write(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">The quick brown fox jumped over the lazy dog.</span><span style="color:#e6db74">&#39;</span>)
+<span style="color:#66d9ef">with</span> fp<span style="color:#f92672">.</span>open(<span style="color:#e6db74">&#39;wt&#39;</span>) <span style="color:#66d9ef">as</span> f:
+    f<span style="color:#f92672">.</span>write(<span style="color:#e6db74">&#39;The quick brown fox jumped over the lazy dog.&#39;</span>)
 
 fp<span style="color:#f92672">.</span>exists() <span style="color:#f92672">and</span> fp<span style="color:#f92672">.</span>is_file()
 
@@ -686,13 +686,13 @@ q<span style="color:#f92672">.</span>exists()
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> click
 
 <span style="color:#a6e22e">@click.command</span>()
-<span style="color:#a6e22e">@click.option</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">--count</span><span style="color:#e6db74">&#39;</span>, default<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, help<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Number of greetings</span><span style="color:#e6db74">&#39;</span>)
-<span style="color:#a6e22e">@click.option</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">--name</span><span style="color:#e6db74">&#39;</span>, prompt<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Your name</span><span style="color:#e6db74">&#39;</span>, help<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">The person to greet</span><span style="color:#e6db74">&#39;</span>)
+<span style="color:#a6e22e">@click.option</span>(<span style="color:#e6db74">&#39;--count&#39;</span>, default<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Number of greetings&#39;</span>)
+<span style="color:#a6e22e">@click.option</span>(<span style="color:#e6db74">&#39;--name&#39;</span>, prompt<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Your name&#39;</span>, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;The person to greet&#39;</span>)
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">hello</span>(count, name):
-  <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Simple app greeting NAME for a total of COUNT times</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+  <span style="color:#e6db74">&#34;&#34;&#34;Simple app greeting NAME for a total of COUNT times&#34;&#34;&#34;</span>
   <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> range(count):
-    click<span style="color:#f92672">.</span>echo(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Hello {name}!</span><span style="color:#e6db74">&#39;</span>)
-<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">__main__</span><span style="color:#e6db74">&#39;</span>:
+    click<span style="color:#f92672">.</span>echo(<span style="color:#e6db74">&#39;Hello {name}!&#39;</span>)
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
   hello()
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python app.py --help
 
@@ -705,12 +705,12 @@ or google numismatic setup github</p>
 <h2 id="example---crawl-bitcoin-data-asyncio-attrs-streamz-websocks">Example - crawl bitcoin data [asyncio, attrs, streamz, websocks]</h2>
 <h3 id="streamz">streamz</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> streamz <span style="color:#f92672">import</span> Stream source <span style="color:#f92672">=</span> Stream()
-source<span style="color:#f92672">.</span>emit(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">hello</span><span style="color:#e6db74">&#39;</span>) source<span style="color:#f92672">.</span>emit(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">world</span><span style="color:#e6db74">&#39;</span>)
+source<span style="color:#f92672">.</span>emit(<span style="color:#e6db74">&#39;hello&#39;</span>) source<span style="color:#f92672">.</span>emit(<span style="color:#e6db74">&#39;world&#39;</span>)
 
 
-printer <span style="color:#f92672">=</span> source<span style="color:#f92672">.</span>map(<span style="color:#66d9ef">print</span>) <span style="color:#66d9ef">for</span> event <span style="color:#f92672">in</span> [<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">hello</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">world</span><span style="color:#e6db74">&#39;</span>]: source<span style="color:#f92672">.</span>emit(event) 
+printer <span style="color:#f92672">=</span> source<span style="color:#f92672">.</span>map(<span style="color:#66d9ef">print</span>) <span style="color:#66d9ef">for</span> event <span style="color:#f92672">in</span> [<span style="color:#e6db74">&#39;hello&#39;</span>, <span style="color:#e6db74">&#39;world&#39;</span>]: source<span style="color:#f92672">.</span>emit(event) 
 L <span style="color:#f92672">=</span> [] 
-collector <span style="color:#f92672">=</span> source<span style="color:#f92672">.</span>map(L<span style="color:#f92672">.</span>append) j <span style="color:#66d9ef">for</span> event <span style="color:#f92672">in</span> [<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">hello</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">world</span><span style="color:#e6db74">&#39;</span>]: source<span style="color:#f92672">.</span>emit(event)
+collector <span style="color:#f92672">=</span> source<span style="color:#f92672">.</span>map(L<span style="color:#f92672">.</span>append) j <span style="color:#66d9ef">for</span> event <span style="color:#f92672">in</span> [<span style="color:#e6db74">&#39;hello&#39;</span>, <span style="color:#e6db74">&#39;world&#39;</span>]: source<span style="color:#f92672">.</span>emit(event)
 </code></pre></div><h3 id="attr-better-named-tuples">attr (better named tuples)</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#a6e22e">@attr.s</span>(slots<span style="color:#f92672">=</span>True)
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Heartbeat</span>:
@@ -719,10 +719,10 @@ collector <span style="color:#f92672">=</span> source<span style="color:#f92672"
     timestamp <span style="color:#f92672">=</span> attr<span style="color:#f92672">.</span>ib(default<span style="color:#f92672">=</span>attr<span style="color:#f92672">.</span>Factory(time<span style="color:#f92672">.</span>time))
 </code></pre></div><p>used as</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> numismatic.events <span style="color:#f92672">import</span> Heartbeat
-Heartbeat(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">bitfinex</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">BTCUSD</span><span style="color:#e6db74">&#39;</span>)
+Heartbeat(<span style="color:#e6db74">&#39;bitfinex&#39;</span>, <span style="color:#e6db74">&#39;BTCUSD&#39;</span>)
 
 <span style="color:#f92672">import</span> attr
-attr<span style="color:#f92672">.</span>asdict(Heartbeat(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">bitfinex</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">BTCUSD</span><span style="color:#e6db74">&#39;</span>))
+attr<span style="color:#f92672">.</span>asdict(Heartbeat(<span style="color:#e6db74">&#39;bitfinex&#39;</span>, <span style="color:#e6db74">&#39;BTCUSD&#39;</span>))
 </code></pre></div><h3 id="numismatic">numismatic</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># set up stream</span>
 
@@ -735,7 +735,7 @@ collector <span style="color:#f92672">=</span> source<span style="color:#f92672"
 <span style="color:#75715e"># prep connection</span>
 <span style="color:#f92672">from</span> numismatic.exchanges <span style="color:#f92672">import</span> BitfinexExchange
 bfx <span style="color:#f92672">=</span> BitfinexExchange(source)
-subscription <span style="color:#f92672">=</span> bfx<span style="color:#f92672">.</span>listen(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">BTCUSD</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">trades</span><span style="color:#e6db74">&#39;</span>)
+subscription <span style="color:#f92672">=</span> bfx<span style="color:#f92672">.</span>listen(<span style="color:#e6db74">&#39;BTCUSD&#39;</span>, <span style="color:#e6db74">&#39;trades&#39;</span>)
 
 <span style="color:#75715e"># run event loop</span>
 <span style="color:#f92672">import</span> asyncio
@@ -777,34 +777,34 @@ coin</p>
 <li>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># YES</span>
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">connect</span>(self, min):
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Connects to next available port.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">          </span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Args:</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">      min: </span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Returns:</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">      new mim</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Raises:</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">      ConnectionError: If no available port is found.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+    <span style="color:#e6db74">&#34;&#34;&#34;Connects to next available port.
+</span><span style="color:#e6db74">          
+</span><span style="color:#e6db74">    Args:
+</span><span style="color:#e6db74">      min: 
+</span><span style="color:#e6db74">    Returns:
+</span><span style="color:#e6db74">      new mim
+</span><span style="color:#e6db74">    Raises:
+</span><span style="color:#e6db74">      ConnectionError: If no available port is found.
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
     <span style="color:#66d9ef">if</span> min <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1024</span>:
         <span style="color:#75715e"># Note this raising of ValueError is not documented</span>
         <span style="color:#75715e"># because it is not appropriate to guarantee this specific behvaiour</span>
         <span style="color:#75715e"># reaction to API miuse.</span>
-        <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">ValueError</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Min port must be at least 1024, not {:d}.</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>format(mim))
-  port <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+        <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">ValueError</span>(<span style="color:#e6db74">&#39;Min port must be at least 1024, not {:d}.&#39;</span><span style="color:#f92672">.</span>format(mim))
+  port <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_<span style="color:#f92672">...</span>
     <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> port:
-        <span style="color:#66d9ef">raise</span> ConnectionError(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Could not connect to service on {:d} or higher</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>)
-  <span style="color:#66d9ef">assert</span> port <span style="color:#f92672">&gt;</span><span style="color:#f92672">=</span> min, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Unexpected port {:d} when min was {:d}</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>format(port, min)
+        <span style="color:#66d9ef">raise</span> ConnectionError(<span style="color:#e6db74">&#39;Could not connect to service on {:d} or higher&#39;</span><span style="color:#f92672">...</span>)
+  <span style="color:#66d9ef">assert</span> port <span style="color:#f92672">&gt;=</span> min, <span style="color:#e6db74">&#39;Unexpected port {:d} when min was {:d}&#39;</span><span style="color:#f92672">.</span>format(port, min)
     <span style="color:#66d9ef">return</span> port
       
 <span style="color:#75715e"># NO</span>
-<span style="color:#66d9ef">def</span> <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>:
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    No mention of Raises!</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+<span style="color:#66d9ef">def</span> <span style="color:#f92672">...</span>:
+    <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    No mention of Raises!
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
     <span style="color:#75715e"># no implementation of raise ConnectionError</span>
-    <span style="color:#66d9ef">assert</span> min <span style="color:#f92672">&gt;</span><span style="color:#f92672">=</span> <span style="color:#ae81ff">1024</span>, <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
-    port <span style="color:#f92672">=</span> <span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+    <span style="color:#66d9ef">assert</span> min <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">1024</span>, <span style="color:#f92672">...</span>
+    port <span style="color:#f92672">=</span> <span style="color:#f92672">..</span>
     <span style="color:#66d9ef">assert</span> port <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> None
     <span style="color:#66d9ef">return</span> port
 </code></pre></div></li>
@@ -862,12 +862,12 @@ coin</p>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># YES</span>
 result <span style="color:#f92672">=</span> [mapping_expr <span style="color:#66d9ef">for</span> value <span style="color:#f92672">in</span> iterable <span style="color:#66d9ef">if</span> filter_expr]
-result <span style="color:#f92672">=</span> [{<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">key</span><span style="color:#e6db74">&#39;</span>: value} <span style="color:#66d9ef">for</span> value <span style="color:#f92672">in</span> iterable
+result <span style="color:#f92672">=</span> [{<span style="color:#e6db74">&#39;key&#39;</span>: value} <span style="color:#66d9ef">for</span> value <span style="color:#f92672">in</span> iterable
 	<span style="color:#66d9ef">if</span> a_long_filter_expression(value)]
 result <span style="color:#f92672">=</span> [complicated_transform(x)
 	<span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> iterable <span style="color:#66d9ef">if</span> predicate(x)]
 descriptive_name <span style="color:#f92672">=</span> [
-	transform({<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">key</span><span style="color:#e6db74">&#39;</span>: key, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">value</span><span style="color:#e6db74">&#39;</span>: value}, color<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">black</span><span style="color:#e6db74">&#39;</span>)
+	transform({<span style="color:#e6db74">&#39;key&#39;</span>: key, <span style="color:#e6db74">&#39;value&#39;</span>: value}, color<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;black&#39;</span>)
 	<span style="color:#66d9ef">for</span> key, value <span style="color:#f92672">in</span> generate_iterable(some_input)
 	<span style="color:#66d9ef">if</span> complicated_condition_is_met(key, value)
 ]
@@ -879,10 +879,10 @@ result <span style="color:#f92672">=</span> []
 <span style="color:#66d9ef">return</span> {x: complicated_transform(x)
 	<span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> long_generator_function(parameter)
 	<span style="color:#66d9ef">if</span> x <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> None}
-squares_generator <span style="color:#f92672">=</span> (x<span style="color:#f92672">*</span><span style="color:#f92672">*</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">10</span>))
+squares_generator <span style="color:#f92672">=</span> (x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">10</span>))
 unique_names <span style="color:#f92672">=</span> {user<span style="color:#f92672">.</span>name <span style="color:#66d9ef">for</span> user <span style="color:#f92672">in</span> users <span style="color:#66d9ef">if</span> user <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> None}
 eat(jelly_bean <span style="color:#66d9ef">for</span> jelly_bean <span style="color:#f92672">in</span> jelly_beans
-	<span style="color:#66d9ef">if</span> jelly_bean<span style="color:#f92672">.</span>color <span style="color:#f92672">==</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">black</span><span style="color:#e6db74">&#39;</span>)
+	<span style="color:#66d9ef">if</span> jelly_bean<span style="color:#f92672">.</span>color <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;black&#39;</span>)
 
 <span style="color:#75715e"># NO</span>
 result <span style="color:#f92672">=</span> [complicated_transform(
@@ -903,45 +903,45 @@ result <span style="color:#f92672">=</span> [(x, y) <span style="color:#66d9ef">
 <li>verdict - use default for types support them, list, dict, files, prefer</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Yes</span>
-<span style="color:#66d9ef">for</span> key <span style="color:#f92672">in</span> adict: <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
-<span style="color:#66d9ef">if</span> key <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> adict: <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
-<span style="color:#66d9ef">for</span> line <span style="color:#f92672">in</span> afile: <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
-<span style="color:#66d9ef">for</span> k, v <span style="color:#f92672">in</span> adict<span style="color:#f92672">.</span>items(): <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<span style="color:#66d9ef">for</span> key <span style="color:#f92672">in</span> adict: <span style="color:#f92672">...</span>
+<span style="color:#66d9ef">if</span> key <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> adict: <span style="color:#f92672">...</span>
+<span style="color:#66d9ef">for</span> line <span style="color:#f92672">in</span> afile: <span style="color:#f92672">...</span>
+<span style="color:#66d9ef">for</span> k, v <span style="color:#f92672">in</span> adict<span style="color:#f92672">.</span>items(): <span style="color:#f92672">...</span>
 <span style="color:#75715e"># No</span>
-<span style="color:#66d9ef">for</span> key <span style="color:#f92672">in</span> adict<span style="color:#f92672">.</span>keys(): <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
-<span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> adict<span style="color:#f92672">.</span>has_key(key):<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
-<span style="color:#66d9ef">for</span> line <span style="color:#f92672">in</span> afile<span style="color:#f92672">.</span>readlines(): <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
-<span style="color:#66d9ef">for</span> k, v <span style="color:#f92672">in</span> dict<span style="color:#f92672">.</span>iteritems(): <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<span style="color:#66d9ef">for</span> key <span style="color:#f92672">in</span> adict<span style="color:#f92672">.</span>keys(): <span style="color:#f92672">...</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> adict<span style="color:#f92672">.</span>has_key(key):<span style="color:#f92672">...</span>
+<span style="color:#66d9ef">for</span> line <span style="color:#f92672">in</span> afile<span style="color:#f92672">.</span>readlines(): <span style="color:#f92672">...</span>
+<span style="color:#66d9ef">for</span> k, v <span style="color:#f92672">in</span> dict<span style="color:#f92672">.</span>iteritems(): <span style="color:#f92672">....</span>
 </code></pre></div><h3 id="properties">Properties</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Yes</span>
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Square</span>(object):
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">A square with two properties: a writable area and a read-only perimeter.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    To use:</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    &gt;&gt;&gt; sq = Square(3)</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    &gt;&gt;&gt; sq.area</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    9</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    &gt;&gt;&gt; sq.perimeter</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    12</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    &gt;&gt;&gt; sq.area = 16</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    &gt;&gt;&gt; sq.side</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    4</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    &gt;&gt;&gt; sq.perimeter</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    16</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+    <span style="color:#e6db74">&#34;&#34;&#34;A square with two properties: a writable area and a read-only perimeter.
+</span><span style="color:#e6db74">    To use:
+</span><span style="color:#e6db74">    &gt;&gt;&gt; sq = Square(3)
+</span><span style="color:#e6db74">    &gt;&gt;&gt; sq.area
+</span><span style="color:#e6db74">    9
+</span><span style="color:#e6db74">    &gt;&gt;&gt; sq.perimeter
+</span><span style="color:#e6db74">    12
+</span><span style="color:#e6db74">    &gt;&gt;&gt; sq.area = 16
+</span><span style="color:#e6db74">    &gt;&gt;&gt; sq.side
+</span><span style="color:#e6db74">    4
+</span><span style="color:#e6db74">    &gt;&gt;&gt; sq.perimeter
+</span><span style="color:#e6db74">    16
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
     <span style="color:#66d9ef">def</span> __init__(self, side):
     	self<span style="color:#f92672">.</span>side <span style="color:#f92672">=</span> side
     <span style="color:#a6e22e">@property</span>
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">area</span>(self):
-    	<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Area of the square.</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+    	<span style="color:#e6db74">&#34;&#34;&#34;Area of the square.&#34;&#34;&#34;</span>
     	<span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>_get_area()
     <span style="color:#a6e22e">@area.setter</span>
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">area</span>(self, area):
     	<span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>_set_area(area)
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_get_area</span>(self):
-    	<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Indirect accessor to calculate the </span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">area</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74"> property.</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
-        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>side <span style="color:#f92672">*</span><span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>
+    	<span style="color:#e6db74">&#34;&#34;&#34;Indirect accessor to calculate the &#39;area&#39; property.&#34;&#34;&#34;</span>
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>side <span style="color:#f92672">**</span> <span style="color:#ae81ff">2</span>
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_set_area</span>(self, area):
-        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Indirect setter to set the </span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">area</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74"> property.</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+        <span style="color:#e6db74">&#34;&#34;&#34;Indirect setter to set the &#39;area&#39; property.&#34;&#34;&#34;</span>
    		self<span style="color:#f92672">.</span>side <span style="color:#f92672">=</span> math<span style="color:#f92672">.</span>sqrt(area)
     <span style="color:#a6e22e">@property</span>
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">perimeter</span>(self):
@@ -949,7 +949,7 @@ result <span style="color:#f92672">=</span> [(x, y) <span style="color:#66d9ef">
 </code></pre></div><h3 id="conditional-">Conditional !!!</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Yes</span>
 <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> users:
-    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74"> no users</span><span style="color:#e6db74">&#39;</span>)
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39; no users&#39;</span>)
 <span style="color:#66d9ef">if</span> foo <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
     self<span style="color:#f92672">.</span>handle_zero()
 <span style="color:#66d9ef">if</span> i <span style="color:#f92672">%</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
@@ -960,11 +960,11 @@ result <span style="color:#f92672">=</span> [(x, y) <span style="color:#66d9ef">
 
 <span style="color:#75715e"># No</span>
 <span style="color:#66d9ef">if</span> len(users) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
-    <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+    <span style="color:#f92672">...</span>
 <span style="color:#66d9ef">if</span> foo <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> None <span style="color:#f92672">and</span> <span style="color:#f92672">not</span> foo:
-    <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+    <span style="color:#f92672">...</span>
 <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> i <span style="color:#f92672">%</span> <span style="color:#ae81ff">0</span>:
-    <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+    <span style="color:#f92672">...</span>
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f</span>(x<span style="color:#f92672">=</span>None):
     x <span style="color:#f92672">=</span> x <span style="color:#f92672">or</span> []
 </code></pre></div><h3 id="decorators">Decorators</h3>
@@ -981,14 +981,14 @@ result <span style="color:#f92672">=</span> [(x, y) <span style="color:#66d9ef">
 </code></pre></div><ul>
 <li>use judiciouly - follow same import and naming as functions !!!</li>
 <li>write test for decorators</li>
-<li>avoid external dependencies in decorator itself (don't rely on files, sockets, db connections, etc)</li>
+<li>avoid external dependencies in decorator itself (don&rsquo;t rely on files, sockets, db connections, etc)</li>
 <li>never use @staticmethod unless forced to in order to integrate with API defined in an existing lib, write a module level function instead !!!</li>
 <li>@classmethod only when writing a named constructor or class-specific routine that modidies necessary global state such as process-wide cache</li>
 </ul>
 <h3 id="threading">Threading</h3>
 <ul>
 <li>do not rely on atomicity of built-in types</li>
-<li>use Queue's Queue data type as preferred way to in-proc communication. else, use threading module and its locking primitives</li>
+<li>use Queue&rsquo;s Queue data type as preferred way to in-proc communication. else, use threading module and its locking primitives</li>
 </ul>
 <h3 id="power-features">Power Features</h3>
 <ul>
@@ -999,224 +999,224 @@ result <span style="color:#f92672">=</span> [(x, y) <span style="color:#66d9ef">
 </ul>
 <h2 id="numpy-style-docstrings">Numpy Style Docstrings</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># -*- coding: utf-8 -*-</span>
-<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Example NumPy style docstrings.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">This module demonstrates documentation as specified by the `NumPy</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">Documentation HOWTO`_. Docstrings may extend over multiple lines. Sections</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">are created with a section header followed by an underline of equal length.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">Example</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">-------</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">Examples can be given using either the ``Example`` or ``Examples``</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">sections. Sections support any reStructuredText formatting, including</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">literal blocks::</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    $ python example_numpy.py</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">Section breaks are created with two blank lines. Section breaks are also</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">implicitly created anytime a new section starts. Section bodies *may* be</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">indented:</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">Notes</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">-----</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    This is an example of an indented section. It</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">s like any other section,</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    but the body is indented to help it stand out from surrounding text.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">If a section is indented, then a section break is created by</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">resuming unindented text.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">Attributes</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">----------</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">module_level_variable1 : int</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Module level variables may be documented in either the ``Attributes``</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    section of the module docstring, or in an inline docstring immediately</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    following the variable.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Either form is acceptable, but the two should not be mixed. Choose</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    one convention to document module level variables and be consistent</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    with it.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">.. _NumPy Documentation HOWTO:</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">   https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+<span style="color:#e6db74">&#34;&#34;&#34;Example NumPy style docstrings.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">This module demonstrates documentation as specified by the `NumPy
+</span><span style="color:#e6db74">Documentation HOWTO`_. Docstrings may extend over multiple lines. Sections
+</span><span style="color:#e6db74">are created with a section header followed by an underline of equal length.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Example
+</span><span style="color:#e6db74">-------
+</span><span style="color:#e6db74">Examples can be given using either the ``Example`` or ``Examples``
+</span><span style="color:#e6db74">sections. Sections support any reStructuredText formatting, including
+</span><span style="color:#e6db74">literal blocks::
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    $ python example_numpy.py
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Section breaks are created with two blank lines. Section breaks are also
+</span><span style="color:#e6db74">implicitly created anytime a new section starts. Section bodies *may* be
+</span><span style="color:#e6db74">indented:
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Notes
+</span><span style="color:#e6db74">-----
+</span><span style="color:#e6db74">    This is an example of an indented section. It&#39;s like any other section,
+</span><span style="color:#e6db74">    but the body is indented to help it stand out from surrounding text.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">If a section is indented, then a section break is created by
+</span><span style="color:#e6db74">resuming unindented text.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Attributes
+</span><span style="color:#e6db74">----------
+</span><span style="color:#e6db74">module_level_variable1 : int
+</span><span style="color:#e6db74">    Module level variables may be documented in either the ``Attributes``
+</span><span style="color:#e6db74">    section of the module docstring, or in an inline docstring immediately
+</span><span style="color:#e6db74">    following the variable.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    Either form is acceptable, but the two should not be mixed. Choose
+</span><span style="color:#e6db74">    one convention to document module level variables and be consistent
+</span><span style="color:#e6db74">    with it.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">.. _NumPy Documentation HOWTO:
+</span><span style="color:#e6db74">   https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
 
 module_level_variable1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">12345</span>
 
 module_level_variable2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">98765</span>
-<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">int: Module level variable documented inline.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">The docstring may span multiple lines. The type may optionally be specified</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">on the first line, separated by a colon.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+<span style="color:#e6db74">&#34;&#34;&#34;int: Module level variable documented inline.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">The docstring may span multiple lines. The type may optionally be specified
+</span><span style="color:#e6db74">on the first line, separated by a colon.
+</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
 
 
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">function_with_types_in_docstring</span>(param1, param2):
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Example function with types documented in the docstring.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    `PEP 484`_ type annotations are supported. If attribute, parameter, and</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    return types are annotated according to `PEP 484`_, they do not need to be</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    included in the docstring:</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Parameters</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    ----------</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    param1 : int</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        The first parameter.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    param2 : str</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        The second parameter.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Returns</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    -------</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    bool</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        True if successful, False otherwise.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    .. _PEP 484:</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        https://www.python.org/dev/peps/pep-0484/</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+    <span style="color:#e6db74">&#34;&#34;&#34;Example function with types documented in the docstring.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    `PEP 484`_ type annotations are supported. If attribute, parameter, and
+</span><span style="color:#e6db74">    return types are annotated according to `PEP 484`_, they do not need to be
+</span><span style="color:#e6db74">    included in the docstring:
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    Parameters
+</span><span style="color:#e6db74">    ----------
+</span><span style="color:#e6db74">    param1 : int
+</span><span style="color:#e6db74">        The first parameter.
+</span><span style="color:#e6db74">    param2 : str
+</span><span style="color:#e6db74">        The second parameter.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    Returns
+</span><span style="color:#e6db74">    -------
+</span><span style="color:#e6db74">    bool
+</span><span style="color:#e6db74">        True if successful, False otherwise.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    .. _PEP 484:
+</span><span style="color:#e6db74">        https://www.python.org/dev/peps/pep-0484/
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
 
 
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">function_with_pep484_type_annotations</span>(param1: int, param2: str) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> bool:
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Example function with PEP 484 type annotations.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    The return type must be duplicated in the docstring to comply</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    with the NumPy docstring style.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Parameters</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    ----------</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    param1</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        The first parameter.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    param2</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        The second parameter.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Returns</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    -------</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    bool</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        True if successful, False otherwise.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">function_with_pep484_type_annotations</span>(param1: int, param2: str) <span style="color:#f92672">-&gt;</span> bool:
+    <span style="color:#e6db74">&#34;&#34;&#34;Example function with PEP 484 type annotations.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    The return type must be duplicated in the docstring to comply
+</span><span style="color:#e6db74">    with the NumPy docstring style.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    Parameters
+</span><span style="color:#e6db74">    ----------
+</span><span style="color:#e6db74">    param1
+</span><span style="color:#e6db74">        The first parameter.
+</span><span style="color:#e6db74">    param2
+</span><span style="color:#e6db74">        The second parameter.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    Returns
+</span><span style="color:#e6db74">    -------
+</span><span style="color:#e6db74">    bool
+</span><span style="color:#e6db74">        True if successful, False otherwise.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
 
 
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">module_level_function</span>(param1, param2<span style="color:#f92672">=</span>None, <span style="color:#f92672">*</span>args, <span style="color:#f92672">*</span><span style="color:#f92672">*</span>kwargs):
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">This is an example of a module level function.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Function parameters should be documented in the ``Parameters`` section.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    The name of each parameter is required. The type and description of each</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    parameter is optional, but should be included if not obvious.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    If </span><span style="color:#e6db74">\</span><span style="color:#e6db74">*args or </span><span style="color:#e6db74">\</span><span style="color:#e6db74">*</span><span style="color:#e6db74">\</span><span style="color:#e6db74">*kwargs are accepted,</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    they should be listed as ``*args`` and ``**kwargs``.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    The format for a parameter is::</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        name : type</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">            description</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">            The description may span multiple lines. Following lines</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">            should be indented to match the first line of the description.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">            The </span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">: type</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74"> is optional.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">            Multiple paragraphs are supported in parameter</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">            descriptions.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Parameters</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    ----------</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    param1 : int</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        The first parameter.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    param2 : :obj:`str`, optional</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        The second parameter.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    *args</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Variable length argument list.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    **kwargs</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Arbitrary keyword arguments.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Returns</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    -------</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    bool</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        True if successful, False otherwise.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        The return type is not optional. The ``Returns`` section may span</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        multiple lines and paragraphs. Following lines should be indented to</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        match the first line of the description.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        The ``Returns`` section supports any reStructuredText formatting,</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        including literal blocks::</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">            {</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">                </span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">param1</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">: param1,</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">                </span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">param2</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">: param2</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">            }</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Raises</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    ------</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    AttributeError</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        The ``Raises`` section is a list of all exceptions</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        that are relevant to the interface.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    ValueError</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        If `param2` is equal to `param1`.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">module_level_function</span>(param1, param2<span style="color:#f92672">=</span>None, <span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
+    <span style="color:#e6db74">&#34;&#34;&#34;This is an example of a module level function.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    Function parameters should be documented in the ``Parameters`` section.
+</span><span style="color:#e6db74">    The name of each parameter is required. The type and description of each
+</span><span style="color:#e6db74">    parameter is optional, but should be included if not obvious.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    If \*args or \*\*kwargs are accepted,
+</span><span style="color:#e6db74">    they should be listed as ``*args`` and ``**kwargs``.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    The format for a parameter is::
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">        name : type
+</span><span style="color:#e6db74">            description
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">            The description may span multiple lines. Following lines
+</span><span style="color:#e6db74">            should be indented to match the first line of the description.
+</span><span style="color:#e6db74">            The &#34;: type&#34; is optional.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">            Multiple paragraphs are supported in parameter
+</span><span style="color:#e6db74">            descriptions.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    Parameters
+</span><span style="color:#e6db74">    ----------
+</span><span style="color:#e6db74">    param1 : int
+</span><span style="color:#e6db74">        The first parameter.
+</span><span style="color:#e6db74">    param2 : :obj:`str`, optional
+</span><span style="color:#e6db74">        The second parameter.
+</span><span style="color:#e6db74">    *args
+</span><span style="color:#e6db74">        Variable length argument list.
+</span><span style="color:#e6db74">    **kwargs
+</span><span style="color:#e6db74">        Arbitrary keyword arguments.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    Returns
+</span><span style="color:#e6db74">    -------
+</span><span style="color:#e6db74">    bool
+</span><span style="color:#e6db74">        True if successful, False otherwise.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">        The return type is not optional. The ``Returns`` section may span
+</span><span style="color:#e6db74">        multiple lines and paragraphs. Following lines should be indented to
+</span><span style="color:#e6db74">        match the first line of the description.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">        The ``Returns`` section supports any reStructuredText formatting,
+</span><span style="color:#e6db74">        including literal blocks::
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">            {
+</span><span style="color:#e6db74">                &#39;param1&#39;: param1,
+</span><span style="color:#e6db74">                &#39;param2&#39;: param2
+</span><span style="color:#e6db74">            }
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    Raises
+</span><span style="color:#e6db74">    ------
+</span><span style="color:#e6db74">    AttributeError
+</span><span style="color:#e6db74">        The ``Raises`` section is a list of all exceptions
+</span><span style="color:#e6db74">        that are relevant to the interface.
+</span><span style="color:#e6db74">    ValueError
+</span><span style="color:#e6db74">        If `param2` is equal to `param1`.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
     <span style="color:#66d9ef">if</span> param1 <span style="color:#f92672">==</span> param2:
-        <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">ValueError</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">param1 may not be equal to param2</span><span style="color:#e6db74">&#39;</span>)
+        <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">ValueError</span>(<span style="color:#e6db74">&#39;param1 may not be equal to param2&#39;</span>)
     <span style="color:#66d9ef">return</span> True
 
 
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">example_generator</span>(n):
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Generators have a ``Yields`` section instead of a ``Returns`` section.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Parameters</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    ----------</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    n : int</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        The upper limit of the range to generate, from 0 to `n` - 1.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Yields</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    ------</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    int</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        The next number in the range of 0 to `n` - 1.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Examples</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    --------</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Examples should be written in doctest format, and should illustrate how</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    to use the function.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    &gt;&gt;&gt; print([i for i in example_generator(4)])</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    [0, 1, 2, 3]</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+    <span style="color:#e6db74">&#34;&#34;&#34;Generators have a ``Yields`` section instead of a ``Returns`` section.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    Parameters
+</span><span style="color:#e6db74">    ----------
+</span><span style="color:#e6db74">    n : int
+</span><span style="color:#e6db74">        The upper limit of the range to generate, from 0 to `n` - 1.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    Yields
+</span><span style="color:#e6db74">    ------
+</span><span style="color:#e6db74">    int
+</span><span style="color:#e6db74">        The next number in the range of 0 to `n` - 1.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    Examples
+</span><span style="color:#e6db74">    --------
+</span><span style="color:#e6db74">    Examples should be written in doctest format, and should illustrate how
+</span><span style="color:#e6db74">    to use the function.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    &gt;&gt;&gt; print([i for i in example_generator(4)])
+</span><span style="color:#e6db74">    [0, 1, 2, 3]
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
     <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n):
         <span style="color:#66d9ef">yield</span> i
 
 
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ExampleError</span>(<span style="color:#a6e22e">Exception</span>):
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Exceptions are documented in the same way as classes.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    The __init__ method may be documented in either the class level</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    docstring, or as a docstring on the __init__ method itself.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Either form is acceptable, but the two should not be mixed. Choose one</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    convention to document the __init__ method and be consistent with it.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Note</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    ----</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Do not include the `self` parameter in the ``Parameters`` section.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Parameters</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    ----------</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    msg : str</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Human readable string describing the exception.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    code : :obj:`int`, optional</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Numeric error code.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Attributes</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    ----------</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    msg : str</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Human readable string describing the exception.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    code : int</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Numeric error code.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+    <span style="color:#e6db74">&#34;&#34;&#34;Exceptions are documented in the same way as classes.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    The __init__ method may be documented in either the class level
+</span><span style="color:#e6db74">    docstring, or as a docstring on the __init__ method itself.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    Either form is acceptable, but the two should not be mixed. Choose one
+</span><span style="color:#e6db74">    convention to document the __init__ method and be consistent with it.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    Note
+</span><span style="color:#e6db74">    ----
+</span><span style="color:#e6db74">    Do not include the `self` parameter in the ``Parameters`` section.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    Parameters
+</span><span style="color:#e6db74">    ----------
+</span><span style="color:#e6db74">    msg : str
+</span><span style="color:#e6db74">        Human readable string describing the exception.
+</span><span style="color:#e6db74">    code : :obj:`int`, optional
+</span><span style="color:#e6db74">        Numeric error code.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    Attributes
+</span><span style="color:#e6db74">    ----------
+</span><span style="color:#e6db74">    msg : str
+</span><span style="color:#e6db74">        Human readable string describing the exception.
+</span><span style="color:#e6db74">    code : int
+</span><span style="color:#e6db74">        Numeric error code.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
 
     <span style="color:#66d9ef">def</span> __init__(self, msg, code):
         self<span style="color:#f92672">.</span>msg <span style="color:#f92672">=</span> msg
@@ -1224,199 +1224,199 @@ module_level_variable2 <span style="color:#f92672">=</span> <span style="color:#
 
 
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ExampleClass</span>(object):
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">The summary line for a class docstring should fit on one line.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    If the class has public attributes, they may be documented here</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    in an ``Attributes`` section and follow the same formatting as a</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    function</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">s ``Args`` section. Alternatively, attributes may be documented</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    inline with the attribute</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">s declaration (see __init__ method below).</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Properties created with the ``@property`` decorator should be documented</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    in the property</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">s getter method.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Attributes</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    ----------</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    attr1 : str</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Description of `attr1`.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    attr2 : :obj:`int`, optional</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Description of `attr2`.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+    <span style="color:#e6db74">&#34;&#34;&#34;The summary line for a class docstring should fit on one line.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    If the class has public attributes, they may be documented here
+</span><span style="color:#e6db74">    in an ``Attributes`` section and follow the same formatting as a
+</span><span style="color:#e6db74">    function&#39;s ``Args`` section. Alternatively, attributes may be documented
+</span><span style="color:#e6db74">    inline with the attribute&#39;s declaration (see __init__ method below).
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    Properties created with the ``@property`` decorator should be documented
+</span><span style="color:#e6db74">    in the property&#39;s getter method.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    Attributes
+</span><span style="color:#e6db74">    ----------
+</span><span style="color:#e6db74">    attr1 : str
+</span><span style="color:#e6db74">        Description of `attr1`.
+</span><span style="color:#e6db74">    attr2 : :obj:`int`, optional
+</span><span style="color:#e6db74">        Description of `attr2`.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
 
     <span style="color:#66d9ef">def</span> __init__(self, param1, param2, param3):
-        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Example of docstring on the __init__ method.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        The __init__ method may be documented in either the class level</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        docstring, or as a docstring on the __init__ method itself.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Either form is acceptable, but the two should not be mixed. Choose one</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        convention to document the __init__ method and be consistent with it.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Note</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        ----</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Do not include the `self` parameter in the ``Parameters`` section.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Parameters</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        ----------</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        param1 : str</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">            Description of `param1`.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        param2 : :obj:`list` of :obj:`str`</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">            Description of `param2`. Multiple</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">            lines are supported.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        param3 : :obj:`int`, optional</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">            Description of `param3`.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+        <span style="color:#e6db74">&#34;&#34;&#34;Example of docstring on the __init__ method.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">        The __init__ method may be documented in either the class level
+</span><span style="color:#e6db74">        docstring, or as a docstring on the __init__ method itself.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">        Either form is acceptable, but the two should not be mixed. Choose one
+</span><span style="color:#e6db74">        convention to document the __init__ method and be consistent with it.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">        Note
+</span><span style="color:#e6db74">        ----
+</span><span style="color:#e6db74">        Do not include the `self` parameter in the ``Parameters`` section.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">        Parameters
+</span><span style="color:#e6db74">        ----------
+</span><span style="color:#e6db74">        param1 : str
+</span><span style="color:#e6db74">            Description of `param1`.
+</span><span style="color:#e6db74">        param2 : :obj:`list` of :obj:`str`
+</span><span style="color:#e6db74">            Description of `param2`. Multiple
+</span><span style="color:#e6db74">            lines are supported.
+</span><span style="color:#e6db74">        param3 : :obj:`int`, optional
+</span><span style="color:#e6db74">            Description of `param3`.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
         self<span style="color:#f92672">.</span>attr1 <span style="color:#f92672">=</span> param1
         self<span style="color:#f92672">.</span>attr2 <span style="color:#f92672">=</span> param2
         self<span style="color:#f92672">.</span>attr3 <span style="color:#f92672">=</span> param3  <span style="color:#75715e">#: Doc comment *inline* with attribute</span>
 
         <span style="color:#75715e">#: list of str: Doc comment *before* attribute, with type specified</span>
-        self<span style="color:#f92672">.</span>attr4 <span style="color:#f92672">=</span> [<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">attr4</span><span style="color:#e6db74">&#34;</span>]
+        self<span style="color:#f92672">.</span>attr4 <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;attr4&#34;</span>]
 
         self<span style="color:#f92672">.</span>attr5 <span style="color:#f92672">=</span> None
-        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">str: Docstring *after* attribute, with type specified.</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+        <span style="color:#e6db74">&#34;&#34;&#34;str: Docstring *after* attribute, with type specified.&#34;&#34;&#34;</span>
 
     <span style="color:#a6e22e">@property</span>
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">readonly_property</span>(self):
-        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">str: Properties should be documented in their getter method.</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
-        <span style="color:#66d9ef">return</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">readonly_property</span><span style="color:#e6db74">&#34;</span>
+        <span style="color:#e6db74">&#34;&#34;&#34;str: Properties should be documented in their getter method.&#34;&#34;&#34;</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;readonly_property&#34;</span>
 
     <span style="color:#a6e22e">@property</span>
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">readwrite_property</span>(self):
-        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">:obj:`list` of :obj:`str`: Properties with both a getter and setter</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        should only be documented in their getter method.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        If the setter method contains notable behavior, it should be</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        mentioned here.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
-        <span style="color:#66d9ef">return</span> [<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">readwrite_property</span><span style="color:#e6db74">&#34;</span>]
+        <span style="color:#e6db74">&#34;&#34;&#34;:obj:`list` of :obj:`str`: Properties with both a getter and setter
+</span><span style="color:#e6db74">        should only be documented in their getter method.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">        If the setter method contains notable behavior, it should be
+</span><span style="color:#e6db74">        mentioned here.
+</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+        <span style="color:#66d9ef">return</span> [<span style="color:#e6db74">&#34;readwrite_property&#34;</span>]
 
     <span style="color:#a6e22e">@readwrite_property.setter</span>
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">readwrite_property</span>(self, value):
         value
 
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">example_method</span>(self, param1, param2):
-        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Class methods are similar to regular functions.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Note</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        ----</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Do not include the `self` parameter in the ``Parameters`` section.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Parameters</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        ----------</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        param1</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">            The first parameter.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        param2</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">            The second parameter.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Returns</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        -------</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        bool</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">            True if successful, False otherwise.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+        <span style="color:#e6db74">&#34;&#34;&#34;Class methods are similar to regular functions.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">        Note
+</span><span style="color:#e6db74">        ----
+</span><span style="color:#e6db74">        Do not include the `self` parameter in the ``Parameters`` section.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">        Parameters
+</span><span style="color:#e6db74">        ----------
+</span><span style="color:#e6db74">        param1
+</span><span style="color:#e6db74">            The first parameter.
+</span><span style="color:#e6db74">        param2
+</span><span style="color:#e6db74">            The second parameter.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">        Returns
+</span><span style="color:#e6db74">        -------
+</span><span style="color:#e6db74">        bool
+</span><span style="color:#e6db74">            True if successful, False otherwise.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
         <span style="color:#66d9ef">return</span> True
 
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__special__</span>(self):
-        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">By default special members with docstrings are not included.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Special members are any methods or attributes that start with and</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        end with a double underscore. Any special member with a docstring</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        will be included in the output, if</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        ``napoleon_include_special_with_doc`` is set to True.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        This behavior can be enabled by changing the following setting in</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Sphinx</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">s conf.py::</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">            napoleon_include_special_with_doc = True</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+        <span style="color:#e6db74">&#34;&#34;&#34;By default special members with docstrings are not included.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">        Special members are any methods or attributes that start with and
+</span><span style="color:#e6db74">        end with a double underscore. Any special member with a docstring
+</span><span style="color:#e6db74">        will be included in the output, if
+</span><span style="color:#e6db74">        ``napoleon_include_special_with_doc`` is set to True.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">        This behavior can be enabled by changing the following setting in
+</span><span style="color:#e6db74">        Sphinx&#39;s conf.py::
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">            napoleon_include_special_with_doc = True
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
         <span style="color:#66d9ef">pass</span>
 
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__special_without_docstring__</span>(self):
         <span style="color:#66d9ef">pass</span>
 
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_private</span>(self):
-        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">By default private members are not included.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        Private members are any methods or attributes that start with an</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        underscore and are *not* special. By default they are not included</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        in the output.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        This behavior can be changed such that private members *are* included</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        by changing the following setting in Sphinx</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">s conf.py::</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">            napoleon_include_private_with_doc = True</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+        <span style="color:#e6db74">&#34;&#34;&#34;By default private members are not included.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">        Private members are any methods or attributes that start with an
+</span><span style="color:#e6db74">        underscore and are *not* special. By default they are not included
+</span><span style="color:#e6db74">        in the output.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">        This behavior can be changed such that private members *are* included
+</span><span style="color:#e6db74">        by changing the following setting in Sphinx&#39;s conf.py::
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">            napoleon_include_private_with_doc = True
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
         <span style="color:#66d9ef">pass</span>
 
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_private_without_docstring</span>(self):
         <span style="color:#66d9ef">pass</span>
 </code></pre></div><h2 id="type-hinting-mypy">Type Hinting (mypy)</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># inline types</span>
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> name: str <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Guido</span><span style="color:#e6db74">&#34;</span>
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> pi: float <span style="color:#f92672">=</span> <span style="color:#ae81ff">3.142</span>
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> centered: bool <span style="color:#f92672">=</span> False
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> names: list <span style="color:#f92672">=</span> [<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Guido</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Jukka</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Ivan</span><span style="color:#e6db74">&#34;</span>]
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> version: tuple <span style="color:#f92672">=</span> (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">1</span>)
-<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> options: dict <span style="color:#f92672">=</span> {<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">centered</span><span style="color:#e6db74">&#34;</span>: False, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">capitalize</span><span style="color:#e6db74">&#34;</span>: True}
+<span style="color:#f92672">&gt;&gt;&gt;</span> name: str <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Guido&#34;</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> pi: float <span style="color:#f92672">=</span> <span style="color:#ae81ff">3.142</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> centered: bool <span style="color:#f92672">=</span> False
+<span style="color:#f92672">&gt;&gt;&gt;</span> names: list <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;Guido&#34;</span>, <span style="color:#e6db74">&#34;Jukka&#34;</span>, <span style="color:#e6db74">&#34;Ivan&#34;</span>]
+<span style="color:#f92672">&gt;&gt;&gt;</span> version: tuple <span style="color:#f92672">=</span> (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">1</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> options: dict <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;centered&#34;</span>: False, <span style="color:#e6db74">&#34;capitalize&#34;</span>: True}
 
 <span style="color:#75715e"># should use special types - composite types</span>
 <span style="color:#f92672">from</span> typing <span style="color:#f92672">import</span> Dict, List, Tuple
-names: List[str] <span style="color:#f92672">=</span> [<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">...</span><span style="color:#e6db74">&#34;</span>]
+names: List[str] <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;...&#34;</span>]
 version: Tuple[int, int, int] <span style="color:#f92672">=</span> (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">1</span>)
-options: Dict[str, bool] <span style="color:#f92672">=</span> <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+options: Dict[str, bool] <span style="color:#f92672">=</span> <span style="color:#f92672">...</span>
 
 <span style="color:#75715e"># more composite types: Counter, Deque, FrozenSet, NamedTuple, Set</span>
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">create_deck</span>(shuffle: bool <span style="color:#f92672">=</span> False) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> List[Tuple[str, str]]:
-    <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">create_deck</span>(shuffle: bool <span style="color:#f92672">=</span> False) <span style="color:#f92672">-&gt;</span> List[Tuple[str, str]]:
+    <span style="color:#f92672">...</span>
    
 <span style="color:#75715e"># if care not the content of sequence, use typing.Sequence</span>
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">square</span>(elems: Sequence[float]) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> List[float]:
-    <span style="color:#66d9ef">return</span> [x<span style="color:#f92672">*</span><span style="color:#f92672">*</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> elems]
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">square</span>(elems: Sequence[float]) <span style="color:#f92672">-&gt;</span> List[float]:
+    <span style="color:#66d9ef">return</span> [x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> elems]
 
 <span style="color:#75715e"># aliasing (save repeating certain types)</span>
 Card <span style="color:#f92672">=</span> Tuple[str, str]
 Deck <span style="color:#f92672">=</span> List[Card]
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">deal_hands</span>(deck: Deck) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> Tuple[Deck, Deck, Deck, Deck]:
-     <span style="color:#66d9ef">return</span> (deck[<span style="color:#ae81ff">0</span>::<span style="color:#ae81ff">4</span>], <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">deal_hands</span>(deck: Deck) <span style="color:#f92672">-&gt;</span> Tuple[Deck, Deck, Deck, Deck]:
+     <span style="color:#66d9ef">return</span> (deck[<span style="color:#ae81ff">0</span>::<span style="color:#ae81ff">4</span>], <span style="color:#f92672">...</span>)
     
 <span style="color:#75715e"># TypeVar - special var taking on any type, conditioned</span>
-Choosable <span style="color:#f92672">=</span> TypeVar(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Chooseable</span><span style="color:#e6db74">&#34;</span>)
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">choose</span>(items: Sequence[Choosable]) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> Choosable: 
+Choosable <span style="color:#f92672">=</span> TypeVar(<span style="color:#e6db74">&#34;Chooseable&#34;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">choose</span>(items: Sequence[Choosable]) <span style="color:#f92672">-&gt;</span> Choosable: 
     <span style="color:#66d9ef">return</span> random<span style="color:#f92672">.</span>choice(items)
-reveal_type(choose([<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Python</span><span style="color:#e6db74">&#34;</span>], <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">7</span>)) <span style="color:#75715e"># does its best to accommodate</span>
+reveal_type(choose([<span style="color:#e6db74">&#34;Python&#34;</span>], <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">7</span>)) <span style="color:#75715e"># does its best to accommodate</span>
 <span style="color:#75715e"># now with constrain</span>
-Choosable <span style="color:#f92672">=</span> TypeVar(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Choosable</span><span style="color:#e6db74">&#34;</span>, str, float)
+Choosable <span style="color:#f92672">=</span> TypeVar(<span style="color:#e6db74">&#34;Choosable&#34;</span>, str, float)
 
 <span style="color:#75715e"># protocol specifies one ore more methods that must be implemented</span>
 <span style="color:#75715e"># e.g. all cls defining .__len__() fulfull the typing.Size protocol</span>
 <span style="color:#75715e"># therefore annotate len() as :</span>
 <span style="color:#f92672">from</span> typing <span style="color:#f92672">import</span> Sized
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">len</span>(obj: Sized) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> int:
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">len</span>(obj: Sized) <span style="color:#f92672">-&gt;</span> int:
     <span style="color:#66d9ef">return</span> obj<span style="color:#f92672">.</span>__len__()
 <span style="color:#75715e"># other protocols defined include Container, Iterable, Awaitable, ContextManager</span>
 <span style="color:#75715e"># custom protocol</span>
 <span style="color:#f92672">from</span> typing_extensions <span style="color:#f92672">import</span> Protocol
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Sized</span>(Protocol):
-    <span style="color:#66d9ef">def</span> __len__(self) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> int: <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">len</span>(obj: Sized) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> int:
+    <span style="color:#66d9ef">def</span> __len__(self) <span style="color:#f92672">-&gt;</span> int: <span style="color:#f92672">...</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">len</span>(obj: Sized) <span style="color:#f92672">-&gt;</span> int:
     <span style="color:#66d9ef">return</span> obj<span style="color:#f92672">.</span>__len__()
 
 <span style="color:#75715e"># Optional for None/other argument case</span>
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">player_order</span>(
 	names: Sequence[str], start: Optional[str] <span style="color:#f92672">=</span> None
-) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> Sequence[str]:
-    <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+) <span style="color:#f92672">-&gt;</span> Sequence[str]:
+    <span style="color:#f92672">...</span>
 <span style="color:#75715e"># hence a var either has the type specified or is None </span>
 <span style="color:#75715e"># equivalent: Union[None, str]</span>
 <span style="color:#75715e"># NOTE: when using Optional or Union, must take care of correct type!</span>
 <span style="color:#75715e"># by testing var is type !! else causes static type errors and runtime errors!!</span>
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">player_order</span>(
-	<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span> <span style="color:#f92672">=</span> None
-) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> Sequence[str]:
+	<span style="color:#f92672">...</span> <span style="color:#f92672">=</span> None
+) <span style="color:#f92672">-&gt;</span> Sequence[str]:
     start_idx <span style="color:#f92672">=</span> names<span style="color:#f92672">.</span>index(start)
     <span style="color:#66d9ef">return</span> names[start_idx:] <span style="color:#f92672">+</span> names[:start_idx]
 <span style="color:#75715e"># mypy code.py &gt;&gt;&gt; Arg 1 to &#34;index&#34; of &#34;list&#34; has incompatible type</span>
@@ -1426,9 +1426,9 @@ Choosable <span style="color:#f92672">=</span> TypeVar(<span style="color:#e6db7
 <span style="color:#75715e"># Class types has special cases such as internal returns</span>
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Deck</span>:
     <span style="color:#a6e22e">@classmethod</span>
-    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">create</span>(cls, shuffle: bool <span style="color:#f92672">=</span> False) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Deck</span><span style="color:#e6db74">&#34;</span>:
-        cards <span style="color:#f92672">=</span> <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
-        <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">create</span>(cls, shuffle: bool <span style="color:#f92672">=</span> False) <span style="color:#f92672">-&gt;</span> <span style="color:#e6db74">&#34;Deck&#34;</span>:
+        cards <span style="color:#f92672">=</span> <span style="color:#f92672">...</span>
+        <span style="color:#f92672">...</span>
         <span style="color:#66d9ef">return</span> cls(cards)
 <span style="color:#75715e"># with __future__ import annotations, can use Deck instead of &#34;Deck&#34; </span>
 <span style="color:#75715e"># EVEN BEFORE Deck is defined !!! `def create(...) -&gt; Deck:`</span>
@@ -1438,22 +1438,22 @@ Choosable <span style="color:#f92672">=</span> TypeVar(<span style="color:#e6db7
 <span style="color:#75715e"># ONE case might be needed! Superclass inheritance returning cls/self</span>
 <span style="color:#f92672">from</span> datetime <span style="color:#f92672">import</span> date
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Animal</span>:
-    <span style="color:#66d9ef">def</span> __init__(self, name: str, birthday: date) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> None:
+    <span style="color:#66d9ef">def</span> __init__(self, name: str, birthday: date) <span style="color:#f92672">-&gt;</span> None:
         self<span style="color:#f92672">.</span>name <span style="color:#f92672">=</span> name
         self<span style="color:#f92672">.</span>birthday <span style="color:#f92672">=</span> birthday
         
 	<span style="color:#a6e22e">@classmethod</span>
-    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">newborn</span>(cls, name: str) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Animal</span><span style="color:#e6db74">&#34;</span>:
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">newborn</span>(cls, name: str) <span style="color:#f92672">-&gt;</span> <span style="color:#e6db74">&#34;Animal&#34;</span>:
         <span style="color:#66d9ef">return</span> cls(name, date<span style="color:#f92672">.</span>today())
-    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">twin</span>(self, name: str) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Animal</span><span style="color:#e6db74">&#34;</span>:
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">twin</span>(self, name: str) <span style="color:#f92672">-&gt;</span> <span style="color:#e6db74">&#34;Animal&#34;</span>:
         cls <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>__class__
         <span style="color:#66d9ef">return</span> cls(name, self<span style="color:#f92672">.</span>birthday)
     
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Dog</span>(Animal):
-    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">bark</span>(self) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> None:
-        <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{self.name} says woof!</span><span style="color:#e6db74">&#34;</span>)
-fido <span style="color:#f92672">=</span> Dog<span style="color:#f92672">.</span>newborn(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Fido</span><span style="color:#e6db74">&#34;</span>)
-pluto <span style="color:#f92672">=</span> fido<span style="color:#f92672">.</span>twin(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Pluto</span><span style="color:#e6db74">&#34;</span>)
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">bark</span>(self) <span style="color:#f92672">-&gt;</span> None:
+        <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;{self.name} says woof!&#34;</span>)
+fido <span style="color:#f92672">=</span> Dog<span style="color:#f92672">.</span>newborn(<span style="color:#e6db74">&#34;Fido&#34;</span>)
+pluto <span style="color:#f92672">=</span> fido<span style="color:#f92672">.</span>twin(<span style="color:#e6db74">&#34;Pluto&#34;</span>)
 fido<span style="color:#f92672">.</span>bark()
 pluto<span style="color:#f92672">.</span>bark()
 <span style="color:#75715e"># mypy dogs.py &gt;&gt;&gt; error: &#34;Animal&#34; has no attribute &#34;bark&#34; x2</span>
@@ -1462,15 +1462,15 @@ pluto<span style="color:#f92672">.</span>bark()
 <span style="color:#75715e"># Hence be careful to ensure annotation is correct!!!</span>
 <span style="color:#75715e"># return type should match type of self/cls by tracking</span>
 <span style="color:#f92672">from</span> typing <span style="color:#f92672">import</span> Type, TypeVar
-TAnimal <span style="color:#f92672">=</span> TypeVar(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">TAnimal</span><span style="color:#e6db74">&#34;</span>, bound<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Animal</span><span style="color:#e6db74">&#34;</span>)
+TAnimal <span style="color:#f92672">=</span> TypeVar(<span style="color:#e6db74">&#34;TAnimal&#34;</span>, bound<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Animal&#34;</span>)
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Animal</span>:
-    <span style="color:#66d9ef">def</span> __init__(<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> None:
-        <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+    <span style="color:#66d9ef">def</span> __init__(<span style="color:#f92672">...</span>) <span style="color:#f92672">-&gt;</span> None:
+        <span style="color:#f92672">...</span>
     <span style="color:#a6e22e">@classmethod</span>
-    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">newborn</span>(cls: Type[TAnimal], name: str) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> TAnimal:
-        <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
-	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">twin</span>(self: TAnimal, name: str) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> TAnimal:
-        <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">newborn</span>(cls: Type[TAnimal], name: str) <span style="color:#f92672">-&gt;</span> TAnimal:
+        <span style="color:#f92672">...</span>
+	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">twin</span>(self: TAnimal, name: str) <span style="color:#f92672">-&gt;</span> TAnimal:
+        <span style="color:#f92672">...</span>
 <span style="color:#75715e"># TAnimal (TypeVar) used to denote return values might be inheritances of subcls of Animal</span>
 <span style="color:#75715e"># Animal is an upper bound for TAnimal, meaning only be Animal or one of its subcls</span>
 <span style="color:#75715e"># typing.Type[] is the typing equivalent of type() - noting that cls method expects a class</span>
@@ -1478,24 +1478,24 @@ TAnimal <span style="color:#f92672">=</span> TypeVar(<span style="color:#e6db74"
 
 <span style="color:#75715e"># Funcs and Methods</span>
 <span style="color:#f92672">from</span> typing <span style="color:#f92672">import</span> Callable
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">do_twice</span>(func: Callable[[str], str], arg: str) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> str:
-    <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">do_twice</span>(func: Callable[[str], str], arg: str) <span style="color:#f92672">-&gt;</span> str:
+    <span style="color:#f92672">...</span>
     
     
 <span style="color:#75715e"># EXAMPLE</span>
 <span style="color:#f92672">from</span> typing <span style="color:#f92672">import</span> Tuple, Iterable, Dict, List, DefaultDict
 <span style="color:#f92672">from</span> collections <span style="color:#f92672">import</span> defaultdict
 
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">create_tree</span>(tuples: Iterable[Tuple[int, int]]) <span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span> DefaultDict[int, List[int]]:
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Return a tree given tuples of (child, father)</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    The tree structure is as follows:</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">        tree = {node_1: [node_2, node_3], </span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">                node_2: [node_4, node_5, node_6],</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">                node_6: [node_7, node_8]}</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">create_tree</span>(tuples: Iterable[Tuple[int, int]]) <span style="color:#f92672">-&gt;</span> DefaultDict[int, List[int]]:
+    <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    Return a tree given tuples of (child, father)
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    The tree structure is as follows:
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">        tree = {node_1: [node_2, node_3], 
+</span><span style="color:#e6db74">                node_2: [node_4, node_5, node_6],
+</span><span style="color:#e6db74">                node_6: [node_7, node_8]}
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
     tree <span style="color:#f92672">=</span> defaultdict(list) 
     <span style="color:#66d9ef">for</span> child, father <span style="color:#f92672">in</span> tuples:
         <span style="color:#66d9ef">if</span> father:
@@ -1531,10 +1531,10 @@ tree: DefaultDict[int, List[int]] <span style="color:#f92672">=</span> defaultdi
 	- test_advanced.py
 </code></pre></div><p><strong>Makefile</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-makefile" data-lang="makefile"><span style="color:#a6e22e">init</span><span style="color:#f92672">:</span>
-<span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">p</span> <span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">a</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">l</span> <span style="color:#960050;background-color:#1e0010">-</span><span style="color:#960050;background-color:#1e0010">r</span> <span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">q</span><span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">m</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">x</span><span style="color:#960050;background-color:#1e0010">t</span>
+<span style="color:#960050;background-color:#1e0010">pip</span> <span style="color:#960050;background-color:#1e0010">install</span> <span style="color:#960050;background-color:#1e0010">-r</span> <span style="color:#960050;background-color:#1e0010">requirements.txt</span>
 
 <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span>
-<span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">y</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">t</span> <span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">s</span>
+<span style="color:#960050;background-color:#1e0010">py.test</span> <span style="color:#960050;background-color:#1e0010">tests</span>
 </code></pre></div><h3 id="pipenv---python-new-packaging-tool">PIPENV - Python new packaging tool</h3>
 <ul>
 <li>solving issues with pip, virtualenv, and good old requirements.txt</li>
@@ -1543,14 +1543,14 @@ tree: DefaultDict[int, List[int]] <span style="color:#f92672">=</span> defaultdi
 <p><strong>Dependency MGT with requirements.txt</strong></p>
 <ul>
 <li>no version control</li>
-<li>okey, there's <code>flaks==0.12.1</code></li>
-<li>BUT keep in mind that flask itself has depens as well (which pip installs automatically) BUT flask doesn't specify exact versions for its depens</li>
-<li>So when flask's depens updated, the above flask version installed BUT also the latest, buggy version of its depens</li>
+<li>okey, there&rsquo;s <code>flaks==0.12.1</code></li>
+<li>BUT keep in mind that flask itself has depens as well (which pip installs automatically) BUT flask doesn&rsquo;t specify exact versions for its depens</li>
+<li>So when flask&rsquo;s depens updated, the above flask version installed BUT also the latest, buggy version of its depens</li>
 <li>issue: <strong>BUILD IS NOT DETERMINISTIC</strong>
 <ul>
 <li>typical solution <code>pip freeze</code></li>
 <li>BUT it leads to a whole new set of problems!!</li>
-<li>now exact versions of all pkgs specified, you are responsible for keeping them up to date!! even they're sub-depens of flask  - what if there's a security hole discovered in Werkzeug==0.14.1 that the keeper at once patched in new .2? YOU NEED to update that version to .2 to avoid any security issues</li>
+<li>now exact versions of all pkgs specified, you are responsible for keeping them up to date!! even they&rsquo;re sub-depens of flask  - what if there&rsquo;s a security hole discovered in Werkzeug==0.14.1 that the keeper at once patched in new .2? YOU NEED to update that version to .2 to avoid any security issues</li>
 </ul>
 </li>
 </ul>
@@ -1634,7 +1634,7 @@ tree: DefaultDict[int, List[int]] <span style="color:#f92672">=</span> defaultdi
 <p>Pipfile.lock</p>
 <ul>
 <li>JSON with hashes</li>
-<li>even sub-depens like werkzeug that aren't in Pipfile appear in lock, with hashes used to ensure you're retrieving the same pkg as did in dev</li>
+<li>even sub-depens like werkzeug that aren&rsquo;t in Pipfile appear in lock, with hashes used to ensure you&rsquo;re retrieving the same pkg as did in dev</li>
 </ul>
 </li>
 <li>

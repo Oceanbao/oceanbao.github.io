@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<meta name="description" content="Ocean on GitHub.">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:domain" content="https://oceanbao.github.io/">
+
+<meta name="twitter:image" content="https://oceanbao.github.io/tn.png">
+<meta name="twitter:title" property="og:title" itemprop="title name" content="Ocean Ode">
+<meta name="twitter:description" property="og:description" itemprop="description" content="Ocean on GitHub.">
+<meta name="og:type" content="website">
+<meta name="og:url" content="https://oceanbao.github.io/">
+<meta name="og:image" itemprop="image primaryImageOfPage" content="https://oceanbao.github.io/tn.png">
+
+<link rel="shortcut icon" href="https://oceanbao.github.io/oceanicon.jpg" id="favicon">
+<link rel="stylesheet" href="https://oceanbao.github.io/css/style.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+
+
+    
+
+    
+    
+    
+    <title>
+        
+        Nginx
+        
+    </title>
+</head>
+
+<body>
+
+    <div class="wrap">
+        <div class="section" id="title">Nginx</div>
+        <aside>
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#intro">Intro</a></li>
+    <li><a href="#http-proxying">HTTP Proxying</a>
+      <ul>
+        <li><a href="#basic-http-proxy-pass">Basic HTTP Proxy Pass</a></li>
+        <li><a href="#header-processing">Header Processing</a></li>
+        <li><a href="#defining-upstream-context-for-lb-proxied-connections">Defining Upstream Context for LB Proxied Connections</a></li>
+        <li><a href="#changing-upstream-balancing-algorithm">Changing Upstream Balancing Algorithm</a></li>
+        <li><a href="#setting-server-weight-for-balancing">Setting Server Weight for Balancing</a></li>
+        <li><a href="#using-buffers-to-free-up-backend-servers">Using Buffers to Free Up Backend Servers</a></li>
+        <li><a href="#high-availability">High Availability</a></li>
+        <li><a href="#caching-to-reduce-response-times">Caching to Reduce Response Times</a></li>
+      </ul>
+    </li>
+    <li><a href="#haproxy-to-lb-mysql">HAProxy to LB MySQL</a></li>
+  </ul>
+</nav>
+        </aside>
+        <div class="section" id="content"><h2 id="intro">Intro</h2>
+<blockquote>
+<p>General description &amp; explanation about nginx</p>
+</blockquote>
+<h2 id="http-proxying">HTTP Proxying</h2>
+<blockquote>
+<p>Capability to pass requests off to backend HTTP servers for further processing.</p>
+</blockquote>
+<ul>
+<li>Nginx is often set up as **reverse proxy solution to help scale out infras or to pass requests to other servers that are not designed to handle large client loads.</li>
+<li>Buffering and caching features for improving performance</li>
+</ul>
+<blockquote>
+<ol>
+<li>Handle many concurrent connections at once; ideal for acting/proxying as Point-of-Contant for clients.</li>
+<li>Fan-out to arbitrary backend servers, great for maintenance and scale-up-down.</li>
+<li>Proxying achieved by manipulating a request aimed at Nginx server and passing it to other servers for actual processing; results passing back, relayed to client. The other servers (remote, local, virtual) aka <strong>upstream servers</strong>**</li>
+</ol>
+</blockquote>
+<h3 id="basic-http-proxy-pass">Basic HTTP Proxy Pass</h3>
+<ul>
+<li>&ldquo;proxy pass&rdquo; handled by <code>proxy_pass</code> directive</li>
+<li>mainly found in location context; also valid in <code>if</code> blocks within location context and in <code>limit_except</code> contexts</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nginx" data-lang="nginx"><span style="color:#75715e"># server context
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">location</span> <span style="color:#e6db74">/match/here</span> {
+    <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">http://example.com</span>;
+}
+</code></pre></div><ul>
+<li>this config has no URI given at the end of server in the <code>proxy_pass</code> definition</li>
+<li>for definitions that fit this pattern, the URI requested by the client will be passed to the upstream server as-is</li>
+<li>e.g. when a request for <code>/match/here/please</code> is handled by this block, the request URI will be sent to <code>example.com</code> via HTTP as <code>http://example.com/match/here/please</code></li>
+</ul>
+<p><strong>Alternative Scenario</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nginx" data-lang="nginx"><span style="color:#75715e"># server context
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">location</span> <span style="color:#e6db74">/match/here</span> {
+    <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">http://example.com/new/prefix</span>;
+}
+</code></pre></div><ul>
+<li>here the proxy server is defined with a URI segment on the end (/new/prefix)</li>
+<li>when a URI is given in <code>proxy_pass</code> definition, the portion of the request matching the <em>location</em> definition is replaced by this URI during the pass</li>
+<li>e.g. a request for /match/here/please on Nginx server will be passed to the upstream server as <code>http://example.com/new/prefix/please</code> ; the /match/here is replaced by /new/prefix - <strong>this is important point to keep in mind</strong></li>
+</ul>
+<blockquote>
+<p>sometimes this kind of replacement is impossible: then URI at end of <code>proxy_pass</code> is ignored and either the original URI from the client or the URI as modified by other directives will be passed to upstream server</p>
+</blockquote>
+<ul>
+<li>such as when location is matched using regex, Nginx cannot ascertain which part of URI matched, so it sends the original client request URI. Or when a rewrite directive is used within the same location, causing the client URI to be rewritten, but still handled in the same block - rewritten URI will be passed</li>
+</ul>
+<h3 id="header-processing">Header Processing</h3>
+<ul>
+<li><strong>important</strong> to pass <strong>more than just the URI if expected the upstream server handle the request properly</strong>. The request coming from Nginx on behalf of a client will look different than a request directly - as shown in <strong>header</strong></li>
+<li>auto-adjust headers via proxying a request:
+<ul>
+<li>rid of any empty headers - rid of bloating</li>
+<li>default treat any underscores invalid - removing these from proxied request - if wish as valid, set <code>underscores_in_headers</code> directive to &ldquo;on&rdquo;</li>
+<li>&ldquo;Host&rdquo; header is re-written to the value defined by the <code>$proxy_host</code> - IP addr or name and port number of upstream, directly as defined by <code>proxy_pass</code></li>
+<li>&ldquo;Connection&rdquo; header changed to &ldquo;close&rdquo; - for signaling info about particular connection - here Nginx sets to &ldquo;close&rdquo; to indicate to upstream server that this conn will be closed once the original request is responded to - upstream shan&rsquo;t expect persistent conn</li>
+</ul>
+</li>
+<li>effectively, any header <strong>do not want to pass</strong> should be set <strong>empty string</strong></li>
+<li>if backend app will be processing non-standard headers, <strong>must ensure sans underscores</strong> (or flags in http context or in the context of the default server declaration for IP/port combo)</li>
+<li><strong>Host header</strong> is important in most proxying scenarios - default set to <code>$proxy_host</code>, a variable containing domain name or IP/port taken directly from <code>proxy_pass</code> definition - default being the only addr Nginx can be sure the upstream server responds to; <strong>most common values for &ldquo;Host&rdquo; header</strong>:
+<ul>
+<li><code>$proxy_host</code> - &ldquo;safe&rdquo; from Nginx view, but often not needed by proxied server to correctly handle the request</li>
+<li><code>$http_host</code> - set to &ldquo;Host&rdquo; header from client request; headers sent by client are always available in Nginx as variables - they start with an <code>$http_prefix</code>, followed by header name in lowercase, with any dashes replaced by underscores - although <code>$http_host</code> works most times, when lcient request does not have valid &ldquo;Host&rdquo; header, this can cause pass to fail</li>
+<li><code>$host</code> - set in order of preference to: the host name from request line itself, the &ldquo;Host&rdquo; header from client request, or server name matching request</li>
+</ul>
+</li>
+<li>In most cases, one would set &ldquo;Host&rdquo; header to <code>$host</code>, the most flexible and usually accurately filled in for the proxied servers</li>
+</ul>
+<p><strong>Setting or Resetting Headers</strong></p>
+<ul>
+<li>to adjust headers, can use <code>proxy_set_header</code> directive - such as changing &ldquo;Host&rdquo; header as above, and adding some extra headers common with proxied requests:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nginx" data-lang="nginx"><span style="color:#75715e"># server context
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">location</span> <span style="color:#e6db74">/match/here</span> {
+    <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">HOST</span> $host;
+    <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Forwarded-Proto</span> $scheme;
+    <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Real-IP</span> $remote_addr;
+    <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Forwarded-For</span> $proxy_add_x_forwarded_for;
+    
+    <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">http://example.com/new/prefix</span>;
+}
+</code></pre></div><ul>
+<li>
+<p><code>$host</code> should contain info of original host being requested</p>
+</li>
+<li>
+<p><code>X-Forwarded-Proto</code> a general key (same in HAProxy) header gives the proxied server info on the schema of the original client request (http or https)</p>
+</li>
+<li>
+<p><code>X-Real-IP</code> set to IP of client so that proxy can correctly make decisions or log based on this</p>
+</li>
+<li>
+<p><code>X-Forwarded-For</code> header a list of IP of each server the client has been proxied through hitherto - e.g. above append Nginx server&rsquo;s IP to retrieved header from client</p>
+</li>
+<li>
+<p>Can add <code>proxy_set_header</code> directives out to server or http context, allowing it to be referenced in more than one location:</p>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nginx" data-lang="nginx"><span style="color:#75715e"># server context
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">proxy_set_header</span> <span style="color:#e6db74">HOST</span> $host;
+<span style="color:#66d9ef">proxy_set_header</span> <span style="color:#e6db74">X-Forwarded-Proto</span> $scheme;
+<span style="color:#66d9ef">proxy_set_header</span> <span style="color:#e6db74">X-Real-IP</span> $remote_addr;
+<span style="color:#66d9ef">proxy_set_header</span> <span style="color:#e6db74">X-Forwarded-For</span> $proxy_add_x_forwarded_for;
+
+<span style="color:#66d9ef">location</span> <span style="color:#e6db74">/match/here</span> {
+    <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">http://example.com/new/prefix</span>;
+}
+
+<span style="color:#66d9ef">location</span> <span style="color:#e6db74">/different/match</span> {
+    <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">http://example.com</span>;
+}
+</code></pre></div><h3 id="defining-upstream-context-for-lb-proxied-connections">Defining Upstream Context for LB Proxied Connections</h3>
+<ul>
+<li>Above shows simple http proxy to single backend server. Here&rsquo;s scaling out to entire pools of backend servers</li>
+<li>One way is <code>upstream</code> directive to define a pool of servers - assuming any one of listed servers capable of handling client request - allowing scale out infra with almost no effort <strong>must be set in http context</strong></li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nginx" data-lang="nginx"><span style="color:#75715e"># http context
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">upstream</span> <span style="color:#e6db74">backend_hosts</span> {
+    <span style="color:#f92672">server</span> <span style="color:#e6db74">host1.example.com</span>;
+    <span style="color:#f92672">server</span> <span style="color:#e6db74">host2.example.com</span>;
+    <span style="color:#f92672">server</span> <span style="color:#e6db74">host3.example.com</span>;
+}    
+
+<span style="color:#66d9ef">server</span> {
+    <span style="color:#f92672">listen</span> <span style="color:#ae81ff">80</span>;
+    <span style="color:#f92672">server_name</span> <span style="color:#e6db74">example.com</span>;
+    
+    <span style="color:#f92672">location</span> <span style="color:#e6db74">/proxy-me</span> {
+        <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">http://backend_hosts</span>;
+    }
+}
+</code></pre></div><ul>
+<li><code>backend_hosts</code> name available as regular domain name used in <code>server</code></li>
+</ul>
+<h3 id="changing-upstream-balancing-algorithm">Changing Upstream Balancing Algorithm</h3>
+<ul>
+<li><strong>round robin (default)</strong></li>
+<li><strong><code>least_conn</code></strong> : given to least number of active connections - useful in persistent backend</li>
+<li><strong><code>ip_hash</code></strong> : IP-based routing - serving clients by same server each time - helpful in session consistency</li>
+<li><strong><code>hash</code></strong> : mainly used in memcached proxying - servers divided based on value of arbitrary hash key - text, variable, or combo - the only algo requiring user provision of data</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nginx" data-lang="nginx"><span style="color:#75715e"># http context
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">upstream</span> <span style="color:#e6db74">backend_hosts</span> {
+    
+    <span style="color:#f92672">least_conn</span>;
+    
+    <span style="color:#75715e"># hash $remote_addr$remote_port consistent;
+</span><span style="color:#75715e"></span>    
+    <span style="color:#f92672">server</span> <span style="color:#e6db74">host1.example.com</span>;
+    <span style="color:#f92672">...</span>
+<span style="color:#960050;background-color:#1e0010">}</span>
+</code></pre></div><h3 id="setting-server-weight-for-balancing">Setting Server Weight for Balancing</h3>
+<ul>
+<li>default each server equally &ldquo;weighted&rdquo; to handle same amount of load</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nginx" data-lang="nginx"><span style="color:#75715e"># http context
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">upstream</span> <span style="color:#e6db74">backend_hosts</span> {
+    <span style="color:#f92672">server</span> <span style="color:#e6db74">host1.example.com</span> <span style="color:#e6db74">weight=3</span>;
+    <span style="color:#f92672">...</span>
+<span style="color:#960050;background-color:#1e0010">}</span>
+</code></pre></div><ul>
+<li>host1 will receive 3x as other two servers (default weight =1)</li>
+</ul>
+<h3 id="using-buffers-to-free-up-backend-servers">Using Buffers to Free Up Backend Servers</h3>
+<ul>
+<li>One issue is impact of adding server to the process - most cases largely mitigated by taking advantage of Nginx&rsquo;s buffering and caching capabilities</li>
+<li>When proxying to another server, speed of two diff connections will affect client&rsquo;s experience:
+<ul>
+<li>conn from client to Nginx proxy</li>
+<li>conn from Nginx proxy to backend server</li>
+</ul>
+</li>
+<li>Nginx has ability to adjust its behaviour based on whichever one of these conn wish to optimise</li>
+<li>Without buffers, data is sent from <strong>proxied server and immediately begins to be transmitted to client</strong>. If clients assumed to be fast, buffering can be turned off for speed. With buffers, Nginx proxy will temp-store backend&rsquo;s response and then feed data to the client - if client slow, allows Nginx server to close conn to backend sooner - can then handle distributing the data to client at whatever pace possible</li>
+<li>Default buffering design since clients tend to have vastly diff speeds - can adjust with directives (set in http, server, or location contexts) <strong>important: sizing directives are configured per request, so increasing them beyond need can affect speed when many client requests</strong>
+<ul>
+<li><strong><code>proxy_buffering</code></strong> :  enable context and child contexts buffering, default &lsquo;on&rsquo;</li>
+<li><strong><code>proxy_buffers</code></strong>: number (first arg) and size (second arg) of buffers for proxied responses - default to 8 buffers of size == one memory page (4k or 8k)</li>
+<li><strong><code>proxy_buffer_size</code></strong> : initial portion of response from backend server containing headers is buffered separately from rest of response - set size of buffer for this portion - default same size == above</li>
+<li><strong><code>proxy_busy_buffers_size</code></strong> : set max size of buffers can be marked &ldquo;client-ready&rdquo; and thus busy - while client can only read data from one buffer a time, buffers are placed in queue to send client in bunches - controls size of buffer space allowed to be in this state</li>
+<li><strong><code>proxy_max_temp_file_size</code></strong> : max size, per request, for temp-file on disk - created when upstream response is too large to fit into a buffer</li>
+<li><strong><code>proxy_temp_file_write_size</code></strong> : amount of data Nginx will write to the temp-file at one time when proxied server&rsquo;s response is too large for configured buffers</li>
+<li><strong><code>proxy_temp_path</code></strong>: path to area on disk where Nginx should store any temp-fiels when response from upstream server cannot fit into configured buffers</li>
+</ul>
+</li>
+<li>probably most useful directive to adjust are <code>proxy_buffers</code> and <code>proxy_buffer_size</code></li>
+<li>Example: up number of available proxy buffers for each upstream request, while trimming down buffer that likely stores the headers</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nginx" data-lang="nginx"><span style="color:#75715e"># server context
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">proxy_buffering</span> <span style="color:#66d9ef">on</span>;
+<span style="color:#66d9ef">proxy_buffer_size</span> <span style="color:#ae81ff">1k</span>;
+<span style="color:#66d9ef">proxy_buffers</span> <span style="color:#ae81ff">24</span> <span style="color:#ae81ff">4k</span>;
+<span style="color:#66d9ef">proxy_busy_buffers_size</span> <span style="color:#ae81ff">8k</span>;
+<span style="color:#66d9ef">proxy_max_temp_file_size</span> <span style="color:#ae81ff">2048m</span>;
+<span style="color:#66d9ef">proxy_temp_file_write_size</span> <span style="color:#ae81ff">32k</span>;
+
+<span style="color:#66d9ef">location</span> <span style="color:#e6db74">/</span> {
+    <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">http://example.com</span>;
+}
+</code></pre></div><ul>
+<li>In contrast, if having fast client able to take on speed conn, can turn buffering off completely - actually still use buffers if upstream is faster than client, but will immediately try to flush dat to client instead of waiting for buffer to pool</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nginx" data-lang="nginx"><span style="color:#75715e"># server context
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">proxy_buffering</span> <span style="color:#66d9ef">off</span>;
+<span style="color:#66d9ef">proxy_buffer_size</span> <span style="color:#ae81ff">4k</span>;
+
+<span style="color:#66d9ef">...</span>
+</code></pre></div><h3 id="high-availability">High Availability</h3>
+<ul>
+<li>Making robust via redundant set of LBs</li>
+</ul>
+<p><img src="https://assets.digitalocean.com/articles/high_availability/ha-diagram-animated.gif" alt="Image"></p>
+<h3 id="caching-to-reduce-response-times">Caching to Reduce Response Times</h3>
+<ul>
+<li>While buffering can help free up backend server to handle more requests, Nginx also provides way to cache content from backend servers, eliminating need to connect to upstream at all for many requests</li>
+<li><code>proxy_cache_path</code> directive to create an area where data returned from proxied servers be kept (<strong>must set in http context</strong>)</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nginx" data-lang="nginx"><span style="color:#75715e"># http context
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">proxy_cache_path</span> <span style="color:#e6db74">/var/lib/nginx/cache</span> <span style="color:#e6db74">levels=1:2</span> <span style="color:#e6db74">keys_zone=backcache:8m</span> <span style="color:#e6db74">max_size=50m</span>;
+<span style="color:#66d9ef">proxy_cache_key</span> <span style="color:#e6db74">&#34;</span>$scheme$request_method$host$request_uri$is_args$args&#34;;
+<span style="color:#66d9ef">proxy_cache_valid</span> <span style="color:#ae81ff">200</span> <span style="color:#ae81ff">302</span> <span style="color:#ae81ff">10m</span>;
+<span style="color:#66d9ef">proxy_cache_valid</span> <span style="color:#ae81ff">404</span> <span style="color:#ae81ff">1m</span>;
+</code></pre></div><ul>
+<li>If cache area not exist, can create it with correct permission and ownership</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo mkdir -p /var/lib/nginx/cache
+sudo chown www-data /var/lib/nginx/cahce
+sudo chmod <span style="color:#ae81ff">700</span> /var/lib/nginx/cache
+</code></pre></div><ul>
+<li><code>levels=</code> specifies how cache will be organised - a cache key created by hashing the value of a key (configured below) - &ldquo;a single char dir (last char of hashed value) with two chars subdir (taken from next two chars from end of hased value)&rdquo;</li>
+<li><code>keys_zone</code> defines name for cache zone, also how much metadata to store is defined here. e.g. 8MB of keys each MB can store 8000 entries - <code>max_size</code> sets max size of actual cached data</li>
+<li><code>proxy_cache_key</code> set the key used to store cached values - same key used to check if a request can be served from cache - e.g. setting this as combo of scheme (http/https), the HTTP request method, and requested host and URI</li>
+<li><code>proxy_cache_valid</code> can be specified multiple times to configure how long to store values depending on status code - e.g. store successes and redirects for 10 minutes expiring cache for 404 responses every minute</li>
+<li>Below tells Nginx when to use cache - in locations where proxy to a backend</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nginx" data-lang="nginx"><span style="color:#75715e"># server context
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">location</span> <span style="color:#e6db74">/proxy-me</span> {
+    <span style="color:#f92672">proxy_cache</span> <span style="color:#e6db74">backcache</span>;
+    <span style="color:#f92672">proxy_cache_bypass</span> $http_cache_control;
+    <span style="color:#f92672">add_header</span> <span style="color:#e6db74">X-Proxy-Cache</span> $upstream_cache_status;
+    
+    <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">http://backend</span>;
+}
+</code></pre></div><ul>
+<li><code>bypass</code> set contains indicator as to whether client is explicitly requesting a fresh, non-cached version of resource - allowing Nginx to correctly handle these types</li>
+<li><code>X-Proxy-Cache</code> basically sets header to see if request resulted in a cache hit, miss or explicitly bypassed - esp valuable for debugging</li>
+</ul>
+<p><strong>Notes</strong></p>
+<ul>
+<li>Beware of any user-related data should NOT be cached - erroneously presenting other users data</li>
+<li>For private content, set <code>Cache-Control</code> header to &ldquo;no-cache&rdquo;, &ldquo;no-store&rdquo;, or &ldquo;private&rdquo;
+<ul>
+<li><code>no-cache</code> used if data is dynamic and important - ETag hashed metadata header is checked on each request and previous value can be served if backend returns the same hash value</li>
+<li><code>no-store</code> at no point should data received ever be cached - safest for private data</li>
+<li><code>private</code> no shared cache space should cache this data - useful for indicating user&rsquo;s browser can cache data but proxy server shouldn&rsquo;t consider this dat valid for subsequent requests</li>
+<li><code>public</code> can be cached at any point in connection</li>
+<li><code>max-age</code> controls number of seconds any resource should be cached</li>
+</ul>
+</li>
+<li>If backend also uses Nginx, can set some of this using <code>expires</code> which will set <code>max-age</code> for <code>Cache-Control</code>:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nginx" data-lang="nginx"><span style="color:#66d9ef">location</span> <span style="color:#e6db74">/</span> {
+    <span style="color:#f92672">expires</span> <span style="color:#ae81ff">60m</span>;
+}
+
+<span style="color:#66d9ef">location</span> <span style="color:#e6db74">/check-me</span> {
+    <span style="color:#f92672">expires</span> <span style="color:#e6db74">-1</span>;
+}
+</code></pre></div><ul>
+<li>first block allows content be cached for an hour, second sets &ldquo;no-cache&rdquo;; to set other values, use <code>add_header</code> like so:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nginx" data-lang="nginx"><span style="color:#66d9ef">location</span> <span style="color:#e6db74">/private</span> {
+    <span style="color:#f92672">expires</span> <span style="color:#e6db74">-1</span>;
+    <span style="color:#f92672">add_header</span> <span style="color:#e6db74">Cache-Control</span> <span style="color:#e6db74">&#34;no-store&#34;</span>;
+}
+</code></pre></div><h2 id="haproxy-to-lb-mysql">HAProxy to LB MySQL</h2>
+<p><a href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps">https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps</a></p>
+<p><a href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-mysql-load-balancing--3">https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-mysql-load-balancing--3</a></p>
+</div>
+
+        
+        <div class="section bottom-menu">
+<hr />
+<p>
+
+
+    
+
+    
+        
+            <a href="/code">
+                code
+            </a>
+        
+    
+    
+        
+            &#183; 
+            <a href="https://tiny.cc/oceannotebook">
+                notebook
+            </a>
+        
+            &#183; 
+            <a href="/prose">
+                prose
+            </a>
+        
+            &#183; 
+            <a href="/gallery">
+                gallery
+            </a>
+        
+            &#183; 
+            <a href="/qui">
+                qui et quoi?
+            </a>
+        
+    
+    &#183; 
+    <a href="https://oceanbao.github.io/">
+        main
+    </a>
+
+</p></div>
+        
+
+        <div class="section footer">Ocean Ode
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script></div>
+    </div>
+</body>
+
+</html>

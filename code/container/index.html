@@ -50,10 +50,10 @@
     <li>
       <ul>
         <li><a href="#dockerfile-has-2-build-stages">Dockerfile has 2 build stages</a></li>
-        <li><a href="#helloc">hello.c</a></li>
-        <li><a href="#makefile">Makefile</a></li>
-        <li><a href="#dockerignore">.dockerignore</a></li>
-        <li><a href="#dockerfile">Dockerfile</a></li>
+        <li><a href="#helloc"><code>hello.c</code></a></li>
+        <li><a href="#makefile"><code>Makefile</code></a></li>
+        <li><a href="#dockerignore"><code>.dockerignore</code></a></li>
+        <li><a href="#dockerfile"><code>Dockerfile</code></a></li>
         <li><a href="#build-and-run">Build and Run</a></li>
       </ul>
     </li>
@@ -75,10 +75,10 @@
 <li><strong>Final Image</strong> - containing <strong>binary</strong> and <strong>run-time</strong> dependencies (config files, certificates, and dynmacically linked libs)</li>
 </ol>
 <h3 id="helloc"><code>hello.c</code></h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>) {
-  puts(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Hello World</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+  puts(<span style="color:#e6db74">&#34;Hello World</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
 }
 </code></pre></div><h3 id="makefile"><code>Makefile</code></h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-makefile" data-lang="makefile"><span style="color:#a6e22e">hello</span><span style="color:#f92672">:</span> hello.c
@@ -93,7 +93,7 @@
 </span><span style="color:#ae81ff"></span>		apk add gcc make libc-dev<span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> . ./<span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> make<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> scratch</span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /</span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> --from<span style="color:#f92672">=</span>builder /build/hello .<span style="color:#960050;background-color:#1e0010">
@@ -201,52 +201,52 @@ curl <span style="color:#66d9ef">$(</span>docker-machine ip sandbox<span style="
 <li>Example</li>
 </ul>
 <p>YML manifest:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">apiVersion: v1
-kind: Pod
-metadata:
-	names: myapp-pod
-	labels:
-		app: myapp
-spec:
-	containers:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">apiVersion</span>: v1
+<span style="color:#66d9ef">kind</span>: Pod
+<span style="color:#66d9ef">metadata</span>:
+	<span style="color:#66d9ef">names</span>: myapp-pod
+	<span style="color:#66d9ef">labels</span>:
+		<span style="color:#66d9ef">app</span>: myapp
+<span style="color:#66d9ef">spec</span>:
+	<span style="color:#66d9ef">containers</span>:
 
- <span style="color:#e6db74">- </span><span style="color:#e6db74">	</span><span style="color:#e6db74">name: myapp-container</span>
-    	image: busybox
-    	command: [<span style="color:#e6db74">&#39;sh&#39;</span>, <span style="color:#e6db74">&#39;-c&#39;</span>, <span style="color:#e6db74">&#39;echo Hello Kubernetes! &amp;&amp; sleep 3600&#39;</span>]
-    	volumeMounts:
-     -	mountPath: /test-pd
-       	name: test-volume
-       volumes:
-    -	name: test-volume
-      hostPath:
-      	path: /data
-      	type: Directory
+ - 	<span style="color:#66d9ef">name</span>: myapp-container
+    	<span style="color:#66d9ef">image</span>: busybox
+    	<span style="color:#66d9ef">command</span>: [<span style="color:#e6db74">&#39;sh&#39;</span>, <span style="color:#e6db74">&#39;-c&#39;</span>, <span style="color:#e6db74">&#39;echo Hello Kubernetes! &amp;&amp; sleep 3600&#39;</span>]
+    	<span style="color:#66d9ef">volumeMounts</span>:
+     <span style="color:#66d9ef">-	mountPath</span>: /test-pd
+       	<span style="color:#66d9ef">name</span>: test-volume
+       <span style="color:#66d9ef">volumes</span>:
+    <span style="color:#66d9ef">-	name</span>: test-volume
+      <span style="color:#66d9ef">hostPath</span>:
+      	<span style="color:#66d9ef">path</span>: /data
+      	<span style="color:#66d9ef">type</span>: Directory
 </code></pre></div><p><strong>DEPLOYMENT describes desired state of SET of PODs and manages updates to them</strong></p>
 <ul>
 <li>Mostly define CONTROLER - mostly deployment (as opposed to a pod)</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">apiVersion: apps/v1
-kind: Deployment
-metadata:
-	name: ngnix-deployment
-	labels:
-		app: nginx
-spec:
-	replicas: <span style="color:#ae81ff">3</span>
-	selector:
-		matchLabels:
-			app: nginx
-	tempalte: 
-		metadata:
-			labels:
-				app: nginx
-		spec:
-			containers:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">apiVersion</span>: apps/v1
+<span style="color:#66d9ef">kind</span>: Deployment
+<span style="color:#66d9ef">metadata</span>:
+	<span style="color:#66d9ef">name</span>: ngnix-deployment
+	<span style="color:#66d9ef">labels</span>:
+		<span style="color:#66d9ef">app</span>: nginx
+<span style="color:#66d9ef">spec</span>:
+	<span style="color:#66d9ef">replicas</span>: <span style="color:#ae81ff">3</span>
+	<span style="color:#66d9ef">selector</span>:
+		<span style="color:#66d9ef">matchLabels</span>:
+			<span style="color:#66d9ef">app</span>: nginx
+	<span style="color:#66d9ef">tempalte</span>: 
+		<span style="color:#66d9ef">metadata</span>:
+			<span style="color:#66d9ef">labels</span>:
+				<span style="color:#66d9ef">app</span>: nginx
+		<span style="color:#66d9ef">spec</span>:
+			<span style="color:#66d9ef">containers</span>:
 
-   -	name: nginx
-     			image: nginx:<span style="color:#ae81ff">1.7</span><span style="color:#ae81ff">.9</span>
-     			ports:
-        -	containerPort: <span style="color:#ae81ff">80</span>
+   <span style="color:#66d9ef">-	name</span>: nginx
+     			<span style="color:#66d9ef">image</span>: nginx:<span style="color:#ae81ff">1.7.9</span>
+     			<span style="color:#66d9ef">ports</span>:
+        <span style="color:#66d9ef">-	containerPort</span>: <span style="color:#ae81ff">80</span>
 </code></pre></div><p><strong>SERVICE routes traffic to SET-PODs</strong></p>
 <ul>
 <li>service-discovery smart routing</li>
@@ -254,67 +254,67 @@ spec:
 <li>Internal routing (DNS-enabled linking PODs)
 <!-- raw HTML omitted -->.<!-- raw HTML omitted -->.cluter.local</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">kind: Service
-apiVersion: v1
-metadata:
-	name: my-service
-sepc:
-	selector:
-		app: MyApp
-	ports:
-	-	name: http
-		protocol: TCP
-		port: <span style="color:#ae81ff">80</span>
-		targetPort: <span style="color:#ae81ff">9376</span>
-	<span style="color:#e6db74">- </span><span style="color:#e6db74">	</span><span style="color:#e6db74">name: https</span>
-		portocol: TCP
-		port: <span style="color:#ae81ff">443</span>
-		targetPort: <span style="color:#ae81ff">9377</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">kind</span>: Service
+<span style="color:#66d9ef">apiVersion</span>: v1
+<span style="color:#66d9ef">metadata</span>:
+	<span style="color:#66d9ef">name</span>: my-service
+<span style="color:#66d9ef">sepc</span>:
+	<span style="color:#66d9ef">selector</span>:
+		<span style="color:#66d9ef">app</span>: MyApp
+	<span style="color:#66d9ef">ports</span>:
+	<span style="color:#66d9ef">-	name</span>: http
+		<span style="color:#66d9ef">protocol</span>: TCP
+		<span style="color:#66d9ef">port</span>: <span style="color:#ae81ff">80</span>
+		<span style="color:#66d9ef">targetPort</span>: <span style="color:#ae81ff">9376</span>
+	- 	<span style="color:#66d9ef">name</span>: https
+		<span style="color:#66d9ef">portocol</span>: TCP
+		<span style="color:#66d9ef">port</span>: <span style="color:#ae81ff">443</span>
+		<span style="color:#66d9ef">targetPort</span>: <span style="color:#ae81ff">9377</span>
 </code></pre></div><p><strong>INGRESS expose a service to outside world</strong></p>
 <ul>
 <li>apart from load-balancer, rapidly costly ELB services with rise of pod service</li>
 <li>simply describes set of hosts and paths be routed to service from outside</li>
 <li>employ &lsquo;operator pattern&rsquo; controler installed on cluster follwoing code specified</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-	annotations:
-		kubernetes.io/ingress.class: ngnix
-		kubernetes.io/ingress.provider: nginx
-		kubernetes.io/tlk-acme: <span style="color:#e6db74">&#34;true&#34;</span>
-		ngnix.ingress.kubernetes.io/proxy-body-size: 512m
-		ngnix.ingress.kubernetes.io/proxy-connect-timeout: <span style="color:#e6db74">&#34;15&#34;</span>
-		ngnix.ingress.kubernetes.io/proxy-read-timeout: <span style="color:#e6db74">&#34;600&#34;</span>
-	name: gitlab-unicorn
-	namespace: gitlab
-spec:
-	rules:
-	-	host: gitlab.moonswitch.io
-		http:
-			paths:
-			-	backend:
-					serviecName: gitlab-unicorn
-					servicePort: <span style="color:#ae81ff">8181</span>
-				path: /
-	tls:
-	-	hosts:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">apiVersion</span>: extensions/v1beta1
+<span style="color:#66d9ef">kind</span>: Ingress
+<span style="color:#66d9ef">metadata</span>:
+	<span style="color:#66d9ef">annotations</span>:
+		<span style="color:#66d9ef">kubernetes.io/ingress.class</span>: ngnix
+		<span style="color:#66d9ef">kubernetes.io/ingress.provider</span>: nginx
+		<span style="color:#66d9ef">kubernetes.io/tlk-acme</span>: <span style="color:#e6db74">&#34;true&#34;</span>
+		<span style="color:#66d9ef">ngnix.ingress.kubernetes.io/proxy-body-size</span>: 512m
+		<span style="color:#66d9ef">ngnix.ingress.kubernetes.io/proxy-connect-timeout</span>: <span style="color:#e6db74">&#34;15&#34;</span>
+		<span style="color:#66d9ef">ngnix.ingress.kubernetes.io/proxy-read-timeout</span>: <span style="color:#e6db74">&#34;600&#34;</span>
+	<span style="color:#66d9ef">name</span>: gitlab-unicorn
+	<span style="color:#66d9ef">namespace</span>: gitlab
+<span style="color:#66d9ef">spec</span>:
+	<span style="color:#66d9ef">rules</span>:
+	<span style="color:#66d9ef">-	host</span>: gitlab.moonswitch.io
+		<span style="color:#66d9ef">http</span>:
+			<span style="color:#66d9ef">paths</span>:
+			<span style="color:#66d9ef">-	backend</span>:
+					<span style="color:#66d9ef">serviecName</span>: gitlab-unicorn
+					<span style="color:#66d9ef">servicePort</span>: <span style="color:#ae81ff">8181</span>
+				<span style="color:#66d9ef">path</span>: /
+	<span style="color:#66d9ef">tls</span>:
+	<span style="color:#66d9ef">-	hosts</span>:
 		-	gitlab.moonswith.io
-		secretName: gitlab-gitlab-tls
+		<span style="color:#66d9ef">secretName</span>: gitlab-gitlab-tls
 </code></pre></div><p><strong>JOB runs pod until completion</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">apiVersion: batch/v1
-kind: Job
-metadata:
-	name: api
-sepc:
-	template:
-		spec:
-			container:
-			-	name: pi
-				image: perl
-				command: [<span style="color:#e6db74">&#34;perl&#34;</span>, <span style="color:#e6db74">&#34;...&#34;</span>]
-			restartPolicy: Never
-	backoffLimit: <span style="color:#ae81ff">4</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">apiVersion</span>: batch/v1
+<span style="color:#66d9ef">kind</span>: Job
+<span style="color:#66d9ef">metadata</span>:
+	<span style="color:#66d9ef">name</span>: api
+<span style="color:#66d9ef">sepc</span>:
+	<span style="color:#66d9ef">template</span>:
+		<span style="color:#66d9ef">spec</span>:
+			<span style="color:#66d9ef">container</span>:
+			<span style="color:#66d9ef">-	name</span>: pi
+				<span style="color:#66d9ef">image</span>: perl
+				<span style="color:#66d9ef">command</span>: [<span style="color:#e6db74">&#34;perl&#34;</span>, <span style="color:#e6db74">&#34;...&#34;</span>]
+			<span style="color:#66d9ef">restartPolicy</span>: Never
+	<span style="color:#66d9ef">backoffLimit</span>: <span style="color:#ae81ff">4</span>
 </code></pre></div><p><strong>HORIZONTAL POD AUTOSCALER out a deployment based observed CPU utilisation or other metrics</strong></p>
 <ul>
 <li>

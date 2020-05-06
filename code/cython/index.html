@@ -85,7 +85,7 @@
         <li><a href="#reference-counting-and-static-string-types">Reference Counting and Static String Types</a></li>
       </ul>
     </li>
-    <li><a href="#cythons-3-kinds-of-func">Cython's 3 kinds of FUNC</a>
+    <li><a href="#cythons-3-kinds-of-func">Cython&rsquo;s 3 kinds of FUNC</a>
       <ul>
         <li><a href="#python-func-with-def">Python func with def</a></li>
         <li><a href="#c-funcs-with-cdef">C Funcs with cdef</a></li>
@@ -186,14 +186,14 @@
 <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">cfib</span>(<span style="color:#66d9ef">int</span> n);
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#75715e"># Cython wrapper</span>
 
-<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">cfib.h</span><span style="color:#e6db74">&#34;</span>:
+<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;cfib.h&#34;</span>:
     double cfib(int n)
     
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fib</span>(n):
     <span style="color:#e6db74">&#34;&#34;&#34;Returns the nth Fib&#34;&#34;&#34;</span>
     <span style="color:#66d9ef">return</span> cfib(n)
 </code></pre></div><ul>
-<li><code>cdef extern</code> block uses header file and declare function's signature in the block's indented body; after it defines Python wrapper func calling C func and returning its result.</li>
+<li><code>cdef extern</code> block uses header file and declare function&rsquo;s signature in the block&rsquo;s indented body; after it defines Python wrapper func calling C func and returning its result.</li>
 <li>Compile Cython code into ext module <code>wrap_fib</code> and use it in Python</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> wrap_fib <span style="color:#f92672">import</span> fib
@@ -236,7 +236,7 @@ fib(<span style="color:#ae81ff">90</span>)
 <span style="color:#f92672">from</span> distutils.core <span style="color:#f92672">import</span> setup
 <span style="color:#f92672">from</span> Cython.Build <span style="color:#f92672">import</span> cythonize
   
-setup(ext_modules<span style="color:#f92672">=</span>cythonize(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">fib.pyx</span><span style="color:#e6db74">&#39;</span>))
+setup(ext_modules<span style="color:#f92672">=</span>cythonize(<span style="color:#e6db74">&#39;fib.pyx&#39;</span>))
 </code></pre></div></li>
 <li>
 <p><code>cythonize</code> the simplest call to convert Cython to C code by cython compiler (any file(s) is arg)</p>
@@ -285,7 +285,7 @@ gcc -bundle -undefined dynamic_lookup
 <span style="color:#75715e"># skipping same two imports</span>
   
 <span style="color:#75715e"># First create an Ext object with right name and sources</span>
-ext <span style="color:#f92672">=</span> Extension(name<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">wrap_fib</span><span style="color:#e6db74">&#39;</span>, sources<span style="color:#f92672">=</span>[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">cfib.c</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">wrap_fib.pyx</span><span style="color:#e6db74">&#39;</span>])
+ext <span style="color:#f92672">=</span> Extension(name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;wrap_fib&#39;</span>, sources<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;cfib.c&#39;</span>, <span style="color:#e6db74">&#39;wrap_fib.pyx&#39;</span>])
   
 <span style="color:#75715e"># Use cythonize on the ext object</span>
 setup(ext_modules<span style="color:#f92672">=</span>cythonize(ext))
@@ -299,22 +299,22 @@ setup(ext_modules<span style="color:#f92672">=</span>cythonize(ext))
 <li>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># skip two imports</span>
   
-ext <span style="color:#f92672">=</span> Extension(name<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">wrap_fib</span><span style="color:#e6db74">&#34;</span>,
-                sources<span style="color:#f92672">=</span>[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">wrap_fib.pyx</span><span style="color:#e6db74">&#34;</span>],
-                library_dirs<span style="color:#f92672">=</span>[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">/path/to/libfib.so</span><span style="color:#e6db74">&#34;</span>],
-                libraries<span style="color:#f92672">=</span>[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">fib</span><span style="color:#e6db74">&#34;</span>])
+ext <span style="color:#f92672">=</span> Extension(name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;wrap_fib&#34;</span>,
+                sources<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;wrap_fib.pyx&#34;</span>],
+                library_dirs<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;/path/to/libfib.so&#34;</span>],
+                libraries<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;fib&#34;</span>])
   
-setup(<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>)
+setup(<span style="color:#f92672">...</span>)
 </code></pre></div><ul>
 <li>naming only <code>wrap_fib.pyx</code> in the sources arg list and adding two more args to Ext object</li>
 </ul>
 </li>
 </ul>
 <h2 id="interactive-ipython-cython-magic">Interactive IPython %%cython magic</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">%</span><span style="color:#f92672">%</span>load_ext cythonmagic
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">%%</span>load_ext cythonmagic
 
-<span style="color:#f92672">%</span><span style="color:#f92672">%</span>cython
-def<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<span style="color:#f92672">%%</span>cython
+def<span style="color:#f92672">...</span>
 </code></pre></div><ul>
 <li>generated files in <code>~/.ipython/cython</code></li>
 </ul>
@@ -358,8 +358,8 @@ fib<span style="color:#f92672">.</span>__file__ <span style="color:#75715e"># ..
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">make_ext</span>(modname, pyxfilename):
     <span style="color:#f92672">from</span> distutils.extension <span style="color:#f92672">import</span> Extension
     <span style="color:#66d9ef">return</span> Extension(modname,
-                    sources<span style="color:#f92672">=</span>[pyxfilename, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">_fib.c</span><span style="color:#e6db74">&#39;</span>],
-                     include_dirs<span style="color:#f92672">=</span>[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">.</span><span style="color:#e6db74">&#39;</span>])
+                    sources<span style="color:#f92672">=</span>[pyxfilename, <span style="color:#e6db74">&#39;_fib.c&#39;</span>],
+                     include_dirs<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;.&#39;</span>])
 </code></pre></div></li>
 <li>
 <p>key line is sources=[] telling distutils to compile C file and link all together</p>
@@ -428,7 +428,7 @@ gcc fib.o -o fib.so -shared <span style="color:#e6db74">${</span>LDFLAGS<span st
 
 <span style="color:#f92672">from</span> math <span style="color:#f92672">import</span> pi, e
 
-<span style="color:#66d9ef">print</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<span style="color:#66d9ef">print</span><span style="color:#f92672">...</span>
 </code></pre></div><ul>
 <li><code>cython --embed irrationals.py</code>
 <ul>
@@ -470,7 +470,7 @@ gcc fib.o -o fib.so -shared <span style="color:#e6db74">${</span>LDFLAGS<span st
 <span style="color:#a6e22e">@cython.boundscheck</span>(False)
 <span style="color:#a6e22e">@cython.wraparound</span>(False)
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fast_indexing</span>():
-    <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+    <span style="color:#f92672">...</span>
 </code></pre></div></li>
 </ul>
 </li>
@@ -483,7 +483,7 @@ gcc fib.o -o fib.so -shared <span style="color:#e6db74">${</span>LDFLAGS<span st
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fast_indexing</span>(a):
     <span style="color:#66d9ef">with</span> cython<span style="color:#f92672">.</span>boundscheck(False), cython<span style="color:#f92672">.</span>wraparound(False):
         <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(a)):
-            sum <span style="color:#f92672">+</span><span style="color:#f92672">=</span> a[i]
+            sum <span style="color:#f92672">+=</span> a[i]
 </code></pre></div></li>
 <li>
 <p>Neither of above two directives is affected by comment or CLI setting</p>
@@ -506,7 +506,7 @@ gcc fib.o -o fib.so -shared <span style="color:#e6db74">${</span>LDFLAGS<span st
 </li>
 <li>Cython + C compiler convert Cython source code into compiled platform-specific extension module</li>
 <li>Usually 10-30 x faster just converting from Python code into an equivalent extension module</li>
-<li>BUT real speed comes from replacing Python's dynamic dispatch with static typing</li>
+<li>BUT real speed comes from replacing Python&rsquo;s dynamic dispatch with static typing</li>
 </ul>
 <h3 id="dynamic-vs-static-typing">Dynamic vs. Static Typing</h3>
 <ul>
@@ -566,7 +566,7 @@ j <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <spa
     cdef float dx, s<span style="color:#f92672">=</span><span style="color:#ae81ff">0.0</span>
     dx <span style="color:#f92672">=</span> (b<span style="color:#f92672">-</span>a)<span style="color:#f92672">/</span>N
     <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(N):
-        s <span style="color:#f92672">+</span><span style="color:#f92672">=</span> f(a<span style="color:#f92672">+</span>i<span style="color:#f92672">*</span>dx)
+        s <span style="color:#f92672">+=</span> f(a<span style="color:#f92672">+</span>i<span style="color:#f92672">*</span>dx)
     <span style="color:#66d9ef">return</span> s <span style="color:#f92672">*</span> dx
   
 <span style="color:#75715e"># or </span>
@@ -575,7 +575,7 @@ j <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <spa
         int i
         int N<span style="color:#f92672">=</span><span style="color:#ae81ff">2000</span>
         float dx, s<span style="color:#f92672">=</span><span style="color:#ae81ff">0.0</span>
-        <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+        <span style="color:#f92672">...</span>
 </code></pre></div></li>
 <li>
 <p><strong>NOTE: C static used to declare var whose lifetime extends to the entire lifetime of a program, invalid Cython key; C const declares an unmodifiable identifier, which Cython supports</strong></p>
@@ -584,16 +584,16 @@ j <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <spa
 <p>Common cdef</p>
 </li>
 <li>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">C</span> <span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">y</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">e</span>					<span style="color:#960050;background-color:#1e0010">C</span><span style="color:#960050;background-color:#1e0010">y</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">h</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">n</span> <span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">f</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">C</span> <span style="color:#960050;background-color:#1e0010">type</span>					<span style="color:#960050;background-color:#1e0010">Cython</span> <span style="color:#960050;background-color:#1e0010">cdef</span>
   
-<span style="color:#960050;background-color:#1e0010">P</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">s</span>				<span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">f</span> <span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">t</span> <span style="color:#960050;background-color:#1e0010">*</span><span style="color:#960050;background-color:#1e0010">p</span>
-                      <span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">f</span> <span style="color:#960050;background-color:#1e0010">v</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">d</span> <span style="color:#960050;background-color:#1e0010">*</span><span style="color:#960050;background-color:#1e0010">*</span><span style="color:#960050;background-color:#1e0010">b</span><span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">f</span>
-<span style="color:#960050;background-color:#1e0010">S</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">a</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">k</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#960050;background-color:#1e0010">a</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">c</span> <span style="color:#960050;background-color:#1e0010">a</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">a</span><span style="color:#960050;background-color:#1e0010">y</span><span style="color:#960050;background-color:#1e0010">s</span>		<span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">f</span> <span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">t</span> <span style="color:#960050;background-color:#1e0010">a</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">r</span>[<span style="color:#ae81ff">10</span>]
-                      <span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">f</span> <span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">b</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">e</span> <span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">s</span>[<span style="color:#ae81ff">20</span>][<span style="color:#ae81ff">30</span>]
-<span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">y</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">f</span> <span style="color:#960050;background-color:#1e0010">a</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">a</span><span style="color:#960050;background-color:#1e0010">s</span>			<span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">f</span> <span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">z</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">_</span><span style="color:#960050;background-color:#1e0010">t</span> <span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">n</span>
-<span style="color:#960050;background-color:#1e0010">C</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">m</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">d</span> <span style="color:#960050;background-color:#1e0010">(</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">)</span>	<span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">f</span> <span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">m</span> <span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">m</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">_</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">t</span>
-                          <span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">f</span> <span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">_</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">h</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">_</span><span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">n</span> <span style="color:#960050;background-color:#1e0010">h</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">_</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">_</span><span style="color:#960050;background-color:#1e0010">b</span><span style="color:#960050;background-color:#1e0010">y</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">s</span>
-<span style="color:#960050;background-color:#1e0010">F</span><span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">c</span> <span style="color:#960050;background-color:#1e0010">P</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">s</span>			<span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">f</span> <span style="color:#960050;background-color:#1e0010">v</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">d</span> <span style="color:#960050;background-color:#1e0010">(</span><span style="color:#960050;background-color:#1e0010">*</span><span style="color:#960050;background-color:#1e0010">f</span><span style="color:#960050;background-color:#1e0010">)</span><span style="color:#960050;background-color:#1e0010">(</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">b</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">)</span>
+<span style="color:#960050;background-color:#1e0010">Pointers</span>				<span style="color:#960050;background-color:#1e0010">cdef</span> <span style="color:#960050;background-color:#1e0010">int</span> <span style="color:#960050;background-color:#1e0010">*p</span>
+                      <span style="color:#960050;background-color:#1e0010">cdef</span> <span style="color:#960050;background-color:#1e0010">void</span> <span style="color:#960050;background-color:#1e0010">**buf</span>
+<span style="color:#960050;background-color:#1e0010">Stack-alloc</span> <span style="color:#960050;background-color:#1e0010">arrays</span>		<span style="color:#960050;background-color:#1e0010">cdef</span> <span style="color:#960050;background-color:#1e0010">int</span> <span style="color:#960050;background-color:#1e0010">arr</span>[<span style="color:#ae81ff">10</span>]
+                      <span style="color:#960050;background-color:#1e0010">cdef</span> <span style="color:#960050;background-color:#1e0010">double</span> <span style="color:#960050;background-color:#1e0010">points</span>[<span style="color:#ae81ff">20</span>][<span style="color:#ae81ff">30</span>]
+<span style="color:#960050;background-color:#1e0010">typedef</span> <span style="color:#960050;background-color:#1e0010">alias</span>			<span style="color:#960050;background-color:#1e0010">cdef</span> <span style="color:#960050;background-color:#1e0010">size_t</span> <span style="color:#960050;background-color:#1e0010">len</span>
+<span style="color:#960050;background-color:#1e0010">Compound</span> <span style="color:#960050;background-color:#1e0010">(structs/unions)</span>	<span style="color:#960050;background-color:#1e0010">cdef</span> <span style="color:#960050;background-color:#1e0010">tm</span> <span style="color:#960050;background-color:#1e0010">time_struct</span>
+                          <span style="color:#960050;background-color:#1e0010">cdef</span> <span style="color:#960050;background-color:#1e0010">int_short_union</span> <span style="color:#960050;background-color:#1e0010">hi_lo_bytes</span>
+<span style="color:#960050;background-color:#1e0010">Func</span> <span style="color:#960050;background-color:#1e0010">Pointers</span>			<span style="color:#960050;background-color:#1e0010">cdef</span> <span style="color:#960050;background-color:#1e0010">void</span> <span style="color:#960050;background-color:#1e0010">(*f)(int,</span> <span style="color:#960050;background-color:#1e0010">double)</span>
 </code></pre></div></li>
 <li>
 <p>tongue twisters: <strong>func one args as func pointers returns another func pointer</strong></p>
@@ -691,23 +691,23 @@ tuple_of_ints <span style="color:#f92672">=</span> (a, b, c)
 <p><strong>This works BECAUSE of linkage between C ints and Python ints, NOT if they were C pointers, which would need dereferencing them BEFORE putting into tuple, or other ways</strong></p>
 </li>
 <li>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">P</span><span style="color:#960050;background-color:#1e0010">y</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">h</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">n</span> <span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">y</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">s</span> 			<span style="color:#960050;background-color:#1e0010">C</span> <span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">y</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">s</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">Python</span> <span style="color:#960050;background-color:#1e0010">types</span> 			<span style="color:#960050;background-color:#1e0010">C</span> <span style="color:#960050;background-color:#1e0010">types</span>
     
-<span style="color:#960050;background-color:#1e0010">b</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">l</span>					<span style="color:#960050;background-color:#1e0010">b</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">t</span>
-<span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">t</span>						[<span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">g</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">d</span>] <span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">h</span><span style="color:#960050;background-color:#1e0010">a</span><span style="color:#960050;background-color:#1e0010">r</span>
-<span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">g</span>					[<span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">g</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">d</span>] <span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">h</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">t</span>
-                        [<span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">g</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">d</span>] <span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">t</span>
-                        [<span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">g</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">d</span>] <span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">g</span>
-                        [<span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">g</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">d</span>] <span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">g</span> <span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">g</span>
-<span style="color:#960050;background-color:#1e0010">f</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">a</span><span style="color:#960050;background-color:#1e0010">t</span>					<span style="color:#960050;background-color:#1e0010">f</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">a</span><span style="color:#960050;background-color:#1e0010">t</span>
-                        <span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">b</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">e</span>
-                        <span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">g</span> <span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">b</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">e</span>
-<span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">m</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">x</span>					<span style="color:#960050;background-color:#1e0010">f</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">a</span><span style="color:#960050;background-color:#1e0010">t</span> <span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">m</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">x</span>
-                        <span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">b</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">e</span> <span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">m</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">l</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">x</span>
-<span style="color:#960050;background-color:#1e0010">b</span><span style="color:#960050;background-color:#1e0010">y</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">e</span><span style="color:#960050;background-color:#1e0010">s</span>					<span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">h</span><span style="color:#960050;background-color:#1e0010">a</span><span style="color:#960050;background-color:#1e0010">r</span> <span style="color:#960050;background-color:#1e0010">*</span>
-<span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">r</span>						<span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">g</span> <span style="color:#960050;background-color:#1e0010">(</span><span style="color:#960050;background-color:#1e0010">C</span><span style="color:#960050;background-color:#1e0010">+</span><span style="color:#960050;background-color:#1e0010">+</span><span style="color:#960050;background-color:#1e0010">)</span>
-<span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">n</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">o</span><span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">e</span>
-<span style="color:#960050;background-color:#1e0010">d</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">t</span>					<span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">u</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">t</span>
+<span style="color:#960050;background-color:#1e0010">bool</span>					<span style="color:#960050;background-color:#1e0010">bint</span>
+<span style="color:#960050;background-color:#1e0010">int</span>						[<span style="color:#960050;background-color:#1e0010">unsigned</span>] <span style="color:#960050;background-color:#1e0010">char</span>
+<span style="color:#960050;background-color:#1e0010">long</span>					[<span style="color:#960050;background-color:#1e0010">unsigned</span>] <span style="color:#960050;background-color:#1e0010">short</span>
+                        [<span style="color:#960050;background-color:#1e0010">unsigned</span>] <span style="color:#960050;background-color:#1e0010">int</span>
+                        [<span style="color:#960050;background-color:#1e0010">unsigned</span>] <span style="color:#960050;background-color:#1e0010">long</span>
+                        [<span style="color:#960050;background-color:#1e0010">unsigned</span>] <span style="color:#960050;background-color:#1e0010">long</span> <span style="color:#960050;background-color:#1e0010">long</span>
+<span style="color:#960050;background-color:#1e0010">float</span>					<span style="color:#960050;background-color:#1e0010">float</span>
+                        <span style="color:#960050;background-color:#1e0010">double</span>
+                        <span style="color:#960050;background-color:#1e0010">long</span> <span style="color:#960050;background-color:#1e0010">double</span>
+<span style="color:#960050;background-color:#1e0010">complex</span>					<span style="color:#960050;background-color:#1e0010">float</span> <span style="color:#960050;background-color:#1e0010">complex</span>
+                        <span style="color:#960050;background-color:#1e0010">double</span> <span style="color:#960050;background-color:#1e0010">complex</span>
+<span style="color:#960050;background-color:#1e0010">bytes</span>					<span style="color:#960050;background-color:#1e0010">char</span> <span style="color:#960050;background-color:#1e0010">*</span>
+<span style="color:#960050;background-color:#1e0010">str</span>						<span style="color:#960050;background-color:#1e0010">std::string</span> <span style="color:#960050;background-color:#1e0010">(C++)</span>
+<span style="color:#960050;background-color:#1e0010">unicode</span>
+<span style="color:#960050;background-color:#1e0010">dict</span>					<span style="color:#960050;background-color:#1e0010">struct</span>
 </code></pre></div></li>
 <li>
 <p><strong>bint</strong></p>
@@ -775,7 +775,7 @@ tuple_of_ints <span style="color:#f92672">=</span> (a, b, c)
 <li>Python raise ZeroDivisionError but C has NO SUCH FAILSAFE!</li>
 </ul>
 </li>
-<li>Cython use Python semantics even when operands are ST C scalars, to turn off use <code># cython: cdivision=True</code> or <a href="mailto:%60@cython.cdivision">`@cython.cdivision</a>(True)<code>or</code>with cython.cdivision(True):` context manager</li>
+<li>Cython use Python semantics even when operands are ST C scalars, to turn off use <code># cython: cdivision=True</code> or <code>@cython.cdivision(True)</code> or <code>with cython.cdivision(True):</code> context manager</li>
 <li><code>cdivision_warnings=True</code> directive emits runtime warning whenever division or modulo run on negative operands</li>
 </ul>
 </li>
@@ -789,7 +789,7 @@ tuple_of_ints <span style="color:#f92672">=</span> (a, b, c)
 <p>e.g. Appending Particle object to a dynamic variable</p>
 </li>
 <li>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython">dynamic_particles <span style="color:#f92672">=</span> make_particles(<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython">dynamic_particles <span style="color:#f92672">=</span> make_particles(<span style="color:#f92672">...</span>)
 <span style="color:#75715e">#...</span>
 dynamic_particles<span style="color:#f92672">.</span>append(Particle())
 <span style="color:#75715e">#...</span>
@@ -802,7 +802,7 @@ dynamic_particles<span style="color:#f92672">.</span>append(Particle())
 </li>
 <li>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#75715e"># static typing</span>
-<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">list</span> <span style="color:#a6e22e">static_particles</span> <span style="color:#f92672">=</span> make_particles(<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>)
+<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">list</span> <span style="color:#a6e22e">static_particles</span> <span style="color:#f92672">=</span> make_particles(<span style="color:#f92672">...</span>)
 <span style="color:#75715e">#...</span>
 static_particles<span style="color:#f92672">.</span>append(Particle())
 <span style="color:#75715e">#...</span>
@@ -829,7 +829,7 @@ static_particles<span style="color:#f92672">.</span>append(Particle())
 <h3 id="reference-counting-and-static-string-types">Reference Counting and Static String Types</h3>
 <ul>
 <li>
-<p>One of Python's major features is <strong>auto MEM management</strong> - CPython uses plain <strong>reference counting</strong> with auto-GC runs periodically to clean up unreachable reference cycles!</p>
+<p>One of Python&rsquo;s major features is <strong>auto MEM management</strong> - CPython uses plain <strong>reference counting</strong> with auto-GC runs periodically to clean up unreachable reference cycles!</p>
 </li>
 <li>
 <p>Cython auto manage (ST or DT) Python object ensuring cleaning up</p>
@@ -838,12 +838,12 @@ static_particles<span style="color:#f92672">.</span>append(Particle())
 <p>Implication in mixing types - if having two Python <code>bytes</code> objects <code>b1, b2</code> to extract underlying <code>char</code> pointer after adding:</p>
 <ul>
 <li>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython">b1 <span style="color:#f92672">=</span> b<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">All men are normal</span><span style="color:#e6db74">&#34;</span>
-b2 <span style="color:#f92672">=</span> b<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Socrates is a man</span><span style="color:#e6db74">&#34;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython">b1 <span style="color:#f92672">=</span> b<span style="color:#e6db74">&#34;All men are normal&#34;</span>
+b2 <span style="color:#f92672">=</span> b<span style="color:#e6db74">&#34;Socrates is a man&#34;</span>
 <span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">char</span> *<span style="color:#a6e22e">buf</span> <span style="color:#f92672">=</span> b1 <span style="color:#f92672">+</span> b2
 </code></pre></div></li>
 <li>
-<p><code>b1 + b2</code> is a temporary Python <code>bytes</code> object and the assigning attemps to extract its <code>char</code> pointer using Cython's auto-convert rules</p>
+<p><code>b1 + b2</code> is a temporary Python <code>bytes</code> object and the assigning attemps to extract its <code>char</code> pointer using Cython&rsquo;s auto-convert rules</p>
 </li>
 <li>
 <p>Because the result of the addition is temporary object, the above code cannot work - temporary result of addition is <strong>deleted at once after created</strong>, Cython is able to catch the rror and issue compilation error</p>
@@ -870,7 +870,7 @@ tmp <span style="color:#f92672">=</span> s1 <span style="color:#f92672">+</span>
 </ul>
 </li>
 </ul>
-<h2 id="cythons-3-kinds-of-func">Cython's 3 kinds of FUNC</h2>
+<h2 id="cythons-3-kinds-of-func">Cython&rsquo;s 3 kinds of FUNC</h2>
 <ul>
 <li>Much of above variable typing mix applies to functions in Cython.</li>
 <li>Python function is <strong>first-class citizens</strong> - meaning they are objects with state and behaviour!
@@ -900,7 +900,7 @@ tmp <span style="color:#f92672">=</span> s1 <span style="color:#f92672">+</span>
 <p>regular Python func</p>
 <ul>
 <li>takes DT python object only</li>
-<li>used the same way regardless how it's imported</li>
+<li>used the same way regardless how it&rsquo;s imported</li>
 <li>compiled using any method, e.g. as <code>fact.pyx</code> with <code>import pyximport; pyximport.install(); import fact</code></li>
 </ul>
 </li>
@@ -924,7 +924,7 @@ tmp <span style="color:#f92672">=</span> s1 <span style="color:#f92672">+</span>
 <li>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">typed_fact</span>(long n):
     <span style="color:#e6db74">&#34;&#34;&#34;Compute n!&#34;&#34;&#34;</span>
-    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;</span><span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>:
+    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span>:
         <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
    <span style="color:#66d9ef">return</span> n <span style="color:#f92672">*</span> typed_fact(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
 </code></pre></div></li>
@@ -932,7 +932,7 @@ tmp <span style="color:#f92672">=</span> s1 <span style="color:#f92672">+</span>
 <p>As <code>n</code> is func arg, omitting <code>cdef</code></p>
 </li>
 <li>
-<p>this code is no faster, since it's a Python func with Python return object - lots of code generated to extract the underlying C long from Python integer returned, ops and packing/unpacking essentially ends up the same code paths as pure</p>
+<p>this code is no faster, since it&rsquo;s a Python func with Python return object - lots of code generated to extract the underlying C long from Python integer returned, ops and packing/unpacking essentially ends up the same code paths as pure</p>
 </li>
 </ul>
 </li>
@@ -946,7 +946,7 @@ tmp <span style="color:#f92672">=</span> s1 <span style="color:#f92672">+</span>
 <h3 id="c-funcs-with-cdef">C Funcs with cdef</h3>
 <ul>
 <li>
-<p><code>cdef</code> C-calling semantics taking and returning ST objects, work with C pointers, structs, other C types cannot be auto-coerced to Python types! (think <code>cdef</code> as C function defined with Cython's Python-like syntax)</p>
+<p><code>cdef</code> C-calling semantics taking and returning ST objects, work with C pointers, structs, other C types cannot be auto-coerced to Python types! (think <code>cdef</code> as C function defined with Cython&rsquo;s Python-like syntax)</p>
 </li>
 <li>
 <p>Note: <strong>can declare and use Python objects, but <code>cdef</code> functions are typically used when needing to get close to C without writing C</strong></p>
@@ -1023,8 +1023,8 @@ tmp <span style="color:#f92672">=</span> s1 <span style="color:#f92672">+</span>
     <span style="color:#66d9ef">return</span> a <span style="color:#f92672">*</span> b
 
 <span style="color:#75715e"># compare with ST </span>
-<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>(int a, int b):
-    <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<span style="color:#f92672">...</span>(int a, int b):
+    <span style="color:#f92672">...</span>
 </code></pre></div><p><code>cython mult.pyx</code> =&gt; <code>mult.c</code></p>
 <p>Several thousand lines long!</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/* &#34;mult.pyx&#34;:3
@@ -1040,7 +1040,7 @@ __pyx_t_1 <span style="color:#f92672">=</span> PyNumer_Multiply(__pyx_v_a, __pyx
     <span style="color:#66d9ef">goto</span> __pyx_l1_error;
 }
 
-<span style="color:#75715e">#</span><span style="color:#75715e"> compare with ST</span><span style="color:#75715e">
+<span style="color:#75715e"># compare with ST
 </span><span style="color:#75715e"></span>...
     __pyx_t_1 <span style="color:#f92672">=</span> __Pyx_PyInt_From_int((__pyx_v_a <span style="color:#f92672">*</span> __pyx_v_b));
 </code></pre></div></blockquote>
@@ -1066,10 +1066,10 @@ __pyx_t_1 <span style="color:#f92672">=</span> PyNumer_Multiply(__pyx_v_a, __pyx
 </li>
 <li>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">print_addr</span>(a):
-    <span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">void</span> *<span style="color:#a6e22e">v</span> <span style="color:#f92672">=</span> <span style="color:#f92672">&lt;</span>void<span style="color:#f92672">*</span><span style="color:#f92672">&gt;</span>a
+    <span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">void</span> *<span style="color:#a6e22e">v</span> <span style="color:#f92672">=</span> <span style="color:#f92672">&lt;</span>void<span style="color:#f92672">*&gt;</span>a
     <span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">addr</span> <span style="color:#f92672">=</span> &lt;<span style="color:#66d9ef">long</span>&gt;v
-    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Cython addr:</span><span style="color:#e6db74">&#34;</span>, addr)
-    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Python id  :</span><span style="color:#e6db74">&#34;</span>, id(a))
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Cython addr:&#34;</span>, addr)
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Python id  :&#34;</span>, id(a))
         
         
 <span style="color:#75715e"># use it</span>
@@ -1109,7 +1109,7 @@ casting<span style="color:#f92672">.</span>print_addr(<span style="color:#ae81ff
 <li>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">safe_cast_to_list</span>(a):
     <span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">list</span> <span style="color:#a6e22e">cast_list</span> <span style="color:#f92672">=</span> &lt;<span style="color:#66d9ef">list?</span>&gt;a
-    <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+    <span style="color:#f92672">...</span>
 </code></pre></div></li>
 <li>
 <p>raising <code>TypeError</code> when <code>a</code> is not <code>list</code> or subtype at casting</p>
@@ -1156,7 +1156,7 @@ casting<span style="color:#f92672">.</span>print_addr(<span style="color:#ae81ff
 <span style="color:#66d9ef">ctypedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">mycpx</span>:
     float real
     float imag
-<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<span style="color:#f92672">...</span>
     
 <span style="color:#75715e"># to declare a variable with the struct type, simply use cdef</span>
 <span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">mycpx</span> <span style="color:#a6e22e">zz</span>
@@ -1175,7 +1175,7 @@ zz<span style="color:#f92672">.</span>imag <span style="color:#f92672">=</span> 
 <span style="color:#75715e"># for init, 1 is handy, but direct assign can be used to update field</span>
     
 <span style="color:#75715e"># assigning from a Python dict</span>
-<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">mycpx</span> <span style="color:#a6e22e">zz</span> <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;</span><span style="color:#e6db74">real</span><span style="color:#e6db74">&#39;</span>: <span style="color:#ae81ff">3.1415</span>, <span style="color:#e6db74">&#39;</span><span style="color:#e6db74">imag</span><span style="color:#e6db74">&#39;</span>: <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>}
+<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">mycpx</span> <span style="color:#a6e22e">zz</span> <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;real&#39;</span>: <span style="color:#ae81ff">3.1415</span>, <span style="color:#e6db74">&#39;imag&#39;</span>: <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>}
 <span style="color:#75715e"># this uses Cython&#39;s auto-convert to do each assign auto, but more overhead!!</span>
 </code></pre></div></li>
 </ul>
@@ -1201,7 +1201,7 @@ zz<span style="color:#f92672">.</span>imag <span style="color:#f92672">=</span> 
         
 <span style="color:#75715e"># can init nested on per-filed basis or assigning to a nested dictionary matching nested</span>
     
-<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">nested</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;</span><span style="color:#e6db74">outer_a</span><span style="color:#e6db74">&#39;</span>: <span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#39;</span><span style="color:#e6db74">inner</span><span style="color:#e6db74">&#39;</span>: {<span style="color:#e6db74">&#39;</span><span style="color:#e6db74">inner_a</span><span style="color:#e6db74">&#39;</span>: <span style="color:#ae81ff">2</span>}}
+<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">nested</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;outer_a&#39;</span>: <span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#39;inner&#39;</span>: {<span style="color:#e6db74">&#39;inner_a&#39;</span>: <span style="color:#ae81ff">2</span>}}
 </code></pre></div></li>
 </ul>
 </li>
@@ -1235,7 +1235,7 @@ zz<span style="color:#f92672">.</span>imag <span style="color:#f92672">=</span> 
 <h3 id="type-aliasing-with-ctypedef">Type Aliasing with ctypedef</h3>
 <ul>
 <li>
-<p>Another C feature is type aliasing with <code>ctypedef</code> used similarly as C's <code>typedef</code>, essential when interfacing with external code using <code>typedef</code> aliases</p>
+<p>Another C feature is type aliasing with <code>ctypedef</code> used similarly as C&rsquo;s <code>typedef</code>, essential when interfacing with external code using <code>typedef</code> aliases</p>
 </li>
 <li>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#66d9ef">ctypedef</span> double real
@@ -1243,7 +1243,7 @@ zz<span style="color:#f92672">.</span>imag <span style="color:#f92672">=</span> 
   
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">displacement</span>(real d0, real v0, real a, real t):
     <span style="color:#e6db74">&#34;&#34;&#34;Compute displacement under constant acceleration&#34;&#34;&#34;</span>
-    <span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">real</span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">=</span> d0 <span style="color:#f92672">+</span> (v0 <span style="color:#f92672">*</span> t) <span style="color:#f92672">+</span> (<span style="color:#ae81ff">0.5</span> <span style="color:#f92672">*</span> a <span style="color:#f92672">*</span> t<span style="color:#f92672">*</span><span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>)
+    <span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">real</span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">=</span> d0 <span style="color:#f92672">+</span> (v0 <span style="color:#f92672">*</span> t) <span style="color:#f92672">+</span> (<span style="color:#ae81ff">0.5</span> <span style="color:#f92672">*</span> a <span style="color:#f92672">*</span> t<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
     <span style="color:#66d9ef">return</span> d
 </code></pre></div><ul>
 <li><code>ctypedef</code> aliases allow switching the precision of calcu from double precision to single precision by changing a single line of program - Cython auto-convert Python numeric types and these <code>ctypedef</code> aliase</li>
@@ -1262,7 +1262,7 @@ zz<span style="color:#f92672">.</span>imag <span style="color:#f92672">=</span> 
 <span style="color:#66d9ef">from</span> cython <span style="color:#66d9ef">cimport</span> integral <span style="color:#75715e"># fused type for C short, int, long scalar types</span>
   
 <span style="color:#66d9ef">cpdef</span> <span style="color:#66d9ef">integral</span> <span style="color:#a6e22e">integral_max</span>(integral a, integral b):
-    <span style="color:#66d9ef">return</span> a <span style="color:#66d9ef">if</span> a <span style="color:#f92672">&gt;</span><span style="color:#f92672">=</span> b <span style="color:#66d9ef">else</span> b
+    <span style="color:#66d9ef">return</span> a <span style="color:#66d9ef">if</span> a <span style="color:#f92672">&gt;=</span> b <span style="color:#66d9ef">else</span> b
   
 <span style="color:#75715e"># Cython creates 3 integral_max: one for both as shorts, as ints, as longs</span>
 <span style="color:#75715e"># using long if called from Python</span>
@@ -1272,7 +1272,7 @@ zz<span style="color:#f92672">.</span>imag <span style="color:#f92672">=</span> 
 <span style="color:#66d9ef">cdef</span> <span style="color:#a6e22e">allowed</span>():
     <span style="color:#66d9ef">print</span>(integral_max(&lt;<span style="color:#66d9ef">short</span>&gt;<span style="color:#ae81ff">1</span>, &lt;<span style="color:#66d9ef">short</span>&gt;<span style="color:#ae81ff">2</span>))
     <span style="color:#66d9ef">print</span>(integral_max(&lt;<span style="color:#66d9ef">int</span>&gt;<span style="color:#ae81ff">1</span>, &lt;<span style="color:#66d9ef">int</span>&gt;<span style="color:#ae81ff">2</span>))
-    <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+    <span style="color:#f92672">...</span>
   
 <span style="color:#75715e"># CANNOT mix for the same fused type from other Cython code</span>
   
@@ -1290,7 +1290,7 @@ zz<span style="color:#f92672">.</span>imag <span style="color:#f92672">=</span> 
       
 <span style="color:#66d9ef">cpdef</span> <span style="color:#66d9ef">integral_or_floating</span> <span style="color:#a6e22e">generic_max</span>(integral_or_floating a,
                                       integral_or_floating b):
-    <span style="color:#66d9ef">return</span> a <span style="color:#66d9ef">if</span> a <span style="color:#f92672">&gt;</span><span style="color:#f92672">=</span> b <span style="color:#66d9ef">else</span> b
+    <span style="color:#66d9ef">return</span> a <span style="color:#66d9ef">if</span> a <span style="color:#f92672">&gt;=</span> b <span style="color:#66d9ef">else</span> b
   
 <span style="color:#75715e"># five spec, one each C type in ctypedef fused block</span>
 </code></pre></div></li>
@@ -1335,7 +1335,7 @@ n <span style="color:#f92672">=</span> len(a) <span style="color:#f92672">-</spa
 <span style="color:#75715e"># almost Cython-friendly, only need to ad some typing for fast loop</span>
 <span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">n</span> <span style="color:#f92672">=</span> len(a) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
 <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, n):
-    <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+    <span style="color:#f92672">...</span>
 </code></pre></div></li>
 </ul>
 </li>
@@ -1351,7 +1351,7 @@ n <span style="color:#f92672">=</span> len(a) <span style="color:#f92672">-</spa
 
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">feymans_jewel</span>():
     <span style="color:#e6db74">&#34;&#34;&#34;Returns e**(i*pi) + 1. Should be ~0.0&#34;&#34;&#34;</span>
-    <span style="color:#66d9ef">return</span> E <span style="color:#f92672">*</span><span style="color:#f92672">*</span> (<span style="color:#ae81ff">1</span>j <span style="color:#f92672">*</span> PI) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.0</span>
+    <span style="color:#66d9ef">return</span> E <span style="color:#f92672">**</span> (<span style="color:#ae81ff">1</span>j <span style="color:#f92672">*</span> PI) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.0</span>
 </code></pre></div><ul>
 <li>
 <p>DEF constant must resolve at compile time and are restricted to simple types</p>
@@ -1383,11 +1383,11 @@ n <span style="color:#f92672">=</span> len(a) <span style="color:#f92672">-</spa
 <p>e.g. branching on OS</p>
 </li>
 <li>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#75715e">IF</span> UNAME_SYSNAME <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Windows</span><span style="color:#e6db74">&#34;</span>:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#75715e">IF</span> UNAME_SYSNAME <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Windows&#34;</span>:
     <span style="color:#75715e"># ...Windows-specific code...</span>
-<span style="color:#75715e">ELIF</span> UNAME_SYSNAME <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Darwin</span><span style="color:#e6db74">&#34;</span>:
+<span style="color:#75715e">ELIF</span> UNAME_SYSNAME <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Darwin&#34;</span>:
     <span style="color:#75715e"># ...Mac-specific code...</span>
-<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<span style="color:#f92672">...</span>
 </code></pre></div></li>
 </ul>
 </li>
@@ -1398,7 +1398,7 @@ n <span style="color:#f92672">=</span> len(a) <span style="color:#f92672">-</spa
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Python</span>
 
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>(n, bodies<span style="color:#f92672">=</span>BODIES, ref<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">sun</span><span style="color:#e6db74">&#39;</span>):
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>(n, bodies<span style="color:#f92672">=</span>BODIES, ref<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;sun&#39;</span>):
     <span style="color:#75715e"># takes number of steps n to integrate initial conditions </span>
     <span style="color:#75715e"># of bodies with reference body i.e. the Sun</span>
     
@@ -1435,8 +1435,8 @@ n <span style="color:#f92672">=</span> len(a) <span style="color:#f92672">-</spa
 <span style="color:#f92672">from</span> distutils.core <span style="color:#f92672">import</span> setup
 <span style="color:#f92672">from</span> Cython.Build <span style="color:#f92672">import</span> cythonize
     
-setup(name<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">nbody</span><span style="color:#e6db74">&#39;</span>,
-     ext_modules<span style="color:#f92672">=</span>cythonize(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">nbody.pyx</span><span style="color:#e6db74">&#39;</span>))
+setup(name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;nbody&#39;</span>,
+     ext_modules<span style="color:#f92672">=</span>cythonize(<span style="color:#e6db74">&#39;nbody.pyx&#39;</span>))
 </code></pre></div></li>
 <li>
 <p>need a driver script to run the main function inside the extension module</p>
@@ -1460,7 +1460,7 @@ main(int(sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff"
 <h2 id="python-data-structure-and-organisation">Python Data Structure and Organisation</h2>
 <ul>
 <li>
-<p>In Python, each body is a tuple of 3 elems, e.g. Sun's init condition</p>
+<p>In Python, each body is a tuple of 3 elems, e.g. Sun&rsquo;s init condition</p>
 </li>
 <li>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">([<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>], <span style="color:#75715e"># pos</span>
@@ -1493,9 +1493,9 @@ main(int(sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff"
             ([x2, y2, z2], v2, m2)) <span style="color:#f92672">in</span> pairs:
                 <span style="color:#75715e"># ...update velocities...</span>
         <span style="color:#66d9ef">for</span> (r, [vx, vy, vz], m) <span style="color:#f92672">in</span> bodies: <span style="color:#75715e"># update velocities</span>
-            r[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span><span style="color:#f92672">=</span> dt <span style="color:#f92672">*</span> vx
-            r[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span><span style="color:#f92672">=</span> dt <span style="color:#f92672">*</span> vy
-            r[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">+</span><span style="color:#f92672">=</span> dt <span style="color:#f92672">*</span> vz
+            r[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+=</span> dt <span style="color:#f92672">*</span> vx
+            r[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">+=</span> dt <span style="color:#f92672">*</span> vy
+            r[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">+=</span> dt <span style="color:#f92672">*</span> vz
                 
 </code></pre></div></li>
 <li>
@@ -1533,7 +1533,7 @@ main(int(sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff"
 <span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">make_cbodies</span>(list bodies, body_t <span style="color:#f92672">*</span>cbodies, int num_cbodies):
     <span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">body_t</span> *<span style="color:#a6e22e">cbody</span>
     <span style="color:#66d9ef">for</span> i, body <span style="color:#f92672">in</span> enumerate(bodies):
-        <span style="color:#66d9ef">if</span> i <span style="color:#f92672">&gt;</span><span style="color:#f92672">=</span> num_cbodies:
+        <span style="color:#66d9ef">if</span> i <span style="color:#f92672">&gt;=</span> num_cbodies:
             <span style="color:#66d9ef">break</span>
         (x, v, m) <span style="color:#f92672">=</span> body
         cbody <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>cbodies[i]
@@ -1573,20 +1573,20 @@ main(int(sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff"
                 dx <span style="color:#f92672">=</span> body1<span style="color:#f92672">.</span>x[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">-</span> body2<span style="color:#f92672">.</span>x[<span style="color:#ae81ff">0</span>]
                 dy <span style="color:#f92672">=</span> body1<span style="color:#f92672">.</span>x[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> body2<span style="color:#f92672">.</span>x[<span style="color:#ae81ff">1</span>]
                 dz <span style="color:#f92672">=</span> body1<span style="color:#f92672">.</span>x[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">-</span> body2<span style="color:#f92672">.</span>x[<span style="color:#ae81ff">2</span>]
-                mag <span style="color:#f92672">=</span> dt <span style="color:#f92672">*</span> ((dx <span style="color:#f92672">*</span> dx <span style="color:#f92672">+</span> dy <span style="color:#f92672">*</span> dy <span style="color:#f92672">+</span> dz <span style="color:#f92672">*</span> dz) <span style="color:#f92672">*</span><span style="color:#f92672">*</span> (<span style="color:#f92672">-</span><span style="color:#ae81ff">1.5</span>))
+                mag <span style="color:#f92672">=</span> dt <span style="color:#f92672">*</span> ((dx <span style="color:#f92672">*</span> dx <span style="color:#f92672">+</span> dy <span style="color:#f92672">*</span> dy <span style="color:#f92672">+</span> dz <span style="color:#f92672">*</span> dz) <span style="color:#f92672">**</span> (<span style="color:#f92672">-</span><span style="color:#ae81ff">1.5</span>))
                 b1m <span style="color:#f92672">=</span> body1<span style="color:#f92672">.</span>m <span style="color:#f92672">*</span> mag
                 b2m <span style="color:#f92672">=</span> body2<span style="color:#f92672">.</span>m <span style="color:#f92672">*</span> mag
-                body1<span style="color:#f92672">.</span>v[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">-</span><span style="color:#f92672">=</span> dx <span style="color:#f92672">*</span> b2m
-                body1<span style="color:#f92672">.</span>v[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span><span style="color:#f92672">=</span> dy <span style="color:#f92672">*</span> b2m
-                body1<span style="color:#f92672">.</span>v[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">-</span><span style="color:#f92672">=</span> dz <span style="color:#f92672">*</span> b2m
-                body2<span style="color:#f92672">.</span>v[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span><span style="color:#f92672">=</span> dx <span style="color:#f92672">*</span> b1m
-                body2<span style="color:#f92672">.</span>v[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span><span style="color:#f92672">=</span> dy <span style="color:#f92672">*</span> b1m
-                body2<span style="color:#f92672">.</span>v[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">+</span><span style="color:#f92672">=</span> dz <span style="color:#f92672">*</span> b1m
+                body1<span style="color:#f92672">.</span>v[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">-=</span> dx <span style="color:#f92672">*</span> b2m
+                body1<span style="color:#f92672">.</span>v[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-=</span> dy <span style="color:#f92672">*</span> b2m
+                body1<span style="color:#f92672">.</span>v[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">-=</span> dz <span style="color:#f92672">*</span> b2m
+                body2<span style="color:#f92672">.</span>v[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+=</span> dx <span style="color:#f92672">*</span> b1m
+                body2<span style="color:#f92672">.</span>v[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">+=</span> dy <span style="color:#f92672">*</span> b1m
+                body2<span style="color:#f92672">.</span>v[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">+=</span> dz <span style="color:#f92672">*</span> b1m
         <span style="color:#66d9ef">for</span> ii <span style="color:#f92672">in</span> range(NBODIES):
             body2 <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>cbodies[ii]
-            body2<span style="color:#f92672">.</span>x[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span><span style="color:#f92672">=</span> dt <span style="color:#f92672">*</span> body2<span style="color:#f92672">.</span>v[<span style="color:#ae81ff">0</span>]
-            body2<span style="color:#f92672">.</span>x[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span><span style="color:#f92672">=</span> dt <span style="color:#f92672">*</span> body2<span style="color:#f92672">.</span>v[<span style="color:#ae81ff">1</span>]
-            body2<span style="color:#f92672">.</span>x[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">+</span><span style="color:#f92672">=</span> dt <span style="color:#f92672">*</span> body2<span style="color:#f92672">.</span>v[<span style="color:#ae81ff">2</span>]
+            body2<span style="color:#f92672">.</span>x[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+=</span> dt <span style="color:#f92672">*</span> body2<span style="color:#f92672">.</span>v[<span style="color:#ae81ff">0</span>]
+            body2<span style="color:#f92672">.</span>x[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">+=</span> dt <span style="color:#f92672">*</span> body2<span style="color:#f92672">.</span>v[<span style="color:#ae81ff">1</span>]
+            body2<span style="color:#f92672">.</span>x[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">+=</span> dt <span style="color:#f92672">*</span> body2<span style="color:#f92672">.</span>v[<span style="color:#ae81ff">2</span>]
     
 <span style="color:#66d9ef">return</span> make_pybodies(cbodies, NBODIES)	
 </code></pre></div></li>
@@ -1611,7 +1611,7 @@ main(int(sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff"
 <ol>
 <li>Profile using <code>cProfile</code> or <code>%run</code> to see most runtime</li>
 <li>Inspect hotspots for <strong>nested loops, numeric-heavy ops, nested Python containers</strong>, all can be easily converted with Cython to use more efficient C constructs (above case have all)</li>
-<li>Use Cython to declare C data structures equivalent to Python's. Create converters if needed to transform Python data to C data. In the N-body simu, <code>body_t</code> struct to represent nested that-long-name, getting better data locality and fast access! Two converters, <code>make_cbodies, make_pybodies</code> to convert to and fro both</li>
+<li>Use Cython to declare C data structures equivalent to Python&rsquo;s. Create converters if needed to transform Python data to C data. In the N-body simu, <code>body_t</code> struct to represent nested that-long-name, getting better data locality and fast access! Two converters, <code>make_cbodies, make_pybodies</code> to convert to and fro both</li>
 <li>Convert hotspots to use C data, removing Python data from nested loops to the extent possible - ensuring all variables used in nested loop (including loop variables) are ST!</li>
 <li>Test to check semantics intact</li>
 </ol>
@@ -1620,15 +1620,15 @@ main(int(sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff"
 <span style="color:#66d9ef">from</span> distutils.core <span style="color:#66d9ef">import</span> setup
 <span style="color:#66d9ef">from</span> Cython.Build <span style="color:#66d9ef">import</span> cythonize
 
-setup(name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">nbody</span><span style="color:#e6db74">&#34;</span>,
-      ext_modules<span style="color:#f92672">=</span>cythonize(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">nbody.pyx</span><span style="color:#e6db74">&#34;</span>))
+setup(name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;nbody&#34;</span>,
+      ext_modules<span style="color:#f92672">=</span>cythonize(<span style="color:#e6db74">&#34;nbody.pyx&#34;</span>))
 
 <span style="color:#75715e"># global definition the same; maybe Cython could do typed</span>
 
 <span style="color:#75715e"># Python def BODIES</span>
 BODIES <span style="color:#f92672">=</span> {
-    <span style="color:#e6db74">&#39;</span><span style="color:#e6db74">sun</span><span style="color:#e6db74">&#39;</span>: ([<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>]),
-    <span style="color:#e6db74">&#39;</span><span style="color:#e6db74">jupiter</span><span style="color:#e6db74">&#39;</span>: <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+    <span style="color:#e6db74">&#39;sun&#39;</span>: ([<span style="color:#f92672">....</span>]),
+    <span style="color:#e6db74">&#39;jupiter&#39;</span>: <span style="color:#f92672">...</span>
 }
 <span style="color:#75715e"># Cython need struct</span>
 <span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">body_t</span>:
@@ -1639,11 +1639,11 @@ BODIES <span style="color:#f92672">=</span> {
 <span style="color:#75715e">DEF</span> NBODIES <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>
 
 BODIES <span style="color:#f92672">=</span> {
-    <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span> <span style="color:#75715e"># same as python</span>
+    <span style="color:#f92672">...</span> <span style="color:#75715e"># same as python</span>
 }
 
 <span style="color:#75715e"># Python</span>
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">advance</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span> <span style="color:#75715e"># see above</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">advance</span><span style="color:#f92672">...</span> <span style="color:#75715e"># see above</span>
 
 <span style="color:#75715e"># Python</span>
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">report_energy</span>(bodies, pairs):
@@ -1655,9 +1655,9 @@ BODIES <span style="color:#f92672">=</span> {
         dx <span style="color:#f92672">=</span> x1 <span style="color:#f92672">-</span> x2
         dy <span style="color:#f92672">=</span> y1 <span style="color:#f92672">-</span> y2
         dz <span style="color:#f92672">=</span> z1 <span style="color:#f92672">-</span> z2
-        e <span style="color:#f92672">-</span><span style="color:#f92672">=</span> (m1 <span style="color:#f92672">*</span> m2) <span style="color:#f92672">/</span> ((dx <span style="color:#f92672">*</span> dx <span style="color:#f92672">+</span> dy <span style="color:#f92672">*</span> dy <span style="color:#f92672">+</span> dz <span style="color:#f92672">*</span> dz) <span style="color:#f92672">*</span><span style="color:#f92672">*</span> <span style="color:#ae81ff">0.5</span>)
+        e <span style="color:#f92672">-=</span> (m1 <span style="color:#f92672">*</span> m2) <span style="color:#f92672">/</span> ((dx <span style="color:#f92672">*</span> dx <span style="color:#f92672">+</span> dy <span style="color:#f92672">*</span> dy <span style="color:#f92672">+</span> dz <span style="color:#f92672">*</span> dz) <span style="color:#f92672">**</span> <span style="color:#ae81ff">0.5</span>)
     <span style="color:#66d9ef">for</span> (r, [vx, vy, vz], m) <span style="color:#f92672">in</span> bodies:
-        e <span style="color:#f92672">+</span><span style="color:#f92672">=</span> m <span style="color:#f92672">*</span> (vx <span style="color:#f92672">*</span> vx <span style="color:#f92672">+</span> vy <span style="color:#f92672">*</span> vy <span style="color:#f92672">+</span> vz <span style="color:#f92672">*</span> vz) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2.</span>
+        e <span style="color:#f92672">+=</span> m <span style="color:#f92672">*</span> (vx <span style="color:#f92672">*</span> vx <span style="color:#f92672">+</span> vy <span style="color:#f92672">*</span> vy <span style="color:#f92672">+</span> vz <span style="color:#f92672">*</span> vz) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2.</span>
     <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%.9f</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> e)
     
 <span style="color:#75715e"># Cython</span>
@@ -1665,14 +1665,14 @@ BODIES <span style="color:#f92672">=</span> {
     <span style="color:#75715e"># no `pairs` arg but compute internally</span>
     e <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>
     paris <span style="color:#f92672">=</span> combinations(bodies)
-    <span style="color:#66d9ef">for</span> <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#f92672">...</span>
     <span style="color:#75715e"># the same</span>
     
 <span style="color:#75715e"># Cython auxiliaries</span>
 <span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">make_cbodies</span>(list bodies, body_t <span style="color:#f92672">*</span>cbodies, int num_cbodies):
     <span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">body_t</span> *<span style="color:#a6e22e">cbody</span>
     <span style="color:#66d9ef">for</span> i, body <span style="color:#f92672">in</span> enumerate(bodies):
-        <span style="color:#66d9ef">if</span> i <span style="color:#f92672">&gt;</span><span style="color:#f92672">=</span> num_cbodies:
+        <span style="color:#66d9ef">if</span> i <span style="color:#f92672">&gt;=</span> num_cbodies:
             <span style="color:#66d9ef">break</span>
         (x, v, m) <span style="color:#f92672">=</span> body
         cbody <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>codies[i]
@@ -1694,9 +1694,9 @@ BODIES <span style="color:#f92672">=</span> {
     px <span style="color:#f92672">=</span> py <span style="color:#f92672">=</span> pz <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>
 
     <span style="color:#66d9ef">for</span> (r, [vx, vy, vz], m) <span style="color:#f92672">in</span> bodies:
-        px <span style="color:#f92672">-</span><span style="color:#f92672">=</span> vx <span style="color:#f92672">*</span> m
-        py <span style="color:#f92672">-</span><span style="color:#f92672">=</span> vy <span style="color:#f92672">*</span> m
-        pz <span style="color:#f92672">-</span><span style="color:#f92672">=</span> vz <span style="color:#f92672">*</span> m
+        px <span style="color:#f92672">-=</span> vx <span style="color:#f92672">*</span> m
+        py <span style="color:#f92672">-=</span> vy <span style="color:#f92672">*</span> m
+        pz <span style="color:#f92672">-=</span> vz <span style="color:#f92672">*</span> m
     (r, v, m) <span style="color:#f92672">=</span> ref
     v[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> px <span style="color:#f92672">/</span> m
     v[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> py <span style="color:#f92672">/</span> m
@@ -1704,7 +1704,7 @@ BODIES <span style="color:#f92672">=</span> {
 
     
 <span style="color:#75715e"># python</span>
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>(n, bodies<span style="color:#f92672">=</span>BODIES, ref<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">sun</span><span style="color:#e6db74">&#39;</span>):
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>(n, bodies<span style="color:#f92672">=</span>BODIES, ref<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;sun&#39;</span>):
     system <span style="color:#f92672">=</span> list(bodies<span style="color:#f92672">.</span>values())
     pairs <span style="color:#f92672">=</span> combinations(system)
     offset_momentum(bodies[ref], system)
@@ -1712,11 +1712,11 @@ BODIES <span style="color:#f92672">=</span> {
     advance(<span style="color:#ae81ff">0.01</span>, n, system, pairs)
     report_energy(system, pairs)
 
-<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;</span><span style="color:#e6db74">__main__</span><span style="color:#e6db74">&#39;</span>:
-    main(int(sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">1</span>]), bodies<span style="color:#f92672">=</span>BODIES, ref<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">sun</span><span style="color:#e6db74">&#39;</span>)
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+    main(int(sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">1</span>]), bodies<span style="color:#f92672">=</span>BODIES, ref<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;sun&#39;</span>)
 
 <span style="color:#75715e"># cyhton</span>
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>(n, bodies<span style="color:#f92672">=</span>BODIES, ref<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">sun</span><span style="color:#e6db74">&#39;</span>):
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>(n, bodies<span style="color:#f92672">=</span>BODIES, ref<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;sun&#39;</span>):
     system <span style="color:#f92672">=</span> list(bodies<span style="color:#f92672">.</span>values())
     offset_momentum(bodies[ref], system)
     report_energy(system)
@@ -1741,7 +1741,7 @@ clean:
 <ul>
 <li>object has <strong>identity, value, type</strong>  - typically value or data is under <code>__dict__</code> ;</li>
 <li>a type is responsible for creating and destroying its objects ! with <code>class</code></li>
-<li>how Cython allows low-C access to an object's data and methods, benefit?</li>
+<li>how Cython allows low-C access to an object&rsquo;s data and methods, benefit?</li>
 <li>built-in types in Python all implemented at C level via Python/C API, incorporated into the Python runtime.</li>
 <li>they behaves just like regular Python classes</li>
 </ul>
@@ -1810,7 +1810,7 @@ clean:
 <p>when Python calls <code>__init__</code>, the <code>self</code> arg is required to be a valid instance of that ext_type; <code>__init__</code> call typically init attributes on <code>self</code> arg</p>
 </li>
 <li>
-<p>at C, before <code>__init__</code> called, the instance's struct must be ALLOC, all struct fields must be in a valid state, ready to accept initial values</p>
+<p>at C, before <code>__init__</code> called, the instance&rsquo;s struct must be ALLOC, all struct fields must be in a valid state, ready to accept initial values</p>
 </li>
 <li>
 <p>Cython adds a special <code>__cinit__</code> performing C ALLOC and INIT</p>
@@ -1831,7 +1831,7 @@ clean:
     <span style="color:#66d9ef">cdef</span> <span style="color:#a6e22e">__cinit__</span>(self, nr, nc):
         self<span style="color:#f92672">.</span>nrows <span style="color:#f92672">=</span> nr
         self<span style="color:#f92672">.</span>ncols <span style="color:#f92672">=</span> nc
-        self<span style="color:#f92672">.</span>_matrix <span style="color:#f92672">=</span> <span style="color:#f92672">&lt;</span>double<span style="color:#f92672">*</span><span style="color:#f92672">&gt;</span>malloc(nr <span style="color:#f92672">*</span> nc <span style="color:#f92672">*</span> sizeof(double))
+        self<span style="color:#f92672">.</span>_matrix <span style="color:#f92672">=</span> <span style="color:#f92672">&lt;</span>double<span style="color:#f92672">*&gt;</span>malloc(nr <span style="color:#f92672">*</span> nc <span style="color:#f92672">*</span> sizeof(double))
         <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>_matrix <span style="color:#f92672">==</span> NULL:
             <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">MemoryError</span>()
     <span style="color:#75715e"># deconstrutor</span>
@@ -1873,7 +1873,7 @@ clean:
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">add_momentums</span>(particles):
     total_mom <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>
     <span style="color:#66d9ef">for</span> particle <span style="color:#f92672">in</span> particles:
-        total_mom <span style="color:#f92672">+</span><span style="color:#f92672">=</span> particle<span style="color:#f92672">.</span>get_momentum()
+        total_mom <span style="color:#f92672">+=</span> particle<span style="color:#f92672">.</span>get_momentum()
   <span style="color:#66d9ef">return</span> total_mom
   
 <span style="color:#75715e"># faster with typing</span>
@@ -1882,7 +1882,7 @@ clean:
         double total_mom <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>
         Particle particle
   <span style="color:#66d9ef">for</span> particle <span style="color:#f92672">in</span> particles:
-        total_mom <span style="color:#f92672">+</span><span style="color:#f92672">=</span> particle<span style="color:#f92672">.</span>get_momentum()
+        total_mom <span style="color:#f92672">+=</span> particle<span style="color:#f92672">.</span>get_momentum()
   <span style="color:#66d9ef">return</span> total_mom
   
 <span style="color:#75715e"># NOTE: arg type is list, double and CRUCIALLY, the loop indexing variable particle as a Particle !!</span>
@@ -1914,7 +1914,7 @@ clean:
         double total_mom <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>
         Particle particle
     <span style="color:#66d9ef">for</span> particle <span style="color:#f92672">in</span> particles:
-        total_mom <span style="color:#f92672">+</span><span style="color:#f92672">=</span> particle<span style="color:#f92672">.</span>get_momentum_c()
+        total_mom <span style="color:#f92672">+=</span> particle<span style="color:#f92672">.</span>get_momentum_c()
     <span style="color:#66d9ef">return</span> total_mom
 </code></pre></div><ul>
 <li><strong>fastest! (40%) BUT DOWNSIDE is that <code>get_momentum_c</code> is NOT callable from Python, only Cython - since these are trivial, the speedups are skewed heavily toward function call overhead. For more heavy calculations, the speed difference between <code>cdef</code> and <code>cpdef</code> will be INSIGNIFICANT, while the FLEXIBILITY <code>cpdef</code> becomes more relevant</strong></li>
@@ -1929,7 +1929,7 @@ clean:
 <p><strong>CAN SUBCLASS a SINGLE BASE TYPE</strong>, which must itself be a type implemented in C - either built-in or another ext_type !</p>
 </li>
 <li>
-<p>For example, subclass of <code>Particle, CParticle</code>, storing particle's momentum rather than computing it on the fly - do not want duplicate work done in Particle, so subclass it</p>
+<p>For example, subclass of <code>Particle, CParticle</code>, storing particle&rsquo;s momentum rather than computing it on the fly - do not want duplicate work done in Particle, so subclass it</p>
 </li>
 <li>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CParticle</span>(Particle):
@@ -1974,7 +1974,7 @@ clean:
 <p>when working with a DT object, Cython cannot access any C data or methods on it! All attribute lookup must be done via API slow! If knew dynamic variable is or may possibly be an instance of a built-in type or an extension type, THEN it is worth <strong>casting to the ST</strong> - allowing Cython to access C attributes and methods - further Cython can also access Python attributes and <code>cpdef</code> methods directly without going through API</p>
 </li>
 <li>
-<p>casting: either by creating a ST variable of desired type and assigning the dynamic variable to it, OR using Cython's casting operator</p>
+<p>casting: either by creating a ST variable of desired type and assigning the dynamic variable to it, OR using Cython&rsquo;s casting operator</p>
 </li>
 <li>
 <p>Example: an object <code>p</code> might be instance of <code>Particle</code> or one of its subclasses, ALL cython knows about <code>p</code> is that it is a Python object, can call <code>get_momentum</code> which works if <code>p</code> has such a method and fail otherwise; because <code>p</code> is a <strong>dynamic variable</strong>, Cython will access <code>get_momentum</code> looking up in a Python dictionary, if OK, <code>PyObject_Call</code> will exec the method - BUT if casting it to a <code>Particle</code> <strong>explicitly</strong>, the call is faster:</p>
@@ -2026,12 +2026,12 @@ dispatch(None) <span style="color:#75715e"># Segmentation fault!</span>
 </ul>
 </li>
 <li>
-<p>Why? because dispatch(unsafely) accesses the cpdef function get_momentum and the private attribute both are C interface; Python's none object essentially has NO C interface, so trying to call a method on it or access an <strong>attribute is not valid - to be safe, check if p is None first:</strong></p>
+<p>Why? because dispatch(unsafely) accesses the cpdef function get_momentum and the private attribute both are C interface; Python&rsquo;s none object essentially has NO C interface, so trying to call a method on it or access an <strong>attribute is not valid - to be safe, check if p is None first:</strong></p>
 <ul>
 <li>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">dispatch</span>(Particle p):
     <span style="color:#66d9ef">if</span> p <span style="color:#f92672">is</span> None:
-        <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">TypeError</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">...</span><span style="color:#e6db74">&#34;</span>)
+        <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">TypeError</span>(<span style="color:#e6db74">&#34;...&#34;</span>)
       
 <span style="color:#75715e"># so common for special syntax</span>
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">dispatch</span>(Particle p <span style="color:#f92672">not</span> None):
@@ -2096,12 +2096,12 @@ dispatch(None) <span style="color:#75715e"># Segmentation fault!</span>
 <h2 id="special-methods-are-even-more-special">Special Methods Are Even More SPECIAL</h2>
 <ul>
 <li>when providing support for operator overloading with ext_type, need to define a special method - specifc name with leading and trailling double underscores</li>
-<li>Extension types do not support <code>__del__</code>, that's the role of <code>__dealloc__</code></li>
+<li>Extension types do not support <code>__del__</code>, that&rsquo;s the role of <code>__dealloc__</code></li>
 </ul>
 <h3 id="arithmetic">Arithmetic</h3>
 <ul>
 <li>
-<p><code>__add__(self, other)</code> enables <code> c + d</code> to call <code>C.__add__(c, d)</code> ; if not implemented, Python interpreter calls <code>type(d).__radd__(d, c)</code> to give d's class a chance to add itself to a C instance</p>
+<p><code>__add__(self, other)</code> enables <code> c + d</code> to call <code>C.__add__(c, d)</code> ; if not implemented, Python interpreter calls <code>type(d).__radd__(d, c)</code> to give d&rsquo;s class a chance to add itself to a C instance</p>
 </li>
 <li>
 <p>Applied to ALL extension type (beyond Cython): DO NOT support <code>__radd__</code>, instead effectively overload <code>__add__</code> to do BOTH regular and class-type - meaning for a Cython-defined extension type E, <code>__add__</code> will be called when expression <code>f + e</code>  is eval and ALSO call when <code>f + e</code> eval.</p>
@@ -2147,7 +2147,7 @@ e <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.0</span> <s
 <span style="color:#75715e"># argument, so self is an appropriate name in these cases. The exception to this is</span>
 <span style="color:#75715e"># __ipow__ , which may be called with a different order of arguments, like __add__ .</span>
 </code></pre></div><ul>
-<li><strong>Cython does not auto-type either arg to <code>__add__</code>, making the <code>isinstance</code> chcek and cast necessary to access each E instances's internal .data attribute.</strong></li>
+<li><strong>Cython does not auto-type either arg to <code>__add__</code>, making the <code>isinstance</code> chcek and cast necessary to access each E instances&rsquo;s internal .data attribute.</strong></li>
 </ul>
 </li>
 </ul>
@@ -2174,7 +2174,7 @@ e <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.0</span> <s
     <span style="color:#66d9ef">if</span> op <span style="color:#f92672">==</span> Py_LT:
         <span style="color:#66d9ef">return</span> data <span style="color:#f92672">&lt;</span> y
     <span style="color:#66d9ef">elif</span> op <span style="color:#f92672">==</span> Py_LE:
-        <span style="color:#66d9ef">return</span> data <span style="color:#f92672">&lt;</span><span style="color:#f92672">=</span> y
+        <span style="color:#66d9ef">return</span> data <span style="color:#f92672">&lt;=</span> y
     <span style="color:#66d9ef">elif</span> op <span style="color:#f92672">==</span> Py_EQ:
         <span style="color:#66d9ef">return</span> data <span style="color:#f92672">==</span> y
     <span style="color:#66d9ef">elif</span> op <span style="color:#f92672">==</span> Py_NE:
@@ -2182,12 +2182,12 @@ e <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.0</span> <s
     <span style="color:#66d9ef">elif</span> op <span style="color:#f92672">==</span> Py_GT:
         <span style="color:#66d9ef">return</span> data <span style="color:#f92672">&gt;</span> y
     <span style="color:#66d9ef">elif</span> op <span style="color:#f92672">==</span> Py_GE:
-        <span style="color:#66d9ef">return</span> data <span style="color:#f92672">&gt;</span><span style="color:#f92672">=</span> y
+        <span style="color:#66d9ef">return</span> data <span style="color:#f92672">&gt;=</span> y
     <span style="color:#66d9ef">else</span>:
         <span style="color:#66d9ef">assert</span> False
             
 <span style="color:#75715e"># SPECIAL CHAIN COMPARE:</span>
-<span style="color:#ae81ff">0</span> <span style="color:#f92672">&lt;</span><span style="color:#f92672">=</span> r <span style="color:#f92672">&lt;</span><span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span> <span style="color:#75715e"># True</span>
+<span style="color:#ae81ff">0</span> <span style="color:#f92672">&lt;=</span> r <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">100</span> <span style="color:#75715e"># True</span>
 </code></pre></div></li>
 </ul>
 <h3 id="iterator">Iterator</h3>
@@ -2209,10 +2209,10 @@ e <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.0</span> <s
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__iter__</span>(self):
         <span style="color:#66d9ef">return</span> self
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__next__</span>(self):
-        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>i <span style="color:#f92672">&gt;</span><span style="color:#f92672">=</span> len(self<span style="color:#f92672">.</span>data):
+        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>i <span style="color:#f92672">&gt;=</span> len(self<span style="color:#f92672">.</span>data):
             <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">StopIteration</span>()
         set <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>data[self<span style="color:#f92672">.</span>i]
-        self<span style="color:#f92672">.</span>i <span style="color:#f92672">+</span><span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+        self<span style="color:#f92672">.</span>i <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
         <span style="color:#66d9ef">return</span> ret
         
 <span style="color:#75715e"># I defines __iter__, can be used in for loops</span>
@@ -2220,7 +2220,7 @@ e <span style="color:#f92672">+</span> <span style="color:#ae81ff">1.0</span> <s
 i <span style="color:#f92672">=</span> I()
 s <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
 <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> i:
-    s <span style="color:#f92672">+</span><span style="color:#f92672">=</span> x
+    s <span style="color:#f92672">+=</span> x
     
 <span style="color:#75715e"># iterator</span>
 it <span style="color:#f92672">=</span> iter(I())
@@ -2232,7 +2232,7 @@ it<span style="color:#f92672">.</span>next() <span style="color:#75715e"># 0</sp
 <p>SUMMARY</p>
 <p>CYTHON MELDS EXT_TYPE DEFINITION</p>
 <ol>
-<li>allows easy and fast access to an instance's C data and methods</li>
+<li>allows easy and fast access to an instance&rsquo;s C data and methods</li>
 <li>memory efficient</li>
 <li>allows control over attribute visibility</li>
 <li>can be subclassed from Python</li>
@@ -2242,7 +2242,7 @@ it<span style="color:#f92672">.</span>next() <span style="color:#75715e"># 0</sp
 <h1 id="chapter-6-organising-cython-code">Chapter 6: Organising Cython Code</h1>
 <ul>
 <li>Cython <code>import</code> allows RUNTIME access Python objects DEFINED in external Python modules or Python-accessible objects DEFINED in other extension modules!</li>
-<li>If that was it: would not allow two Cython modules to access each other's cdef or cpdef functoins, ctypedefs, structs, nor allow C access to other extension types!</li>
+<li>If that was it: would not allow two Cython modules to access each other&rsquo;s cdef or cpdef functoins, ctypedefs, structs, nor allow C access to other extension types!</li>
 <li>SO: 3-FILE types to organise Cython-specfic and C parts of a project</li>
 <li>IMPLEMENTATION FILE - <code>.pyx</code></li>
 <li>DEFINITION FILE - <code>.pxd</code></li>
@@ -2272,9 +2272,9 @@ it<span style="color:#f92672">.</span>next() <span style="color:#75715e"># 0</sp
         unsigned int n_particles
         real_t <span style="color:#f92672">*</span>x
         real_t <span style="color:#f92672">*</span>vx
-  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__cinit__</span>(<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>):
+  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__cinit__</span>(<span style="color:#f92672">...</span>):
         <span style="color:#75715e"># ...</span>
-  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__dealloc__</span>(<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>):
+  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__dealloc__</span>(<span style="color:#f92672">...</span>):
         <span style="color:#75715e"># ...</span>
   <span style="color:#66d9ef">cpdef</span> <span style="color:#66d9ef">real_t</span> <span style="color:#a6e22e">momentum</span>(self):
         <span style="color:#75715e"># ...</span>
@@ -2319,7 +2319,7 @@ it<span style="color:#f92672">.</span>next() <span style="color:#75715e"># 0</sp
 </ul>
 <h3 id="declarations-and-definitions">Declarations and Definitions</h3>
 <ul>
-<li>Syntactically, declaration for a function or method includes everything for the fucntion or method's SIGNATURE:
+<li>Syntactically, declaration for a function or method includes everything for the fucntion or method&rsquo;s SIGNATURE:
 <ul>
 <li>the declaration type (<code>cdef, cpdef</code>);</li>
 <li>the function or methods&rsquo; name;</li>
@@ -2335,14 +2335,14 @@ it<span style="color:#f92672">.</span>next() <span style="color:#75715e"># 0</sp
 <li>all method declarations</li>
 </ul>
 </li>
-<li>Cython definition is all required for that construct's implementation. The definition for a function or method repeats the declaration as part of the definition (i.e., the implementation); the definition for a <code>cdef</code> class does not redeclare the attribute declarations</li>
+<li>Cython definition is all required for that construct&rsquo;s implementation. The definition for a function or method repeats the declaration as part of the definition (i.e., the implementation); the definition for a <code>cdef</code> class does not redeclare the attribute declarations</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#75715e"># simulator.pyx</span>
 
 <span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">State</span>:
-    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__cinit__</span>(<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__cinit__</span>(<span style="color:#f92672">...</span>):
         <span style="color:#75715e"># ...</span>
-	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__dealloc__</span>(<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>):
+	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__dealloc__</span>(<span style="color:#f92672">...</span>):
         <span style="color:#75715e"># ...</span>
 	<span style="color:#66d9ef">cpdef</span> <span style="color:#66d9ef">real_t</span> <span style="color:#a6e22e">momentum</span>(self):
         <span style="color:#75715e"># ...</span>
@@ -2356,9 +2356,9 @@ it<span style="color:#f92672">.</span>next() <span style="color:#75715e"># 0</sp
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">output</span>(State st):
     <span style="color:#75715e">#...</span>
 </code></pre></div><ul>
-<li><code>ctypedef</code> and State type's attributes have been moved to the definition file, so they are removed from the implementation file. The definitions of all objects, whether C or Python, go inside the implementation file.</li>
+<li><code>ctypedef</code> and State type&rsquo;s attributes have been moved to the definition file, so they are removed from the implementation file. The definitions of all objects, whether C or Python, go inside the implementation file.</li>
 <li><strong>Cython compiler will auto-use definition files&rsquo; declarations!</strong></li>
-<li>What's in DEFINITION FILE: <strong>anything meant to be publicly accessible to other Cython modules at C level</strong>
+<li>What&rsquo;s in DEFINITION FILE: <strong>anything meant to be publicly accessible to other Cython modules at C level</strong>
 <ul>
 <li>C type declarations - <code>ctypedef, struct, union, enum</code></li>
 <li>Declarations for external C or C++ libs (<code>cdef extern</code> blocks)</li>
@@ -2391,7 +2391,7 @@ it<span style="color:#f92672">.</span>next() <span style="color:#75715e"># 0</sp
 <span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">NewState</span>(State):
     <span style="color:#66d9ef">cdef</span>:
         <span style="color:#75715e"># ... extra attributes...</span>
-  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__cinit__</span>(self, <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>):
+  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__cinit__</span>(self, <span style="color:#f92672">...</span>):
         <span style="color:#75715e"># ...</span>
   <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__dealloc__</span>(self):
         <span style="color:#75715e"># ...</span>
@@ -2456,7 +2456,7 @@ sim<span style="color:#f92672">.</span>step(st, dt)
 <p>e.g. the Mersenne Twister random-number generator RNG header file has a few funcs that can be declared inside a <code>_mersenne_twister.pdx</code> definition file:</p>
 </li>
 <li>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">mt19937ar.h</span><span style="color:#e6db74">&#34;</span>:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;mt19937ar.h&#34;</span>:
     <span style="color:#75715e"># init mt[N] with a seed</span>
     void init_genrand(unsigned long s)
         
@@ -2498,7 +2498,7 @@ math<span style="color:#f92672">.</span>sin(<span style="color:#ae81ff">3.14</sp
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#75715e"># multiple named cimports</span>
 
 <span style="color:#66d9ef">from</span> libc.stdlib <span style="color:#66d9ef">cimport</span> rand, srand, qsort, malloc, free
-<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">int</span> *<span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#f92672">&lt;</span>int<span style="color:#f92672">*</span><span style="color:#f92672">&gt;</span>malloc(<span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> sizeof(int))
+<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">int</span> *<span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#f92672">&lt;</span>int<span style="color:#f92672">*&gt;</span>malloc(<span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> sizeof(int))
 
 <span style="color:#66d9ef">from</span> libc.string <span style="color:#66d9ef">cimport</span> memcpy <span style="color:#66d9ef">as</span> c_memcpy
 
@@ -2515,8 +2515,8 @@ math<span style="color:#f92672">.</span>sin(<span style="color:#ae81ff">3.14</sp
 </ul>
 </li>
 <li><strong>C/C++ access header files via the #include preprocessor command, which essentially does a dumb source-level inclusion of the named header file</strong></li>
-<li><strong>Cython's cimport statement is more intelligent and less error prone: think of it as a compile-time import statement that works with namespaces!</strong></li>
-<li>Cython's predecessor, Pyrex, did not have cimport statement, and instead had an include for source-level inclusion of an external include file. Cython also supports the include statement and include files, which are used in several Cython projects</li>
+<li><strong>Cython&rsquo;s cimport statement is more intelligent and less error prone: think of it as a compile-time import statement that works with namespaces!</strong></li>
+<li>Cython&rsquo;s predecessor, Pyrex, did not have cimport statement, and instead had an include for source-level inclusion of an external include file. Cython also supports the include statement and include files, which are used in several Cython projects</li>
 </ul>
 <h2 id="include-files-and-include-statement">Include Files and Include Statement</h2>
 <ul>
@@ -2539,9 +2539,9 @@ math<span style="color:#f92672">.</span>sin(<span style="color:#ae81ff">3.14</sp
 <p>inside <code>interface.pyx</code></p>
 <ul>
 <li>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#75715e">IF</span> UNAME_SYSNAME <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Linux</span><span style="color:#e6db74">&#34;</span>:
-    <span style="color:#66d9ef">include</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">linux.pxi</span><span style="color:#e6db74">&#34;</span>
-<span style="color:#75715e">ELIF</span> <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#75715e">IF</span> UNAME_SYSNAME <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Linux&#34;</span>:
+    <span style="color:#66d9ef">include</span> <span style="color:#e6db74">&#34;linux.pxi&#34;</span>
+<span style="color:#75715e">ELIF</span> <span style="color:#f92672">...</span>
 </code></pre></div></li>
 </ul>
 </li>
@@ -2576,7 +2576,7 @@ utils
     output.py
 </code></pre></div></li>
 <li>
-<p>focus for this example is not the internal details of the pysimulator modules; it's how Cython modules can access compile-time declarations and work easily within the framework of a Python project</p>
+<p>focus for this example is not the internal details of the pysimulator modules; it&rsquo;s how Cython modules can access compile-time declarations and work easily within the framework of a Python project</p>
 </li>
 <li>
 <p>suppose profiling reveals <code>core.py, sim_state.py, plugin0.py</code> are slow</p>
@@ -2660,10 +2660,10 @@ utils
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> distutils.core <span style="color:#f92672">import</span> setup
 <span style="color:#f92672">from</span> Cython.Build <span style="color:#f92672">import</span> cythonize
   
-setup(name<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">simulator</span><span style="color:#e6db74">&#34;</span>,
-      packages<span style="color:#f92672">=</span>[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">simulator</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">simulator.core</span><span style="color:#e6db74">&#34;</span>,
-                  <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">simulator.utils</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">simulator.plugins</span><span style="color:#e6db74">&#34;</span>],
-      ext_modules<span style="color:#f92672">=</span>cythonize(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">**/*.pyx</span><span style="color:#e6db74">&#34;</span>),
+setup(name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;simulator&#34;</span>,
+      packages<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;simulator&#34;</span>, <span style="color:#e6db74">&#34;simulator.core&#34;</span>,
+                  <span style="color:#e6db74">&#34;simulator.utils&#34;</span>, <span style="color:#e6db74">&#34;simulator.plugins&#34;</span>],
+      ext_modules<span style="color:#f92672">=</span>cythonize(<span style="color:#e6db74">&#34;**/*.pyx&#34;</span>),
      )
 </code></pre></div></li>
 <li>
@@ -2685,7 +2685,7 @@ setup(name<span style="color:#f92672">=</span><span style="color:#e6db74"></span
 <p>First must declare C interface components in Cython <code>extern</code> block</p>
 </li>
 <li>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">header_name</span><span style="color:#e6db74">&#34;</span>:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;header_name&#34;</span>:
     indented declarations <span style="color:#66d9ef">from</span> header file
 </code></pre></div><ul>
 <li>cython compiler generates an <code>#include &quot;header_name&quot;</code> line inside the generated source file</li>
@@ -2706,15 +2706,15 @@ setup(name<span style="color:#f92672">=</span><span style="color:#e6db74"></span
 <p><strong>if necessary to have <code>#include</code> preprocessor directive for a specific header file, but no declarations are required, the block can be empty</strong></p>
 </li>
 <li>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">header.h</span><span style="color:#e6db74">&#34;</span>:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;header.h&#34;</span>:
     <span style="color:#66d9ef">pass</span>
 </code></pre></div></li>
 <li>
-<p>conversely, if name of header file not necessary (perhaps it's already included by another header file that has its own extern block), but like to interface with external code, can suppress #include statement generation with from *:</p>
+<p>conversely, if name of header file not necessary (perhaps it&rsquo;s already included by another header file that has its own extern block), but like to interface with external code, can suppress #include statement generation with from *:</p>
 </li>
 <li>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#f92672">*</span>:
-    declarations<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+    declarations<span style="color:#f92672">...</span>
 </code></pre></div></li>
 </ul>
 <h2 id="cython-does-not-automate-wrapping">Cython Does NOT Automate Wrapping</h2>
@@ -2747,8 +2747,8 @@ setup(name<span style="color:#f92672">=</span><span style="color:#e6db74"></span
 <p>e.g. C declar and macros</p>
 </li>
 <li>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#</span><span style="color:#75715e">define M_PI 3.1415926</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">define MAX(a, b) ((a) &gt;= (b) ? (a) : (b))</span><span style="color:#75715e">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#define M_PI 3.1415926
+</span><span style="color:#75715e">#define MAX(a, b) ((a) &gt;= (b) ? (a) : (b))
 </span><span style="color:#75715e"></span>  
 <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">hypot</span>(<span style="color:#66d9ef">double</span>, <span style="color:#66d9ef">double</span>);
   
@@ -2757,12 +2757,12 @@ setup(name<span style="color:#f92672">=</span><span style="color:#e6db74"></span
   
 <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">func</span>(integrall, integral, real);
   
-real <span style="color:#f92672">*</span><span style="color:#a6e22e">func_arrays</span>(integral[], integral[][<span style="color:#ae81ff">10</span>], real <span style="color:#f92672">*</span><span style="color:#f92672">*</span>);
+real <span style="color:#f92672">*</span><span style="color:#a6e22e">func_arrays</span>(integral[], integral[][<span style="color:#ae81ff">10</span>], real <span style="color:#f92672">**</span>);
 </code></pre></div></li>
 <li>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#75715e"># Cython declarations for them, bar the macros, nearly copy-paste</span>
   
-<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">header.h</span><span style="color:#e6db74">&#34;</span>:
+<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;header.h&#34;</span>:
       
     double M_PI
     float MAX(float a, float b)
@@ -2775,7 +2775,7 @@ real <span style="color:#f92672">*</span><span style="color:#a6e22e">func_arrays
       
     void func(integral a, integral b, real c)
       
-    real <span style="color:#f92672">*</span>func_arrays(integral[] i, integral[][<span style="color:#ae81ff">10</span>] j, real <span style="color:#f92672">*</span><span style="color:#f92672">*</span>k)
+    real <span style="color:#f92672">*</span>func_arrays(integral[] i, integral[][<span style="color:#ae81ff">10</span>] j, real <span style="color:#f92672">**</span>k)
 </code></pre></div></li>
 <li>
 <p>NOTE for <code>M_PI</code> macro, declared as if it were a global of double - and <code>MAX</code> func-lke macro, declared in Cython as if a regular C func named <code>MAX</code> taking two float return float</p>
@@ -2786,12 +2786,12 @@ real <span style="color:#f92672">*</span><span style="color:#a6e22e">func_arrays
 <li>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#75715e"># C: func named signal taking func-pointer returns func-pointer</span>
     
-<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">header.h</span><span style="color:#e6db74">&#34;</span>:
+<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;header.h&#34;</span>:
     void (<span style="color:#f92672">*</span>signal(void(<span style="color:#f92672">*</span>)(int)))(int)
     
 <span style="color:#75715e"># Cython uses extern blocks ONLY to check type correctness, can add helper `ctypedef` for legibility</span>
     
-<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">header.h</span><span style="color:#e6db74">&#34;</span>:
+<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;header.h&#34;</span>:
     <span style="color:#66d9ef">ctypedef</span> void (<span style="color:#f92672">*</span>void_int_fptr)(int)
     void_int_fptr signal(void_int_fptr)
         
@@ -2803,15 +2803,15 @@ real <span style="color:#f92672">*</span><span style="color:#a6e22e">func_arrays
 <h2 id="declaring-and-wrapping-c-structs-unions-enums">Declaring and Wrapping C structs, unions, enums</h2>
 <ul>
 <li>
-<p>same syntax as before, but omit <code>cdef</code> as it's implied</p>
+<p>same syntax as before, but omit <code>cdef</code> as it&rsquo;s implied</p>
 <ul>
 <li>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">header_name</span><span style="color:#e6db74">&#34;</span>:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;header_name&#34;</span>:
         
     <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">struct_name</span>:
         struct_members
-    union <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
-    enum <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>
+    union <span style="color:#f92672">...</span>
+    enum <span style="color:#f92672">...</span>
 </code></pre></div></li>
 <li>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// above translate to C
@@ -2829,7 +2829,7 @@ real <span style="color:#f92672">*</span><span style="color:#a6e22e">func_arrays
 <span style="color:#75715e">// same for union and enum
 </span></code></pre></div></li>
 <li>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">header_name</span><span style="color:#e6db74">&#34;</span>:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;header_name&#34;</span>:
         
     <span style="color:#66d9ef">ctypedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">struct_alias</span>:
         struct_members
@@ -2857,7 +2857,7 @@ real <span style="color:#f92672">*</span><span style="color:#a6e22e">func_arrays
 <li>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#75715e"># declare them in Cython</span>
   
-<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">mt19937ar.h</span><span style="color:#e6db74">&#34;</span>:
+<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;mt19937ar.h&#34;</span>:
     void init_genrand(unsigned long s)
     double genrand_real1()
       
@@ -2874,10 +2874,10 @@ real <span style="color:#f92672">*</span><span style="color:#a6e22e">func_arrays
 <span style="color:#66d9ef">from</span> distutils.core <span style="color:#66d9ef">import</span> setup, Extension
 <span style="color:#66d9ef">from</span> Cython.Build <span style="color:#66d9ef">import</span> cythonize
   
-ext <span style="color:#f92672">=</span> Extension(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">mt_random</span><span style="color:#e6db74">&#34;</span>,
-                  sources<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">mt_random.pyx</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">mt19937ar.c</span><span style="color:#e6db74">&#34;</span>])
+ext <span style="color:#f92672">=</span> Extension(<span style="color:#e6db74">&#34;mt_random&#34;</span>,
+                  sources<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;mt_random.pyx&#34;</span>, <span style="color:#e6db74">&#34;mt19937ar.c&#34;</span>])
   
-setup(name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">mersenne_random</span><span style="color:#e6db74">&#34;</span>,
+setup(name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mersenne_random&#34;</span>,
       ext_modules <span style="color:#f92672">=</span> cythonize([ext]))
   
 </code></pre></div></li>
@@ -2892,7 +2892,7 @@ setup(name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;<
   
 mt_random.init_state<span style="color:#f92672">(</span>42<span style="color:#f92672">)</span>
   
-mt_random.rand<span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#75715e"># 0.37....</span>
+mt_random.rand<span style="color:#f92672">()</span> <span style="color:#75715e"># 0.37....</span>
 </code></pre></div></li>
 <li>
 <p>CONS: uses a STATIC GLOBAL array to store RNG state, allowing only ONE RNG a time</p>
@@ -2905,7 +2905,7 @@ mt_random.rand<span style="color:#f92672">(</span><span style="color:#f92672">)<
 <ul>
 <li>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// mt19937ar-struct.h
-</span><span style="color:#75715e"></span><span style="color:#75715e">// improved API first forward-decalres a struct typedef in header file
+</span><span style="color:#75715e">// improved API first forward-decalres a struct typedef in header file
 </span><span style="color:#75715e"></span>  
 <span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> _mt_state mt_state;
   
@@ -2921,7 +2921,7 @@ mt_state <span style="color:#f92672">*</span><span style="color:#a6e22e">make_mt
 <li>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#75715e"># cython declaration for new API</span>
   
-<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">mt19937ar-struct.h</span><span style="color:#e6db74">&#34;</span>:
+<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;mt19937ar-struct.h&#34;</span>:
     <span style="color:#66d9ef">ctypedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">mt_state</span>
     mt_state <span style="color:#f92672">*</span>make_mt(unsigned long s)
     void free_mt(mt_state <span style="color:#f92672">*</span>state)
@@ -2931,7 +2931,7 @@ mt_state <span style="color:#f92672">*</span><span style="color:#a6e22e">make_mt
 <p>because mt_state struct is opaque and Cython does not need to access any of its internal fields, the preceding ctypedef is sufficient ! essentially a named placeholder</p>
 </li>
 <li>
-<p>cython exposes none of these C extern declarations to Python - it's nice to wrap this imp-version in an extension type named MT, the only attribute will hold is a private pointer to an mt_state struct:</p>
+<p>cython exposes none of these C extern declarations to Python - it&rsquo;s nice to wrap this imp-version in an extension type named MT, the only attribute will hold is a private pointer to an mt_state struct:</p>
 <ul>
 <li>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MT</span>:
@@ -2941,7 +2941,7 @@ mt_state <span style="color:#f92672">*</span><span style="color:#a6e22e">make_mt
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__cinit__</span>(self, unsigned long s):
         self<span style="color:#f92672">.</span>_thisptr <span style="color:#f92672">=</span> make_mt(s)
         <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>_thisptr <span style="color:#f92672">==</span> NULL:
-            msg <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Insufficient memory.</span><span style="color:#e6db74">&#34;</span>
+            msg <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Insufficient memory.&#34;</span>
             <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">MemoryError</span>(msg)
     <span style="color:#75715e"># deconstructor</span>
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__dealloc__</span>(self):
@@ -2962,11 +2962,11 @@ mt_state <span style="color:#f92672">*</span><span style="color:#a6e22e">make_mt
 <span style="color:#f92672">from</span> distuils.core <span style="color:#f92672">import</span> setup, Extension
 <span style="color:#f92672">from</span> Cython.Build <span style="color:#f92672">import</span> cythonize
     
-ext_type <span style="color:#f92672">=</span> Extension(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">mt_random_type</span><span style="color:#e6db74">&#34;</span>,
-                     sources<span style="color:#f92672">=</span>[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">mt_random_type.pyx</span><span style="color:#e6db74">&#34;</span>,
-                              <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">mt19937ar-struct.c</span><span style="color:#e6db74">&#34;</span>])
+ext_type <span style="color:#f92672">=</span> Extension(<span style="color:#e6db74">&#34;mt_random_type&#34;</span>,
+                     sources<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;mt_random_type.pyx&#34;</span>,
+                              <span style="color:#e6db74">&#34;mt19937ar-struct.c&#34;</span>])
     
-setup(name<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">mersenne_random</span><span style="color:#e6db74">&#34;</span>,
+setup(name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mersenne_random&#34;</span>,
       ext_modules <span style="color:#f92672">=</span> cythonize([ext_type]))
 </code></pre></div></li>
 <li>
@@ -2976,7 +2976,7 @@ from mt_random_type import MT
     
 mt1, mt2 <span style="color:#f92672">=</span> MT<span style="color:#f92672">(</span>0<span style="color:#f92672">)</span>, MT<span style="color:#f92672">(</span>0<span style="color:#f92672">)</span>
     
-mt1.rand<span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">=</span><span style="color:#f92672">=</span> mt2.rand<span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#75715e"># True</span>
+mt1.rand<span style="color:#f92672">()</span> <span style="color:#f92672">==</span> mt2.rand<span style="color:#f92672">()</span> <span style="color:#75715e"># True</span>
 </code></pre></div></li>
 </ul>
 <blockquote>
@@ -3001,7 +3001,7 @@ to be overridden in Python subclasses.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span> const_int_ptr;
 <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">double</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">returns_ptr_to_const</span>(const_int_ptr);
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#75715e"># forward to .pyd</span>
-<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">header.h</span><span style="color:#e6db74">&#34;</span>:
+<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;header.h&#34;</span>:
     <span style="color:#66d9ef">ctypedef</span> const int <span style="color:#f92672">*</span> const_int_ptr
     const double <span style="color:#f92672">*</span>returns_ptr_to_const(const_int_ptr)
 </code></pre></div></li>
@@ -3014,24 +3014,24 @@ to be overridden in Python subclasses.</p>
 <li>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#75715e"># wrap C print - cannot use print as reserved - aliasing</span>
     
-<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">printer.h</span><span style="color:#e6db74">&#34;</span>:
-    void _print <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">print</span><span style="color:#e6db74">&#34;</span>(fmt_str, arg)
+<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;printer.h&#34;</span>:
+    void _print <span style="color:#e6db74">&#34;print&#34;</span>(fmt_str, arg)
         
 <span style="color:#75715e"># named _print in Cython, but print in generated C, also works for typedef/struct/etc</span>
     
-<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">pathological.h</span><span style="color:#e6db74">&#34;</span>:
+<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;pathological.h&#34;</span>:
     <span style="color:#75715e"># typedef void * class</span>
-    <span style="color:#66d9ef">ctypedef</span> void <span style="color:#f92672">*</span> kclass <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">class</span><span style="color:#e6db74">&#34;</span>
+    <span style="color:#66d9ef">ctypedef</span> void <span style="color:#f92672">*</span> kclass <span style="color:#e6db74">&#34;class&#34;</span>
         
     <span style="color:#75715e"># int finally(void) function</span>
-    int _finally <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">finally</span><span style="color:#e6db74">&#34;</span>()
+    int _finally <span style="color:#e6db74">&#34;finally&#34;</span>()
         
     <span style="color:#75715e"># struct del { int a, b; };</span>
-    <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">_del</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">del</span><span style="color:#e6db74">&#34;</span>:
+    <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">_del</span> <span style="color:#e6db74">&#34;del&#34;</span>:
         int a, b
             
     <span style="color:#75715e"># enum yield { ALOT; SOME; ALITTLE; };</span>
-    enum _yield <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">yield</span><span style="color:#e6db74">&#34;</span>:
+    enum _yield <span style="color:#e6db74">&#34;yield&#34;</span>:
         ALOT
         SOME
         ALITTLE
@@ -3061,7 +3061,7 @@ to be overridden in Python subclasses.</p>
 <ul>
 <li>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#75715e"># declared</span>
-<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">stdlib.h</span><span style="color:#e6db74">&#34;</span>:
+<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;stdlib.h&#34;</span>:
     void qsort(void <span style="color:#f92672">*</span>array, size_t count, size_t size,
                int (<span style="color:#f92672">*</span>compare)(const void <span style="color:#f92672">*</span>, const void <span style="color:#f92672">*</span>))
 </code></pre></div></li>
@@ -3077,7 +3077,7 @@ to be overridden in Python subclasses.</p>
 <li>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#75715e"># func declaration</span>
     
-<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">stdlib.h</span><span style="color:#e6db74">&#34;</span>:
+<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;stdlib.h&#34;</span>:
     void <span style="color:#f92672">*</span>malloc(size_t size)
     void free(void <span style="color:#f92672">*</span>ptr)
         
@@ -3088,9 +3088,9 @@ to be overridden in Python subclasses.</p>
             
     <span style="color:#75715e"># Alloc C array</span>
     N <span style="color:#f92672">=</span> len(x)
-    array <span style="color:#f92672">=</span> <span style="color:#f92672">&lt;</span>int<span style="color:#f92672">*</span><span style="color:#f92672">&gt;</span>malloc(sizeof(int) <span style="color:#f92672">*</span> N)
+    array <span style="color:#f92672">=</span> <span style="color:#f92672">&lt;</span>int<span style="color:#f92672">*&gt;</span>malloc(sizeof(int) <span style="color:#f92672">*</span> N)
     <span style="color:#66d9ef">if</span> array <span style="color:#f92672">==</span> NULL:
-        <span style="color:#66d9ef">raise</span> MemoryEffor(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Unable to allocate array.</span><span style="color:#e6db74">&#34;</span>)
+        <span style="color:#66d9ef">raise</span> MemoryEffor(<span style="color:#e6db74">&#34;Unable to allocate array.&#34;</span>)
             
     <span style="color:#75715e"># Fill C array with Python int</span>
     <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(N):
@@ -3110,14 +3110,14 @@ to be overridden in Python subclasses.</p>
     <span style="color:#75715e"># convert void pointer args into C int</span>
     <span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">ia</span>, <span style="color:#a6e22e">ib</span>
     <span style="color:#75715e"># dereference pointer via indexing 0</span>
-    ia <span style="color:#f92672">=</span> (<span style="color:#f92672">&lt;</span>int<span style="color:#f92672">*</span><span style="color:#f92672">&gt;</span>a)[<span style="color:#ae81ff">0</span>]
-    ib <span style="color:#f92672">=</span> (<span style="color:#f92672">&lt;</span>int<span style="color:#f92672">*</span><span style="color:#f92672">&gt;</span>b)[<span style="color:#ae81ff">0</span>]
+    ia <span style="color:#f92672">=</span> (<span style="color:#f92672">&lt;</span>int<span style="color:#f92672">*&gt;</span>a)[<span style="color:#ae81ff">0</span>]
+    ib <span style="color:#f92672">=</span> (<span style="color:#f92672">&lt;</span>int<span style="color:#f92672">*&gt;</span>b)[<span style="color:#ae81ff">0</span>]
     <span style="color:#75715e"># return signed value</span>
     <span style="color:#66d9ef">return</span> ia <span style="color:#f92672">-</span> ib
     
 <span style="color:#75715e"># put in qsort array...</span>
     
-qsort(<span style="color:#f92672">&lt;</span>void<span style="color:#f92672">*</span><span style="color:#f92672">&gt;</span>array, <span style="color:#f92672">&lt;</span>size_t<span style="color:#f92672">&gt;</span>N, sizeof(int), int_compare)
+qsort(<span style="color:#f92672">&lt;</span>void<span style="color:#f92672">*&gt;</span>array, <span style="color:#f92672">&lt;</span>size_t<span style="color:#f92672">&gt;</span>N, sizeof(int), int_compare)
     
 <span style="color:#75715e"># works but static, expand by allowing reverse-sorting array by negating return value of int_compare:</span>
     
@@ -3139,13 +3139,13 @@ qsort(<span style="color:#f92672">&lt;</span>void<span style="color:#f92672">*</
         cmp_callback <span style="color:#f92672">=</span> int_compare
             
     <span style="color:#75715e"># qsort the array ....</span>
-    qsort(<span style="color:#f92672">&lt;</span>void<span style="color:#f92672">*</span><span style="color:#f92672">&gt;</span>array, <span style="color:#f92672">&lt;</span>size_t<span style="color:#f92672">&gt;</span>N, sizeof(int), cmp_callback)
+    qsort(<span style="color:#f92672">&lt;</span>void<span style="color:#f92672">*&gt;</span>array, <span style="color:#f92672">&lt;</span>size_t<span style="color:#f92672">&gt;</span>N, sizeof(int), cmp_callback)
         
     <span style="color:#75715e"># ...</span>
 </code></pre></div></li>
 <li>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># use</span>
-import pyximport; pyximport.install<span style="color:#f92672">(</span><span style="color:#f92672">)</span>
+import pyximport; pyximport.install<span style="color:#f92672">()</span>
     
 from pyqsort improt pyqsort
     
@@ -3165,8 +3165,8 @@ pyqsort<span style="color:#f92672">(</span>inlist, reverse<span style="color:#f9
     
 <span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">py_cmp_wrapper</span>(const void <span style="color:#f92672">*</span>a, const void <span style="color:#f92672">*</span>b):
     <span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">ia</span>, <span style="color:#a6e22e">ib</span>
-    ia <span style="color:#f92672">=</span> (<span style="color:#f92672">&lt;</span>int<span style="color:#f92672">*</span><span style="color:#f92672">&gt;</span>a)[<span style="color:#ae81ff">0</span>]
-    ib <span style="color:#f92672">=</span> (<span style="color:#f92672">&lt;</span>int<span style="color:#f92672">*</span><span style="color:#f92672">&gt;</span>b)[<span style="color:#ae81ff">0</span>]
+    ia <span style="color:#f92672">=</span> (<span style="color:#f92672">&lt;</span>int<span style="color:#f92672">*&gt;</span>a)[<span style="color:#ae81ff">0</span>]
+    ib <span style="color:#f92672">=</span> (<span style="color:#f92672">&lt;</span>int<span style="color:#f92672">*&gt;</span>b)[<span style="color:#ae81ff">0</span>]
     <span style="color:#66d9ef">return</span> py_cmp(ia, ib)
     
 <span style="color:#75715e"># inside py_cmp_wrapper, must cast void pointer arg to int pointers, dereference them to extract value integers, pass to py_cmp</span>
@@ -3195,7 +3195,7 @@ pyqsort<span style="color:#f92672">(</span>inlist, reverse<span style="color:#f9
         cmp_callback <span style="color:#f92672">=</span> int_compare
             
     <span style="color:#75715e"># qsort the array ...</span>
-    qsort(<span style="color:#f92672">&lt;</span>void<span style="color:#f92672">*</span><span style="color:#f92672">&gt;</span>array, <span style="color:#f92672">&lt;</span>size_t<span style="color:#f92672">&gt;</span>N, sizeof(int), cmp_callback)
+    qsort(<span style="color:#f92672">&lt;</span>void<span style="color:#f92672">*&gt;</span>array, <span style="color:#f92672">&lt;</span>size_t<span style="color:#f92672">&gt;</span>N, sizeof(int), cmp_callback)
 </code></pre></div></li>
 <li>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># user defined sort</span>
@@ -3212,7 +3212,7 @@ pyqsort<span style="color:#f92672">(</span>a, cmp<span style="color:#f92672">=</
 <li>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cython" data-lang="cython"><span style="color:#75715e"># update qsort declaration to allow exception callback</span>
   
-<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">stdlib.h</span><span style="color:#e6db74">&#34;</span>:
+<span style="color:#66d9ef">cdef</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;stdlib.h&#34;</span>:
     void qsort(void <span style="color:#f92672">*</span>array, size_t count, size_t size,
                int (<span style="color:#f92672">*</span>compare)(const void <span style="color:#f92672">*</span>, const void <span style="color:#f92672">*</span>) <span style="color:#66d9ef">except</span> <span style="color:#f92672">*</span>)
       

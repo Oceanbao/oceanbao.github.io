@@ -6,10 +6,30 @@
     <description>Recent content on Ocean Ode</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 18 Dec 2019 15:29:39 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 10 Oct 2018 21:40:04 -0400</lastBuildDate>
     
 	<atom:link href="https://oceanbao.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Nginx</title>
+      <link>https://oceanbao.github.io/code/nginx/</link>
+      <pubDate>Fri, 17 Apr 2020 23:15:22 +0800</pubDate>
+      
+      <guid>https://oceanbao.github.io/code/nginx/</guid>
+      <description>Intro  General description &amp;amp; explanation about nginx
+ HTTP Proxying  Capability to pass requests off to backend HTTP servers for further processing.
+  Nginx is often set up as **reverse proxy solution to help scale out infras or to pass requests to other servers that are not designed to handle large client loads. Buffering and caching features for improving performance    Handle many concurrent connections at once; ideal for acting/proxying as Point-of-Contant for clients.</description>
+    </item>
+    
+    <item>
+      <title>CONTAINER</title>
+      <link>https://oceanbao.github.io/code/container/</link>
+      <pubDate>Wed, 18 Dec 2019 15:52:43 +0800</pubDate>
+      
+      <guid>https://oceanbao.github.io/code/container/</guid>
+      <description>100KB Image from SCRATCH Dockerfile has 2 build stages  Builder - containing all build dependencies including source, libs, tools, etc Final Image - containing binary and run-time dependencies (config files, certificates, and dynmacically linked libs)  hello.c #include &amp;lt;stdio.h&amp;gt; int main(void) { puts(&amp;#34;Hello World\n&amp;#34;); } Makefile hello: hello.c gcc -o $@ $&amp;lt; -static .dockerignore # preventing host binary from sneaking into buildhelloDockerfile FROMalphine:latest as builderWORKDIR/buildRUN apk update &amp;amp;&amp;amp; \ 	apk add gcc make libc-devCOPY .</description>
+    </item>
     
     <item>
       <title>Cython</title>
@@ -117,7 +137,7 @@ Setup Project pipenv install black --dev pipenv run black pipenv install flake8 
       
       <guid>https://oceanbao.github.io/code/intro_statistical_learning/</guid>
       <description>INTRO   Statistical Learning (aka Machine Learning) becoming distinct subset of Statistical Science focusing on prediction and inference
-  Inception from Least Square by Gauss et al, followed by Fisher&#39;s Logistic Regression and Generalised Linear Model in 1960s through 1980s
+  Inception from Least Square by Gauss et al, followed by Fisher&amp;rsquo;s Logistic Regression and Generalised Linear Model in 1960s through 1980s
   Reducible Error vs Irreducible Error
 $$E(Y - \hat{Y})^2 = E[f(X) + \varepsilon - \hat{f}(X)]^2 = [f(X) - \hat{f}(X)]^2 + Var(\varepsilon)$$
  $$\hat{f}$$ can be improved by model and data $$Var(\varepsilon)$$ as variance of all else irreducible, unknown in practice    Parametric method simplifies estimation of arbitrary p-dimensional $$f$$ forms to estimating set of p + 1 coefficients</description>
@@ -149,7 +169,7 @@ Modes  Normal - Esc Insert - i, a, c Visual - v, V, Ctrl-v Command - :, /  Opera
       <pubDate>Wed, 18 Dec 2019 15:29:39 +0800</pubDate>
       
       <guid>https://oceanbao.github.io/code/webassembly/</guid>
-      <description>WHAT  WASM is a binary instruction format for a stack-based virtual machine. It&#39;s designed as a portable target for compilation of high-level languages like C++, enabling deployment on the web for client and server applications. It defines an Abstract Syntax Tree (AST) which gets stored in a binary format
+      <description>WHAT  WASM is a binary instruction format for a stack-based virtual machine. It&amp;rsquo;s designed as a portable target for compilation of high-level languages like C++, enabling deployment on the web for client and server applications. It defines an Abstract Syntax Tree (AST) which gets stored in a binary format
  Brief:
  JS is a standard with doc of per line behaviour Browser uses a JS engine (aka Virtual Machine) to interpret and run JS code based on the official specs In short, WASM is a W3C standard defining a binary format with .</description>
     </item>
@@ -173,7 +193,7 @@ Starting with simple PUB-SUB and Flask inside docker.
       <pubDate>Fri, 04 Oct 2019 17:42:33 +0800</pubDate>
       
       <guid>https://oceanbao.github.io/code/ideation/</guid>
-      <description>Steve Klabnik: WASM + Rust + Serverless Rust  Fast and Memory safe language Hard to learn but better programming Close tie with WebAssembly  WASM  Originated as asm.js - a fast subset of JS Developped into an universal binary runnable on web browser and elsewhere WASI the runtime interface for other languages (see Lin Clark&#39;s talk)  Serverless  With Rust and WASM, any app can run anywhere  Rasa NLU Lessons  Train INTENT and MESSAGE in single NN to be language agnostic (any lang tokenizable) Out-of-data and Fallback policies to improve service Form collection required from user before Decision Feedback loop of system itself logging to improve the system (i.</description>
+      <description>Steve Klabnik: WASM + Rust + Serverless Rust  Fast and Memory safe language Hard to learn but better programming Close tie with WebAssembly  WASM  Originated as asm.js - a fast subset of JS Developped into an universal binary runnable on web browser and elsewhere WASI the runtime interface for other languages (see Lin Clark&amp;rsquo;s talk)  Serverless  With Rust and WASM, any app can run anywhere  Rasa NLU Lessons  Train INTENT and MESSAGE in single NN to be language agnostic (any lang tokenizable) Out-of-data and Fallback policies to improve service Form collection required from user before Decision Feedback loop of system itself logging to improve the system (i.</description>
     </item>
     
     <item>
@@ -182,8 +202,8 @@ Starting with simple PUB-SUB and Flask inside docker.
       <pubDate>Tue, 10 Sep 2019 15:15:52 +0800</pubDate>
       
       <guid>https://oceanbao.github.io/prose/end-of-summer/</guid>
-      <description>La fin d&#39;été C&#39;est peut-être quelque jours après ce que j&#39;oubliais comment écrire les mots français, mais dépuis aujourd&#39;huid&amp;hellip;
-à continuer&amp;hellip; oh c&#39;est pas grave!</description>
+      <description>La fin d&#39;été C&amp;rsquo;est peut-être quelque jours après ce que j&amp;rsquo;oubliais comment écrire les mots français, mais dépuis aujourd&amp;rsquo;huid&amp;hellip;
+à continuer&amp;hellip; oh c&amp;rsquo;est pas grave!</description>
     </item>
     
     <item>
@@ -253,7 +273,7 @@ Data Structure
       <pubDate>Thu, 01 Nov 2018 19:31:54 -0400</pubDate>
       
       <guid>https://oceanbao.github.io/code/regex/</guid>
-      <description>REGEX Official RE Doc r&amp;#34;&amp;#34;&amp;#34;REThe special characters are:&amp;#34;.&amp;#34;Matches any character except a newline.&amp;#34;^&amp;#34;Matches the start of the string.&amp;#34;$&amp;#34;Matches the end of the string or just before the newline atthe end of the string.&amp;#34;*&amp;#34;Matches 0 or more (greedy) repetitions of the preceding RE.Greedy means that it will match as many repetitions as possible.&amp;#34;+&amp;#34;Matches 1 or more (greedy) repetitions of the preceding RE.&amp;#34;?&amp;#34;Matches 0 or 1 (greedy) of the preceding RE.*?,+?,?? Non-greedy versions of the previous three special characters.</description>
+      <description>REGEX Official RE Doc r&amp;#34;&amp;#34;&amp;#34;RE The special characters are: &amp;#34;.&amp;#34; Matches any character except a newline. &amp;#34;^&amp;#34; Matches the start of the string. &amp;#34;$&amp;#34; Matches the end of the string or just before the newline at the end of the string. &amp;#34;*&amp;#34; Matches 0 or more (greedy) repetitions of the preceding RE. Greedy means that it will match as many repetitions as possible. &amp;#34;+&amp;#34; Matches 1 or more (greedy) repetitions of the preceding RE.</description>
     </item>
     
     <item>
@@ -329,9 +349,9 @@ console.log(&amp;#39;Sometimes lines are waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
       <pubDate>Thu, 01 Feb 2018 12:35:11 -0500</pubDate>
       
       <guid>https://oceanbao.github.io/prose/a-poem/</guid>
-      <description>Now pleasing sleep had seal&#39;d each mortal eye,
-Stretch&#39;d in the tents the Grecian leaders lie:
-The immortals slumber&#39;d on their thrones above;
+      <description>Now pleasing sleep had seal&amp;rsquo;d each mortal eye,
+Stretch&amp;rsquo;d in the tents the Grecian leaders lie:
+The immortals slumber&amp;rsquo;d on their thrones above;
 All, but the ever-wakeful eyes of Jove.(76)
 To honour Thetis&amp;rsquo; son he bends his care,
 And plunge the Greeks in all the woes of war:
