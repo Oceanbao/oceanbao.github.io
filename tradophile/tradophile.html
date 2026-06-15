@@ -1,0 +1,836 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'><style type='text/css'>html {overflow-x: initial !important;}</style>
+<style type='text/css'  id="style-base">:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; --title-bar-height: 20px; }
+.mac-os-11 { --title-bar-height: 28px; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, "Segoe UI Emoji", "SF Pro", sans-serif; -webkit-font-smoothing: antialiased; }
+h1, h2, h3, h4, h5 { white-space: pre-wrap; }
+body { margin: 0px; padding: 0px; height: auto; inset: 0px; font-size: 1rem; line-height: 1.428571; overflow-x: hidden; background: inherit; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 36px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p *, #write.first-line-indent svg * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+.typora-export .task-list-item input { pointer-events: none; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; image-orientation: from-image; }
+button, input, select, textarea { color: inherit; font-style: inherit; font-variant-caps: inherit; font-weight: inherit; font-width: inherit; font-size: inherit; line-height: inherit; font-family: inherit; font-size-adjust: inherit; font-kerning: inherit; font-variant-alternates: inherit; font-variant-ligatures: inherit; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-variant-position: inherit; font-variant-emoji: inherit; font-feature-settings: inherit; font-optical-sizing: inherit; font-variation-settings: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; position: relative; }
+#write svg h1, #write svg h2, #write svg h3, #write svg h4, #write svg h5, #write svg h6, #write svg p { position: static; }
+svg sub, svg sup { position: static; }
+.nodeLabel p { padding-right: 2px; padding-left: 2px; }
+.typora-export .nodeLabel p { padding-right: 0px; padding-left: 0px; }
+foreignObject { overflow: visible; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
+p { orphans: 4; }
+li p { orphans: 1; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px; }
+thead, tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right-width: 0px; border-right-style: none; border-right-color: currentcolor; background-color: inherit; }
+.CodeMirror-linenumber { -webkit-user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-fences-adv-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+svg { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li blockquote { margin: 1rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; border-color: transparent !important; padding-top: 0px !important; padding-bottom: 0px !important; }
+  .typora-export * { print-color-adjust: exact; }
+  .typora-export #write { break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+  .is-mac table { break-inside: avoid; }
+  #write > p:nth-child(1) { margin-top: 0px; }
+  .typora-export-show-outline .typora-export-sidebar { display: none; }
+  figure { overflow-x: visible; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+.MathJax_ref { fill: currentcolor; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: medium; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.reversefootnote { font-family: ui-monospace, sans-serif; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.6; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: medium !important; border-style: none !important; border-color: currentcolor !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom-width: 0px; border-bottom-style: none; border-bottom-color: currentcolor; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: medium; }
+.highlight td, .highlight tr { border: 0px; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+.md-expand mark .md-meta { opacity: 0.3 !important; }
+mark .md-meta { color: rgb(0, 0, 0); }
+@media print {
+  .typora-export h1, .typora-export h2, .typora-export h3, .typora-export h4, .typora-export h5, .typora-export h6 { break-inside: avoid; }
+}
+.md-diagram-panel .messageText { stroke: none !important; }
+.md-diagram-panel .start-state { fill: var(--node-fill); }
+.md-diagram-panel .edgeLabel rect { opacity: 1 !important; }
+.md-fences.md-fences-math { font-size: 1em; }
+.md-fences-advanced:not(.md-focus) { padding: 0px; white-space: nowrap; border: 0px; }
+.md-fences-advanced:not(.md-focus) { background: inherit; }
+.mermaid-svg { margin: auto; }
+.typora-export-show-outline .typora-export-content { max-width: 1440px; margin: auto; display: flex; flex-direction: row; }
+.typora-export-sidebar { width: 300px; font-size: 0.8rem; margin-top: 80px; margin-right: 18px; }
+.typora-export-show-outline #write { --webkit-flex: 2; flex: 2 1 0%; }
+.typora-export-sidebar .outline-content { position: fixed; top: 0px; max-height: 100%; overflow: hidden auto; padding-bottom: 30px; padding-top: 60px; width: 300px; }
+@media screen and (max-width: 1024px) {
+  .typora-export-sidebar, .typora-export-sidebar .outline-content { width: 240px; }
+}
+@media screen and (max-width: 800px) {
+  .typora-export-sidebar { display: none; }
+}
+.outline-content li, .outline-content ul { margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; list-style: none; overflow-wrap: anywhere; }
+.outline-content ul { margin-top: 0px; margin-bottom: 0px; }
+.outline-content strong { font-weight: 400; }
+.outline-expander { width: 1rem; height: 1.428571rem; position: relative; display: table-cell; vertical-align: middle; cursor: pointer; padding-left: 4px; }
+.outline-expander::before { content: ""; position: relative; font-family: Ionicons; display: inline-block; font-size: 8px; vertical-align: middle; }
+.outline-item { padding-top: 3px; padding-bottom: 3px; cursor: pointer; }
+.outline-expander:hover::before { content: ""; }
+.outline-h1 > .outline-item { padding-left: 0px; }
+.outline-h2 > .outline-item { padding-left: 1em; }
+.outline-h3 > .outline-item { padding-left: 2em; }
+.outline-h4 > .outline-item { padding-left: 3em; }
+.outline-h5 > .outline-item { padding-left: 4em; }
+.outline-h6 > .outline-item { padding-left: 5em; }
+.outline-label { cursor: pointer; display: table-cell; vertical-align: middle; text-decoration: none; color: inherit; }
+.outline-label:hover { text-decoration: underline; }
+.outline-item:hover { border-color: rgb(245, 245, 245); background-color: var(--item-hover-bg-color); }
+.outline-item:hover { margin-left: -28px; margin-right: -28px; border-left-width: 28px; border-left-style: solid; border-left-color: transparent; border-right-width: 28px; border-right-style: solid; border-right-color: transparent; }
+.outline-item-single .outline-expander::before, .outline-item-single .outline-expander:hover::before { display: none; }
+.outline-item-open > .outline-item > .outline-expander::before { content: ""; }
+.outline-children { display: none; }
+.info-panel-tab-wrapper { display: none; }
+.outline-item-open > .outline-children { display: block; }
+.typora-export .outline-item { padding-top: 1px; padding-bottom: 1px; }
+.typora-export .outline-item:hover { margin-right: -8px; border-right-width: 8px; border-right-style: solid; border-right-color: transparent; }
+.typora-export .outline-expander::before { content: "+"; font-family: inherit; top: -1px; }
+.typora-export .outline-expander:hover::before, .typora-export .outline-item-open > .outline-item > .outline-expander::before { content: "−"; }
+.typora-export-collapse-outline .outline-children { display: none; }
+.typora-export-collapse-outline .outline-item-open > .outline-children, .typora-export-no-collapse-outline .outline-children { display: block; }
+.typora-export-no-collapse-outline .outline-expander::before { content: "" !important; }
+.typora-export-show-outline .outline-item-active > .outline-item .outline-label { font-weight: 700; }
+.md-inline-math-container mjx-container { zoom: 0.95; }
+mjx-container { break-inside: avoid; }
+.md-alert.md-alert-note { border-left-color: rgb(9, 105, 218); }
+.md-alert.md-alert-important { border-left-color: rgb(130, 80, 223); }
+.md-alert.md-alert-warning { border-left-color: rgb(154, 103, 0); }
+.md-alert.md-alert-tip { border-left-color: rgb(31, 136, 61); }
+.md-alert.md-alert-caution { border-left-color: rgb(207, 34, 46); }
+.md-alert { padding: 0px 1em; margin-bottom: 16px; color: inherit; border-left-width: 0.25em; border-left-style: solid; border-left-color: rgb(0, 0, 0); }
+.md-alert-text-note { color: rgb(9, 105, 218); }
+.md-alert-text-important { color: rgb(130, 80, 223); }
+.md-alert-text-warning { color: rgb(154, 103, 0); }
+.md-alert-text-tip { color: rgb(31, 136, 61); }
+.md-alert-text-caution { color: rgb(207, 34, 46); }
+.md-alert-text { font-size: 0.9rem; font-weight: 700; }
+.md-alert-text svg { fill: currentcolor; position: relative; top: 0.125em; margin-right: 1ch; overflow: visible; }
+.md-alert-text-container::after { content: attr(data-text); text-transform: capitalize; pointer-events: none; margin-right: 1ch; }
+
+</style>
+<style type='text/css'  id="style-theme_css">/*
+ * Typora theme: Bonne Nouvelle
+ *
+ * This theme is largely based on Typora’s built-in "Night" theme,
+ * with additional modifications and ideas inspired by the
+ * "Screenplay" theme by pranavgn:
+ * https://github.com/pranavgn/Typora-Screenplay-Theme
+ *
+ */
+
+:root {
+  --bg-color: #18171d;
+  --side-bar-bg-color: #242229;
+  --text-color: #b8bfc6;
+  --select-text-bg-color: #4a89dc;
+  --item-hover-bg-color: #0a0d16;
+  --control-text-color: #b7b7b7;
+  --control-text-hover-color: #eee;
+  --window-border: 1px solid #555;
+  --active-file-bg-color: #45454a;
+  --active-file-border-color: #8d8df0;
+  --primary-color: #a3d5fe;
+  --active-file-text-color: white;
+  --item-hover-bg-color: #70717d;
+  --item-hover-text-color: white;
+  --primary-color: #6dc1e7;
+  --rawblock-edit-panel-bd: #333;
+  --search-select-bg-color: #428bca;
+}
+
+body {
+  fill: currentColor;
+  font-size: 12pt;
+  font-family: "Courier Screenplay", "Courier New", "Courier", monospace;
+  font-weight: normal;
+  line-height: 1;
+  padding: 0;
+  margin: 0;
+  background-color: #18171d;
+  color: yellow;
+  border-color: transparent;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+  font-size: 12pt;
+  line-height: 1.5;
+}
+
+#write {
+  width: 8in;
+  margin: 0 auto;
+  padding-top: 1in;
+  padding-bottom: 1in;
+  padding-left: 0;
+  padding-right: 0;
+  box-sizing: border-box;
+  background-color: #18171d;
+  counter-reset: chapter;
+}
+
+#write li::marker {
+  content: "— ";
+}
+
+#write h1 {
+  text-transform: uppercase;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-weight: bold;
+  font-size: 14pt;
+  text-align: center;
+}
+
+#write h2 {
+  font-size: 16pt;
+  margin-top: 2em;
+  margin-bottom: 2.5em;
+  margin-left: 0;
+  position: relative;
+  display: block;
+  min-height: 1em;
+}
+
+#write h2::before {
+  content: "• • •";
+  display: block;
+  text-align: center;
+  opacity: 70%;
+  margin: 2em 0;
+}
+
+#write h2::after {
+  counter-increment: chapter;
+  content: "Chapitre " counter(chapter) ".";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  text-align: right;
+  font-size: 11pt;
+  transform: translateX(-120%);
+}
+
+#write blockquote {
+  font-style: italic;
+  text-align: center;
+  margin: 0.5in auto;
+  max-width: 50%;
+}
+
+#write blockquote p {
+  text-align: center;
+  margin: 1em auto;
+  max-width: 100%;
+}
+
+.auto-suggest-container {
+  border: 0px;
+  background-color: #525c65;
+}
+
+#typora-quick-open {
+  background-color: #525c65;
+}
+
+#typora-quick-open input {
+  background-color: #525c65;
+  border: 0;
+  border-bottom: 1px solid grey;
+}
+
+.typora-quick-open-item {
+  background-color: inherit;
+  color: inherit;
+}
+
+.typora-quick-open-item.active,
+.typora-quick-open-item:hover {
+  background-color: #4d8bdb;
+  color: white;
+}
+
+.typora-quick-open-item:hover {
+  background-color: rgba(77, 139, 219, 0.8);
+}
+
+.typora-search-spinner > div {
+  background-color: #fff;
+}
+
+.btn,
+.btn .btn-default {
+  background: transparent;
+  color: #b8bfc6;
+}
+
+.popover-title {
+  background: transparent;
+}
+
+.md-image > .md-meta {
+  color: #bbbbbb;
+  background: transparent;
+}
+
+.md-expand.md-image > .md-meta {
+  color: #ddd;
+}
+.md-toc-item {
+  color: #a8c2dc;
+}
+
+#write div.md-toc-tooltip {
+  background-color: #18171d;
+}
+
+.dropdown-menu .btn:hover,
+.dropdown-menu .btn:focus,
+.md-toc .btn:hover,
+.md-toc .btn:focus {
+  color: white;
+  background: black;
+}
+
+#toc-dropmenu {
+  background: rgba(50, 54, 59, 0.93);
+  border: 1px solid rgba(253, 253, 253, 0.15);
+}
+
+#toc-dropmenu .divider {
+  background-color: #9b9b9b;
+}
+
+.outline-expander:before {
+  top: 2px;
+}
+
+#typora-sidebar {
+  box-shadow: none;
+  border-right: 1px dashed;
+  border-right: none;
+}
+
+.sidebar-tabs {
+  border-bottom: 0;
+}
+
+#typora-sidebar:hover .outline-title-wrapper {
+  border-left: 1px dashed;
+}
+
+.outline-title-wrapper .btn {
+  color: inherit;
+}
+
+.outline-item {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.outline-item:hover {
+  background-color: inherit;
+  font-weight: bold;
+}
+
+.outline-label:hover {
+  text-decoration: none;
+}
+
+.modal-content {
+  background: var(--bg-color);
+  border: 0;
+}
+
+.modal-title {
+  font-size: 1.5em;
+}
+
+.modal-content input {
+  background-color: rgba(26, 21, 21, 0.51);
+  color: white;
+}
+
+.modal-content .input-group-addon {
+  color: white;
+}
+
+.modal-backdrop {
+  background-color: rgba(174, 174, 174, 0.7);
+}
+
+.modal-content .btn-primary {
+  border-color: var(--primary-color);
+}
+
+#md-searchpanel {
+  border-bottom: 1px dashed grey;
+}
+
+/** UI for electron */
+
+.context-menu,
+#spell-check-panel,
+#footer-word-count-info {
+  background-color: #42464a;
+}
+
+.context-menu.dropdown-menu .divider,
+.dropdown-menu .divider {
+  background-color: #777777;
+  opacity: 1;
+}
+
+footer {
+  color: inherit;
+}
+
+@media (max-width: 1000px) {
+  footer {
+    border-top: none;
+  }
+  footer:hover {
+    color: inherit;
+  }
+}
+
+#file-info-file-path .file-info-field-value:hover {
+  background-color: #555;
+  color: #dedede;
+}
+
+.megamenu-content,
+.megamenu-opened header {
+  background: var(--bg-color);
+}
+
+.megamenu-menu-panel h2,
+.megamenu-menu-panel h1,
+.long-btn {
+  color: inherit;
+}
+
+.megamenu-menu-panel input[type="text"] {
+  background: inherit;
+  border: 0;
+  border-bottom: 1px solid;
+}
+
+#recent-file-panel-action-btn {
+  background: inherit;
+  border: 1px grey solid;
+}
+
+.megamenu-menu-panel .dropdown-menu > li > a {
+  color: inherit;
+  background-color: #2f353a;
+  text-decoration: none;
+}
+
+.megamenu-menu-panel table td:nth-child(1) {
+  color: inherit;
+  font-weight: bold;
+}
+
+.megamenu-menu-panel tbody tr:hover td:nth-child(1) {
+  color: white;
+}
+
+.modal-footer .btn-default,
+.modal-footer .btn-primary,
+.modal-footer .btn-default:not(:hover) {
+  border: 1px solid;
+  border-color: transparent;
+}
+
+.btn-primary {
+  color: white;
+}
+
+.btn-default:hover,
+.btn-default:focus,
+.btn-default.focus,
+.btn-default:active,
+.btn-default.active,
+.open > .dropdown-toggle.btn-default {
+  color: white;
+  border: 1px solid #ddd;
+  background-color: inherit;
+}
+
+.modal-header {
+  border-bottom: 0;
+}
+
+.modal-footer {
+  border-top: 0;
+}
+
+#recent-file-panel tbody tr:nth-child(2n-1) {
+  background-color: transparent !important;
+}
+
+.megamenu-menu-panel tbody tr:hover td:nth-child(2) {
+  color: inherit;
+}
+
+.megamenu-menu-panel .btn {
+  border: 1px solid #eee;
+  background: transparent;
+}
+
+.mouse-hover .toolbar-icon.btn:hover,
+#w-full.mouse-hover,
+#w-pin.mouse-hover {
+  background-color: inherit;
+}
+
+.typora-node::-webkit-scrollbar {
+  width: 5px;
+}
+
+.typora-node::-webkit-scrollbar-thumb:vertical {
+  background: rgba(250, 250, 250, 0.3);
+}
+
+.typora-node::-webkit-scrollbar-thumb:vertical:active {
+  background: rgba(250, 250, 250, 0.5);
+}
+
+#w-unpin {
+  background-color: #4182c4;
+}
+
+#top-titlebar,
+#top-titlebar * {
+  color: var(--item-hover-text-color);
+}
+
+.typora-sourceview-on #toggle-sourceview-btn,
+#footer-word-count:hover,
+.ty-show-word-count #footer-word-count {
+  background: #333333;
+}
+
+#toggle-sourceview-btn:hover {
+  color: #eee;
+  background: #333333;
+}
+
+.on-focus-mode .md-end-block:not(.md-focus):not(.md-focus-container) * {
+  color: #686868 !important;
+}
+
+.on-focus-mode .md-end-block:not(.md-focus) img,
+.on-focus-mode .md-task-list-item:not(.md-focus-container) > input {
+  opacity: #686868 !important;
+}
+
+.on-focus-mode li[cid]:not(.md-focus-container) {
+  color: #686868;
+}
+
+.on-focus-mode
+  .md-fences.md-focus
+  .CodeMirror-code
+  > *:not(.CodeMirror-activeline)
+  *,
+.on-focus-mode .CodeMirror.cm-s-inner:not(.CodeMirror-focused) * {
+  color: #686868 !important;
+}
+
+.on-focus-mode .md-focus,
+.on-focus-mode .md-focus-container {
+  color: #fff;
+}
+
+.on-focus-mode
+  #typora-source
+  .CodeMirror-code
+  > *:not(.CodeMirror-activeline)
+  * {
+  color: #686868 !important;
+}
+
+.active-tab-files #info-panel-tab-file,
+.active-tab-files #info-panel-tab-file:hover,
+.active-tab-outline #info-panel-tab-outline,
+.active-tab-outline #info-panel-tab-outline:hover {
+  color: #eee;
+}
+
+.sidebar-footer-item:hover,
+.footer-item:hover {
+  background: inherit;
+  color: white;
+}
+
+.ty-side-sort-btn.active,
+.ty-side-sort-btn:hover,
+.selected-folder-menu-item a:after {
+  color: white;
+}
+
+#sidebar-files-menu {
+  border: solid 1px;
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.79);
+  background-color: var(--bg-color);
+}
+
+.file-list-item {
+  border-bottom: none;
+}
+
+.file-list-item-summary {
+  opacity: 1;
+}
+
+.file-list-item.active:first-child {
+  border-top: none;
+}
+
+.file-node-background {
+  height: 32px;
+}
+
+.file-library-node.active > .file-node-content,
+.file-list-item.active {
+  color: white;
+  color: var(--active-file-text-color);
+}
+
+.file-library-node.active > .file-node-background {
+  background-color: #45454a;
+  background-color: var(--active-file-bg-color);
+}
+.file-list-item.active {
+  background-color: #45454a;
+  background-color: var(--active-file-bg-color);
+}
+
+#ty-tooltip {
+  background-color: black;
+  color: #eee;
+}
+
+footer.ty-footer {
+  border-color: #656565;
+}
+
+.ty-preferences .btn-default {
+  background: transparent;
+}
+.ty-preferences .btn-default:hover {
+  background: #57616b;
+}
+
+.ty-preferences select {
+  border: 1px solid #989698;
+  height: 21px;
+}
+
+.ty-preferences .nav-group-item.active,
+.export-item.active,
+.export-items-list-control,
+.export-detail {
+  background: var(--item-hover-bg-color);
+}
+
+.ty-preferences input[type="search"] {
+  border-color: #333;
+  background: #333;
+  line-height: 22px;
+  border-radius: 6px;
+  color: white;
+}
+
+.ty-preferences input[type="search"]:focus {
+  box-shadow: none;
+}
+
+[data-is-directory="true"] .file-node-content {
+  margin-bottom: 0;
+}
+
+.file-node-title {
+  line-height: 22px;
+}
+
+.html-for-mac .file-node-open-state,
+.html-for-mac .file-node-icon {
+  line-height: 26px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(230, 230, 230, 0.3);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: rgba(230, 230, 230, 0.5);
+}
+
+#typora-sidebar:hover
+  div.sidebar-content-content::-webkit-scrollbar-thumb:horizontal {
+  background: rgba(230, 230, 230, 0.3);
+}
+
+.nav-group-item:active {
+  background-color: #474d54 !important;
+}
+
+.md-search-hit {
+  background: rgba(199, 140, 60, 0.81);
+  color: #eee;
+}
+
+.md-search-hit * {
+  color: #eee;
+}
+
+#md-searchpanel input {
+  color: white;
+}
+
+.modal-backdrop.in {
+  opacity: 1;
+  backdrop-filter: blur(1px);
+}
+
+.clear-btn-icon {
+  top: 8px;
+}
+</style>
+<style type='text/css'  id="style-lp">ol, ul {padding-left: 40px}</style>
+<style type='text/css'  id="style-mac-print"> @media print { @page {margin: 0 0 0 0;} body.typora-export {padding-left: 0; padding-right: 0;} #write {padding:0;}}</style>
+
+<title>tradophile</title>
+</head>
+<body class='typora-export'><div class='typora-export-content'>
+<div id='write'  class=''><h1 id='tradophile'><span>TradOPHILE</span></h1><h2 id='qqq-history'><span>QQQ History</span></h2><p><img src="/Users/dele/Downloads/Screenshot 2026-05-30 at 19.56.21.png" alt="Screenshot 2026-05-30 at 19.56.21"></p><ul><li><p><span>1999-2000 D-MACD-DIV twice!</span></p><ul><li><p><span>Normal pattern expectation, sell on D-MACD-Death (4H-DIV), buy back on 4H-KD (at the V dip of D-KD!!!)</span></p></li><li><p><span>After 1st D-MACD-DIV, W-MACD still uptrend (wide distance), so possible 2nd D-MACD-DIV wave, again, buy back on 4H-KD (at V dip of D-KD)</span></p></li><li><p><span>rally confirms above, repeat previous steps</span></p></li><li><p><span>KEY: expect W dive, esp. seeing W-MACD-Death, preliminary support is D-BOLL, which is near D-200MA, that&#39;s the first limit</span></p></li><li><p><span>KEY: hardest to decide this is a V (V D-MACD type, i.e. 2nd W-MACD-DIV to come) or D-DIV type bottom (a W-KD bottom?)</span></p></li><li><p><span>KEY: turns out the latter, but a zigzag along D-200MA, hard to trade, FOCUS on D-KD cycle (4H MACD, use 4H-KD entry at D-KD-X), until D-DIV finally confirms</span></p></li></ul></li></ul><p><img src="/Users/dele/Downloads/Screenshot 2026-05-30 at 20.01.04.png" alt="Screenshot 2026-05-30 at 20.01.04"></p><ul><li><p><span>Post 2000 peak, big crash means ZZ BOLL bounces on D</span></p><ul><li><p><span>same approach on D first, BUT the 2nd wave (single peak) together with W-MACD shape show a big dive (confirms dive through W-50MA)</span></p></li><li><p><span>first instinct: a D-DIV (possibly triple-dip) or W-MACD-X as bottom; all D-KD (let alone 4H) dangerous, nor D-MACD-X</span></p></li></ul></li></ul><p><img src="/Users/dele/Downloads/Screenshot 2026-05-30 at 20.04.58.png" alt="Screenshot 2026-05-30 at 20.04.58"></p><ul><li><p><span>W-BOLL breakdown: most dangerous phase</span></p><ul><li><p><span>the only possible trade (while watching for W-KD-X) is local D-MACD cycles, definitely stalling, perhaps 4H-MACD-DIV</span></p></li></ul></li></ul><p><img src="/Users/dele/Downloads/Screenshot 2026-05-30 at 20.08.05.png" alt="Screenshot 2026-05-30 at 20.08.05"></p><ul><li><p><span>3rd W-MACD-X confirms W-MACD-DIV: bottom (turns out there was a second wave!)</span></p><ul><li><p><span>key here is to exit on 1st D-DIV (which was the peak) confirming fail to break W-20MA, more downhill to come</span></p></li><li><p><span>if must trade (small stake), D-KD (4H-MACD-X) cycles</span></p></li></ul></li></ul><p><img src="/Users/dele/Downloads/Screenshot 2026-05-30 at 20.09.54.png" alt="Screenshot 2026-05-30 at 20.09.54"></p><ul><li><p><span>2nd W-MACD-DIV - fail to break W-50MA, D jittery downhill</span></p><ul><li><p><span>effectively a W-KD cycle (jittery), which is D-MACD-DIV cycle</span></p></li><li><p><span>trade 4H-MACD between the peaks if you want</span></p></li><li><p><span>extreme DOWNTREND recall to wait for D-MACD-X (DIV) before a bounce</span></p></li></ul></li></ul><p><img src="/Users/dele/Downloads/Screenshot 2026-05-30 at 20.19.31.png" alt="Screenshot 2026-05-30 at 20.19.31"></p><ul><li><p><span>Final dot-com bottom - W-MACD-X the real bottom</span></p><ul><li><p><span>caution on trade, possible D-MACD-X (second dip), the 3rd one need a MACD-DIV</span></p></li><li><p><span>zoom out to spot a flattening (D-MACD-DIV) bottom</span></p></li></ul></li></ul><p><img src="/Users/dele/Downloads/Screenshot 2026-05-30 at 20.30.28.png" alt="Screenshot 2026-05-30 at 20.30.28"></p><ul><li><p><span>As W level rebound, it&#39;s likely a ZZ or W-KD cycles</span></p><ul><li><p><span>before the BIG RALLY (W-MACD take off), there is W-KD cycles to trade on</span></p></li><li><p><span>which is likely a rough D-MACD cycle, be patient on entry (exit is likely 4H-DIV)</span></p></li><li><p><span>eventually D-20-50-200MA breakout and form UPTREND</span></p></li></ul></li></ul><p><img src="/Users/dele/Downloads/Screenshot 2026-05-30 at 20.32.50.png" alt="Screenshot 2026-05-30 at 20.32.50"></p><ul><li><p><span>Textbook W level rally - expect W-DIV, before dive or ZZ</span></p><ul><li><p><span>2 sets of D-DIV, eventually a pump-dump</span></p></li><li><p><span>MACD is stalling, so watch for D-20-50MA touches and trade on 4H-MACD cycles</span></p></li><li><p><strong><span>note finally W-KD dives 50, confirmed by W-KD</span></strong><span>, then D-BOLL is first limit</span></p></li></ul></li></ul><p><img src="/Users/dele/Downloads/Screenshot 2026-05-30 at 20.33.51.png" alt="Screenshot 2026-05-30 at 20.33.51"></p><p><span>Jan 15 – Feb 2, 2004</span></p><ol start='' ><li><p><span>Fed dropped low-rate pledge (Jan 28), signaling upcoming hikes</span></p></li><li><p><span>Weak Q4 2003 GDP &amp; tech earnings warnings</span></p></li><li><p><span>Broad tech sector selloff</span></p></li></ol><p><span>Nov 29, 2004 – Jan 4, 2005</span></p><ol start='' ><li><p><span>Fed raised benchmark rate; hawkish FOMC comments (Jan 4)</span></p></li><li><p><span>Soft retail/manufacturing data + below-forecast Q4 GDP</span></p></li><li><p><span>Iraq election risks &amp; corporate legal/earnings headwinds</span></p></li></ol><ul><li><p><span>W channel jittery - possible support W-BOLL or 200MA</span></p><ul><li><p><span>until then, D-BOLL ZZ and entry on D-MACD-X is safe; WHY? jittery phase, D-MA lines entangles, or looking at W-20MA flattens down</span></p></li><li><p><span>the rally is pretty much best confirmed by W-KD (aka D-MACD-DIV)</span></p></li></ul></li></ul><p><img src="/Users/dele/Downloads/Screenshot 2026-05-30 at 20.37.54.png" alt="Screenshot 2026-05-30 at 20.37.54"></p><p><span>Nov 28, 2005 – May 8, 2006</span></p><ol start='' ><li><p><span>Aggressive Fed rate hikes cycle; hot CPI inflation prints</span></p></li><li><p><span>U.S. housing market slowdown + early subprime mortgage worries</span></p></li><li><p><span>Widespread Q1 2006 earnings misses</span></p></li></ol><ul><li><p><span>Must be a jittery phase given W swings back down to 100MA</span></p><ul><li><p><span>KEY: the first tick on W is post-factum, W-KD is a good guide, but before getting near, no way to know</span></p></li><li><p><span>SO: focus trading on D-MACD-X, without knowing what&#39;s to come on W, entry on first D-MACD-X, as it fails to break and rally, exit when price fall back down or MACD-Death</span></p></li><li><p><span>then it&#39;s clear that a bigger dive to come, watch for W-100MA-KD-X wait for eventual concurrency - D-MACD-X at W-KD-X</span></p></li><li><p><strong><span>at this point, might expect a big W rally, which the trend is up, but without assuming a normal rally, what is the defensive play:</span></strong><span> exit on D-MACD-Death, as you would expect a DIV, if enter on 4H-MACD (expecting a V) then exit is must, meaning always beware of U-turn</span></p></li><li><p><span>D-MACD-X seems solid entry during UPTREND</span></p></li><li><p><strong><span>truth be told, hard trade towards to end, defense: D-MACD-X and 4H-MACD-X for D-KD</span></strong></p></li></ul></li></ul><p><img src="/Users/dele/Downloads/Screenshot 2026-05-30 at 20.40.52.png" alt="Screenshot 2026-05-30 at 20.40.52"></p><ul><li><p><strong><span>KEY: post-fatum data is crucial, BUT before that, D-MACD is your defense</span></strong></p><ul><li><p><span>watch D BOLL range, MA lines, and trade on MACD (W-KD as guide)</span></p></li><li><p><span>after ZZ, a D-DIV-Death is confirmed, get the hell out (assess the W MACD shape)</span></p></li><li><p><span>would expect a W-MACD-KD type of dive once D-200MA is cut, also the speed of fall</span></p></li><li><p><span>D-MACD-DIV at W-KD-X </span></p></li><li><p><span>rally confirmed by width of W-MACD lines - first exit on D-MACD-DIV, 20MA is possible V (4H-MACD)</span></p></li></ul></li></ul><p><img src="/Users/dele/Downloads/Screenshot 2026-05-30 at 20.42.20.png" alt="Screenshot 2026-05-30 at 20.42.20"></p><p><span>Oct 15 – Nov 19, 2007</span></p><ol start='' ><li><p><span>Massive bank subprime write-downs (Citigroup) &amp; executive resignations</span></p></li><li><p><span>Credit market stress &amp; bank stock downgrades</span></p></li><li><p><span>Surging crude oil prices + weak service-sector data</span></p></li></ol><ul><li><p><strong><span>again, no way of knowing the above period, not ordinary rally, though W is rally with dips on 20MA</span></strong></p><ul><li><p><span>need to train your eye on D-MACD cycles, ignore the local ZZ</span></p></li><li><p><span>D-KD seems good defensive trade during UPTREND - 4H-MACD cycles</span></p></li><li><p><span>D-MACD-X always good entry during UPTREND</span></p></li><li><p><span>D-MACD-Death always good exit and play defensively on next entry (pays to be patient)</span></p></li></ul></li></ul><p><img src="/Users/dele/Downloads/Screenshot 2026-05-30 at 20.44.40.png" alt="Screenshot 2026-05-30 at 20.44.40"></p><ul><li><p><span>repeat pattern of dot-com crash - W first BOLL touch then fail to break MA20 or MA200</span></p><ul><li><p><span>post W peak possible ZZ - W-KD cycle is your guide</span></p></li><li><p><span>Again, D-MACD cycle is big win, then defensive post exit - if in doubt wait for next D-MACD-X (possible DIV judging by W signal)</span></p></li><li><p><span>the textbook D-MACD-DIV as bottom (W-DIV)</span></p></li></ul></li></ul><p>&nbsp;</p><p><img src="/Users/dele/Downloads/Screenshot 2026-05-30 at 20.46.38.png" alt="Screenshot 2026-05-30 at 20.46.38"></p><p><span>Apr 12 – May 10, 2010</span></p><ol start='' ><li><p><span>S&amp;P downgraded Greece to junk status; eurozone debt crisis spread</span></p></li><li><p><strong><span>May 6 Flash Crash</span></strong><span>: Extreme intraday market collapse</span></p></li><li><p><span>Disappointing U.S. retail sales &amp; rising jobless claims</span></p></li></ol><p>&nbsp;</p><p>&nbsp;</p><p><img src="/Users/dele/Downloads/Screenshot 2026-05-30 at 20.48.07.png" alt="Screenshot 2026-05-30 at 20.48.07"></p><p><span>Feb 14, 2011 – Aug 8, 2011</span></p><ol start='' ><li><p><span>Middle East unrest + Libya conflict pushed oil higher</span></p></li><li><p><span>Japan earthquake/tsunami &amp; Fukushima disaster (Mar 11), supply chain disruptions</span></p></li><li><p><span>U.S. debt ceiling political deadlock4. S&amp;P downgraded U.S. credit rating (Aug 5); sharp market plunge Aug 85. Escalating eurozone sovereign debt fears</span></p></li></ol><p>&nbsp;</p><p>&nbsp;</p><p><img src="/Users/dele/Downloads/Screenshot 2026-05-30 at 20.49.53.png" alt="Screenshot 2026-05-30 at 20.49.53"></p><p><span>Mar 26 – Apr 30, 2012</span></p><ol start='' ><li><p><span>Eurozone recession risks (Spain) &amp; European political uncertainty</span></p></li><li><p><span>Big miss in U.S. March nonfarm payrolls (Apr 6)</span></p></li><li><p><span>Falling U.S. consumer confidence + weak global manufacturing PMI</span></p></li></ol><p>&nbsp;</p><p>&nbsp;</p><p><img src="/Users/dele/Downloads/Screenshot 2026-05-30 at 20.51.09.png" alt="Screenshot 2026-05-30 at 20.51.09"></p><p><span>Jul 13 – Dec 21, 2015</span></p><p>&nbsp;</p><p>&nbsp;</p><p><img src="/Users/dele/Downloads/Screenshot 2026-05-31 at 17.45.07.png" alt="Screenshot 2026-05-31 at 17.45.07"></p><p><span>Jul 13 – Dec 21, 2015</span></p><ol start='' ><li><p><span>China equity market crash &amp; </span><strong><span>Aug 11 yuan devaluation</span></strong><span>, global risk-off</span></p></li><li><p><span>Collapsing crude oil prices</span></p></li><li><p><span>Fed’s first rate hike in nearly a decade (December)4. S&amp;P 500 corporate earnings contraction</span></p></li></ol><p>&nbsp;</p><p>&nbsp;</p><p><img src="/Users/dele/Downloads/Screenshot 2026-05-31 at 17.48.04.png" alt="Screenshot 2026-05-31 at 17.48.04"></p><p><span>Aug 27 – Oct 8, 2018</span></p><ol start='' ><li><p><span>Fed hawkish rhetoric + surge in U.S. Treasury yields</span></p></li><li><p><span>U.S.-China trade war escalation &amp; new tariffs</span></p></li><li><p><span>Sharp selloff in large-cap tech/FANG stocks4. Soft global growth indicators</span></p></li></ol><p>&nbsp;</p><p>&nbsp;</p><p><img src="/Users/dele/Downloads/Screenshot 2026-05-31 at 17.51.53.png" alt="Screenshot 2026-05-31 at 17.51.53"></p><p>&nbsp;</p><p><span>Feb 3 – Mar 2, 2020</span></p><ol start='' ><li><p><span>COVID-19 rapid global spread &amp; regional lockdowns</span></p></li><li><p><span>Global supply chain disruption &amp; travel restrictions</span></p></li><li><p><span>Collapsed China PMI &amp; slumping U.S. sentiment4. Fed emergency 50bp rate cut (Mar 3) failed to stabilize markets</span></p></li></ol><p><span>Dec 9, 2024 – Feb 24, 2025</span></p><ol start='' ><li><p><span>Sticky U.S. inflation delayed Fed rate cuts</span></p></li><li><p><span>New broad tariff threats reignited trade tensions</span></p></li><li><p><span>Downbeat global PMI &amp; cooling U.S. consumer spending4. Major tech/retail earnings &amp; guidance misses; AI rally faded</span></p></li></ol><p>&nbsp;</p><p><strong><span>RECALL</span></strong></p><ul><li><p><span>1D-50MA, a key/risky case, 1) always check bigger trend, possibly past 1D-DIV, then best wait till KD-X (&lt;20), MACD-X</span></p></li><li><p><span>1D-100MA is awkward level, because it means a definite below-MACD-0 fall, heading to MACD-X, watch BOLL touch + KD&lt;20 (if a 1W-DIV, wait long time and watch 1W-KD)</span></p></li><li><p><strong><span>MACD &gt; MA &gt; BOLL</span></strong></p></li><li><p><span>1W-MA lines more important, touch more reliable and possible than 1D ones, W-50MA key trend line</span></p></li><li><p><strong><span>1W KD is key guide if all else fails</span></strong></p></li></ul><h2 id='key'><span>KEY</span></h2><ul><li><p><span>Long 1W rally spans 2-3 peaks (forming a convex cone) with 50KD rebounds (1D BOLL touch) (i.e. 2-3 1D-MACD-DIV sets, each worth doing short term 4H trades, &#39;safe on first, then watch out after the second exit&#39;) (case: pre-2000 2 sets)</span></p></li><li><p><span>1D-50MA-MACD-0 line: it seems all MACD underwater X (bar big ones, which? DIG) are safe entries! SO: key to find exceptions, DIV and big-dive cases! i.e. 1W-50MA cases?</span></p><ul><li><p><span>NOT big rally: because those are 1D-20MA pullbacks, &gt; MACD-0 (play: 1D-DIV + 4H-MACD-X)</span></p></li><li><p><span>1D-100/200MA, MACD-DIV case</span></p></li><li><p><span>sideway channel: BOLL spikes, quick V</span></p></li><li><p><span>cut 1D-200MA, definte DIV case, watch 1W BOLL hit</span></p></li><li><p><span>1W-20MA hit = 1D BOLL (100MA or 200MA), UPTREND, quick V</span></p></li></ul></li><li><p><span>4H KD-X: turns out very reliable signal - notwithstanding how much of a bounce, it is a very reliable BUT 4H-KD stalls during D jittery or DOWNTREND (W-KD downhill) </span></p><ul><li><p><span>Normal entry: 15Min-MACD-X precisely at 4H-KD-X</span></p></li><li><p><span>Stalling: use 4H-MACD-X instead</span></p></li></ul></li><li><p><span>D-KD-&lt;20: very likely V bounce (use 4H-MACD-X entry)</span></p></li><li><p><span>D-20-50MA pullbacks (UPTREND): normal pattern is 20MA tick (V at 4H-MACD) between 2 peaks of a D-DIV, then a 50MA tick (4H-MACD-DIV) after D-DIV; NOTE: the 50MA would need to be a touch, otherwise it could well fall through D-MACD-0 to become BOLL fall. </span></p></li></ul><p>&nbsp;</p></div></div>
+</body>
+</html>
